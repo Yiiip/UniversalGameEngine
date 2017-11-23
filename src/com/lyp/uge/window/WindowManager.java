@@ -13,10 +13,13 @@ import org.lwjgl.system.MemoryStack;
 
 public class WindowManager {
 
-	// Default window values
-	private static int WIDTH = 1280;
-	private static int HEIGHT = 720;
-	private static String TITLE = "Universal Game Engine";
+	public final static int DEFAULT_WIDTH = 1280;
+	public final static int DEFAULT_HEIGHT = 720;
+	public final static String DEFAULT_TITLE = "Universal Game Engine";
+	
+	private static int WIDTH = DEFAULT_WIDTH;
+	private static int HEIGHT = DEFAULT_HEIGHT;
+	private static String TITLE = DEFAULT_TITLE;
 
 	private static long mWindow; // The window handle id
 	
@@ -84,8 +87,8 @@ public class WindowManager {
 	public static void updateWindow() {
 	}
 	
-	public static void setWindowTitle(String title) {
-		glfwSetWindowTitle(mWindow, title);
+	public static void setWindowTitle(long window, String title) {
+		glfwSetWindowTitle(window, title);
 	}
 	
 	public static String getWindowTitle() {
@@ -97,6 +100,13 @@ public class WindowManager {
 		glfwFreeCallbacks(mWindow);
 		glfwDestroyWindow(mWindow);
 		// Terminate GLFW and free the error callback
+		glfwTerminate();
+		glfwSetErrorCallback(null).free();
+	}
+	
+	public static void destoryWindow(long window) {
+		glfwFreeCallbacks(window);
+		glfwDestroyWindow(window);
 		glfwTerminate();
 		glfwSetErrorCallback(null).free();
 	}

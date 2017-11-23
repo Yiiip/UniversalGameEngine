@@ -12,14 +12,23 @@ import com.lyp.uge.window.WindowManager;
 public abstract class GameApplication implements Runnable {
 	
 	protected long window;
+	private int winWidth, winHeight;
+	private String winTitle;
 	protected boolean running = false;
 	
 	protected abstract void onUpdate();
 	protected abstract void onRender();
 	protected abstract void onDestory();
 
+	protected void onCreate(int winWidth, int winHeight, String winTitle) {
+		this.winWidth = winWidth == 0 ? WindowManager.DEFAULT_WIDTH : winWidth;
+		this.winHeight = winHeight == 0 ? WindowManager.DEFAULT_HEIGHT : winHeight;
+		this.winTitle = (winTitle == null || "".equals(winTitle)) ? WindowManager.DEFAULT_TITLE : winTitle;
+	}
+	
 	private void init() {
-		window = WindowManager.createWindow(100, 50);
+		onCreate(winWidth, winHeight, winTitle);
+		window = WindowManager.createWindow(winWidth, winHeight, winTitle);
 		GL.createCapabilities(); //创建OpenGL Context
 		Logger.i("OpenGL", glGetString(GL_VERSION));
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -35,7 +44,7 @@ public abstract class GameApplication implements Runnable {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		int e = glGetError();
 		if (e != GL_NO_ERROR) {
-			System.out.println("Ops! gl has error : " + e);
+			Logger.e("Ops! gl has error : " + e);
 		}
 		onRender();
 		glfwSwapBuffers(window);
@@ -81,7 +90,7 @@ public abstract class GameApplication implements Runnable {
 				timer += 1000;
 				Logger.setLogOutLevel(Level.DEBUG);
 				Logger.d("Updates : " + updates + ",  fps : " + frames);
-				//TODO title
+				WindowManager.setWindowTitle(window, winTitle + " (Updates : " + updates + ",  fps : " + frames + ")");
 				updates = 0;
 				frames = 0;
 			}
@@ -91,4 +100,5 @@ public abstract class GameApplication implements Runnable {
 			}
 		}
 	}
+	
 }
