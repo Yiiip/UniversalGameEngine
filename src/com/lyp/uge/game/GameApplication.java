@@ -19,6 +19,7 @@ public abstract class GameApplication implements Runnable {
 	protected abstract void onUpdate();
 	protected abstract void onRender();
 	protected abstract void onDestory();
+	protected abstract void afterCreate();
 
 	protected void onCreate(int winWidth, int winHeight, String winTitle) {
 		this.winWidth = winWidth == 0 ? WindowManager.DEFAULT_WIDTH : winWidth;
@@ -31,8 +32,11 @@ public abstract class GameApplication implements Runnable {
 		window = WindowManager.createWindow(winWidth, winHeight, winTitle);
 		GL.createCapabilities(); //创建OpenGL Context
 		Logger.i("OpenGL", glGetString(GL_VERSION));
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		//glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		afterCreate();
 	}
 	
 	private void update() {
@@ -42,11 +46,11 @@ public abstract class GameApplication implements Runnable {
 	
 	private void render() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		onRender();
 		int e = glGetError();
 		if (e != GL_NO_ERROR) {
 			Logger.e("Ops! gl has error : " + e);
 		}
-		onRender();
 		glfwSwapBuffers(window);
 	}
 	
