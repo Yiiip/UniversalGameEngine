@@ -1,9 +1,12 @@
 package com.lyp.uge.demo;
 
 import com.lyp.uge.game.GameApplication;
+import com.lyp.uge.logger.Logger;
+import com.lyp.uge.logger.Logger.Level;
 import com.lyp.uge.renderEngine.ModelLoader;
 import com.lyp.uge.renderEngine.RawModel;
 import com.lyp.uge.renderEngine.Renderer;
+import com.lyp.uge.shader.StaticShader;
 
 public class Test extends GameApplication {
 
@@ -20,17 +23,19 @@ public class Test extends GameApplication {
 	};
 	private ModelLoader loader = new ModelLoader();
 	private Renderer renderer = new Renderer();
+	private StaticShader shader;
 	private RawModel model;
 
 	@Override
 	protected void onCreate(int winWidth, int winHeight, String winTitle) {
-		super.onCreate(100, 100, winTitle);
+		super.onCreate(winWidth, winHeight, winTitle);
+		Logger.setLogOutLevel(Level.DEBUG);
 	}
 
 	@Override
 	protected void afterCreate() {
 		model = loader.loadToVAO(vertices, indices);
-
+		shader = new StaticShader();
 	}
 
 	@Override
@@ -40,11 +45,15 @@ public class Test extends GameApplication {
 	@Override
 	protected void onRender() {
 		renderer.prepare();
+		shader.start();
 		renderer.render(model);
+		shader.stop();
 	}
 
 	@Override
 	protected void onDestory() {
+		shader.cleanUp();
+		loader.cleanUp();
 	}
 
 	public static void main(String[] args) {

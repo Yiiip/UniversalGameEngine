@@ -5,10 +5,18 @@ import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
 
 public class Renderer {
+	
+	public Renderer() {
+	}
 
 	public void prepare() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glClearColor(0, 1, 1, 1);
+		glClearColor(0, 0, 0, 1);
+	}
+	
+	public void prepare(float r, float g, float b, float a) {
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClearColor(r, g, b, a);
 	}
 	
 	public void renderArrays(RawModel model) { //without indices buffer

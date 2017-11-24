@@ -92,7 +92,6 @@ public abstract class GameApplication implements Runnable {
 			frames++;
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				Logger.setLogOutLevel(Level.DEBUG);
 				Logger.d("Updates : " + updates + ",  fps : " + frames);
 				WindowManager.setWindowTitle(window, winTitle + " (Updates : " + updates + ",  fps : " + frames + ")");
 				updates = 0;

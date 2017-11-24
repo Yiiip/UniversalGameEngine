@@ -14,8 +14,13 @@ import com.lyp.uge.utils.BufferUtils;
 
 public class ModelLoader {
 	
-	private List<Integer> vaos = new ArrayList<>();
-	private List<Integer> vbos = new ArrayList<>();
+	private List<Integer> vaos;
+	private List<Integer> vbos;
+	
+	public ModelLoader() {
+		vaos = new ArrayList<>();
+		vbos = new ArrayList<>();
+	}
 
 	public RawModel loadToVAO(float[] positions) {
 		int vaoID = createVAO();
