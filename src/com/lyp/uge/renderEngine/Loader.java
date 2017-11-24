@@ -12,12 +12,12 @@ import java.util.List;
 
 import com.lyp.uge.utils.BufferUtils;
 
-public class ModelLoader {
+public class Loader {
 	
 	private List<Integer> vaos;
 	private List<Integer> vbos;
 	
-	public ModelLoader() {
+	public Loader() {
 		vaos = new ArrayList<>();
 		vbos = new ArrayList<>();
 	}

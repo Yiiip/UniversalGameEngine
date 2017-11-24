@@ -3,7 +3,7 @@ package com.lyp.uge.demo;
 import com.lyp.uge.game.GameApplication;
 import com.lyp.uge.logger.Logger;
 import com.lyp.uge.logger.Logger.Level;
-import com.lyp.uge.renderEngine.ModelLoader;
+import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.renderEngine.RawModel;
 import com.lyp.uge.renderEngine.Renderer;
 import com.lyp.uge.shader.StaticShader;
@@ -21,7 +21,7 @@ public class Test extends GameApplication {
 		0, 1, 3, 
 		3, 1, 2 
 	};
-	private ModelLoader loader = new ModelLoader();
+	private Loader loader = new Loader();
 	private Renderer renderer = new Renderer();
 	private StaticShader shader;
 	private RawModel model;
