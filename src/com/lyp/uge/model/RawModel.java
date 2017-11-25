@@ -1,4 +1,4 @@
-package com.lyp.uge.renderEngine;
+package com.lyp.uge.model;
 
 public class RawModel {
 

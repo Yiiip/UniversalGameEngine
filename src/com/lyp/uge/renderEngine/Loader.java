@@ -10,21 +10,28 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lyp.uge.model.RawModel;
+import com.lyp.uge.texture.Texture;
 import com.lyp.uge.utils.BufferUtils;
 
 public class Loader {
 	
+	public static final int ATTR_POSITIONS = 0;
+	public static final int ATTR_COORDINATES = 1;
+	
 	private List<Integer> vaos;
 	private List<Integer> vbos;
+	private List<Integer> textures;
 	
 	public Loader() {
-		vaos = new ArrayList<>();
-		vbos = new ArrayList<>();
+		vaos = new ArrayList<Integer>();
+		vbos = new ArrayList<Integer>();
+		textures = new ArrayList<Integer>();
 	}
 
 	public RawModel loadToVAO(float[] positions) {
 		int vaoID = createVAO();
-		storeDataInAttributeList(0, positions);
+		storeDataInAttributeList(ATTR_POSITIONS, 3, positions);
 		unbindVAO();
 		return new RawModel(vaoID, positions.length/3);
 	}
@@ -32,9 +39,25 @@ public class Loader {
 	public RawModel loadToVAO(float[] positions, int[] indices) {
 		int vaoID = createVAO();
 		bindIndicesBuffer(indices);
-		storeDataInAttributeList(0, positions);
+		storeDataInAttributeList(ATTR_POSITIONS, 3, positions);
 		unbindVAO();
 		return new RawModel(vaoID, indices.length);
+	}
+	
+	public RawModel loadToVAO(float[] positions, float[] textCoords, int[] indices) {
+		int vaoID = createVAO();
+		bindIndicesBuffer(indices);
+		storeDataInAttributeList(ATTR_POSITIONS, 3, positions);
+		storeDataInAttributeList(ATTR_COORDINATES, 2, textCoords);
+		unbindVAO();
+		return new RawModel(vaoID, indices.length);
+	}
+	
+	public Texture loadTexture(String filePath) {
+		Texture texture = new Texture(filePath);
+		int textureID = texture.getTextureID();
+		textures.add(textureID);
+		return texture;
 	}
 	
 	private int createVAO() {
@@ -44,12 +67,12 @@ public class Loader {
 		return vaoID;
 	}
 	
-	private void storeDataInAttributeList(int attributeNumber, float[] data) {
+	private void storeDataInAttributeList(int attributeNumber, int count, float[] data) {
 		int vboID = glGenBuffers();
 		glBindBuffer(GL_ARRAY_BUFFER, vboID);
 		FloatBuffer buffer = BufferUtils.createFloatBuffer(data);
 		glBufferData(GL_ARRAY_BUFFER, buffer, GL_STATIC_DRAW);
-		glVertexAttribPointer(attributeNumber, 3, GL_FLOAT, false, 0, 0);
+		glVertexAttribPointer(attributeNumber, count, GL_FLOAT, false, 0, 0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		vbos.add(vboID);
 	}
@@ -72,6 +95,9 @@ public class Loader {
 		}
 		for (Integer vbo : vbos) {
 			glDeleteBuffers(vbo);
+		}
+		for (Integer t : textures) {
+			glDeleteBuffers(t);
 		}
 	}
 }
