@@ -1,6 +1,8 @@
 package com.lyp.uge.demo;
 
+import com.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.game.GameApplication;
+import com.lyp.uge.gameObject.Entity;
 import com.lyp.uge.logger.Logger;
 import com.lyp.uge.logger.Logger.Level;
 import com.lyp.uge.model.RawModel;
@@ -33,10 +35,11 @@ public class Test extends GameApplication {
 	private StaticShader shader;
 	private RawModel model;
 	private TextureModel textureModel;
+	private Entity entity;
 
 	@Override
 	protected void onCreate(int winWidth, int winHeight, String winTitle) {
-		super.onCreate(winWidth, winHeight, winTitle);
+		super.onCreate(800, 600, winTitle);
 		Logger.setLogOutLevel(Level.DEBUG);
 	}
 
@@ -45,17 +48,21 @@ public class Test extends GameApplication {
 		model = loader.loadToVAO(vertices, textureCoords, indices);
 		shader = new StaticShader();
 		textureModel = new TextureModel(model, loader.loadTexture("res/bird.png"));
+		entity = new Entity(textureModel, new Vector3f(0, 0, 0), 0, 0, 0, 1);
 	}
 
 	@Override
 	protected void onUpdate() {
+		entity.doMove(0, 0, -0.02f);
+		Logger.d(entity.getPosition().toString());
+		entity.doRotate(0f, 0f, 0);
 	}
 
 	@Override
 	protected void onRender() {
 		renderer.prepare();
 		shader.start();
-		renderer.render(textureModel);
+		renderer.render(entity, shader);
 		shader.stop();
 	}
 
