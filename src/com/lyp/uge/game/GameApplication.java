@@ -5,8 +5,8 @@ import static org.lwjgl.opengl.GL11.*;
 
 import org.lwjgl.opengl.GL;
 
+import com.lyp.uge.input.Input;
 import com.lyp.uge.logger.Logger;
-import com.lyp.uge.logger.Logger.Level;
 import com.lyp.uge.window.WindowManager;
 
 public abstract class GameApplication implements Runnable {
@@ -30,6 +30,7 @@ public abstract class GameApplication implements Runnable {
 	private void init() {
 		onCreate(winWidth, winHeight, winTitle);
 		window = WindowManager.createWindow(winWidth, winHeight, winTitle);
+		glfwSetKeyCallback(window, new Input());
 		GL.createCapabilities(); //创建OpenGL Context
 		Logger.i("OpenGL", glGetString(GL_VERSION));
 		//glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

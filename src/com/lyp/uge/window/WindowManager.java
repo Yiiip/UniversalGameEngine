@@ -13,6 +13,7 @@ import org.lwjgl.system.MemoryStack;
 
 public class WindowManager {
 
+	//(16:9) 1366*768, 1600*900, 1920*1080
 	public final static int DEFAULT_WIDTH = 1280;
 	public final static int DEFAULT_HEIGHT = 720;
 	public final static String DEFAULT_TITLE = "Universal Game Engine";

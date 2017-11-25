@@ -12,10 +12,24 @@ import com.lyp.uge.model.RawModel;
 import com.lyp.uge.model.TextureModel;
 import com.lyp.uge.shader.ShaderProgram;
 import com.lyp.uge.shader.StaticShader;
+import com.lyp.uge.window.WindowManager;
 
 public class Renderer {
 	
+	private static float FIELD_OF_VIEW_ANGLE = 70;
+	private static float NEAR_PLANE = 0.1f; //最近平面处
+	private static float FAR_PLANE = 1000.0f; //最远平面处
+	
+	private Matrix4f projectionMatrix;
+	
 	public Renderer() {
+	}
+	
+	public Renderer(StaticShader shaderProgram) {
+		createProjectionMatrix();
+		shaderProgram.start();
+		shaderProgram.loadProjectionMatrix(projectionMatrix);
+		shaderProgram.stop();
 	}
 
 	public void prepare() {
@@ -78,5 +92,20 @@ public class Renderer {
 		glDisableVertexAttribArray(Loader.ATTR_POSITIONS);
 		glDisableVertexAttribArray(Loader.ATTR_COORDINATES);
 		glBindVertexArray(0);
+	}
+	
+	private void createProjectionMatrix() {
+		float aspectRatio = (float) WindowManager.DEFAULT_WIDTH / (float) WindowManager.DEFAULT_HEIGHT;
+        float y_scale = (float) ((1f / Math.tan(Math.toRadians(FIELD_OF_VIEW_ANGLE/2f))) * aspectRatio);
+        float x_scale = y_scale / aspectRatio;
+        float frustum_length = FAR_PLANE - NEAR_PLANE;
+        
+        projectionMatrix = new Matrix4f();
+        projectionMatrix.m00 = x_scale;
+        projectionMatrix.m11 = y_scale;
+        projectionMatrix.m22 = -((FAR_PLANE + NEAR_PLANE) / frustum_length);
+        projectionMatrix.m23 = -1;
+        projectionMatrix.m32 = -((2 * NEAR_PLANE * FAR_PLANE) / frustum_length);
+        projectionMatrix.m33 = 0;
 	}
 }
