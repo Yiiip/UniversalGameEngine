@@ -15,18 +15,18 @@ public class Camera {
 		position = new Vector3f(0, 0, 0);
 	}
 
-	public void move() {
+	public void onMove() {
 		if (Input.isKeyDown(Keyboard.KEY_W)) {
-			position.z -= 0.02f;
+			position.z -= 0.05f;
 		}
 		if (Input.isKeyDown(Keyboard.KEY_D)) {
-			position.x += 0.02f;
+			position.x += 0.05f;
 		}
 		if (Input.isKeyDown(Keyboard.KEY_A)) {
-			position.x -= 0.02f;
+			position.x -= 0.05f;
 		}
 		if (Input.isKeyDown(Keyboard.KEY_S)) {
-			position.z += 0.02f;
+			position.z += 0.05f;
 		}
 	}
 	
