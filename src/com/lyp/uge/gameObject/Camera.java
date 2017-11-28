@@ -10,23 +10,25 @@ public class Camera {
 	private float pitch; //倾斜度
 	private float yaw; //偏航 left or right the camera is aiming
 	private float roll; //侧面翻转 how much it's tilted(倾斜) to one side
+	private float moveSpeed;
 	
 	public Camera() {
 		position = new Vector3f(0, 0, 0);
+		moveSpeed = 0.05f;
 	}
 
 	public void onMove() {
-		if (Input.isKeyDown(Keyboard.KEY_W)) {
-			position.z -= 0.05f;
+		if (Input.getInstance().isKeyDown(Keyboard.KEY_W)) {
+			position.z -= moveSpeed;
 		}
-		if (Input.isKeyDown(Keyboard.KEY_D)) {
-			position.x += 0.05f;
+		if (Input.getInstance().isKeyDown(Keyboard.KEY_D)) {
+			position.x += moveSpeed;
 		}
-		if (Input.isKeyDown(Keyboard.KEY_A)) {
-			position.x -= 0.05f;
+		if (Input.getInstance().isKeyDown(Keyboard.KEY_A)) {
+			position.x -= moveSpeed;
 		}
-		if (Input.isKeyDown(Keyboard.KEY_S)) {
-			position.z += 0.05f;
+		if (Input.getInstance().isKeyDown(Keyboard.KEY_S)) {
+			position.z += moveSpeed;
 		}
 	}
 	
@@ -44,5 +46,13 @@ public class Camera {
 	
 	public float getYaw() {
 		return yaw;
+	}
+	
+	public void setMoveSpeed(float moveSpeed) {
+		this.moveSpeed = moveSpeed;
+	}
+	
+	public float getMoveSpeed() {
+		return moveSpeed;
 	}
 }

@@ -3,6 +3,10 @@ package com.lyp.uge.input;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class Keyboard {
+	
+	public interface OnKeyboardListener {
+		void onKeyDown(Input input);
+	}
 
 	/* Printable keys */
 	public static final int KEY_SPACE = GLFW_KEY_SPACE;

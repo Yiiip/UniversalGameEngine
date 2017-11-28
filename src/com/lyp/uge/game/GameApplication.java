@@ -5,43 +5,50 @@ import static org.lwjgl.opengl.GL11.*;
 
 import org.lwjgl.opengl.GL;
 
+import com.lyp.uge.gameObject.Camera;
 import com.lyp.uge.input.Input;
+import com.lyp.uge.input.Keyboard.OnKeyboardListener;
 import com.lyp.uge.logger.Logger;
+import com.lyp.uge.window.Window;
 import com.lyp.uge.window.WindowManager;
 
-public abstract class GameApplication implements Runnable {
+public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	
-	protected long window;
-	private int winWidth, winHeight;
-	private String winTitle;
 	protected boolean running = false;
 	
+	private Window window;	
+	private Camera camera;
+	
+	protected abstract void onCreate();
 	protected abstract void onUpdate();
 	protected abstract void onRender();
 	protected abstract void onDestory();
-	protected abstract void afterCreate();
 
-	protected void onCreate(int winWidth, int winHeight, String winTitle) {
-		this.winWidth = winWidth == 0 ? WindowManager.DEFAULT_WIDTH : winWidth;
-		this.winHeight = winHeight == 0 ? WindowManager.DEFAULT_HEIGHT : winHeight;
-		this.winTitle = (winTitle == null || "".equals(winTitle)) ? WindowManager.DEFAULT_TITLE : winTitle;
+	protected void onInitWindow(int winWidth, int winHeight, String winTitle, boolean winResizeable) {
+		int w = winWidth <= 0 ? WindowManager.DEFAULT_WIDTH : winWidth;
+		int h = winHeight <= 0 ? WindowManager.DEFAULT_HEIGHT : winHeight;
+		String t = (winTitle == null || "".equals(winTitle)) ? WindowManager.DEFAULT_TITLE : winTitle;
+		boolean rs = winResizeable;
+		this.window = WindowManager.createWindow(w, h, t, rs);
 	}
 	
 	private void init() {
-		onCreate(winWidth, winHeight, winTitle);
-		window = WindowManager.createWindow(winWidth, winHeight, winTitle);
-		glfwSetKeyCallback(window, new Input());
-		GL.createCapabilities(); //创建OpenGL Context
+		onInitWindow(WindowManager.DEFAULT_WIDTH, WindowManager.DEFAULT_HEIGHT, WindowManager.DEFAULT_TITLE, WindowManager.DEFAULT_RESIZEABLE);
+		glfwSetKeyCallback(window.getId(), Input.getInstance());
+		GL.createCapabilities(); //create OpenGL Context
 		Logger.i("OpenGL", glGetString(GL_VERSION));
-		//glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		Logger.d("Window", window.toString());
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		afterCreate();
+		camera = new Camera();
+		onCreate();
 	}
 	
 	private void update() {
 		glfwPollEvents();
+		camera.onMove();
+		onKeyDown(Input.getInstance());
 		onUpdate();
 	}
 	
@@ -52,7 +59,11 @@ public abstract class GameApplication implements Runnable {
 		if (e != GL_NO_ERROR) {
 			Logger.e("Ops! gl has error : " + e);
 		}
-		glfwSwapBuffers(window);
+		glfwSwapBuffers(window.getId());
+	}
+	
+	@Override
+	public void onKeyDown(Input input) {
 	}
 	
 	@Override
@@ -94,15 +105,22 @@ public abstract class GameApplication implements Runnable {
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
 				Logger.d("Updates : " + updates + ",  fps : " + frames);
-				WindowManager.setWindowTitle(window, winTitle + " (Updates : " + updates + ",  fps : " + frames + ")");
+				WindowManager.setWindowTitle(window.getId(), window.getTitle() + " (Updates : " + updates + ",  fps : " + frames + ")");
 				updates = 0;
 				frames = 0;
 			}
 
-			if (glfwWindowShouldClose(window)) {
+			if (WindowManager.windowShouldClose(window.getId())) {
 				running = false;
 			}
 		}
 	}
 	
+	protected Camera getMainCamera() {
+		return camera;
+	}
+	
+	protected Window getMainWindow() {
+		return window;
+	}
 }

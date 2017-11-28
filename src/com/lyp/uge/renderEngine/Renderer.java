@@ -10,7 +10,6 @@ import com.lyp.uge.gameObject.Entity;
 import com.lyp.uge.math.MathTools;
 import com.lyp.uge.model.RawModel;
 import com.lyp.uge.model.TextureModel;
-import com.lyp.uge.shader.ShaderProgram;
 import com.lyp.uge.shader.StaticShader;
 import com.lyp.uge.window.WindowManager;
 
@@ -33,8 +32,7 @@ public class Renderer {
 	}
 
 	public void prepare() {
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glClearColor(.14f, .14f, .14f, 1.0f);
+		this.prepare(.14f, .14f, .14f, 1.0f);
 	}
 	
 	public void prepare(float r, float g, float b, float a) {

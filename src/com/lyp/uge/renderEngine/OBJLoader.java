@@ -16,13 +16,15 @@ import com.lyp.uge.model.RawModel;
 public class OBJLoader {
 
 	public static RawModel loadObjModel(String fileName, Loader loader) {
+		String filePath = "res/obj/" + fileName;
 		FileReader fileReader = null;
 		try {
-			fileReader = new FileReader(new File("res/obj/" + fileName));
+			fileReader = new FileReader(new File(filePath));
 		} catch (FileNotFoundException e) {
 			Logger.e("Could not load " + fileName + " file !");
 			Logger.e(e);
 		}
+		Logger.d("Loading", filePath);
 		BufferedReader reader = new BufferedReader(fileReader);
 		String line = null;
 		List<Vector3f> vertices = new ArrayList<>();

@@ -17,37 +17,42 @@ public class WindowManager {
 	public final static int DEFAULT_WIDTH = 1280;
 	public final static int DEFAULT_HEIGHT = 720;
 	public final static String DEFAULT_TITLE = "Universal Game Engine";
+	public final static boolean DEFAULT_RESIZEABLE = true;
 	
-	private static int WIDTH = DEFAULT_WIDTH;
-	private static int HEIGHT = DEFAULT_HEIGHT;
-	private static String TITLE = DEFAULT_TITLE;
-
-	private static long mWindow; // The window handle id
+	private static Window mWindow;
 	
 	private WindowManager() {} //no instance
 
-	public static long createWindow() {
-		// Setup an error callback. The default implementation
-		// will print the error message in System.err.
+	public static Window createWindow() {
+		return createWindow(WindowManager.DEFAULT_WIDTH, WindowManager.DEFAULT_HEIGHT, WindowManager.DEFAULT_TITLE, WindowManager.DEFAULT_RESIZEABLE);
+	}
+	
+	public static Window createWindow(int width, int height) {
+		return createWindow(width, height, WindowManager.DEFAULT_TITLE, WindowManager.DEFAULT_RESIZEABLE);
+	}
+	
+	public static Window createWindow(int width, int height, String title) {
+		return createWindow(width, height, title, WindowManager.DEFAULT_RESIZEABLE);
+	}
+	
+	public static Window createWindow(int width, int height, String title, boolean resizeable) {
 		GLFWErrorCallback.createPrint(System.err).set();
-		
-		// Initialize GLFW. Most GLFW functions will not work before doing this.
-		if (!glfwInit()) throw new IllegalStateException("Unable to initialize GLFW");
+		if (!glfwInit()) throw new IllegalStateException("Unable to initialize GLFW !");
 
 		// Configure GLFW
-		glfwDefaultWindowHints(); // optional, the current window hints are already the default
-		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
-		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
+		glfwDefaultWindowHints();
+		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+		setWindowResizable(resizeable);
 
 		// Create the window
-		mWindow = glfwCreateWindow(WIDTH, HEIGHT, TITLE, NULL, NULL);
-		if (mWindow == NULL) throw new RuntimeException("Failed to create the GLFW window");
+		long genWinID = glfwCreateWindow(width, height, title, NULL, NULL);
+		if (genWinID == NULL) throw new RuntimeException("Failed to create window !");
 		
 		// Setup a key callback. It will be called every time a key is pressed, repeated or released.
-		glfwSetKeyCallback(mWindow, (window, key, scancode, action, mods) -> {
+		/*glfwSetKeyCallback(mWindow, (window, key, scancode, action, mods) -> {
 			if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
 				glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
-		});
+		});*/
 
 		// Get the thread stack and push a new frame
 		try (MemoryStack stack = stackPush()) {
@@ -55,51 +60,49 @@ public class WindowManager {
 			IntBuffer pHeight = stack.mallocInt(1); // int*
 
 			// Get the window size passed to glfwCreateWindow
-			glfwGetWindowSize(mWindow, pWidth, pHeight);
+			glfwGetWindowSize(genWinID, pWidth, pHeight);
 
 			// Get the resolution of the primary monitor
 			GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
 			// Center the window
-			glfwSetWindowPos(mWindow, (vidmode.width() - pWidth.get(0)) / 2, (vidmode.height() - pHeight.get(0)) / 2);
+			glfwSetWindowPos(genWinID, (vidmode.width() - pWidth.get(0)) / 2, (vidmode.height() - pHeight.get(0)) / 2);
 		} // the stack frame is popped automatically
 
 		// Make the OpenGL context current
-		glfwMakeContextCurrent(mWindow);
+		glfwMakeContextCurrent(genWinID);
 		// Enable v-sync
 		glfwSwapInterval(1);
 		// Make the window visible
-		glfwShowWindow(mWindow);
+		glfwShowWindow(genWinID);
 		
+		mWindow = new Window(genWinID, width, height, title, resizeable);
 		return mWindow;
-	}
-	
-	public static long createWindow(int width, int height) {
-		WIDTH = width;
-		HEIGHT = height;
-		return createWindow();
-	}
-	
-	public static long createWindow(int width, int height, String title) {
-		TITLE = title;
-		return createWindow(width, height);
 	}
 
 	public static void updateWindow() {
 	}
 	
-	public static void setWindowTitle(long window, String title) {
-		glfwSetWindowTitle(window, title);
+	private static void setWindowResizable(boolean enable) {
+		glfwWindowHint(GLFW_RESIZABLE, enable ? GLFW_TRUE : GLFW_FALSE);
 	}
 	
-	public static String getWindowTitle() {
-		return TITLE;
+	public static boolean windowShouldClose(long window) {
+		return glfwWindowShouldClose(window);
+	}
+	
+	public static void colseWindow() {
+		glfwSetWindowShouldClose(mWindow.getId(), true);
+	}
+	
+	public static void colseWindow(long window) {
+		glfwSetWindowShouldClose(window, true);
 	}
 
 	public static void destoryWindow() {
 		// Free the window callbacks and destroy the window
-		glfwFreeCallbacks(mWindow);
-		glfwDestroyWindow(mWindow);
+		glfwFreeCallbacks(mWindow.getId());
+		glfwDestroyWindow(mWindow.getId());
 		// Terminate GLFW and free the error callback
 		glfwTerminate();
 		glfwSetErrorCallback(null).free();
@@ -110,5 +113,9 @@ public class WindowManager {
 		glfwDestroyWindow(window);
 		glfwTerminate();
 		glfwSetErrorCallback(null).free();
+	}
+	
+	public static void setWindowTitle(long window, String title) {
+		glfwSetWindowTitle(window, title);
 	}
 }
