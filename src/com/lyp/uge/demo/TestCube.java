@@ -11,12 +11,11 @@ import com.lyp.uge.logger.Logger.Level;
 import com.lyp.uge.model.RawModel;
 import com.lyp.uge.model.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
-import com.lyp.uge.renderEngine.OBJLoader;
 import com.lyp.uge.renderEngine.Renderer;
 import com.lyp.uge.shader.StaticShader;
 import com.lyp.uge.utils.DataUtils;
 
-public class Test extends GameApplication {
+public class TestCube extends GameApplication {
 
 	private Loader loader = new Loader();
 	private Renderer renderer;
@@ -25,26 +24,23 @@ public class Test extends GameApplication {
 	private Entity entity;
 	private Camera camera;
 	
-	private RawModel model_stall;
-	private RawModel model_dragon;
+	private RawModel model_cube;
 	
 	private Random random = new Random();
 
 	@Override
 	protected void onCreate(int winWidth, int winHeight, String winTitle) {
-		super.onCreate(1366, 768, winTitle);
+		super.onCreate(1366, 768, "基本渲染测试");
 		Logger.setLogOutLevel(Level.DEBUG);
 	}
 
 	@Override
 	protected void afterCreate() {
-		model_stall = OBJLoader.loadObjModel("stall.obj", loader);
-		//model_dragon = OBJLoader.loadObjModel("dragon.obj", loader);
-
+		model_cube = loader.loadToVAO(DataUtils.CUBE_VERTICES, DataUtils.CUBE_TEXTURE_COORDS, DataUtils.CUBE_INDICES);
 		shader = new StaticShader();
 		renderer = new Renderer(shader);
-		textureModel = new TextureModel(model_stall, loader.loadTexture("res/texture/stallTexture.png"));
-		entity = new Entity(textureModel, new Vector3f(0f, -3.0f, -6.0f), 0f, 0f, 0f, 1f);
+		textureModel = new TextureModel(model_cube, loader.loadTexture("res/mc_dirt_grass.png"));
+		entity = new Entity(textureModel, new Vector3f(0.0f, 0.0f, -6.0f), 0f, 0f, 0f, 1f);
 		camera = new Camera();
 	}
 
@@ -52,7 +48,7 @@ public class Test extends GameApplication {
 	protected void onUpdate() {
 		entity.doMove(0f, 0f, 0f);
 		Logger.d(entity.getPosition().toString());
-		entity.doRotate(0.0f, 0.6f, 0.0f);
+		entity.doRotate(0.6f, 0.6f, 0.6f);
 		camera.onMove();
 	}
 
@@ -72,7 +68,7 @@ public class Test extends GameApplication {
 	}
 
 	public static void main(String[] args) {
-		new Test().start();
+		new TestCube().start();
 	}
 
 }
