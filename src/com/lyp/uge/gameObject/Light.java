@@ -4,25 +4,18 @@ import com.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.input.Input;
 import com.lyp.uge.input.Keyboard;
 
-public class Camera {
+public class Light {
 
 	private Vector3f position;
-	private float pitch; //倾斜度
-	private float yaw; //偏航 left or right the camera is aiming
-	private float roll; //侧面翻转 how much it's tilted(倾斜) to one side
-	private float moveSpeed;
-	
-	private boolean control = true;
-	
-	public Camera() {
-		position = new Vector3f(0, 0, 0);
-		moveSpeed = 0.05f;
-	}
+	private Vector3f color;
+	private float moveSpeed = 0.06f;
 
+	public Light(Vector3f position, Vector3f color) {
+		this.position = position;
+		this.color = color;
+	}
+	
 	public void onMove() {
-		if (!control) {
-			return;
-		}
 		if (Input.getInstance().isKeyDown(Keyboard.KEY_W)) {
 			position.y += moveSpeed;
 		}
@@ -42,36 +35,21 @@ public class Camera {
 			position.z += moveSpeed;
 		}
 	}
-	
-	public float getPitch() {
-		return pitch;
-	}
-	
+
 	public Vector3f getPosition() {
 		return position;
 	}
-	
-	public float getRoll() {
-		return roll;
+
+	public void setPosition(Vector3f position) {
+		this.position = position;
 	}
-	
-	public float getYaw() {
-		return yaw;
+
+	public Vector3f getColor() {
+		return color;
 	}
-	
-	public void setMoveSpeed(float moveSpeed) {
-		this.moveSpeed = moveSpeed;
+
+	public void setColor(Vector3f color) {
+		this.color = color;
 	}
-	
-	public float getMoveSpeed() {
-		return moveSpeed;
-	}
-	
-	public boolean isControlEnable() {
-		return control;
-	}
-	
-	public void setControl(boolean enable) {
-		this.control = enable;
-	}
+
 }

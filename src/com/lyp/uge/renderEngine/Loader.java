@@ -18,6 +18,7 @@ public class Loader {
 	
 	public static final int ATTR_POSITIONS = 0;
 	public static final int ATTR_COORDINATES = 1;
+	public static final int ATTR_NORMALS = 2;
 	
 	private List<Integer> vaos;
 	private List<Integer> vbos;
@@ -49,6 +50,16 @@ public class Loader {
 		bindIndicesBuffer(indices);
 		storeDataInAttributeList(ATTR_POSITIONS, 3, positions);
 		storeDataInAttributeList(ATTR_COORDINATES, 2, textureCoords);
+		unbindVAO();
+		return new RawModel(vaoID, indices.length);
+	}
+	
+	public RawModel loadToVAO(float[] positions, float[] textureCoords, float[] normals, int[] indices) {
+		int vaoID = createVAO();
+		bindIndicesBuffer(indices);
+		storeDataInAttributeList(ATTR_POSITIONS, 3, positions);
+		storeDataInAttributeList(ATTR_COORDINATES, 2, textureCoords);
+		storeDataInAttributeList(ATTR_NORMALS, 3, normals);
 		unbindVAO();
 		return new RawModel(vaoID, indices.length);
 	}

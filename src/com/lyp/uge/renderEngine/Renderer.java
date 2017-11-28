@@ -75,6 +75,7 @@ public class Renderer {
 		glBindVertexArray(rawModel.getVaoID());
 		glEnableVertexAttribArray(Loader.ATTR_POSITIONS);
 		glEnableVertexAttribArray(Loader.ATTR_COORDINATES);
+		glEnableVertexAttribArray(Loader.ATTR_NORMALS);
 		
 		Matrix4f transformationMatrix = MathTools.createTransformationMatrix(
 				entity.getPosition(), 
@@ -89,6 +90,7 @@ public class Renderer {
 		glDrawElements(GL_TRIANGLES, rawModel.getVertexCount(), GL_UNSIGNED_INT, 0);
 		glDisableVertexAttribArray(Loader.ATTR_POSITIONS);
 		glDisableVertexAttribArray(Loader.ATTR_COORDINATES);
+		glDisableVertexAttribArray(Loader.ATTR_NORMALS);
 		glBindVertexArray(0);
 	}
 	
