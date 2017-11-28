@@ -28,6 +28,7 @@ public class TestOBJData extends GameApplication {
 	private RawModel model_dragon;
 	
 	private Random random = new Random();
+	private Entity[] es;
 
 	@Override
 	protected void onInitWindow(int winWidth, int winHeight, String winTitle, boolean winResizeable) {
@@ -45,6 +46,10 @@ public class TestOBJData extends GameApplication {
 		textureModel = new TextureModel(model_dragon, loader.loadTexture("res/texture/dragonTexture.png"));
 		entity = new Entity(textureModel, new Vector3f(0f, -3.0f, -6.0f), 0f, 0f, 0f, 1f);
 		light = new Light(new Vector3f(0, 0, -12), new Vector3f(1, 1, 1));
+		es = new Entity[10];
+		for (int i = 0; i < es.length; i++) {
+			es[i] = new Entity(textureModel, new Vector3f(-random.nextInt(20), -random.nextInt(20), -random.nextInt(20)), 0f, 0f, 0f, 0.2f + 0.01f*i);
+		}
 	}
 
 	@Override
@@ -52,6 +57,7 @@ public class TestOBJData extends GameApplication {
 		light.onMove();
 		entity.doMove(0f, 0f, 0f);
 		entity.doRotate(0.0f, 0.6f, 0.0f);
+		Logger.d("Lighting", light.getPosition().toString());
 	}
 
 	@Override
@@ -61,6 +67,9 @@ public class TestOBJData extends GameApplication {
 		shader.loadLight(light);
 		shader.loadViewMatrix(getMainCamera());
 		renderer.render(entity, shader);
+		for (int i = 0; i < es.length; i++) {
+			renderer.render(es[i], shader);
+		}
 		shader.stop();
 	}
 
