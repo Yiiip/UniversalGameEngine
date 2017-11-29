@@ -3,6 +3,7 @@ package com.lyp.uge.gameObject;
 import com.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.input.Input;
 import com.lyp.uge.input.Keyboard;
+import com.lyp.uge.logger.Logger;
 
 public class Light {
 
@@ -16,22 +17,22 @@ public class Light {
 	}
 	
 	public void onMove() {
-		if (Input.getInstance().isKeyDown(Keyboard.KEY_W)) {
+		if (Input.getInstance().isKeyDown(Keyboard.KEY_I)) {
 			position.y += moveSpeed;
 		}
-		if (Input.getInstance().isKeyDown(Keyboard.KEY_D)) {
+		if (Input.getInstance().isKeyDown(Keyboard.KEY_L)) {
 			position.x += moveSpeed;
 		}
-		if (Input.getInstance().isKeyDown(Keyboard.KEY_A)) {
+		if (Input.getInstance().isKeyDown(Keyboard.KEY_J)) {
 			position.x -= moveSpeed;
 		}
-		if (Input.getInstance().isKeyDown(Keyboard.KEY_S)) {
+		if (Input.getInstance().isKeyDown(Keyboard.KEY_K)) {
 			position.y -= moveSpeed;
 		}
-		if (Input.getInstance().isKeyDown(Keyboard.KEY_UP)) {
+		if (Input.getInstance().isKeyDown(Keyboard.KEY_P)) {
 			position.z -= moveSpeed;
 		}
-		if (Input.getInstance().isKeyDown(Keyboard.KEY_DOWN)) {
+		if (Input.getInstance().isKeyDown(Keyboard.KEY_SEMICOLON)) {
 			position.z += moveSpeed;
 		}
 	}

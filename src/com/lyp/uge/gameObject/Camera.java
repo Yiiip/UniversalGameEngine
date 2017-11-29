@@ -41,6 +41,12 @@ public class Camera {
 		if (Input.getInstance().isKeyDown(Keyboard.KEY_DOWN)) {
 			position.z += moveSpeed;
 		}
+		if (Input.getInstance().isKeyDown(Keyboard.KEY_LEFT)) {
+			yaw -= moveSpeed * 10;
+		}
+		if (Input.getInstance().isKeyDown(Keyboard.KEY_RIGHT)) {
+			yaw += moveSpeed * 10;
+		}
 	}
 	
 	public float getPitch() {
