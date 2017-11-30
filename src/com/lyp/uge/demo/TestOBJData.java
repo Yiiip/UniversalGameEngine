@@ -14,6 +14,7 @@ import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.renderEngine.OBJLoader;
 import com.lyp.uge.renderEngine.Renderer;
 import com.lyp.uge.shader.StaticShader;
+import com.lyp.uge.utils.DataUtils;
 
 public class TestOBJData extends GameApplication {
 
@@ -24,11 +25,10 @@ public class TestOBJData extends GameApplication {
 	private Entity entity;
 	private Light light;
 	
-	private RawModel model_stall;
-	private RawModel model_dragon;
+	private RawModel model;
+	private Entity[] es;
 	
 	private Random random = new Random();
-	private Entity[] es;
 
 	@Override
 	protected void onInitWindow(int winWidth, int winHeight, String winTitle, boolean winResizeable) {
@@ -38,12 +38,11 @@ public class TestOBJData extends GameApplication {
 
 	@Override
 	protected void onCreate() {
-//		model_stall = OBJLoader.loadObjModel("stall.obj", loader);
-		model_dragon = OBJLoader.loadObjModel("dragon.obj", loader);
+		model = OBJLoader.loadObjModel(DataUtils.OBJ_RABBIT, loader);
 
 		shader = new StaticShader();
 		renderer = new Renderer(shader);
-		textureModel = new TextureModel(model_dragon, loader.loadTexture("res/texture/dragonTexture.png"));
+		textureModel = new TextureModel(model, loader.loadTexture("res/texture/" + DataUtils.TEX_COLOR_YELLOW));
 		entity = new Entity(textureModel, new Vector3f(0f, -3.0f, -6.0f), 0f, 0f, 0f, 1f);
 		light = new Light(new Vector3f(0, 0, -12), new Vector3f(1, 1, 1));
 		es = new Entity[10];

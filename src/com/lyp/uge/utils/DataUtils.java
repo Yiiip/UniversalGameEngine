@@ -1,6 +1,20 @@
 package com.lyp.uge.utils;
 
 public class DataUtils {
+	
+	public static final String OBJ_DRAGON = "dragon.obj";
+	public static final String OBJ_RABBIT = "rabbit.obj";
+	public static final String OBJ_TREE = "tree.obj";
+	public static final String OBJ_CUBE = "cube.obj";
+	public static final String OBJ_BILLBOARD = "billboard.obj";
+	public static final String OBJ_STALL = "stall.obj";
+	
+	public static final String TEX_COLOR_YELLOW = "color_yellow_gray.png";
+	public static final String TEX_GRASS = "grass.png";
+	public static final String TEX_IMAGE_PREVIEW = "image_preview.png";
+	public static final String TEX_MC_DIRT_GRASS = "mc_dirt_grass.png";
+	public static final String TEX_TREE = "tree.png";
+	public static final String TEX_FLAPPY_BIRD = "flappy_bird.png";
 
 	public static float[] RECT_VERTICES = {
 		-0.5f, 0.5f, 0, //V0
