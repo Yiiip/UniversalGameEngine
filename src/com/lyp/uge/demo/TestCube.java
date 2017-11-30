@@ -28,7 +28,7 @@ public class TestCube extends GameApplication {
 	
 	private Entity entity;
 	private Entity[] entities;
-	private Light light;
+	//private Light light;
 	
 	private Random random = new Random();
 
@@ -40,17 +40,16 @@ public class TestCube extends GameApplication {
 
 	@Override
 	protected void onCreate() {
-		model_cube = loader.loadToVAO(DataUtils.CUBE_VERTICES, DataUtils.CUBE_TEXTURE_COORDS, DataUtils.CUBE_NORMALS, DataUtils.CUBE_INDICES);
-//		model_cube = OBJLoader.loadObjModel("cube.obj", loader);
-		shader = new StaticShader();
+		model_cube = loader.loadToVAO(DataUtils.CUBE_VERTICES, DataUtils.CUBE_TEXTURE_COORDS, DataUtils.CUBE_INDICES);
+		shader = new StaticShader("shader/vertexShader_cube_without_nor.txt" , "shader/fragShader_cube_without_nor.txt");
 		renderer = new Renderer(shader);
-		textureModel = new TextureModel(model_cube, loader.loadTexture("res/mc_dirt_grass.png"));
+		textureModel = new TextureModel(model_cube, loader.loadTexture("res/texture/" + DataUtils.TEX_MC_DIRT_GRASS));
 		entity = new Entity(textureModel, new Vector3f(0.0f, 0.0f, -6.0f), 0f, 0f, 0f, 1f);
 		entities = new Entity[1000];
 		for (int i = 0; i < entities.length; i++) {
 			entities[i] = new Entity(textureModel, new Vector3f(random.nextInt(30) - 15, random.nextInt(30) - 15, random.nextInt(15) - 15), 0f, 0f, 0f, 1f);
 		}
-		light = new Light(new Vector3f(0.0f, 0.0f, -1.0f), new Vector3f(1.0f, 1.0f, 1.0f));
+		//light = new Light(new Vector3f(0.0f, 0.0f, -1.0f), new Vector3f(1.0f, 1.0f, 1.0f));
 	}
 	
 	@Override
@@ -62,7 +61,7 @@ public class TestCube extends GameApplication {
 
 	@Override
 	protected void onUpdate() {
-		light.onMove();
+		//light.onMove();
 		entity.doMove(0f, 0f, 0f);
 		entity.doRotate(0.6f, 0.6f, 0.6f);
 		//Logger.d(entity.toString());
@@ -72,7 +71,7 @@ public class TestCube extends GameApplication {
 	protected void onRender() {
 		renderer.prepare();
 		shader.start();
-		shader.loadLight(light);
+		//shader.loadLight(light);
 		shader.loadViewMatrix(getMainCamera());
 		renderer.render(entity, shader);
 		for (int i = 0; i < entities.length; i++) {
