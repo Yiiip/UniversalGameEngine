@@ -2,11 +2,14 @@ package com.lyp.uge.gameObject;
 
 import com.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.input.KeyboardInput;
+import com.lyp.uge.input.MouseInput;
 import com.lyp.uge.input.Keyboard.OnKeyboardListener;
 import com.lyp.uge.model.TextureModel;
 
 public abstract class GameObject {
 
+	protected int id;
+	protected int lawyerId;
 	protected TextureModel model;
 	protected Vector3f position = new Vector3f(0.0f, 0.0f, 0.0f);
 	protected float rotateX = 0.0f;
@@ -22,6 +25,10 @@ public abstract class GameObject {
 	
 	protected boolean isKeyPressed(int keycode) {
 		return KeyboardInput.getInstance().isKeyDown(keycode);
+	}
+	
+	protected boolean isMousePressed(int buttonCode) {
+		return MouseInput.getInstance().isMousePressed(buttonCode);
 	}
 	
 	public void doMove(float dx, float dy, float dz) {

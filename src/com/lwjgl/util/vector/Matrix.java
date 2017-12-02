@@ -45,6 +45,8 @@ import java.nio.FloatBuffer;
  */
 public abstract class Matrix implements Serializable {
 
+	private static final long serialVersionUID = -6585469372452192271L;
+
 	/**
 	 * Constructor for Matrix.
 	 */
