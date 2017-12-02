@@ -10,19 +10,19 @@ import org.lwjgl.glfw.GLFWKeyCallback;
 import com.lyp.uge.input.Keyboard.OnKeyboardListener;
 import com.lyp.uge.window.WindowManager;
 
-public class Input extends GLFWKeyCallback {
+public class KeyboardInput extends GLFWKeyCallback {
 	
-	private static Input mInput;
-	private static boolean[] keys = new boolean[350];
+	private static KeyboardInput mInput;
+	private static boolean[] keys = new boolean[65536];
 
 	private List<OnKeyboardListener> mListeners = new ArrayList<>();
 	
-	private Input() {
+	private KeyboardInput() {
 	}
 	
-	public static Input getInstance() {
+	public static KeyboardInput getInstance() {
 		if (mInput == null) {
-			mInput = new Input();
+			mInput = new KeyboardInput();
 		}
 		return mInput;
 	}

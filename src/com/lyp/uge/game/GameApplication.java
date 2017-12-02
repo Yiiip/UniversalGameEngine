@@ -6,7 +6,7 @@ import static org.lwjgl.opengl.GL11.*;
 import org.lwjgl.opengl.GL;
 
 import com.lyp.uge.gameObject.Camera;
-import com.lyp.uge.input.Input;
+import com.lyp.uge.input.KeyboardInput;
 import com.lyp.uge.input.Keyboard;
 import com.lyp.uge.input.Keyboard.OnKeyboardListener;
 import com.lyp.uge.logger.Logger;
@@ -41,7 +41,7 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	
 	private void init() {
 		onInitWindow(WindowManager.DEFAULT_WIDTH, WindowManager.DEFAULT_HEIGHT, WindowManager.DEFAULT_TITLE, WindowManager.DEFAULT_RESIZEABLE);
-		glfwSetKeyCallback(window.getId(), Input.getInstance());
+		glfwSetKeyCallback(window.getId(), KeyboardInput.getInstance());
 		GL.createCapabilities(); //create OpenGL Context
 		Logger.i("OpenGL", glGetString(GL_VERSION));
 		Logger.d("Window", window.toString());
@@ -49,7 +49,7 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		camera = new Camera();
-		Input.getInstance().registerOnKeyboardListener(this);
+		KeyboardInput.getInstance().registerOnKeyboardListener(this);
 		onCreate();
 	}
 	

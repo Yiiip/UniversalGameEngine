@@ -1,15 +1,17 @@
 package com.lyp.uge.gameObject;
 
 import com.lwjgl.util.vector.Vector3f;
-import com.lyp.uge.input.Input;
+import com.lyp.uge.input.KeyboardInput;
 import com.lyp.uge.input.Keyboard.OnKeyboardListener;
 import com.lyp.uge.model.TextureModel;
 
 public abstract class GameObject {
 
 	protected TextureModel model;
-	protected Vector3f position;
-	protected float rotateX, rotateY, rotateZ;
+	protected Vector3f position = new Vector3f(0.0f, 0.0f, 0.0f);
+	protected float rotateX = 0.0f;
+	protected float rotateY = 0.0f;
+	protected float rotateZ = 0.0f;
 	protected float scale = 1.0f;
 	protected float speed = 0.0f;
 	
@@ -19,7 +21,7 @@ public abstract class GameObject {
 	public abstract void render();
 	
 	protected boolean isKeyPressed(int keycode) {
-		return Input.getInstance().isKeyDown(keycode);
+		return KeyboardInput.getInstance().isKeyDown(keycode);
 	}
 	
 	public void doMove(float dx, float dy, float dz) {
@@ -32,6 +34,11 @@ public abstract class GameObject {
 		this.rotateX += dx;
 		this.rotateY += dy;
 		this.rotateZ += dz;
+	}
+	
+	public void setOnKeyboardListener(OnKeyboardListener onKeyboardListener) {
+		this.onKeyboardListener = onKeyboardListener;
+		KeyboardInput.getInstance().registerOnKeyboardListener(onKeyboardListener);
 	}
 	
 	public TextureModel getModel() {
@@ -82,9 +89,8 @@ public abstract class GameObject {
 		this.scale = scale;
 	}
 	
-	public void setOnKeyboardListener(OnKeyboardListener onKeyboardListener) {
-		this.onKeyboardListener = onKeyboardListener;
-		Input.getInstance().registerOnKeyboardListener(onKeyboardListener);
+	public void setSpeed(float speed) {
+		this.speed = speed;
 	}
 	
 	public float getSpeed() {
