@@ -1,22 +1,25 @@
 package com.lyp.uge.gameObject;
 
 import com.lwjgl.util.vector.Vector3f;
+import com.lyp.uge.input.Input;
+import com.lyp.uge.input.Keyboard.OnKeyboardListener;
 import com.lyp.uge.model.TextureModel;
 
-public class Entity {
+public abstract class GameObject {
 
-	private TextureModel model;
-	private Vector3f position;
-	private float rotateX, rotateY, rotateZ;
-	private float scale;
+	protected TextureModel model;
+	protected Vector3f position;
+	protected float rotateX, rotateY, rotateZ;
+	protected float scale = 1.0f;
+	protected float speed = 0.0f;
 	
-	public Entity(TextureModel model, Vector3f position, float rotateX, float rotateY, float rotateZ, float scale) {
-		this.model = model;
-		this.position = position;
-		this.rotateX = rotateX;
-		this.rotateY = rotateY;
-		this.rotateZ = rotateZ;
-		this.scale = scale;
+	protected OnKeyboardListener onKeyboardListener;
+	
+	public abstract void update();
+	public abstract void render();
+	
+	protected boolean isKeyPressed(int keycode) {
+		return Input.getInstance().isKeyDown(keycode);
 	}
 	
 	public void doMove(float dx, float dy, float dz) {
@@ -30,7 +33,7 @@ public class Entity {
 		this.rotateY += dy;
 		this.rotateZ += dz;
 	}
-
+	
 	public TextureModel getModel() {
 		return model;
 	}
@@ -77,6 +80,15 @@ public class Entity {
 
 	public void setScale(float scale) {
 		this.scale = scale;
+	}
+	
+	public void setOnKeyboardListener(OnKeyboardListener onKeyboardListener) {
+		this.onKeyboardListener = onKeyboardListener;
+		Input.getInstance().registerOnKeyboardListener(onKeyboardListener);
+	}
+	
+	public float getSpeed() {
+		return speed;
 	}
 	
 	@Override

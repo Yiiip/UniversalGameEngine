@@ -4,8 +4,13 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class Keyboard {
 	
+	/**
+	 * 非每帧调用的键盘监听器
+	 * @author LYP
+	 */
 	public interface OnKeyboardListener {
-		void onKeyDown(Input input);
+		void onKeyPressed(int keycode);
+		void onKeyReleased(int keycode);
 	}
 
 	/* Printable keys */

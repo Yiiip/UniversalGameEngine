@@ -6,7 +6,7 @@ import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
 
 import com.lwjgl.util.vector.Matrix4f;
-import com.lyp.uge.gameObject.Entity;
+import com.lyp.uge.gameObject.GameObject;
 import com.lyp.uge.math.MathTools;
 import com.lyp.uge.model.RawModel;
 import com.lyp.uge.model.TextureModel;
@@ -69,8 +69,8 @@ public class Renderer {
 		glBindVertexArray(0);
 	}
 	
-	public void render(Entity entity, StaticShader shaderProgram) {
-		TextureModel textureModel = entity.getModel();
+	public void render(GameObject object, StaticShader shaderProgram) {
+		TextureModel textureModel = object.getModel();
 		RawModel rawModel = textureModel.getRawModel();
 		glBindVertexArray(rawModel.getVaoID());
 		glEnableVertexAttribArray(Loader.ATTR_POSITIONS);
@@ -78,11 +78,11 @@ public class Renderer {
 		glEnableVertexAttribArray(Loader.ATTR_NORMALS);
 		
 		Matrix4f transformationMatrix = MathTools.createTransformationMatrix(
-				entity.getPosition(), 
-				entity.getRotateX(), 
-				entity.getRotateY(), 
-				entity.getRotateZ(), 
-				entity.getScale());
+				object.getPosition(), 
+				object.getRotateX(), 
+				object.getRotateY(), 
+				object.getRotateZ(), 
+				object.getScale());
 		shaderProgram.loadTransformationMatrix(transformationMatrix);
 		
 		glActiveTexture(GL_TEXTURE0);

@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL;
 
 import com.lyp.uge.gameObject.Camera;
 import com.lyp.uge.input.Input;
+import com.lyp.uge.input.Keyboard;
 import com.lyp.uge.input.Keyboard.OnKeyboardListener;
 import com.lyp.uge.logger.Logger;
 import com.lyp.uge.window.Window;
@@ -14,7 +15,13 @@ import com.lyp.uge.window.WindowManager;
 
 public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	
+	private long runTimer = 0;
 	protected boolean running = false;
+	
+	private boolean enablePolygonMode = false;
+	private int[] polygonModes = {GL_POINT, GL_LINE, GL_FILL};
+	private String[] polygonModeNames = {"点", "线", "填充"};
+	private int polygonModeIndex = 0;
 	
 	private Window window;	
 	private Camera camera;
@@ -42,13 +49,13 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		camera = new Camera();
+		Input.getInstance().registerOnKeyboardListener(this);
 		onCreate();
 	}
 	
 	private void update() {
 		glfwPollEvents();
-		camera.onMove();
-		onKeyDown(Input.getInstance());
+		camera.update();
 		onUpdate();
 	}
 	
@@ -57,13 +64,22 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		onRender();
 		int e = glGetError();
 		if (e != GL_NO_ERROR) {
-			Logger.e("Ops! gl has error : " + e);
+			Logger.e("Ops! OpenGL has error : " + e);
 		}
 		glfwSwapBuffers(window.getId());
 	}
 	
 	@Override
-	public void onKeyDown(Input input) {
+	public void onKeyPressed(int keycode) {
+	}
+	
+	@Override
+	public void onKeyReleased(int keycode) {
+		if (enablePolygonMode && keycode == Keyboard.KEY_TAB) {
+			Logger.d("多边形模式", polygonModeNames[polygonModeIndex]);
+			glPolygonMode(GL_FRONT_AND_BACK, polygonModes[polygonModeIndex]);
+			polygonModeIndex = (polygonModeIndex >= polygonModes.length-1) ? 0 : (polygonModeIndex + 1);
+		}
 	}
 	
 	@Override
@@ -104,8 +120,9 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 			frames++;
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				Logger.d("Updates : " + updates + ",  fps : " + frames);
-				WindowManager.setWindowTitle(window.getId(), window.getTitle() + " (Updates : " + updates + ",  fps : " + frames + ")");
+				runTimer++;
+				Logger.d("Updates : " + updates + ",  FPS : " + frames + ", Runtime: " + runTimer + "s");
+				WindowManager.setWindowTitle(window.getId(), window.getTitle() + " (Updates : " + updates + ",  FPS : " + frames + ", Runtime: " + runTimer + "s" + ")");
 				updates = 0;
 				frames = 0;
 			}
@@ -122,5 +139,13 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	
 	protected Window getMainWindow() {
 		return window;
+	}
+	
+	protected void enablePolygonMode() {
+		this.enablePolygonMode = true;
+	}
+	
+	protected void disablePolygonMode() {
+		this.enablePolygonMode = false;
 	}
 }

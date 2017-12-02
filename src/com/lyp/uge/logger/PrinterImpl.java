@@ -79,8 +79,8 @@ public class PrinterImpl implements Printer {
 
 	private void printLog(Level level, String tag, String message, boolean isOutToErr) {
 		if (level.getLevelValue() >= logOutLevel.getLevelValue()) {
-			String log = DATE_FORMAT.format(new Date()) + " " 
-					+ "[" + level.getLevelTag() + "]"
+			String log = DATE_FORMAT.format(new Date())
+					+ " [" + level.getLevelTag() + "]"
 					+ checkTextLengthLimit(tag, TAG_MAX_LENGTH) + ": "
 					+ checkTextLengthLimit(message, MESSAGE_MAX_LENGTH);
 
@@ -124,8 +124,8 @@ public class PrinterImpl implements Printer {
 
 	private synchronized void outLogToConsole(boolean isOutToErr, String log) {
 		if (isOutToErr) {
-			// System.err 和 System.out 是两个不同的输出流通道, 如果极短时间内连
-			// 续输出 log 到 err 和 out, 控制台上的打印顺序可能会不完全按时序打印.
+			/*System.err 和 System.out 是两个不同的输出流通道, 如果极短时间内连续
+			 * 输出 log 到 err 和 out, 控制台上的打印顺序可能会不完全按时序打印 */
 			System.err.println(log);
 		} else {
 			System.out.println(log);
@@ -154,6 +154,7 @@ public class PrinterImpl implements Printer {
 			try {
 				stream.close();
 			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 	}

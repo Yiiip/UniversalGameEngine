@@ -1,52 +1,54 @@
 package com.lyp.uge.gameObject;
 
 import com.lwjgl.util.vector.Vector3f;
-import com.lyp.uge.input.Input;
-import com.lyp.uge.input.Keyboard;
 
-public class Camera {
+import static com.lyp.uge.input.Keyboard.*;
 
-	private Vector3f position;
+public class Camera extends GameObject {
+
 	private float pitch; //倾斜度
 	private float yaw; //偏航 left or right the camera is aiming
 	private float roll; //侧面翻转 how much it's tilted(倾斜) to one side
-	private float moveSpeed;
 	
 	private boolean control = true;
 	
 	public Camera() {
 		position = new Vector3f(0, 0, 0);
-		moveSpeed = 0.05f;
+		speed = 0.05f;
 	}
-
-	public void onMove() {
-		if (!control) {
-			return;
+	
+	@Override
+	public void update() {
+		if (control) {
+			if (isKeyPressed(KEY_W)) {
+				position.y += speed;
+			}
+			if (isKeyPressed(KEY_D)) {
+				position.x += speed;
+			}
+			if (isKeyPressed(KEY_A)) {
+				position.x -= speed;
+			}
+			if (isKeyPressed(KEY_S)) {
+				position.y -= speed;
+			}
+			if (isKeyPressed(KEY_UP)) {
+				position.z -= speed;
+			}
+			if (isKeyPressed(KEY_DOWN)) {
+				position.z += speed;
+			}
+			if (isKeyPressed(KEY_LEFT)) {
+				yaw -= speed * 10;
+			}
+			if (isKeyPressed(KEY_RIGHT)) {
+				yaw += speed * 10;
+			}
 		}
-		if (Input.getInstance().isKeyDown(Keyboard.KEY_W)) {
-			position.y += moveSpeed;
-		}
-		if (Input.getInstance().isKeyDown(Keyboard.KEY_D)) {
-			position.x += moveSpeed;
-		}
-		if (Input.getInstance().isKeyDown(Keyboard.KEY_A)) {
-			position.x -= moveSpeed;
-		}
-		if (Input.getInstance().isKeyDown(Keyboard.KEY_S)) {
-			position.y -= moveSpeed;
-		}
-		if (Input.getInstance().isKeyDown(Keyboard.KEY_UP)) {
-			position.z -= moveSpeed;
-		}
-		if (Input.getInstance().isKeyDown(Keyboard.KEY_DOWN)) {
-			position.z += moveSpeed;
-		}
-		if (Input.getInstance().isKeyDown(Keyboard.KEY_LEFT)) {
-			yaw -= moveSpeed * 10;
-		}
-		if (Input.getInstance().isKeyDown(Keyboard.KEY_RIGHT)) {
-			yaw += moveSpeed * 10;
-		}
+	}
+	
+	@Override
+	public void render() {
 	}
 	
 	public float getPitch() {
@@ -65,14 +67,6 @@ public class Camera {
 		return yaw;
 	}
 	
-	public void setMoveSpeed(float moveSpeed) {
-		this.moveSpeed = moveSpeed;
-	}
-	
-	public float getMoveSpeed() {
-		return moveSpeed;
-	}
-	
 	public boolean isControlEnable() {
 		return control;
 	}
@@ -80,4 +74,5 @@ public class Camera {
 	public void setControl(boolean enable) {
 		this.control = enable;
 	}
+
 }
