@@ -54,7 +54,7 @@ public class MouseInput {
 		public void invoke(long window, double xpos, double ypos) {
 			currentPos.x = (float) xpos;
             currentPos.y = (float) ypos;
-			Logger.d("Mouse", "(" + currentPos.x + ", " + currentPos.y + ")");
+//			Logger.d("Mouse", toString());
 		}
 	}
 	
@@ -125,5 +125,10 @@ public class MouseInput {
 	
 	public Vector2f getDeltaVec() {
 		return deltaVec;
+	}
+	
+	@Override
+	public String toString() {
+		return "(" + currentPos.x + ", " + currentPos.y + ")";
 	}
 }
