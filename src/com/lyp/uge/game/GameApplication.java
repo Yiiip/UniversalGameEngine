@@ -11,12 +11,13 @@ import com.lyp.uge.input.MouseInput;
 import com.lyp.uge.input.Keyboard;
 import com.lyp.uge.input.Keyboard.OnKeyboardListener;
 import com.lyp.uge.logger.Logger;
+import com.lyp.uge.utils.StringUtils;
 import com.lyp.uge.window.Window;
 import com.lyp.uge.window.WindowManager;
 
 public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	
-	private long runTimer = 0;
+	private int runTimer = 0;
 	protected boolean running = false;
 	
 	private boolean	enablePolygonMode = false;
@@ -24,6 +25,7 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	private String[]		polygonModeNames = {"点", "线", "填充"};
 	private int			polygonModeIndex = 0;
 	
+	private Thread thread;
 	private Window window;	
 	private Camera camera;
 	
@@ -98,48 +100,65 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		destory();
 	}
 	
-	private void destory() {
+	protected synchronized void start() {
+		if (running) {
+			return;
+		}
+		running = true;
+		thread = new Thread(this, "GameThread");
+		thread.start();
+	}
+	
+	private synchronized void destory() {
 		onDestory();
 		WindowManager.destoryWindow();
 	}
 	
-	protected void start() {
-		running = true;
-		new Thread(this, "GameThread").start();
-	}
-	
 	private void loop() {
 		long lastTime = System.nanoTime();
-		double ns = 1000000000.0 * 1 / 60.0; //1s(10^9ns)有60帧，即求每帧有几秒。
-		double delta = 0.0;
-		int updates = 0;
-		int frames = 0;
 		long timer = System.currentTimeMillis();
+		final double totalUpadates = 60.0;
+		final double ns = 1000000000.0 * 1 / totalUpadates; //1s(10^9ns)有60帧，即求每帧有几秒。
+		double delta = 0.0;
+
+		int updatesCounter = 0;
+		int framesCounter = 0;
 		
 		while (running) {
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
-			if (delta >= 1.0) {
+			lastTime = now;
+			while (delta >= 1.0) {
 				update();
-				updates++;
+				updatesCounter++;
 				delta--;
 			}
 			
 			render();
-			frames++;
+			framesCounter++;
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
 				runTimer++;
-				Logger.d("Updates : " + updates + ",  FPS : " + frames + ", Runtime: " + runTimer + "s");
-				WindowManager.setWindowTitle(window.getId(), window.getTitle() + " (Updates : " + updates + ",  FPS : " + frames + ", Runtime: " + runTimer + "s" + ")");
-				updates = 0;
-				frames = 0;
+				
+				Logger.d("Updates : " + updatesCounter + ",  FPS : " + framesCounter + ", Runtime: " + getRunTimer());
+				WindowManager.setWindowTitle(window.getId(), window.getTitle() 
+						+ " (Updates : " + updatesCounter + ",  FPS : " + framesCounter + ", Runtime: " + getRunTimer() + ")");
+				
+				updatesCounter = 0;
+				framesCounter = 0;
 			}
 
 			if (WindowManager.windowShouldClose(window.getId())) {
 				running = false;
 			}
 		}
+	}
+	
+	public String getRunTimer() {
+		int hour = runTimer / 3600;
+		int minute = runTimer / 60 % 60;
+		int second = runTimer % 60;
+		return StringUtils.formatTime(hour) + ":" + StringUtils.formatTime(minute) + ":" + StringUtils.formatTime(second);
 	}
 	
 	protected Camera getMainCamera() {
