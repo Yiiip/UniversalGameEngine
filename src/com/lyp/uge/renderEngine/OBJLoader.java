@@ -91,6 +91,14 @@ public class OBJLoader {
 			float[] normalsArray) {
 		int currentVertexPointer = Integer.parseInt(vertexData[0]) - 1; //obj file number start from 0, so -1
 		indices.add(currentVertexPointer);
+		if (vertexData[1].equals("") || vertexData[1] == null) {
+			vertexData[1] = "1";
+		}
+		if (textures.size() == 0) {
+			for (int i = 0; i < indices.size(); i++) {
+				textures.add(new Vector2f(0, 0));
+			}
+		}
 		Vector2f currentTex = textures.get(Integer.parseInt(vertexData[1]) - 1);
 		texturesArray[currentVertexPointer * 2] = currentTex.x;
 		texturesArray[currentVertexPointer * 2 + 1] = 1 - currentTex.y; //blender start with bottom left, opengl start from top left, so 1-
