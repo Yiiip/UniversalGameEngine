@@ -13,8 +13,12 @@ import com.lyp.uge.utils.BufferUtils;
 
 public class Texture {
 
-	private int width, height;
 	private int textureID;
+	private int width;
+	private int height;
+	
+	private float shineDamper;	//光照亮度衰减率
+	private float reflectivity;		//光照反射率
 
 	public Texture(String path) {
 		this.textureID = loadTexture(path);
@@ -72,5 +76,21 @@ public class Texture {
 	
 	public int getTextureID() {
 		return textureID;
+	}
+	
+	public void setReflectivity(float reflectivity) {
+		this.reflectivity = reflectivity;
+	}
+	
+	public float getReflectivity() {
+		return reflectivity;
+	}
+	
+	public void setShineDamper(float shineDamper) {
+		this.shineDamper = shineDamper;
+	}
+	
+	public float getShineDamper() {
+		return shineDamper;
 	}
 }

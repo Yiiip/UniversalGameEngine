@@ -10,7 +10,9 @@ import com.lyp.uge.gameObject.GameObject;
 import com.lyp.uge.math.MathTools;
 import com.lyp.uge.model.RawModel;
 import com.lyp.uge.model.TextureModel;
+import com.lyp.uge.shader.SpecularLightShader;
 import com.lyp.uge.shader.StaticShader;
+import com.lyp.uge.texture.Texture;
 import com.lyp.uge.window.WindowManager;
 
 public class Renderer {
@@ -84,6 +86,11 @@ public class Renderer {
 				object.getRotateZ(), 
 				object.getScale());
 		shaderProgram.loadTransformationMatrix(transformationMatrix);
+		
+		if (shaderProgram instanceof SpecularLightShader) { //高光反射光
+			Texture texture = textureModel.getTexture();
+			((SpecularLightShader) shaderProgram).loadSpecularLightingParms(texture.getShineDamper(), texture.getReflectivity());
+		}
 		
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textureModel.getTexture().getTextureID());
