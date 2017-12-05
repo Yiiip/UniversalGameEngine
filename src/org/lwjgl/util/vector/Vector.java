@@ -29,16 +29,86 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.lwjgl.util.vector;
+package org.lwjgl.util.vector;
+
+import java.io.Serializable;
+import java.nio.FloatBuffer;
 
 /**
- * @author foo
+ *
+ * Base class for vectors.
+ *
+ * @author cix_foo <cix_foo@users.sourceforge.net>
+ * @version $Revision$
+ * $Id$
  */
-public interface ReadableVector4f extends ReadableVector3f {
+public abstract class Vector implements Serializable, ReadableVector {
+
+	private static final long serialVersionUID = -5325764476304535892L;
 
 	/**
-	 * @return w
+	 * Constructor for Vector.
 	 */
-	float getW();
+	protected Vector() {
+		super();
+	}
+
+	/**
+	 * @return the length of the vector
+	 */
+	public final float length() {
+		return (float) Math.sqrt(lengthSquared());
+	}
+
+
+	/**
+	 * @return the length squared of the vector
+	 */
+	public abstract float lengthSquared();
+
+	/**
+	 * Load this vector from a FloatBuffer
+	 * @param buf The buffer to load it from, at the current position
+	 * @return this
+	 */
+	public abstract Vector load(FloatBuffer buf);
+
+	/**
+	 * Negate a vector
+	 * @return this
+	 */
+	public abstract Vector negate();
+
+
+	/**
+	 * Normalise this vector
+	 * @return this
+	 */
+	public final Vector normalise() {
+		float len = length();
+		if (len != 0.0f) {
+			float l = 1.0f / len;
+			return scale(l);
+		} else
+			throw new IllegalStateException("Zero length vector");
+	}
+
+
+	/**
+	 * Store this vector in a FloatBuffer
+	 * @param buf The buffer to store it in, at the current position
+	 * @return this
+	 */
+	public abstract Vector store(FloatBuffer buf);
+
+
+	/**
+	 * Scale this vector
+	 * @param scale The scale factor
+	 * @return this
+	 */
+	public abstract Vector scale(float scale);
+
+
 
 }

@@ -6,9 +6,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.FloatBuffer;
 
-import com.lwjgl.util.vector.Matrix4f;
-import com.lwjgl.util.vector.Vector2f;
-import com.lwjgl.util.vector.Vector3f;
+import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector2f;
+import org.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.logger.Logger;
 import com.lyp.uge.utils.BufferUtils;
 

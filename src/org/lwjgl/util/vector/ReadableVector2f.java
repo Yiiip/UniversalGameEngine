@@ -29,33 +29,18 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.lwjgl.util.vector;
+package org.lwjgl.util.vector;
 
 /**
- * Writable interface to Vector2fs
- * @author $author$
- * @version $revision$
- * $Id$
+ * @author foo
  */
-public interface WritableVector2f {
-
+public interface ReadableVector2f extends ReadableVector {
 	/**
-	 * Set the X value
-	 * @param x
+	 * @return x
 	 */
-	void setX(float x);
-
+	float getX();
 	/**
-	 * Set the Y value
-	 * @param y
+	 * @return y
 	 */
-	void setY(float y);
-
-	/**
-	 * Set the X,Y values
-	 * @param x
-   * @param y
-	 */
-	void set(float x, float y);
-
+	float getY();
 }

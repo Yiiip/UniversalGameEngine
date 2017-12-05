@@ -1,7 +1,7 @@
 package com.lyp.uge.fontMeshCreator;
 
-import com.lwjgl.util.vector.Vector2f;
-import com.lwjgl.util.vector.Vector3f;
+import org.lwjgl.util.vector.Vector2f;
+import org.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.fontRendering.GUITextManager;
 
 /**

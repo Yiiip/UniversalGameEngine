@@ -2,7 +2,7 @@ package com.lyp.uge.demo;
 
 import java.util.Random;
 
-import com.lwjgl.util.vector.Vector3f;
+import org.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.fontRendering.GUITextManager;
 import com.lyp.uge.game.GameApplication;
 import com.lyp.uge.gameObject.Light;

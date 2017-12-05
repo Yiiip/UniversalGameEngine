@@ -1,6 +1,6 @@
 package com.lyp.uge.gameObject;
 
-import com.lwjgl.util.vector.Vector3f;
+import org.lwjgl.util.vector.Vector3f;
 
 import static com.lyp.uge.input.Keyboard.*;
 

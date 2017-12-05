@@ -1,7 +1,7 @@
 package com.lyp.uge.fontRendering;
 
-import com.lwjgl.util.vector.Vector2f;
-import com.lwjgl.util.vector.Vector3f;
+import org.lwjgl.util.vector.Vector2f;
+import org.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.shader.ShaderProgram;
 

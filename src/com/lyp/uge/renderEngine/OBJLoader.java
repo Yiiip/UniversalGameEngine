@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lwjgl.util.vector.Vector2f;
-import com.lwjgl.util.vector.Vector3f;
+import org.lwjgl.util.vector.Vector2f;
+import org.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.logger.Logger;
 import com.lyp.uge.model.RawModel;
 

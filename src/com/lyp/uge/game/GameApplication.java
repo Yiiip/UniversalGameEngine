@@ -7,7 +7,7 @@ import java.io.File;
 
 import org.lwjgl.opengl.GL;
 
-import com.lwjgl.util.vector.Vector2f;
+import org.lwjgl.util.vector.Vector2f;
 import com.lyp.uge.fontMeshCreator.FontType;
 import com.lyp.uge.fontMeshCreator.GUIText;
 import com.lyp.uge.fontRendering.GUITextManager;

@@ -29,28 +29,26 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.lwjgl.util.vector;
+package org.lwjgl.util.vector;
+
+import java.nio.FloatBuffer;
 
 /**
- * Writable interface to Vector3fs
- * @author $author$
- * @version $revision$
- * $Id$
+ * @author foo
  */
-public interface WritableVector3f extends WritableVector2f {
-
+public interface ReadableVector {
 	/**
-	 * Set the Z value
-	 * @param z
+	 * @return the length of the vector
 	 */
-	void setZ(float z);
-
+	float length();
 	/**
-	 * Set the X,Y,Z values
-	 * @param x
-   * @param y
-   * @param z
+	 * @return the length squared of the vector
 	 */
-	void set(float x, float y, float z);
-
+	float lengthSquared();
+	/**
+	 * Store this vector in a FloatBuffer
+	 * @param buf The buffer to store it in, at the current position
+	 * @return this
+	 */
+	Vector store(FloatBuffer buf);
 }

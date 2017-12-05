@@ -6,7 +6,7 @@ import org.lwjgl.glfw.GLFWCursorEnterCallback;
 import org.lwjgl.glfw.GLFWCursorPosCallback;
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
 
-import com.lwjgl.util.vector.Vector2f;
+import org.lwjgl.util.vector.Vector2f;
 import com.lyp.uge.logger.Logger;
 
 public class MouseInput {

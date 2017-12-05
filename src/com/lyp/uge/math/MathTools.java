@@ -1,7 +1,7 @@
 package com.lyp.uge.math;
 
-import com.lwjgl.util.vector.Matrix4f;
-import com.lwjgl.util.vector.Vector3f;
+import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.gameObject.Camera;
 
 public class MathTools {

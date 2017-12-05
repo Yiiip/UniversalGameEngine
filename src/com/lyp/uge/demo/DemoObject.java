@@ -1,6 +1,6 @@
 package com.lyp.uge.demo;
 
-import com.lwjgl.util.vector.Vector3f;
+import org.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.gameObject.GameObject;
 import com.lyp.uge.model.TextureModel;
 

@@ -5,7 +5,7 @@ import static org.lwjgl.opengl.GL13.*;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
 
-import com.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Matrix4f;
 import com.lyp.uge.gameObject.GameObject;
 import com.lyp.uge.math.MathTools;
 import com.lyp.uge.model.RawModel;

@@ -29,29 +29,16 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.lwjgl.util.vector;
+package org.lwjgl.util.vector;
 
 /**
- * Writable interface to Vector4fs
- * @author $author$
- * @version $revision$
- * $Id$
+ * @author foo
  */
-public interface WritableVector4f extends WritableVector3f {
+public interface ReadableVector4f extends ReadableVector3f {
 
 	/**
-	 * Set the W value
-	 * @param w
+	 * @return w
 	 */
-	void setW(float w);
-
-	/**
-	 * Set the X,Y,Z,W values
-	 * @param x
-   * @param y
-   * @param z
-   * @param w
-	 */
-	void set(float x, float y, float z, float w);
+	float getW();
 
 }
