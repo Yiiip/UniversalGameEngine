@@ -3,14 +3,22 @@ package com.lyp.uge.game;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
+import java.io.File;
+
 import org.lwjgl.opengl.GL;
 
+import com.lwjgl.util.vector.Vector2f;
+import com.lyp.uge.fontMeshCreator.FontType;
+import com.lyp.uge.fontMeshCreator.GUIText;
+import com.lyp.uge.fontRendering.GUITextManager;
 import com.lyp.uge.gameObject.Camera;
 import com.lyp.uge.input.KeyboardInput;
 import com.lyp.uge.input.MouseInput;
 import com.lyp.uge.input.Keyboard;
 import com.lyp.uge.input.Keyboard.OnKeyboardListener;
 import com.lyp.uge.logger.Logger;
+import com.lyp.uge.renderEngine.Loader;
+import com.lyp.uge.utils.DataUtils;
 import com.lyp.uge.utils.StringUtils;
 import com.lyp.uge.window.Window;
 import com.lyp.uge.window.WindowManager;
@@ -20,6 +28,8 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	private int runTimer = 0;
 	protected boolean running = false;
 	
+	private int fps = 0;
+	
 	private boolean	enablePolygonMode = false;
 	private int[]			polygonModes = {GL_POINT, GL_LINE, GL_FILL};
 	private String[]		polygonModeNames = {"点", "线", "填充"};
@@ -28,6 +38,10 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	private Thread thread;
 	private Window window;	
 	private Camera camera;
+	
+	private Loader loader = new Loader();
+	private FontType fpsFont;
+	private GUIText fpsGuiText;
 	
 	protected abstract void onCreate();
 	protected abstract void onUpdate();
@@ -52,6 +66,8 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		camera = new Camera();
+		initFPSTextGUI();
+		
 		onCreate();
 	}
 	
@@ -67,16 +83,19 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		glfwPollEvents();
 		MouseInput.getInstance().update(window.getId());
 		camera.update();
+		updateFPSTextGUI();
+		
 		onUpdate();
 	}
 	
 	private void render() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		
 		onRender();
+		GUITextManager.render();
+		
 		int e = glGetError();
-		if (e != GL_NO_ERROR) {
-			Logger.e("Ops! OpenGL has error : " + e);
-		}
+		if (e != GL_NO_ERROR) { Logger.e("Ops! OpenGL has error : " + e); }
 		glfwSwapBuffers(window.getId());
 	}
 	
@@ -110,6 +129,7 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	}
 	
 	private synchronized void destory() {
+		GUITextManager.cleanUp();
 		onDestory();
 		WindowManager.destoryWindow();
 	}
@@ -140,6 +160,7 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 				timer += 1000;
 				runTimer++;
 				
+				fps = framesCounter;
 				Logger.d("Updates : " + updatesCounter + ",  FPS : " + framesCounter + ", Runtime: " + getRunTimer());
 				WindowManager.setWindowTitle(window.getId(), window.getTitle() 
 						+ " (Updates : " + updatesCounter + ",  FPS : " + framesCounter + ", Runtime: " + getRunTimer() + ")");
@@ -154,11 +175,32 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		}
 	}
 	
+	private void initFPSTextGUI() {
+		GUITextManager.init(loader);
+		fpsFont = new FontType(loader.loadTexture("res/texture/" + DataUtils.TEX_FONT_ARIAL).getTextureID(), new File("res/font/" + DataUtils.FONT_ARIAL));
+		setFPSTextGUI("FPS : " + getFPS());
+	}
+	
+	private void setFPSTextGUI(String text) {
+		fpsGuiText = new GUIText(text, 1, fpsFont, new Vector2f(0.935f, 0.02f), 1.0f, false);
+		// fpsGuiText.setColor(0.96f, 0.84f, 0.0f); //yellow
+		fpsGuiText.setColor(1.0f, 0.20f, 0.20f); //red
+	}
+	
+	private void updateFPSTextGUI() {
+		fpsGuiText.remove();
+		setFPSTextGUI("FPS : " + getFPS());
+	}
+	
 	public String getRunTimer() {
 		int hour = runTimer / 3600;
 		int minute = runTimer / 60 % 60;
 		int second = runTimer % 60;
 		return StringUtils.formatTime(hour) + ":" + StringUtils.formatTime(minute) + ":" + StringUtils.formatTime(second);
+	}
+	
+	public int getFPS() {
+		return fps;
 	}
 	
 	protected Camera getMainCamera() {

@@ -3,18 +3,30 @@ package com.lyp.uge.utils;
 public class DataUtils {
 	
 	public static final String OBJ_DRAGON = "dragon.obj";
-	public static final String OBJ_RABBIT = "rabbit.obj";
+	public static final String OBJ_RABBIT = "rabbit.obj"; //斯坦福兔
 	public static final String OBJ_TREE = "tree.obj";
 	public static final String OBJ_CUBE = "cube.obj";
 	public static final String OBJ_BILLBOARD = "billboard.obj";
 	public static final String OBJ_STALL = "stall.obj";
+	public static final String OBJ_F16 = "f16.obj";
+	public static final String OBJ_SUZANNE = "suzanne.obj"; //猴子
+	public static final String OBJ_ARMADILLO = "armadillo.obj"; //怪兽
+	public static final String OBJ_TYRA = "tyra.obj"; //恐龙
 	
-	public static final String TEX_COLOR_YELLOW = "color_yellow_gray.png";
+	public static final String TEX_COLOR_YELLOW_GRAY = "color_yellow_gray.png";
+	public static final String TEX_COLOR_LIGHT_GRAY = "color_light_gray.png";
 	public static final String TEX_GRASS = "grass.png";
 	public static final String TEX_IMAGE_PREVIEW = "image_preview.png";
 	public static final String TEX_MC_DIRT_GRASS = "mc_dirt_grass.png";
 	public static final String TEX_TREE = "tree.png";
 	public static final String TEX_FLAPPY_BIRD = "flappy_bird.png";
+	public static final String TEX_FONT_PRODUCT_SANS = "font_ProductSans.png";
+	public static final String TEX_FONT_PIXELED = "font_Pixeled.png";
+	public static final String TEX_FONT_ARIAL = "font_Arial.png";
+	
+	public static final String FONT_PRODUCT_SANS = "font_ProductSans.fnt";
+	public static final String FONT_PIXELED = "font_Pixeled.fnt";
+	public static final String FONT_ARIAL = "font_Arial.fnt";
 
 	public static float[] RECT_VERTICES = {
 		-0.5f, 0.5f, 0, //V0

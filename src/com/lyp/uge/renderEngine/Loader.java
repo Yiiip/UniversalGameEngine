@@ -64,6 +64,14 @@ public class Loader {
 		return new RawModel(vaoID, indices.length);
 	}
 	
+	public int loadToVAO(float[] positions, float[] textureCoords) { //used for font
+		int vaoID = createVAO();
+		storeDataInAttributeList(ATTR_POSITIONS, 2, positions);
+		storeDataInAttributeList(ATTR_COORDINATES, 2, textureCoords);
+		unbindVAO();
+		return vaoID;
+	}
+	
 	public Texture loadTexture(String filePath) {
 		Texture texture = new Texture(filePath);
 		int textureID = texture.getTextureID();

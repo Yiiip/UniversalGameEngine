@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.FloatBuffer;
 
 import com.lwjgl.util.vector.Matrix4f;
+import com.lwjgl.util.vector.Vector2f;
 import com.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.logger.Logger;
 import com.lyp.uge.utils.BufferUtils;
@@ -65,6 +66,10 @@ public abstract class ShaderProgram {
 	
 	protected void loadFloat(int location, float value) {
 		glUniform1f(location, value);
+	}
+	
+	protected void load2DVector(int location, Vector2f vector) {
+		glUniform2f(location, vector.x, vector.y);
 	}
 	
 	protected void loadVector(int location, Vector3f vector) {

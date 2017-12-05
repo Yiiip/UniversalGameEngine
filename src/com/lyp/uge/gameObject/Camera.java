@@ -24,7 +24,6 @@ public class Camera extends GameObject {
 	
 	@Override
 	public void update() {
-		Logger.d("Camera", toShortString());
 		if (control) {
 			if (isKeyPressed(KEY_SPACE)) {
 				position.y += speed;

@@ -118,4 +118,12 @@ public class WindowManager {
 	public static void setWindowTitle(long window, String title) {
 		glfwSetWindowTitle(window, title);
 	}
+	
+	public static int getWindowWidth() {
+		return mWindow.getWidth();
+	}
+	
+	public static int getWindowHeight() {
+		return mWindow.getHeight();
+	}
 }

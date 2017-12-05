@@ -96,7 +96,7 @@ public class OBJLoader {
 		}
 		if (textures.size() == 0) {
 			for (int i = 0; i < indices.size(); i++) {
-				textures.add(new Vector2f(0, 0));
+				textures.add(new Vector2f(1, 1));
 			}
 		}
 		Vector2f currentTex = textures.get(Integer.parseInt(vertexData[1]) - 1);
