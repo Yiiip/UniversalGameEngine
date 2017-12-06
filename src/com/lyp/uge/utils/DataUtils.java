@@ -6,6 +6,9 @@ public class DataUtils {
 	public static final String OBJ_RABBIT = "rabbit.obj"; //斯坦福兔
 	public static final String OBJ_TREE = "tree.obj";
 	public static final String OBJ_CUBE = "cube.obj";
+	public static final String OBJ_CUBE2 = "cube2.obj";
+	public static final String OBJ_SPHERE_LOW_QUALITY = "sphere_low_quality.obj";
+	public static final String OBJ_SPHERE_HIGH_QUALITY = "sphere_high_quality.obj";
 	public static final String OBJ_BILLBOARD = "billboard.obj";
 	public static final String OBJ_STALL = "stall.obj";
 	public static final String OBJ_F16 = "f16.obj";

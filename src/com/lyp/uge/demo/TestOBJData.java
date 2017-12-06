@@ -46,15 +46,15 @@ public class TestOBJData extends GameApplication {
 //		shader = new StaticShader();
 		shader = new SpecularLightShader();
 		renderer = new Renderer(shader);
-		textureModel = new TextureModel(model, loader.loadTexture("res/texture/" + DataUtils.TEX_COLOR_YELLOW_GRAY));
+		textureModel = new TextureModel(model, loader.loadTexture("res/texture/" + DataUtils.TEX_COLOR_LIGHT_GRAY));
 		Texture texture = textureModel.getTexture();
 		texture.setShineDamper(10.0f);	//设置反射光亮度衰减因子
 		texture.setReflectivity(1.0f);		//设置反射光反射率因子
-		entity = new DemoObject(textureModel, new Vector3f(0f, -3.0f, -6.0f), 0f, 0f, 0f, 1f);
-		light = new Light(new Vector3f(0, 0, -12), new Vector3f(1, 1, 1));
+		entity = new DemoObject(textureModel, new Vector3f(0f, -3.0f, -40.0f), 0f, 0f, 0f, 1.0f);
+		light = new Light(new Vector3f(-10.0f, 0.0f, 0.0f), new Vector3f(1, 1, 1));
 		es = new DemoObject[10];
 		for (int i = 0; i < es.length; i++) {
-			es[i] = new DemoObject(textureModel, new Vector3f(-random.nextInt(20), -random.nextInt(20), -random.nextInt(30)), 0f, 0f, 0f, 0.22f + 0.01f * i);
+			es[i] = new DemoObject(textureModel, new Vector3f(-random.nextInt(20), -random.nextInt(20), -random.nextInt(90)), 0f, 0f, 0f, 0.22f + 0.01f * i);
 		}
 	}
 
