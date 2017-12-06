@@ -27,6 +27,10 @@ public class Renderer {
 	}
 	
 	public Renderer(StaticShader shaderProgram) {
+		//模型背面（反面）不渲染着色
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
+		
 		createProjectionMatrix();
 		shaderProgram.start();
 		shaderProgram.loadProjectionMatrix(projectionMatrix);
@@ -34,7 +38,7 @@ public class Renderer {
 	}
 
 	public void prepare() {
-		this.prepare(.14f, .14f, .14f, 1.0f);
+		this.prepare(.12f, .12f, .12f, 1.0f);
 	}
 	
 	public void prepare(float r, float g, float b, float a) {
