@@ -24,11 +24,11 @@ public class TestOBJData extends GameApplication {
 	private Renderer renderer;
 	private StaticShader shader;
 	private TextureModel textureModel;
-	private DemoObject entity;
+	private DemoObject objectMain;
 	private Light light;
 	
 	private RawModel model;
-	private DemoObject[] es;
+	private DemoObject[] objects;
 	
 	private Random random = new Random();
 
@@ -41,28 +41,31 @@ public class TestOBJData extends GameApplication {
 	@Override
 	protected void onCreate() {
 		enablePolygonMode();
+		getMainCamera().setSpeed(0.4f);
 		
 		model = OBJLoader.loadObjModel(DataUtils.OBJ_RABBIT, loader);
 //		shader = new StaticShader();
 		shader = new SpecularLightShader();
 		renderer = new Renderer(shader);
-		textureModel = new TextureModel(model, loader.loadTexture("res/texture/" + DataUtils.TEX_COLOR_LIGHT_GRAY));
-		Texture texture = textureModel.getTexture();
+		Texture texture = loader.loadTexture("res/texture/" + DataUtils.TEX_COLOR_YELLOW_GRAY);
 		texture.setShineDamper(10.0f);	//设置反射光亮度衰减因子
 		texture.setReflectivity(1.0f);		//设置反射光反射率因子
-		entity = new DemoObject(textureModel, new Vector3f(0f, -3.0f, -40.0f), 0f, 0f, 0f, 1.0f);
-		light = new Light(new Vector3f(-10.0f, 0.0f, 0.0f), new Vector3f(1, 1, 1));
-		es = new DemoObject[10];
-		for (int i = 0; i < es.length; i++) {
-			es[i] = new DemoObject(textureModel, new Vector3f(-random.nextInt(20), -random.nextInt(20), -random.nextInt(90)), 0f, 0f, 0f, 0.22f + 0.01f * i);
+		textureModel = new TextureModel(model, texture);
+		objectMain = new DemoObject(textureModel, new Vector3f(0f, -3.0f, -40.0f), 0f, 0f, 0f, 1.0f);
+//		light = new Light(new Vector3f(0.0f, 0.0f, -50.0f), new Vector3f(1, 1, 1));
+		light = new Light(new Vector3f(0.0f, 0.0f, -50.0f), new Vector3f(1, 1, 1), loader);
+		objects = new DemoObject[50];
+		for (int i = 0; i < objects.length; i++) {
+			objects[i] = new DemoObject(textureModel, new Vector3f(
+					random.nextFloat() * 100 - 50, random.nextFloat() * 100 - 50, -random.nextInt(200)), 0f, 0f, 0f, 0.22f + 0.01f * i);
 		}
 	}
 
 	@Override
 	protected void onUpdate() {
 		light.update();
-		entity.doMove(0f, 0f, 0f);
-		entity.doRotate(0.0f, 0.6f, 0.0f);
+		objectMain.doMove(0f, 0f, 0f);
+		objectMain.doRotate(0.0f, 0.6f, 0.0f);
 		Logger.d("Lighting", light.getPosition().toString());
 	}
 	
@@ -72,10 +75,11 @@ public class TestOBJData extends GameApplication {
 		shader.start();
 		shader.loadLight(light);
 		shader.loadViewMatrix(getMainCamera());
-		renderer.render(entity, shader);
-		for (int i = 0; i < es.length; i++) {
-			renderer.render(es[i], shader);
+		renderer.render(objectMain, shader);
+		for (int i = 0; i < objects.length; i++) {
+			renderer.render(objects[i], shader);
 		}
+		light.render(renderer, shader);
 		shader.stop();
 	}
 	
@@ -85,7 +89,7 @@ public class TestOBJData extends GameApplication {
 		if (keycode == Keyboard.KEY_R) {
 			model = OBJLoader.loadObjModel(DataUtils.OBJ_ARMADILLO, loader);
 			textureModel = new TextureModel(model, loader.loadTexture("res/texture/" + DataUtils.TEX_COLOR_YELLOW_GRAY));
-			entity = new DemoObject(textureModel, new Vector3f(0f, -3.0f, -6.0f), 0f, 0f, 0f, 1.5f);
+			objectMain = new DemoObject(textureModel, new Vector3f(0f, -3.0f, -6.0f), 0f, 0f, 0f, 1.5f);
 		}
 	}
 

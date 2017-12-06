@@ -3,7 +3,8 @@ package com.lyp.uge.gameObject;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.input.MouseInput;
-import com.lyp.uge.logger.Logger;
+import com.lyp.uge.renderEngine.Renderer;
+import com.lyp.uge.shader.ShaderProgram;
 
 import static com.lyp.uge.input.Mouse.*;
 import static com.lyp.uge.input.Keyboard.*;
@@ -13,6 +14,8 @@ public class Camera extends GameObject {
 	private float pitch; //倾斜度. 上下环顾，上负下正
 	private float yaw; //偏航 left or right the camera is aiming. 左右环顾，左负右正
 	private float roll; //侧面翻转 how much it's tilted(倾斜) to one side. 侧旋
+	
+	private float arountSpeed = 0.05f;
 	
 	private boolean control = true;
 	
@@ -44,28 +47,28 @@ public class Camera extends GameObject {
 				position.z += speed;
 			}
 			if (isKeyPressed(KEY_LEFT)) {
-				yaw -= speed * 10;
+				yaw -= arountSpeed * 10;
 			}
 			if (isKeyPressed(KEY_RIGHT)) {
-				yaw += speed * 10;
+				yaw += arountSpeed * 10;
 			}
 			if (isKeyPressed(KEY_Q)) {
-				roll += speed * 10;
+				roll += arountSpeed * 10;
 			}
 			if (isKeyPressed(KEY_E)) {
-				roll -= speed * 10;
+				roll -= arountSpeed * 10;
 			}
 			
 			if (isMousePressed(MOUSE_BUTTON_RIGHT)) {
 				Vector2f rotVec = MouseInput.getInstance().getDeltaVec();
-				yaw += speed * rotVec.y * MOUSE_SENSITIVITY;
-				pitch += speed * rotVec.x * MOUSE_SENSITIVITY;
+				yaw += arountSpeed * rotVec.y * MOUSE_SENSITIVITY;
+				pitch += arountSpeed * rotVec.x * MOUSE_SENSITIVITY;
 			}
 		}
 	}
 	
 	@Override
-	public void render() {
+	public void render(Renderer renderer, ShaderProgram shader) {
 	}
 	
 	public float getPitch() {
@@ -90,6 +93,14 @@ public class Camera extends GameObject {
 	
 	public void setControl(boolean enable) {
 		this.control = enable;
+	}
+	
+	public void setArountSpeed(float arountSpeed) {
+		this.arountSpeed = arountSpeed;
+	}
+	
+	public float getArountSpeed() {
+		return arountSpeed;
 	}
 	
 	public String toShortString() {

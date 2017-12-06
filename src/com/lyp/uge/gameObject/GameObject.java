@@ -5,6 +5,8 @@ import com.lyp.uge.input.KeyboardInput;
 import com.lyp.uge.input.MouseInput;
 import com.lyp.uge.input.Keyboard.OnKeyboardListener;
 import com.lyp.uge.model.TextureModel;
+import com.lyp.uge.renderEngine.Renderer;
+import com.lyp.uge.shader.ShaderProgram;
 
 public abstract class GameObject {
 
@@ -21,7 +23,7 @@ public abstract class GameObject {
 	protected OnKeyboardListener onKeyboardListener;
 	
 	public abstract void update();
-	public abstract void render();
+	public abstract void render(Renderer renderer, ShaderProgram shader);
 	
 	protected boolean isKeyPressed(int keycode) {
 		return KeyboardInput.getInstance().isKeyDown(keycode);
