@@ -6,6 +6,8 @@ import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
 
 import org.lwjgl.util.vector.Matrix4f;
+
+import com.lyp.uge.game.Global;
 import com.lyp.uge.gameObject.GameObject;
 import com.lyp.uge.math.MathTools;
 import com.lyp.uge.model.RawModel;
@@ -27,9 +29,10 @@ public class Renderer {
 	}
 	
 	public Renderer(StaticShader shaderProgram) {
-		//模型背面（反面）不渲染着色
 		glEnable(GL_CULL_FACE);
-		glCullFace(GL_BACK);
+		if (Global.mode_render_cull_back) {
+			glCullFace(GL_BACK); //模型背面（反面）不渲染着色
+		}
 		
 		createProjectionMatrix();
 		shaderProgram.start();

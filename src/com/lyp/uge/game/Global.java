@@ -3,11 +3,13 @@ package com.lyp.uge.game;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Global {
+public final class Global {
 
 	private Global() {}
 	
 	public static boolean debug = true;
+	public static boolean mdoe_polygon_view = true;
+	public static boolean mode_render_cull_back	 = true;
 	
 	public static GlobalUser User = new GlobalUser();
 	

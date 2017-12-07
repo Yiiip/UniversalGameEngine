@@ -105,7 +105,8 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	
 	@Override
 	public void onKeyReleased(int keycode) {
-		if (enablePolygonMode && keycode == Keyboard.KEY_TAB) {
+		if ((enablePolygonMode || Global.mdoe_polygon_view) 
+				&& keycode == Keyboard.KEY_TAB) {
 			Logger.d("多边形模式", polygonModeNames[polygonModeIndex]);
 			glPolygonMode(GL_FRONT_AND_BACK, polygonModes[polygonModeIndex]);
 			polygonModeIndex = (polygonModeIndex >= polygonModes.length-1) ? 0 : (polygonModeIndex + 1);
