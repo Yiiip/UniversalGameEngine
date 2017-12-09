@@ -5,6 +5,9 @@ import static org.lwjgl.opengl.GL13.*;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
 
+import java.util.List;
+import java.util.Map;
+
 import org.lwjgl.util.vector.Matrix4f;
 
 import com.lyp.uge.game.Global;
@@ -24,11 +27,14 @@ public class Renderer {
 	private static float FAR_PLANE = 1000.0f; //最远平面处
 	
 	private Matrix4f projectionMatrix;
+	private StaticShader shaderProgram;
 	
 	public Renderer() {
 	}
 	
 	public Renderer(StaticShader shaderProgram) {
+		this.shaderProgram = shaderProgram;
+		
 		glEnable(GL_CULL_FACE);
 		if (Global.mode_render_cull_back) {
 			glCullFace(GL_BACK); //模型背面（反面）不渲染着色
@@ -94,7 +100,7 @@ public class Renderer {
 				object.getScale());
 		shaderProgram.loadTransformationMatrix(transformationMatrix);
 		
-		if (shaderProgram instanceof SpecularLightShader) { //高光反射光
+		if (shaderProgram instanceof SpecularLightShader) { //高光反射光Shader
 			Texture texture = textureModel.getTexture();
 			((SpecularLightShader) shaderProgram).loadSpecularLightingParms(texture.getShineDamper(), texture.getReflectivity());
 		}
@@ -108,8 +114,57 @@ public class Renderer {
 		glBindVertexArray(0);
 	}
 	
+	/**
+	 * 优化后的渲染方法
+	 * @param objects
+	 */
+	public void render(Map<TextureModel, List<GameObject>> objects) {
+		for (TextureModel textureModel : objects.keySet()) {
+			prepareTextureModel(textureModel);
+			List<GameObject> tempObjs = objects.get(textureModel);
+			for (GameObject tempObj : tempObjs) {
+				prepareInstance(tempObj);
+				glDrawElements(GL_TRIANGLES, textureModel.getRawModel().getVertexCount(), GL_UNSIGNED_INT, 0);
+			}
+			unbindTextureModel();
+		}
+	}
+	
+	private void prepareTextureModel(TextureModel textureModel) {
+		RawModel rawModel = textureModel.getRawModel();
+		glBindVertexArray(rawModel.getVaoID());
+		glEnableVertexAttribArray(Loader.ATTR_POSITIONS);
+		glEnableVertexAttribArray(Loader.ATTR_COORDINATES);
+		glEnableVertexAttribArray(Loader.ATTR_NORMALS);
+		
+		if (shaderProgram instanceof SpecularLightShader) { //高光反射光Shader
+			Texture texture = textureModel.getTexture();
+			((SpecularLightShader) shaderProgram).loadSpecularLightingParms(texture.getShineDamper(), texture.getReflectivity());
+		}
+		
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureModel.getTexture().getTextureID());
+	}
+	
+	private void prepareInstance(GameObject object) {
+		Matrix4f transformationMatrix = MathTools.createTransformationMatrix(
+				object.getPosition(), 
+				object.getRotateX(), 
+				object.getRotateY(), 
+				object.getRotateZ(), 
+				object.getScale());
+		shaderProgram.loadTransformationMatrix(transformationMatrix);
+	}
+
+	private void unbindTextureModel() {
+		glDisableVertexAttribArray(Loader.ATTR_POSITIONS);
+		glDisableVertexAttribArray(Loader.ATTR_COORDINATES);
+		glDisableVertexAttribArray(Loader.ATTR_NORMALS);
+		glBindVertexArray(0);
+	}
+	
 	private void createProjectionMatrix() {
-		float aspectRatio = (float) WindowManager.DEFAULT_WIDTH / (float) WindowManager.DEFAULT_HEIGHT;
+		float aspectRatio = (float) WindowManager.getWindowWidth() / (float) WindowManager.getWindowHeight();
         float y_scale = (float) ((1f / Math.tan(Math.toRadians(FIELD_OF_VIEW_ANGLE/2f))) * aspectRatio);
         float x_scale = y_scale / aspectRatio;
         float frustum_length = FAR_PLANE - NEAR_PLANE;
