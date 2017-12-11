@@ -45,10 +45,10 @@ public class TestTerrains extends GameApplication {
 		texture.setReflectivity(0.8f);	//设置反射光反射率因子
 		textureModel = new TextureModel(rawModel, texture);
 		light = new Light(new Vector3f(0.0f, 1000.0f, -500.0f), new Vector3f(1, 1, 1), loader);
-		objects = new DemoObject[100];
+		objects = new DemoObject[1000];
 		for (int i = 0; i < objects.length; i++) {
 			objects[i] = new DemoObject(textureModel, new Vector3f(
-					random.nextFloat() * 200 - 100, 0, -random.nextInt(250)), 0f, 0f, 0f, 1.5f +random.nextFloat()*2);
+					random.nextFloat() * Terrain.SIZE*2 - Terrain.SIZE, 0, -random.nextInt((int) Terrain.SIZE)), 0f, 0f, 0f, 1.5f +random.nextFloat()*2);
 		}
 		
 		Texture textureTerrain = loader.loadTexture("res/texture/" + DataUtils.TEX_GRASS);
