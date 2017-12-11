@@ -19,6 +19,7 @@ public class DataUtils {
 	public static final String TEX_COLOR_YELLOW_GRAY = "color_yellow_gray.png";
 	public static final String TEX_COLOR_LIGHT_GRAY = "color_light_gray.png";
 	public static final String TEX_GRASS = "grass.png";
+	public static final String TEX_GRASS2 = "grass2.png";
 	public static final String TEX_IMAGE_PREVIEW = "image_preview.png";
 	public static final String TEX_MC_DIRT_GRASS = "mc_dirt_grass.png";
 	public static final String TEX_MC_CUBE = "mc_cube_texture.png";

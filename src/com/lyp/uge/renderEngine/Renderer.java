@@ -20,6 +20,11 @@ import com.lyp.uge.shader.StaticShader;
 import com.lyp.uge.texture.Texture;
 import com.lyp.uge.window.WindowManager;
 
+/**
+ * 渲染GameObject对象
+ * @author LYP
+ *
+ */
 public class Renderer {
 	
 	private static float FIELD_OF_VIEW_ANGLE = 70;
@@ -32,6 +37,7 @@ public class Renderer {
 	public Renderer() {
 	}
 	
+	//旧版
 	public Renderer(StaticShader shaderProgram) {
 		this.shaderProgram = shaderProgram;
 		
@@ -45,11 +51,25 @@ public class Renderer {
 		shaderProgram.loadProjectionMatrix(projectionMatrix);
 		shaderProgram.stop();
 	}
+	
+	//新版
+	public Renderer(StaticShader shaderProgram, Matrix4f projectionMatrix) {
+		this.shaderProgram = shaderProgram;
+		
+		glEnable(GL_CULL_FACE);
+		if (Global.mode_render_cull_back) {
+			glCullFace(GL_BACK); //模型背面（反面）不渲染着色
+		}
+		
+		shaderProgram.start();
+		shaderProgram.loadProjectionMatrix(projectionMatrix);
+		shaderProgram.stop();
+	}
 
+	//TODO 这里是旧版prepare，新版已移入RendererManager
 	public void prepare() {
 		this.prepare(.12f, .12f, .12f, 1.0f);
 	}
-	
 	public void prepare(float r, float g, float b, float a) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(r, g, b, a);
@@ -163,6 +183,7 @@ public class Renderer {
 		glBindVertexArray(0);
 	}
 	
+	//TODO 这里是旧版，新版已移入RendererManager
 	private void createProjectionMatrix() {
 		float aspectRatio = (float) WindowManager.getWindowWidth() / (float) WindowManager.getWindowHeight();
         float y_scale = (float) ((1f / Math.tan(Math.toRadians(FIELD_OF_VIEW_ANGLE/2f))) * aspectRatio);

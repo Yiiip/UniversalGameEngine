@@ -11,11 +11,11 @@ public class StaticShader extends ShaderProgram {
 	private static String VERTEX_FILE = "shader/vertexShader2.txt";
 	private static String FRAGMENT_FILE = "shader/fragShader2.txt";
 	
-	private int uniform_transformationMatrix;
-	private int uniform_projectionMatrix;
-	private int uniform_viewMatrix;
-	private int uniform_lightPos;
-	private int uniform_lightColor;
+	protected int uniform_transformationMatrix;
+	protected int uniform_projectionMatrix;
+	protected int uniform_viewMatrix;
+	protected int uniform_lightPos;
+	protected int uniform_lightColor;
 
 	public StaticShader() {
 		super(VERTEX_FILE, FRAGMENT_FILE);
@@ -23,8 +23,6 @@ public class StaticShader extends ShaderProgram {
 	
 	public StaticShader(String vertexFile, String fragmentFile) {
 		super(vertexFile, fragmentFile);
-		VERTEX_FILE = vertexFile;
-		FRAGMENT_FILE = fragmentFile;
 	}
 
 	@Override

@@ -12,6 +12,10 @@ public class SpecularLightShader extends StaticShader {
 		super(VERTEX_FILE, FRAGMENT_FILE);
 	}
 	
+	public SpecularLightShader(String vertexFile, String fragmentFile) {
+		super(vertexFile, fragmentFile);
+	}
+	
 	@Override
 	protected void getAllUniformLocations() {
 		super.getAllUniformLocations();
