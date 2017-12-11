@@ -44,7 +44,9 @@ public class TestTerrains extends GameApplication {
 		texture.setShineDamper(8.0f);	//设置反射光亮度衰减因子
 		texture.setReflectivity(0.8f);	//设置反射光反射率因子
 		textureModel = new TextureModel(rawModel, texture);
+		
 		light = new Light(new Vector3f(0.0f, 1000.0f, -500.0f), new Vector3f(1, 1, 1), loader);
+		
 		objects = new DemoObject[1000];
 		for (int i = 0; i < objects.length; i++) {
 			objects[i] = new DemoObject(textureModel, new Vector3f(
@@ -52,8 +54,8 @@ public class TestTerrains extends GameApplication {
 		}
 		
 		Texture textureTerrain = loader.loadTexture("res/texture/" + DataUtils.TEX_GRASS);
-		textureTerrain.setShineDamper(10.0f);	//设置反射光亮度衰减因子
-		textureTerrain.setReflectivity(0.7f);	//设置反射光反射率因子
+		textureTerrain.setShineDamper(10.0f);
+		textureTerrain.setReflectivity(0.7f);
 		terrains = new Terrain[2];
 		terrains[0] = new Terrain(0, -1, loader, textureTerrain);
 		terrains[1] = new Terrain(-1, -1, loader, textureTerrain);

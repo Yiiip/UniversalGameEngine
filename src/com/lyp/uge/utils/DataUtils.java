@@ -24,6 +24,7 @@ public class DataUtils {
 	public static final String TEX_MC_DIRT_GRASS = "mc_dirt_grass.png";
 	public static final String TEX_MC_CUBE = "mc_cube_texture.png";
 	public static final String TEX_TREE = "tree.png";
+	public static final String TEX_STALL = "stallTexture.png";
 	public static final String TEX_FLAPPY_BIRD = "flappy_bird.png";
 	public static final String TEX_FONT_PRODUCT_SANS = "font_ProductSans.png";
 	public static final String TEX_FONT_PIXELED = "font_Pixeled.png";
