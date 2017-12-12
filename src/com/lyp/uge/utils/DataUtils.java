@@ -5,6 +5,7 @@ public class DataUtils {
 	public static final String OBJ_DRAGON = "dragon.obj";
 	public static final String OBJ_RABBIT = "rabbit.obj"; //斯坦福兔
 	public static final String OBJ_TREE = "tree.obj";
+	public static final String OBJ_LOW_POLY_TREE = "lowPolyTree.obj";
 	public static final String OBJ_CUBE = "cube.obj";
 	public static final String OBJ_CUBE2 = "cube2.obj";
 	public static final String OBJ_SPHERE_LOW_QUALITY = "sphere_low_quality.obj";
@@ -15,6 +16,8 @@ public class DataUtils {
 	public static final String OBJ_SUZANNE = "suzanne.obj"; //猴子
 	public static final String OBJ_ARMADILLO = "armadillo.obj"; //怪兽
 	public static final String OBJ_TYRA = "tyra.obj"; //恐龙
+	public static final String OBJ_GRASS_REAL = "grassRealModel.obj";
+	public static final String OBJ_FERN = "fern.obj";
 	
 	public static final String TEX_COLOR_YELLOW_GRAY = "color_yellow_gray.png";
 	public static final String TEX_COLOR_LIGHT_GRAY = "color_light_gray.png";
@@ -24,8 +27,13 @@ public class DataUtils {
 	public static final String TEX_MC_DIRT_GRASS = "mc_dirt_grass.png";
 	public static final String TEX_MC_CUBE = "mc_cube_texture.png";
 	public static final String TEX_TREE = "tree.png";
+	public static final String TEX_LOW_POLY_TREE = "lowPolyTree.png";
+	public static final String TEX_GRASS_REAL = "grass_real.png";
+	public static final String TEX_FERN = "fern.png";
+	public static final String TEX_FLOWER = "flower.png";
 	public static final String TEX_STALL = "stallTexture.png";
 	public static final String TEX_FLAPPY_BIRD = "flappy_bird.png";
+	
 	public static final String TEX_FONT_PRODUCT_SANS = "font_ProductSans.png";
 	public static final String TEX_FONT_PIXELED = "font_Pixeled.png";
 	public static final String TEX_FONT_ARIAL = "font_Arial.png";
