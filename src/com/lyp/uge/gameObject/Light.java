@@ -60,6 +60,7 @@ public class Light extends GameObject {
 
 	@Override
 	public void render(Renderer renderer, ShaderProgram shader) {
+		//TODO
 		glCullFace(GL_FRONT); //变为渲染背面
 		renderer.render(this, (StaticShader) shader);
 		glCullFace(GL_BACK); //变为渲染正面

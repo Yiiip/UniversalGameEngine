@@ -37,10 +37,7 @@ public class RendererManager {
 	private List<Terrain> terrains = null;
 	
 	public RendererManager() {
-		glEnable(GL_CULL_FACE);
-		if (Global.mode_render_cull_back) {
-			glCullFace(GL_BACK); //模型背面（反面）不渲染着色
-		}
+		if (Global.mode_culling_back) { enableCulling();}
 		createProjectionMatrix();
 		this.shaderProgram = new SpecularLightShader();
 		this.renderer = new Renderer(shaderProgram, projectionMatrix);
@@ -116,5 +113,14 @@ public class RendererManager {
         projectionMatrix.m23 = -1;
         projectionMatrix.m32 = -((2 * NEAR_PLANE * FAR_PLANE) / frustum_length);
         projectionMatrix.m33 = 0;
+	}
+	
+	public static void enableCulling() {
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK); //模型背面（反面）不渲染着色
+	}
+	
+	public static void disableCulling() {
+		glDisable(GL_CULL_FACE);
 	}
 }

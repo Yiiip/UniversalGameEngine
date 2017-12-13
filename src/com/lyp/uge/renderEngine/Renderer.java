@@ -40,12 +40,7 @@ public class Renderer {
 	//旧版
 	public Renderer(StaticShader shaderProgram) {
 		this.shaderProgram = shaderProgram;
-		
-		glEnable(GL_CULL_FACE);
-		if (Global.mode_render_cull_back) {
-			glCullFace(GL_BACK); //模型背面（反面）不渲染着色
-		}
-		
+		if (Global.mode_culling_back) { RendererManager.enableCulling();}
 		createProjectionMatrix();
 		shaderProgram.start();
 		shaderProgram.loadProjectionMatrix(projectionMatrix);
@@ -55,12 +50,7 @@ public class Renderer {
 	//新版
 	public Renderer(StaticShader shaderProgram, Matrix4f projectionMatrix) {
 		this.shaderProgram = shaderProgram;
-		
-		glEnable(GL_CULL_FACE);
-		if (Global.mode_render_cull_back) {
-			glCullFace(GL_BACK); //模型背面（反面）不渲染着色
-		}
-		
+		if (Global.mode_culling_back) { RendererManager.enableCulling();}
 		shaderProgram.start();
 		shaderProgram.loadProjectionMatrix(projectionMatrix);
 		shaderProgram.stop();
@@ -159,6 +149,9 @@ public class Renderer {
 		
 		if (shaderProgram instanceof SpecularLightShader) { //高光反射光Shader
 			Texture texture = textureModel.getTexture();
+			if (texture.isHasTransparency()) {
+				RendererManager.disableCulling();
+			}
 			((SpecularLightShader) shaderProgram).loadSpecularLightingParms(texture.getShineDamper(), texture.getReflectivity());
 		}
 		
@@ -177,6 +170,7 @@ public class Renderer {
 	}
 
 	private void unbindTextureModel() {
+		if (Global.mode_culling_back) { RendererManager.enableCulling();}
 		glDisableVertexAttribArray(Loader.ATTR_POSITIONS);
 		glDisableVertexAttribArray(Loader.ATTR_COORDINATES);
 		glDisableVertexAttribArray(Loader.ATTR_NORMALS);

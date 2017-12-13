@@ -59,8 +59,9 @@ public class TestTerrains extends GameApplication {
 		Texture grassTexture = loader.loadTexture("res/texture/" + DataUtils.TEX_GRASS_REAL);
 		grassTexture.setShineDamper(8.0f);
 		grassTexture.setReflectivity(2.0f);
+		grassTexture.setHasTransparency(true);
 		TextureModel grassTextureModel = new TextureModel(grassRawModel, grassTexture);
-		oGrasses = new DemoObject[1500];
+		oGrasses = new DemoObject[2000];
 		for (int i = 0; i < oGrasses.length; i++) {
 			oGrasses[i] = new DemoObject(grassTextureModel, new Vector3f(
 					random.nextFloat() * Terrain.SIZE*2 - Terrain.SIZE, 0, -random.nextInt((int) Terrain.SIZE)-10.0f), 0f, 0f, 0f, random.nextFloat()+0.05f);
@@ -69,8 +70,9 @@ public class TestTerrains extends GameApplication {
 		Texture fernTexture = loader.loadTexture("res/texture/" + DataUtils.TEX_FERN);
 		fernTexture.setShineDamper(10.0f);
 		fernTexture.setReflectivity(1.0f);
+		fernTexture.setHasTransparency(true);
 		TextureModel fernTextureModel = new TextureModel(fernRawModel, fernTexture);
-		oFerns = new DemoObject[1000];
+		oFerns = new DemoObject[1100];
 		for (int i = 0; i < oFerns.length; i++) {
 			oFerns[i] = new DemoObject(fernTextureModel, new Vector3f(
 					random.nextFloat() * Terrain.SIZE*2 - Terrain.SIZE, 0, -random.nextInt((int) Terrain.SIZE)-10.0f), 0f, 0f, 0f, random.nextFloat()+0.04f);
@@ -79,7 +81,7 @@ public class TestTerrains extends GameApplication {
 		//地形
 		Texture textureTerrain = loader.loadTexture("res/texture/" + DataUtils.TEX_GRASS);
 		textureTerrain.setShineDamper(10.0f);
-		textureTerrain.setReflectivity(0.7f);
+		textureTerrain.setReflectivity(0.5f);
 		terrains = new Terrain[2];
 		terrains[0] = new Terrain(0, -1, loader, textureTerrain);
 		terrains[1] = new Terrain(-1, -1, loader, textureTerrain);

@@ -17,8 +17,9 @@ public class Texture {
 	private int width;
 	private int height;
 	
-	private float shineDamper;	//光照亮度衰减率
-	private float reflectivity;		//光照反射率
+	private float shineDamper = 1.0f;	//光照亮度衰减率
+	private float reflectivity = 0.0f;	//光照反射率
+	private boolean hasTransparency = false; //是否有透明通道
 
 	public Texture(String path) {
 		this.textureID = loadTexture(path);
@@ -92,5 +93,13 @@ public class Texture {
 	
 	public float getShineDamper() {
 		return shineDamper;
+	}
+	
+	public void setHasTransparency(boolean hasTransparency) {
+		this.hasTransparency = hasTransparency;
+	}
+	
+	public boolean isHasTransparency() {
+		return hasTransparency;
 	}
 }

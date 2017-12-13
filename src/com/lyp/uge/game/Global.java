@@ -9,7 +9,7 @@ public final class Global {
 	
 	public static boolean debug = true;
 	public static boolean mdoe_polygon_view = true;
-	public static boolean mode_render_cull_back	 = true;
+	public static boolean mode_culling_back = true;
 	
 	public static GlobalUser User = new GlobalUser();
 	
