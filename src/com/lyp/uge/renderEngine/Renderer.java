@@ -17,7 +17,6 @@ import com.lyp.uge.model.RawModel;
 import com.lyp.uge.model.TextureModel;
 import com.lyp.uge.shader.SpecularLightShader;
 import com.lyp.uge.shader.StaticShader;
-import com.lyp.uge.shader.TerrainShader;
 import com.lyp.uge.texture.Texture;
 import com.lyp.uge.window.WindowManager;
 
@@ -154,9 +153,8 @@ public class Renderer {
 				RendererManager.disableCulling();
 			}
 			((SpecularLightShader) shaderProgram).loadSpecularLightingParms(texture.getShineDamper(), texture.getReflectivity());
-		}
-		if (shaderProgram instanceof TerrainShader) {
-			((TerrainShader) shaderProgram).loadFakeLightingParms(textureModel.getTexture().isUseFakeLighting());
+			((SpecularLightShader) shaderProgram).loadAmbientLightness(texture.getAmbientLightness());
+			((SpecularLightShader) shaderProgram).loadFakeLightingParms(texture.isUseFakeLighting());
 		}
 		
 		glActiveTexture(GL_TEXTURE0);

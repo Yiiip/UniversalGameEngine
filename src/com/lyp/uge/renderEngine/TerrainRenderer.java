@@ -51,6 +51,7 @@ public class TerrainRenderer {
 		if (shaderProgram instanceof TerrainShader) {
 			Texture texture = terrain.getTexture();
 			shaderProgram.loadSpecularLightingParms(texture.getShineDamper(), texture.getReflectivity());
+			shaderProgram.loadAmbientLightness(texture.getAmbientLightness());
 		}
 		
 		glActiveTexture(GL_TEXTURE0);

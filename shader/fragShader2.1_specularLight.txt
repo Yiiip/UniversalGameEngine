@@ -11,6 +11,7 @@ uniform sampler2D textureSampler;
 uniform vec3 lightColor;
 uniform float shineDamper;
 uniform float reflectivity;
+uniform float ambientLightness;
 
 void main (void) {
 
@@ -18,7 +19,7 @@ void main (void) {
 	vec3 unitLightVector = normalize(to_light_vector);
 
 	float nDotl = dot(unitNormal, unitLightVector);
-	float brightness = max(nDotl, 0.5); //if second parameter >0 means ambient light(环境光)
+	float brightness = max(nDotl, ambientLightness); //if second parameter >0 means ambient light(环境光)
 	vec3 diffuse = brightness * lightColor;
 
 	vec3 unitVectorToCamera = normalize(to_camera_vector);

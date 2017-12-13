@@ -21,7 +21,8 @@ public class Texture {
 	private float reflectivity = 0.0f;	//光照反射率
 	private boolean hasTransparency = false; //是否有透明通道
 	private boolean useFakeLighting = false; //是否使用假光替代原有法线（即让法线竖直向上(0,1,0)）
-
+	private float ambientLightness = 0.25f;	//环境光强度，默认给予一定亮度
+	
 	public Texture(String path) {
 		this.textureID = loadTexture(path);
 	}
@@ -110,5 +111,13 @@ public class Texture {
 	
 	public boolean isUseFakeLighting() {
 		return useFakeLighting;
+	}
+	
+	public void setAmbientLightness(float ambientLightness) {
+		this.ambientLightness = ambientLightness;
+	}
+	
+	public float getAmbientLightness() {
+		return ambientLightness;
 	}
 }

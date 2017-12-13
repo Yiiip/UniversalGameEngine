@@ -60,7 +60,8 @@ public class TestTerrains extends GameApplication {
 		grassTexture.setShineDamper(8.0f);
 		grassTexture.setReflectivity(3.0f);
 		grassTexture.setHasTransparency(true);
-		grassTexture.setUseFakeLighting(true);
+		//grassTexture.setUseFakeLighting(true);
+		grassTexture.setAmbientLightness(0.7f);
 		TextureModel grassTextureModel = new TextureModel(grassRawModel, grassTexture);
 		oGrasses = new DemoObject[2000];
 		for (int i = 0; i < oGrasses.length; i++) {
