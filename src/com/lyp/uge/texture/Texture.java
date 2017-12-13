@@ -20,6 +20,7 @@ public class Texture {
 	private float shineDamper = 1.0f;	//光照亮度衰减率
 	private float reflectivity = 0.0f;	//光照反射率
 	private boolean hasTransparency = false; //是否有透明通道
+	private boolean useFakeLighting = false; //是否使用假光替代原有法线（即让法线竖直向上(0,1,0)）
 
 	public Texture(String path) {
 		this.textureID = loadTexture(path);
@@ -101,5 +102,13 @@ public class Texture {
 	
 	public boolean isHasTransparency() {
 		return hasTransparency;
+	}
+	
+	public void setUseFakeLighting(boolean useFakeLighting) {
+		this.useFakeLighting = useFakeLighting;
+	}
+	
+	public boolean isUseFakeLighting() {
+		return useFakeLighting;
 	}
 }

@@ -58,8 +58,9 @@ public class TestTerrains extends GameApplication {
 		RawModel grassRawModel = OBJLoader.loadObjModel(DataUtils.OBJ_GRASS_REAL, loader);
 		Texture grassTexture = loader.loadTexture("res/texture/" + DataUtils.TEX_GRASS_REAL);
 		grassTexture.setShineDamper(8.0f);
-		grassTexture.setReflectivity(2.0f);
+		grassTexture.setReflectivity(3.0f);
 		grassTexture.setHasTransparency(true);
+		grassTexture.setUseFakeLighting(true);
 		TextureModel grassTextureModel = new TextureModel(grassRawModel, grassTexture);
 		oGrasses = new DemoObject[2000];
 		for (int i = 0; i < oGrasses.length; i++) {
