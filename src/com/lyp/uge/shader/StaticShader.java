@@ -6,7 +6,7 @@ import com.lyp.uge.gameObject.Light;
 import com.lyp.uge.math.MathTools;
 import com.lyp.uge.renderEngine.Loader;
 
-public class StaticShader extends ShaderProgram {
+public class StaticShader extends Shader {
 	
 	private static String VERTEX_FILE = "shader/vertexShader2.txt";
 	private static String FRAGMENT_FILE = "shader/fragShader2.txt";

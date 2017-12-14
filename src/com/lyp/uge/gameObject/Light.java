@@ -9,7 +9,7 @@ import com.lyp.uge.model.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.renderEngine.OBJLoader;
 import com.lyp.uge.renderEngine.Renderer;
-import com.lyp.uge.shader.ShaderProgram;
+import com.lyp.uge.shader.Shader;
 import com.lyp.uge.shader.StaticShader;
 import com.lyp.uge.texture.Texture;
 import com.lyp.uge.utils.DataUtils;
@@ -59,7 +59,7 @@ public class Light extends GameObject {
 	}
 
 	@Override
-	public void render(Renderer renderer, ShaderProgram shader) {
+	public void render(Renderer renderer, Shader shader) {
 		//TODO
 		glCullFace(GL_FRONT); //变为渲染背面
 		renderer.render(this, (StaticShader) shader);

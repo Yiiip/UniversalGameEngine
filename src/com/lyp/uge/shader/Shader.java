@@ -15,7 +15,7 @@ import com.lyp.uge.utils.BufferUtils;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL20.*;
 
-public abstract class ShaderProgram {
+public abstract class Shader {
 
 	private int programID;
 	private int vertexShaderID;
@@ -23,7 +23,7 @@ public abstract class ShaderProgram {
 	
 	private static FloatBuffer matrixBuffer = BufferUtils.createFloatBuffer(new float[4*4]);
 	
-	public ShaderProgram(String vertexFile, String fragmentFile) {
+	public Shader(String vertexFile, String fragmentFile) {
 		vertexShaderID = loadShader(vertexFile, GL_VERTEX_SHADER);
 		fragmentShaderID = loadShader(fragmentFile, GL_FRAGMENT_SHADER);
 		programID = glCreateProgram();

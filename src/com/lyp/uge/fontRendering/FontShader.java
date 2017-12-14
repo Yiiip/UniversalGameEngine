@@ -3,9 +3,9 @@ package com.lyp.uge.fontRendering;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.renderEngine.Loader;
-import com.lyp.uge.shader.ShaderProgram;
+import com.lyp.uge.shader.Shader;
 
-public class FontShader extends ShaderProgram{
+public class FontShader extends Shader{
 
 	private static final String VERTEX_FILE = "shader/fontVertex.txt";
 	private static final String FRAGMENT_FILE = "shader/fontFragment.txt";

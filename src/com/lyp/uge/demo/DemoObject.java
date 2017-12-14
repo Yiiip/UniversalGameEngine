@@ -4,7 +4,7 @@ import org.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.gameObject.GameObject;
 import com.lyp.uge.model.TextureModel;
 import com.lyp.uge.renderEngine.Renderer;
-import com.lyp.uge.shader.ShaderProgram;
+import com.lyp.uge.shader.Shader;
 
 public class DemoObject extends GameObject {
 	
@@ -22,7 +22,7 @@ public class DemoObject extends GameObject {
 	}
 
 	@Override
-	public void render(Renderer renderer, ShaderProgram shader) {
+	public void render(Renderer renderer, Shader shader) {
 	}
 
 }

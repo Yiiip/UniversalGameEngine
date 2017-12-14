@@ -4,7 +4,7 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.input.MouseInput;
 import com.lyp.uge.renderEngine.Renderer;
-import com.lyp.uge.shader.ShaderProgram;
+import com.lyp.uge.shader.Shader;
 
 import static com.lyp.uge.input.Mouse.*;
 import static com.lyp.uge.input.Keyboard.*;
@@ -68,7 +68,7 @@ public class Camera extends GameObject {
 	}
 	
 	@Override
-	public void render(Renderer renderer, ShaderProgram shader) {
+	public void render(Renderer renderer, Shader shader) {
 	}
 	
 	public float getPitch() {
