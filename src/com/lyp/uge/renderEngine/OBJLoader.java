@@ -14,6 +14,9 @@ import com.lyp.uge.logger.Logger;
 import com.lyp.uge.model.RawModel;
 
 public class OBJLoader {
+	
+	private OBJLoader() {
+	}
 
 	public static RawModel loadObjModel(String fileName, Loader loader) {
 		String filePath = "res/obj/" + fileName;

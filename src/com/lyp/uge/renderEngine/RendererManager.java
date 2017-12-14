@@ -13,6 +13,7 @@ import com.lyp.uge.game.Global;
 import com.lyp.uge.gameObject.Camera;
 import com.lyp.uge.gameObject.GameObject;
 import com.lyp.uge.gameObject.Light;
+import com.lyp.uge.math.MathTools;
 import com.lyp.uge.model.TextureModel;
 import com.lyp.uge.shader.SpecularLightShader;
 import com.lyp.uge.shader.StaticShader;
@@ -33,12 +34,13 @@ public class RendererManager {
 	private TerrainRenderer terrainRenderer;
 	private TerrainShader terrainShader;
 	
-	private Map<TextureModel, List<GameObject>> objects = null;
+	private Map<TextureModel, List<GameObject>> objects = null; //model map objects
 	private List<Terrain> terrains = null;
 	
 	public RendererManager() {
 		if (Global.mode_culling_back) { enableCulling();}
-		createProjectionMatrix();
+		
+		this.projectionMatrix = MathTools.createProjectionMatrix(FIELD_OF_VIEW_ANGLE, NEAR_PLANE, FAR_PLANE, (float) WindowManager.getWindowWidth(), (float) WindowManager.getWindowHeight());
 		this.shaderProgram = new SpecularLightShader();
 		this.renderer = new Renderer(shaderProgram, projectionMatrix);
 		this.objects = new HashMap<TextureModel, List<GameObject>>();
@@ -62,13 +64,13 @@ public class RendererManager {
 			return;
 		}
 		TextureModel textureModel = object.getModel();
-		List<GameObject> batch = objects.get(textureModel);
-		if (batch != null) {
-			batch.add(object);
+		List<GameObject> objs = objects.get(textureModel);
+		if (objs != null) {
+			objs.add(object);
 		} else {
-			List<GameObject> newBatch = new ArrayList<>();
-			newBatch.add(object);
-			objects.put(textureModel, newBatch);
+			List<GameObject> newObjs = new ArrayList<>();
+			newObjs.add(object);
+			objects.put(textureModel, newObjs);
 		}
 	}
 	
@@ -98,21 +100,6 @@ public class RendererManager {
 	public void cleanUp() {
 		shaderProgram.cleanUp();
 		terrainShader.cleanUp();
-	}
-	
-	private void createProjectionMatrix() {
-		float aspectRatio = (float) WindowManager.getWindowWidth() / (float) WindowManager.getWindowHeight();
-        float y_scale = (float) ((1f / Math.tan(Math.toRadians(FIELD_OF_VIEW_ANGLE/2f))) * aspectRatio);
-        float x_scale = y_scale / aspectRatio;
-        float frustum_length = FAR_PLANE - NEAR_PLANE;
-        
-        projectionMatrix = new Matrix4f();
-        projectionMatrix.m00 = x_scale;
-        projectionMatrix.m11 = y_scale;
-        projectionMatrix.m22 = -((FAR_PLANE + NEAR_PLANE) / frustum_length);
-        projectionMatrix.m23 = -1;
-        projectionMatrix.m32 = -((2 * NEAR_PLANE * FAR_PLANE) / frustum_length);
-        projectionMatrix.m33 = 0;
 	}
 	
 	public static void enableCulling() {

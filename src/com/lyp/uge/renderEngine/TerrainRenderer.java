@@ -55,7 +55,7 @@ public class TerrainRenderer {
 		}
 		
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, terrain.getTexture().getTextureID());
+		glBindTexture(GL_TEXTURE_2D, terrain.getTexture().getID());
 	}
 	
 	private void loadModelMatrix(Terrain terrain) {

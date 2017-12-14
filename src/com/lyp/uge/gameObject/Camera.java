@@ -71,6 +71,10 @@ public class Camera extends GameObject {
 	public void render(Renderer renderer, Shader shader) {
 	}
 	
+	@Override
+	public void destory() {
+	}
+	
 	public float getPitch() {
 		return pitch;
 	}

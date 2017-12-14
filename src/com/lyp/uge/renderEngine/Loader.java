@@ -39,7 +39,7 @@ public class Loader {
 	
 	public RawModel loadToVAO(float[] positions, int[] indices) {
 		int vaoID = createVAO();
-		bindIndicesBuffer(indices);
+		storeIndicesBuffer(indices);
 		storeDataInAttributeList(ATTR_POSITIONS, 3, positions);
 		unbindVAO();
 		return new RawModel(vaoID, indices.length);
@@ -47,7 +47,7 @@ public class Loader {
 	
 	public RawModel loadToVAO(float[] positions, float[] textureCoords, int[] indices) {
 		int vaoID = createVAO();
-		bindIndicesBuffer(indices);
+		storeIndicesBuffer(indices);
 		storeDataInAttributeList(ATTR_POSITIONS, 3, positions);
 		storeDataInAttributeList(ATTR_COORDINATES, 2, textureCoords);
 		unbindVAO();
@@ -56,7 +56,7 @@ public class Loader {
 	
 	public RawModel loadToVAO(float[] positions, float[] textureCoords, float[] normals, int[] indices) {
 		int vaoID = createVAO();
-		bindIndicesBuffer(indices);
+		storeIndicesBuffer(indices);
 		storeDataInAttributeList(ATTR_POSITIONS, 3, positions);
 		storeDataInAttributeList(ATTR_COORDINATES, 2, textureCoords);
 		storeDataInAttributeList(ATTR_NORMALS, 3, normals);
@@ -74,7 +74,7 @@ public class Loader {
 	
 	public Texture loadTexture(String filePath) {
 		Texture texture = new Texture(filePath);
-		int textureID = texture.getTextureID();
+		int textureID = texture.getID();
 		textures.add(textureID);
 		return texture;
 	}
@@ -89,18 +89,18 @@ public class Loader {
 	private void storeDataInAttributeList(int attributeNumber, int count, float[] data) {
 		int vboID = glGenBuffers();
 		glBindBuffer(GL_ARRAY_BUFFER, vboID);
-		FloatBuffer buffer = BufferUtils.createFloatBuffer(data);
-		glBufferData(GL_ARRAY_BUFFER, buffer, GL_STATIC_DRAW);
+		FloatBuffer dataBuffer = BufferUtils.createFloatBuffer(data);
+		glBufferData(GL_ARRAY_BUFFER, dataBuffer, GL_STATIC_DRAW);
 		glVertexAttribPointer(attributeNumber, count, GL_FLOAT, false, 0, 0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		vbos.add(vboID);
 	}
 	
-	private void bindIndicesBuffer(int[] indices) {
-		int vboID = glGenBuffers();
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboID);
-		IntBuffer buffer = BufferUtils.createIntBuffer(indices);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, buffer, GL_STATIC_DRAW);
+	private void storeIndicesBuffer(int[] indices) {
+		int vboID = glGenBuffers(); //创建缓冲区
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboID); //绑定缓冲区
+		IntBuffer dataBuffer = BufferUtils.createIntBuffer(indices); 
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, dataBuffer, GL_STATIC_DRAW); //存储缓冲区数据
 		vbos.add(vboID);
 	}
 	

@@ -77,44 +77,49 @@ public class Texture {
 		return width;
 	}
 	
-	public int getTextureID() {
+	public int getID() {
 		return textureID;
 	}
 	
-	public void setReflectivity(float reflectivity) {
+	public Texture setReflectivity(float reflectivity) {
 		this.reflectivity = reflectivity;
+		return this;
 	}
 	
 	public float getReflectivity() {
 		return reflectivity;
 	}
 	
-	public void setShineDamper(float shineDamper) {
+	public Texture setShineDamper(float shineDamper) {
 		this.shineDamper = shineDamper;
+		return this;
 	}
 	
 	public float getShineDamper() {
 		return shineDamper;
 	}
 	
-	public void setHasTransparency(boolean hasTransparency) {
+	public Texture setHasTransparency(boolean hasTransparency) {
 		this.hasTransparency = hasTransparency;
+		return this;
 	}
 	
 	public boolean isHasTransparency() {
 		return hasTransparency;
 	}
 	
-	public void setUseFakeLighting(boolean useFakeLighting) {
+	public Texture setUseFakeLighting(boolean useFakeLighting) {
 		this.useFakeLighting = useFakeLighting;
+		return this;
 	}
 	
 	public boolean isUseFakeLighting() {
 		return useFakeLighting;
 	}
 	
-	public void setAmbientLightness(float ambientLightness) {
+	public Texture setAmbientLightness(float ambientLightness) {
 		this.ambientLightness = ambientLightness;
+		return this;
 	}
 	
 	public float getAmbientLightness() {

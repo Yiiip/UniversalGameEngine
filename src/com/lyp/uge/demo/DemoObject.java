@@ -25,4 +25,7 @@ public class DemoObject extends GameObject {
 	public void render(Renderer renderer, Shader shader) {
 	}
 
+	@Override
+	public void destory() {
+	}
 }

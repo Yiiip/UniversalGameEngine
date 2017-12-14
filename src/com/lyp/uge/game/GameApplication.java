@@ -178,7 +178,7 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	
 	private void initFPSTextGUI() {
 		GUITextManager.init(loader);
-		fpsFont = new FontType(loader.loadTexture("res/texture/" + DataUtils.TEX_FONT_ARIAL).getTextureID(), new File("res/font/" + DataUtils.FONT_ARIAL));
+		fpsFont = new FontType(loader.loadTexture("res/texture/" + DataUtils.TEX_FONT_ARIAL).getID(), new File("res/font/" + DataUtils.FONT_ARIAL));
 		setFPSTextGUI("FPS : " + getFPS());
 	}
 	

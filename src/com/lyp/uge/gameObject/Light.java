@@ -18,22 +18,22 @@ import static com.lyp.uge.input.Keyboard.*;
 
 public class Light extends GameObject {
 
-	private Vector3f color;
+	private Vector3f lightColor;
 
 	public Light(Vector3f position, Vector3f color) {
 		this.position = position;
-		this.color = color;
+		this.lightColor = color;
 		this.speed = 0.06f;
 	}
 	
 	public Light(Vector3f position, Vector3f color, Loader loader) {
 		this(position, color);
 		RawModel rawModel = OBJLoader.loadObjModel(DataUtils.OBJ_SPHERE_LOW_QUALITY, loader);
-		Texture tex = loader.loadTexture("res/texture/" + DataUtils.TEX_COLOR_YELLOW_GRAY);
-		tex.setShineDamper(4.0f);
-		tex.setReflectivity(10.0f);
+		Texture tex = loader.loadTexture("res/texture/" + DataUtils.TEX_COLOR_YELLOW_GRAY)
+				.setShineDamper(4.0f)
+				.setReflectivity(10.0f);
 		this.model = new TextureModel(rawModel, tex);
-		this.scale = 0.6f;
+		this.scale = 0.65f;
 	}
 	
 	@Override
@@ -65,12 +65,16 @@ public class Light extends GameObject {
 		renderer.render(this, (StaticShader) shader);
 		glCullFace(GL_BACK); //变为渲染正面
 	}
+	
+	@Override
+	public void destory() {
+	}
 
 	public Vector3f getColor() {
-		return color;
+		return lightColor;
 	}
 	
 	public void setColor(Vector3f color) {
-		this.color = color;
+		this.lightColor = color;
 	}
 }

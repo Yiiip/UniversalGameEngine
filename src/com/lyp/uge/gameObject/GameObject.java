@@ -24,6 +24,7 @@ public abstract class GameObject {
 	
 	public abstract void update();
 	public abstract void render(Renderer renderer, Shader shader);
+	public abstract void destory();
 	
 	protected boolean isKeyPressed(int keycode) {
 		return KeyboardInput.getInstance().isKeyDown(keycode);

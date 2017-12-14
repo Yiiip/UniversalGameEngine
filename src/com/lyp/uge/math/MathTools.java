@@ -3,6 +3,7 @@ package com.lyp.uge.math;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.gameObject.Camera;
+import com.lyp.uge.window.WindowManager;
 
 public class MathTools {
 
@@ -28,5 +29,22 @@ public class MathTools {
 		Vector3f negativeCameraPos = new Vector3f(-cameraPos.x, -cameraPos.y, -cameraPos.z);
 		Matrix4f.translate(negativeCameraPos, viewMatrix, viewMatrix);
 		return viewMatrix;
+	}
+	
+	public static Matrix4f createProjectionMatrix(
+			float viewAngle, float nearPlane, float farPlane, float winWidth, float winHeight) {
+		float aspectRatio = winWidth / winHeight;
+        float y_scale = (float) ((1.0f / Math.tan(Math.toRadians(viewAngle / 2.0f))) * aspectRatio);
+        float x_scale = y_scale / aspectRatio;
+        float frustum_length = farPlane - nearPlane; //视锥体长度
+        
+        Matrix4f projectionMatrix = new Matrix4f();
+        projectionMatrix.m00 = x_scale;
+        projectionMatrix.m11 = y_scale;
+        projectionMatrix.m22 = -((farPlane + nearPlane) / frustum_length);
+        projectionMatrix.m23 = -1.0f;
+        projectionMatrix.m32 = -((2 * nearPlane * farPlane) / frustum_length);
+        projectionMatrix.m33 = 0.0f;
+        return projectionMatrix;
 	}
 }

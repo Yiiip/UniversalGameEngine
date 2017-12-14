@@ -87,7 +87,7 @@ public class Renderer {
 		glEnableVertexAttribArray(Loader.ATTR_POSITIONS);
 		glEnableVertexAttribArray(Loader.ATTR_COORDINATES);
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textureModel.getTexture().getTextureID());
+		glBindTexture(GL_TEXTURE_2D, textureModel.getTexture().getID());
 		glDrawElements(GL_TRIANGLES, rawModel.getVertexCount(), GL_UNSIGNED_INT, 0);
 		glDisableVertexAttribArray(Loader.ATTR_POSITIONS);
 		glDisableVertexAttribArray(Loader.ATTR_COORDINATES);
@@ -116,7 +116,7 @@ public class Renderer {
 		}
 		
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textureModel.getTexture().getTextureID());
+		glBindTexture(GL_TEXTURE_2D, textureModel.getTexture().getID());
 		glDrawElements(GL_TRIANGLES, rawModel.getVertexCount(), GL_UNSIGNED_INT, 0);
 		glDisableVertexAttribArray(Loader.ATTR_POSITIONS);
 		glDisableVertexAttribArray(Loader.ATTR_COORDINATES);
@@ -158,7 +158,7 @@ public class Renderer {
 		}
 		
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textureModel.getTexture().getTextureID());
+		glBindTexture(GL_TEXTURE_2D, textureModel.getTexture().getID());
 	}
 	
 	private void prepareInstance(GameObject object) {

@@ -33,6 +33,7 @@ public class DataUtils {
 	public static final String TEX_FLOWER = "flower.png";
 	public static final String TEX_STALL = "stallTexture.png";
 	public static final String TEX_FLAPPY_BIRD = "flappy_bird.png";
+	public static final String TEX_GROUND01 = "ground01.png";
 	
 	public static final String TEX_FONT_PRODUCT_SANS = "font_ProductSans.png";
 	public static final String TEX_FONT_PIXELED = "font_Pixeled.png";
