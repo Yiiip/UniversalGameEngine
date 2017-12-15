@@ -2,8 +2,8 @@ package com.lyp.uge.shader;
 
 public class SpecularLightShader extends StaticShader {
 
-	private static String VERTEX_FILE = "shader/vertexShader2.1_specularLight.txt";
-	private static String FRAGMENT_FILE = "shader/fragShader2.1_specularLight.txt";
+	private static String VERTEX_FILE = "shader/vertexShader2.1_specularLight.vs";
+	private static String FRAGMENT_FILE = "shader/fragShader2.1_specularLight.fs";
 	
 	private int uniform_shineDamper;
 	private int uniform_reflectivity;

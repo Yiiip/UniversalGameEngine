@@ -37,7 +37,7 @@ public class TestCube extends GameApplication {
 	protected void onCreate() {
 		enablePolygonMode();
 		model_cube = loader.loadToVAO(DataUtils.CUBE_VERTICES_II, DataUtils.CUBE_TEXTURE_COORDS_II, DataUtils.CUBE_INDICES_II);
-		shader = new StaticShader("shader/vertexShader_cube_without_nor.txt" , "shader/fragShader_cube_without_nor.txt");
+		shader = new StaticShader("shader/vertexShader_cube_without_nor.vs" , "shader/fragShader_cube_without_nor.fs");
 		renderer = new Renderer(shader);
 		textureModel = new TextureModel(model_cube, loader.loadTexture("res/texture/" + DataUtils.TEX_MC_CUBE));
 		entity = new DemoObject(textureModel, new Vector3f(0.0f, 0.0f, -6.0f), 0f, 0f, 0f, 1f);

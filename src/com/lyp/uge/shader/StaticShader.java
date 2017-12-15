@@ -8,8 +8,8 @@ import com.lyp.uge.renderEngine.Loader;
 
 public class StaticShader extends Shader {
 	
-	private static String VERTEX_FILE = "shader/vertexShader2.txt";
-	private static String FRAGMENT_FILE = "shader/fragShader2.txt";
+	private static String VERTEX_FILE = "shader/vertexShader2.vs";
+	private static String FRAGMENT_FILE = "shader/fragShader2.fs";
 	
 	protected int uniform_transformationMatrix;
 	protected int uniform_projectionMatrix;

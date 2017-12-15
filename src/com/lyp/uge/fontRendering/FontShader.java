@@ -7,8 +7,8 @@ import com.lyp.uge.shader.Shader;
 
 public class FontShader extends Shader{
 
-	private static final String VERTEX_FILE = "shader/fontVertex.txt";
-	private static final String FRAGMENT_FILE = "shader/fontFragment.txt";
+	private static final String VERTEX_FILE = "shader/fontVertex.vs";
+	private static final String FRAGMENT_FILE = "shader/fontFragment.fs";
 	
 	private int uniform_color;
 	private int uniform_translation;
