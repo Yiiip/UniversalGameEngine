@@ -46,6 +46,10 @@ public abstract class GameObject {
 		this.rotateZ += dz;
 	}
 	
+	public static float normalize(float n) {
+		return n/100;
+	}
+	
 	public void setOnKeyboardListener(OnKeyboardListener onKeyboardListener) {
 		this.onKeyboardListener = onKeyboardListener;
 		KeyboardInput.getInstance().registerOnKeyboardListener(onKeyboardListener);

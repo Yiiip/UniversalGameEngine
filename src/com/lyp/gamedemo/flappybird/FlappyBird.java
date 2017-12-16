@@ -16,17 +16,17 @@ public class FlappyBird extends GameApplication {
 	@Override
 	protected void onCreate() {
 		enablePolygonMode();
-		level = new Level(getMainCamera());
+		level = new Level();
 	}
 
 	@Override
 	protected void onUpdate() {
-
+		level.update();
 	}
 
 	@Override
 	protected void onRender() {
-		level.render(null, null);
+		level.render();
 	}
 
 	@Override
