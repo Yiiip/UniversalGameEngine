@@ -126,4 +126,8 @@ public class WindowManager {
 	public static int getWindowHeight() {
 		return mWindow.getHeight();
 	}
+	
+	public static float getAspectRatio() {
+		return (float)getWindowWidth() / (float)getWindowHeight();
+	}
 }

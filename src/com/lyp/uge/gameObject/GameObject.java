@@ -11,7 +11,6 @@ import com.lyp.uge.shader.Shader;
 public abstract class GameObject {
 
 	protected int id;
-	protected int lawyerId;
 	protected TextureModel model;
 	protected Vector3f position = new Vector3f(0.0f, 0.0f, 0.0f);
 	protected float rotateX = 0.0f;
@@ -19,6 +18,7 @@ public abstract class GameObject {
 	protected float rotateZ = 0.0f;
 	protected float scale = 1.0f;
 	protected float speed = 0.0f;
+	protected float angleSpeed = 0.0f;
 	
 	protected OnKeyboardListener onKeyboardListener;
 	
@@ -44,10 +44,6 @@ public abstract class GameObject {
 		this.rotateX += dx;
 		this.rotateY += dy;
 		this.rotateZ += dz;
-	}
-	
-	public static float normalize(float n) {
-		return n/100;
 	}
 	
 	public void setOnKeyboardListener(OnKeyboardListener onKeyboardListener) {
@@ -109,6 +105,14 @@ public abstract class GameObject {
 	
 	public float getSpeed() {
 		return speed;
+	}
+	
+	public void setAngleSpeed(float angleSpeed) {
+		this.angleSpeed = angleSpeed;
+	}
+	
+	public float getAngleSpeed() {
+		return angleSpeed;
 	}
 	
 	@Override

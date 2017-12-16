@@ -1,41 +1,40 @@
 package com.lyp.gamedemo.flappybird;
 
 import com.lyp.gamedemo.flappybird.object.Bg;
-import com.lyp.uge.renderEngine.Renderer;
-import com.lyp.uge.shader.StaticShader;
+import com.lyp.uge.renderEngine.Loader;
+import com.lyp.uge.renderEngine.Renderer2dManager;
 
 public class Level {
-
-	private Renderer mRenderer;
-	private StaticShader mShader;
 	
 	private Bg[] bgs;
 	
-	public Level() {
+	public Level(Loader loader) {
 		bgs = new Bg[4];
 		for (int i = 0; i < bgs.length; i++) {
-			bgs[i] = new Bg(i * Bg.normalize(75));
+			bgs[i] = new Bg(loader, i);
 		}
-		mShader = new StaticShader("src/com/lyp/gamedemo/flappybird/shader/bg.vs" , "src/com/lyp/gamedemo/flappybird/shader/bg.fs");
-		mRenderer = new Renderer(mShader);
 	}
 	
 	public void update() {
 		for (int i = 0; i < bgs.length; i++) {
-			bgs[i].update();
-			if (bgs[i].getPosition().x < -Bg.normalize(75)) {
-				bgs[i].getPosition().x = Bg.normalize(75) * (bgs.length-1) - 0.01f;
+			if (bgs[i].getX() <= -bgs[0].getWidth()) {
+				bgs[i].setX((bgs[0].getWidth()) * 3 - 0.5f);
+				//Logger.d("BG", "第"+(i+1)+"个背景重置了");
 			}
+			bgs[i].update();
 		}
 	}
 	
-	public void render() {
-		mRenderer.prepare();
-		mShader.start();
+	public void addToRender(Renderer2dManager manager) {
 		for (int i = 0; i < bgs.length; i++) {
-			bgs[i].render(mRenderer, mShader);
+			manager.addObject(bgs[i]);
 		}
-		mShader.stop();
+	}
+	
+	public void destory() {
+		for (int i = 0; i < bgs.length; i++) {
+			bgs[i].destory();
+		}
 	}
 	
 	public boolean isGameOver() {

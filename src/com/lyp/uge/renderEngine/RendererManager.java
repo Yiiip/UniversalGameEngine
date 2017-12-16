@@ -80,18 +80,22 @@ public class RendererManager {
 	
 	public void renderAll(Light light, Camera camera) {
 		prepare();
-		shaderProgram.start();
-		shaderProgram.loadLight(light);
-		shaderProgram.loadViewMatrix(camera);
-		renderer.render(objects);
-		light.render(renderer, shaderProgram);
-		shaderProgram.stop();
+		if (objects != null && !objects.isEmpty()) {
+			shaderProgram.start();
+			shaderProgram.loadLight(light);
+			shaderProgram.loadViewMatrix(camera);
+			renderer.render(objects);
+			light.render(renderer, shaderProgram);
+			shaderProgram.stop();
+		}
 		
-		terrainShader.start();
-		terrainShader.loadLight(light);
-		terrainShader.loadViewMatrix(camera);
-		terrainRenderer.render(terrains);
-		terrainShader.stop();
+		if (terrains != null && !terrains.isEmpty()) {
+			terrainShader.start();
+			terrainShader.loadLight(light);
+			terrainShader.loadViewMatrix(camera);
+			terrainRenderer.render(terrains);
+			terrainShader.stop();
+		}
 		
 		objects.clear();
 		terrains.clear();

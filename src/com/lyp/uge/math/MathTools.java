@@ -46,4 +46,17 @@ public class MathTools {
         projectionMatrix.m33 = 0.0f;
         return projectionMatrix;
 	}
+	
+	public static Matrix4f createOrthographicMatrix(
+			float left, float right, float top, float bottom, float near, float far) {
+        Matrix4f orthographicMatrix = new Matrix4f();
+        orthographicMatrix.m00 = 2.0f / (left - right);
+        orthographicMatrix.m11 = 2.0f / (top - bottom);
+        orthographicMatrix.m22 = 2.0f / (near - far);
+        orthographicMatrix.m03 = (left + right) / (left - right);
+        orthographicMatrix.m13 = (bottom + top) / (bottom - top);
+        orthographicMatrix.m23 = (near + far) / (near - far);
+        orthographicMatrix.m33 = 1.0f;
+        return orthographicMatrix;
+	}
 }

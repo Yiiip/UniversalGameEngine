@@ -1,22 +1,23 @@
 package com.lyp.gamedemo.flappybird.object;
 
-import com.lyp.uge.gameObject.GameObject;
+import com.lyp.gamedemo.flappybird.FlappyBird;
+import com.lyp.gamedemo.flappybird.shader.BgShader;
+import com.lyp.uge.gameObject.Sprite2D;
 import com.lyp.uge.model.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.renderEngine.Renderer;
 import com.lyp.uge.shader.Shader;
-import com.lyp.uge.shader.StaticShader;
 
-public class Bg extends GameObject {
+public class Bg extends Sprite2D {
 	
-	private Loader mLoader = new Loader();
+	private static final int WIDTH = 100;
 	
-	public Bg(float x) {
+	public Bg(Loader loader, int index) {
 		float[] vertices = new float[] { 
-			-1.0f ,  1.0f, 0.0f,//V0
-			-1.0f , -1.0f, 0.0f,//V1 
-			-0.25f, -1.0f, 0.0f,//V2
-			-0.25f,  1.0f, 0.0f,//V3
+			-1.0f,  1.0f, 0.0f,//V0
+			-1.0f, -1.0f, 0.0f,//V1 
+			-0.0f, -1.0f, 0.0f,//V2
+			-0.0f,  1.0f, 0.0f,//V3
 		};
 		float[] textureCoordinates = new float[] {
 			0, 0,
@@ -29,22 +30,26 @@ public class Bg extends GameObject {
 			2, 3, 0,
 		};
 		
-		this.speed = 0.004f;
-		this.position.x = x;
-		this.position.z = 0.0f;
+		this.setWidth(WIDTH);
+		this.setLawyer(FlappyBird.LayerID.BACKGROUND.value());
+		this.setX(index * getWidth());
+		
+		this.speed = 0.005f;
 		this.model = new TextureModel(
-				mLoader.loadToVAO(vertices, textureCoordinates, indices),
-				mLoader.loadTexture("src/com/lyp/gamedemo/flappybird/res/bg.jpg"));
+				loader.loadToVAO(vertices, textureCoordinates, indices),
+				loader.loadTexture("src/com/lyp/gamedemo/flappybird/res/bg.jpg"));
+		
+		this.setShader(new BgShader());
 	}
 
 	@Override
 	public void update() {
-		position.x -= speed;
+		doMove(-speed, 0, 0);
 	}
 
 	@Override
 	public void render(Renderer renderer, Shader shader) {
-		renderer.render(this, (StaticShader) shader);
+		((BgShader) shader).setupBirdUniform(FlappyBird.getBird().getPosition());
 	}
 
 	@Override
