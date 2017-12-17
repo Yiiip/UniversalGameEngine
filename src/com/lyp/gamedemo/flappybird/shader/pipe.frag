@@ -7,6 +7,7 @@ out vec4 out_color;
 
 uniform sampler2D textureSampler;
 uniform int pipeDirection;
+uniform vec3 birdPosition;
 
 void main (void) {
 	vec2 newTextureCoord = vec2(pass_tc.x, pass_tc.y);
@@ -16,4 +17,6 @@ void main (void) {
 
 	out_color = texture(textureSampler, newTextureCoord);
 	if (out_color.a < 1.0) { discard; }
+	out_color *= 1.0 / (length(birdPosition.xy - pass_position.xy) + 1.3) + 0.52;
+	out_color.a = 1.0;
 }

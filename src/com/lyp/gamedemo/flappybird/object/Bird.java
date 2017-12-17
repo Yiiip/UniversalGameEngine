@@ -2,8 +2,10 @@ package com.lyp.gamedemo.flappybird.object;
 
 import static com.lyp.uge.input.Keyboard.*;
 
+import com.lyp.gamedemo.flappybird.FlappyBird;
 import com.lyp.gamedemo.flappybird.FlappyBird.LayerID;
 import com.lyp.gamedemo.flappybird.FlappyBird.ObjectID;
+import com.lyp.gamedemo.flappybird.FlappyBird.Status;
 import com.lyp.gamedemo.flappybird.shader.BirdShader;
 import com.lyp.uge.gameObject.Sprite2D;
 import com.lyp.uge.model.TextureModel;
@@ -15,7 +17,7 @@ public class Bird extends Sprite2D {
 	
 	private static final int SIZE = 10;
 	
-	public boolean canControl = true;
+	public boolean deadAnim = true;
 	
 	public Bird(Loader loader) {
 		this.setWidth(SIZE);
@@ -39,7 +41,9 @@ public class Bird extends Sprite2D {
 		};
 		
 		this.id = ObjectID.BIRD.value();
-		this.setLawyer(LayerID.INSTANCE.value());
+		this.setLayer(LayerID.INSTANCE_FRONT.value());
+		this.speed = 0.015f;
+		this.angleSpeed = 1.0f;
 		this.model = new TextureModel(
 			loader.loadToVAO(vertices, textureCoordinates, indices),
 			loader.loadTexture("src/com/lyp/gamedemo/flappybird/res/bird.png"));
@@ -49,11 +53,22 @@ public class Bird extends Sprite2D {
 
 	@Override
 	public void update() {
-		gravity();
-		if (getY() > -150f) {
+		if (FlappyBird.STATUS == Status.GAMEOVER && deadAnim) {
+			setX(getX() + 1);
+			speed = 0.015f;
+			angleSpeed = 2.0f;
+			deadAnim = false;
+		}
+		if (getY() > -70f) {
+			gravity();
 			doMove(0.0f, speed, 0.0f);
 			setRotateZ(angleSpeed * 9f);
-//			setRotateZ(speed * 900 + 5);
+			//setRotateZ(speed * 900 + 5);
+		} else {
+			if (FlappyBird.STATUS == Status.PLAYING) {
+				FlappyBird.STATUS = Status.GAMEOVER;
+			}
+			return;
 		}
 	}
 

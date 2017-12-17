@@ -31,7 +31,7 @@ public class Bg extends Sprite2D {
 		};
 		
 		this.setWidth(WIDTH);
-		this.setLawyer(FlappyBird.LayerID.BACKGROUND.value());
+		this.setLayer(FlappyBird.LayerID.BACKGROUND.value());
 		this.setX(index * getWidth());
 		
 		this.speed = 0.005f;

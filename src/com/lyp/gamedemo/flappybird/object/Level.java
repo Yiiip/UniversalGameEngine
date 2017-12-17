@@ -1,5 +1,7 @@
 package com.lyp.gamedemo.flappybird.object;
 
+import com.lyp.gamedemo.flappybird.FlappyBird;
+import com.lyp.gamedemo.flappybird.FlappyBird.Status;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.renderEngine.Renderer2dManager;
 
@@ -15,10 +17,13 @@ public class Level {
 	}
 	
 	public void update() {
+		if (FlappyBird.STATUS == Status.GAMEOVER) {
+			return;
+		}
 		for (int i = 0; i < bgs.length; i++) {
 			if (bgs[i].getX() <= -bgs[0].getWidth()) {
 				bgs[i].setX((bgs[0].getWidth()) * 3 - 0.5f);
-				//Logger.d("BG", "第"+(i+1)+"个背景重置了");
+				//Logger.d("BG", "Number "+(i+1)+" bg reset position.");
 			}
 			bgs[i].update();
 		}
@@ -34,9 +39,5 @@ public class Level {
 		for (int i = 0; i < bgs.length; i++) {
 			bgs[i].destory();
 		}
-	}
-	
-	public boolean isGameOver() {
-		return false;
 	}
 }

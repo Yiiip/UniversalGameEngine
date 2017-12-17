@@ -8,6 +8,7 @@ import com.lyp.gamedemo.flappybird.object.Bird;
 import com.lyp.gamedemo.flappybird.object.Level;
 import com.lyp.gamedemo.flappybird.object.Pipe;
 import com.lyp.uge.game.GameApplication;
+import com.lyp.uge.input.Keyboard;
 import com.lyp.uge.logger.Logger;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.renderEngine.Renderer2dManager;
@@ -17,7 +18,7 @@ public class FlappyBird extends GameApplication {
 	public static Status STATUS = Status.PLAYING;
 	
 	private static Bird bird;
-	private Pipe[] pipes;
+	private static Pipe[] pipes;
 	private Level level;
 	
 	private Random r = new Random();
@@ -33,16 +34,20 @@ public class FlappyBird extends GameApplication {
 	@Override
 	protected void onCreate() {
 		enablePolygonMode();
-		level = new Level(loader);
-		bird = new Bird(loader);
-		pipes = new Pipe[10];
-		for (int i = 0; i < pipes.length; i++) {
-			pipes[i] = new Pipe(loader, i%2==0 ? 1 : 0, (i+1)*45.0f + r.nextInt(15));
-		}
+		initGame();
 		
 		getMainCamera().setPosition(new Vector3f(0.3f, 0.0f, 2.5f));
 		getMainCamera().setControl(true);
 		rendererManager = new Renderer2dManager();
+	}
+	
+	private void initGame() {
+		level = new Level(loader);
+		bird = new Bird(loader);
+		pipes = new Pipe[6];
+		for (int i = 0; i < pipes.length; i++) {
+			pipes[i] = new Pipe(loader, i%2==0 ? 1 : 0, (i+3)*45.0f + r.nextInt(12));
+		}
 	}
 
 	@Override
@@ -59,6 +64,22 @@ public class FlappyBird extends GameApplication {
 		level.addToRender(rendererManager);
 		
 		rendererManager.renderAll(getMainCamera());
+	}
+	
+	@Override
+	public void onKeyReleased(int keycode) {
+		super.onKeyReleased(keycode);
+		if (STATUS == Status.GAMEOVER && Keyboard.KEY_G == keycode) {
+			resetGame();
+		}
+	}
+	
+	private void resetGame() {
+		level = null;
+		bird = null;
+		pipes = null;
+		STATUS = Status.PLAYING;
+		initGame();
 	}
 
 	@Override
@@ -84,7 +105,8 @@ public class FlappyBird extends GameApplication {
 	
 	public static enum LayerID {
 		BACKGROUND(0),
-		INSTANCE(1);
+		INSTANCE_BACK(1),
+		INSTANCE_FRONT(2);
 		private int lid;
 		private LayerID(int lid) {
 			this.lid = lid;

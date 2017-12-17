@@ -2,9 +2,14 @@ package com.lyp.gamedemo.flappybird.object;
 
 import java.util.Random;
 
+import org.lwjgl.util.vector.Vector2f;
+
+import com.lyp.gamedemo.flappybird.FlappyBird;
 import com.lyp.gamedemo.flappybird.FlappyBird.LayerID;
 import com.lyp.gamedemo.flappybird.FlappyBird.ObjectID;
+import com.lyp.gamedemo.flappybird.FlappyBird.Status;
 import com.lyp.gamedemo.flappybird.shader.PipeShader;
+import com.lyp.uge.ai.Collision;
 import com.lyp.uge.gameObject.Sprite2D;
 import com.lyp.uge.model.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
@@ -14,10 +19,9 @@ import com.lyp.uge.shader.Shader;
 public class Pipe extends Sprite2D {
 	
 	private static final int WIDTH = 20;
-	private static final int HEIGHT = 60;
+	private static final int HEIGHT = 80;
 	
 	private int direction;
-	public boolean canControl = true;
 	
 	private Random r = new Random();
 	
@@ -43,10 +47,10 @@ public class Pipe extends Sprite2D {
 		};
 		
 		this.id = ObjectID.PIPE.value();
-		this.setLawyer(LayerID.INSTANCE.value());
+		this.setLayer(LayerID.INSTANCE_BACK.value());
 		this.setX(x);
 		this.direction = direction;
-		this.setY(direction == 0 ? -80+(10-r.nextInt(20)) : 20+((10-r.nextInt(20))));
+		this.setY(direction == 0 ? -100+(10-r.nextInt(20)) : 20+((10-r.nextInt(20))));
 		this.speed = 0.007f;
 		this.model = new TextureModel(
 			loader.loadToVAO(vertices, textureCoordinates, indices),
@@ -57,12 +61,35 @@ public class Pipe extends Sprite2D {
 
 	@Override
 	public void update() {
+		if (FlappyBird.STATUS == Status.GAMEOVER) {
+			return;
+		}
+		if (collision()) {
+			FlappyBird.STATUS = Status.GAMEOVER;
+			return;
+		}
 		doMove(-speed, 0.0f, 0.0f);
+		if (getX() < -95) {
+			setX(170f + r.nextInt(12));
+			setY(direction == 0 ? -100+(10-r.nextInt(20)) : 20+((10-r.nextInt(20))));
+		}
+	}
+	
+	private boolean collision() {
+		float birdX = FlappyBird.getBird().getX();
+		float birdY = FlappyBird.getBird().getY();
+		float birdSize = FlappyBird.getBird().getSize();
+		Vector2f birdStart = new Vector2f(birdX - birdSize/2, birdY - birdSize/2);
+		Vector2f birdEnd = new Vector2f(birdX + birdSize/2, birdY + birdSize/2);
+		Vector2f pipeStart = new Vector2f(getX(), getY());
+		Vector2f pipeEnd = new Vector2f(getX() + getWidth(), getY() + getHeight());
+		return Collision.rectangleCollision(birdStart, birdEnd, pipeStart, pipeEnd);
 	}
 
 	@Override
 	public void render(Renderer renderer, Shader shader) {
 		((PipeShader) shader).setupPipeDirection(direction);
+		((PipeShader) shader).setupBirdPosition(FlappyBird.getBird().getPosition());
 	}
 
 	@Override

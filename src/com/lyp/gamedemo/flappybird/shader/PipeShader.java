@@ -1,10 +1,11 @@
 package com.lyp.gamedemo.flappybird.shader;
 
+import org.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.shader.Static2dShader;
 
 public class PipeShader extends Static2dShader {
 	
-	//protected int uniform_birdPos;
+	protected int uniform_birdPosition;
 	protected int uniform_pipeDirectioin;
 
 	public PipeShader() {
@@ -15,13 +16,13 @@ public class PipeShader extends Static2dShader {
 	@Override
 	protected void getAllUniformLocations() {
 		super.getAllUniformLocations();
-		//uniform_birdPos = super.getUniformLocation("birdPos");
+		uniform_birdPosition = super.getUniformLocation("birdPosition");
 		uniform_pipeDirectioin = super.getUniformLocation("pipeDirection");
 	}
 	
-//	public void setupBirdUniform(Vector3f position) {
-//		super.loadVector(uniform_birdPos, position);
-//	}
+	public void setupBirdPosition(Vector3f position) {
+		super.loadVector(uniform_birdPosition, position);
+	}
 	
 	/**
 	 * @param dir
