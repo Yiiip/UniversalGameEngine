@@ -8,7 +8,9 @@ import static org.lwjgl.opengl.GL30.*;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.lyp.uge.model.RawModel;
 import com.lyp.uge.texture.Texture;
@@ -20,14 +22,19 @@ public class Loader {
 	public static final int ATTR_COORDINATES = 1;
 	public static final int ATTR_NORMALS = 2;
 	
+	//store id
 	private List<Integer> vaos;
 	private List<Integer> vbos;
 	private List<Integer> textures;
+	
+	//cache java object
+	private Map<String, Texture> textureCache;
 	
 	public Loader() {
 		vaos = new ArrayList<Integer>();
 		vbos = new ArrayList<Integer>();
 		textures = new ArrayList<Integer>();
+		textureCache = new HashMap<>();
 	}
 
 	public RawModel loadToVAO(float[] positions) {
@@ -73,9 +80,13 @@ public class Loader {
 	}
 	
 	public Texture loadTexture(String filePath) {
+		if (textureCache.containsKey(filePath) && textureCache.get(filePath) != null) {
+			return textureCache.get(filePath);
+		}
 		Texture texture = new Texture(filePath);
 		int textureID = texture.getID();
 		textures.add(textureID);
+		textureCache.put(filePath, texture);
 		return texture;
 	}
 	
@@ -118,5 +129,6 @@ public class Loader {
 		for (Integer t : textures) {
 			glDeleteBuffers(t);
 		}
+		textureCache.clear();
 	}
 }

@@ -21,7 +21,7 @@ public abstract class Sprite2D extends GameObject {
 		return shader;
 	}
 	
-	public void setLawyer(int layer) {
+	public void setLayer(int layer) {
 		this.layer = layer;
 		this.position.z = normalize(layer);
 	}
