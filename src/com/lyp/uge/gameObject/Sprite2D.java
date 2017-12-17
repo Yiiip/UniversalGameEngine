@@ -63,7 +63,7 @@ public abstract class Sprite2D extends GameObject {
 	}
 	
 	public void setY(float y) {
-		this.position.x = normalize(y);
+		this.position.y = normalize(y);
 	}
 	
 	public float getY() {

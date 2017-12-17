@@ -21,7 +21,7 @@ import com.lyp.uge.texture.Texture;
 import com.lyp.uge.window.WindowManager;
 
 /**
- * 渲染GameObject对象
+ * 渲染GameObject对象(3D)
  * @author LYP
  *
  */

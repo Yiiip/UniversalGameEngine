@@ -1,6 +1,5 @@
-package com.lyp.gamedemo.flappybird;
+package com.lyp.gamedemo.flappybird.object;
 
-import com.lyp.gamedemo.flappybird.object.Bg;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.renderEngine.Renderer2dManager;
 

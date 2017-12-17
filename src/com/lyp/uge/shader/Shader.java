@@ -64,6 +64,12 @@ public abstract class Shader {
 		glDeleteProgram(programID);
 	}
 	
+	//TODO cache location mapping its name
+	
+	protected void loadInt(int location, int value) {
+		glUniform1i(location, value);
+	}
+	
 	protected void loadFloat(int location, float value) {
 		glUniform1f(location, value);
 	}

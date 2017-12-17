@@ -49,6 +49,15 @@ public class Bird extends Sprite2D {
 
 	@Override
 	public void update() {
+		gravity();
+		if (getY() > -150f) {
+			doMove(0.0f, speed, 0.0f);
+			setRotateZ(angleSpeed * 9f);
+//			setRotateZ(speed * 900 + 5);
+		}
+	}
+
+	private void gravity() {
 		if (isKeyPressed(KEY_G)) {
 			speed = 0.015f;
 			angleSpeed = 2.0f;
@@ -56,10 +65,8 @@ public class Bird extends Sprite2D {
 			speed -= 0.001f;
 			angleSpeed -= 0.1f;
 		}
-		doMove(0.0f, speed, 0.0f);
-		setRotateZ(angleSpeed * 10f);
 	}
-
+	
 	@Override
 	public void render(Renderer renderer, Shader shader) {
 	}
