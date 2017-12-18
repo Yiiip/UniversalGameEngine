@@ -10,7 +10,7 @@ public class BgShader extends Static2dShader {
 
 	public BgShader() {
 		super("src/com/lyp/gamedemo/flappybird/shader/bg.vert",
-				"src/com/lyp/gamedemo/flappybird/shader/bg.frag");
+			"src/com/lyp/gamedemo/flappybird/shader/bg.frag");
 	}
 
 	@Override

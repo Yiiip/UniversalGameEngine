@@ -59,7 +59,7 @@ public class Bird extends Sprite2D {
 			angleSpeed = 2.0f;
 			deadAnim = false;
 		}
-		if (getY() > -70f) {
+		if (getY() > -110f) {
 			gravity();
 			doMove(0.0f, speed, 0.0f);
 			setRotateZ(angleSpeed * 9f);

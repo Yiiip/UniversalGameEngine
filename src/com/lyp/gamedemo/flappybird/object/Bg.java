@@ -16,8 +16,8 @@ public class Bg extends Sprite2D {
 		float[] vertices = new float[] { 
 			-1.0f,  1.0f, 0.0f,//V0
 			-1.0f, -1.0f, 0.0f,//V1 
-			-0.0f, -1.0f, 0.0f,//V2
-			-0.0f,  1.0f, 0.0f,//V3
+			 0.0f, -1.0f, 0.0f,//V2
+			 0.0f,  1.0f, 0.0f,//V3
 		};
 		float[] textureCoordinates = new float[] {
 			0, 0,

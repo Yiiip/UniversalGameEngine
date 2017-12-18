@@ -33,9 +33,6 @@ public class Renderer2d {
 	
 	public Renderer2d() {
 		if (Global.mode_culling_back) { RendererManager.enableCulling();}
-//		shaderProgram.start();
-//		shaderProgram.loadProjectionMatrix(projectionMatrix);
-//		shaderProgram.stop();
 		this.projectionMatrix = MathTools.createProjectionMatrix(FIELD_OF_VIEW_ANGLE, NEAR_PLANE, FAR_PLANE, (float) WindowManager.getWindowWidth(), (float) WindowManager.getWindowHeight());
 	}
 
@@ -62,8 +59,10 @@ public class Renderer2d {
 		glEnableVertexAttribArray(Loader.ATTR_POSITIONS);
 		glEnableVertexAttribArray(Loader.ATTR_COORDINATES);
 		
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textureModel.getTexture().getID());
+		if (textureModel.getTexture() != null) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, textureModel.getTexture().getID());
+		}
 	}
 	
 	private void prepareInstance(Sprite2D object) {

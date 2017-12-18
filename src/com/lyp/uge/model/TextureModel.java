@@ -4,8 +4,8 @@ import com.lyp.uge.texture.Texture;
 
 public class TextureModel {
 
-	private RawModel rawModel;
-	private Texture texture;
+	private RawModel rawModel = null;
+	private Texture texture = null;
 	
 	public TextureModel(RawModel rawModel, Texture texture) {
 		this.rawModel = rawModel;

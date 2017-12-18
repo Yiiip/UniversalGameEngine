@@ -10,5 +10,7 @@ uniform vec3 birdPos;
 
 void main (void) {
 	out_color = texture(textureSampler, pass_tc);
-	out_color *= 3.0 / (length(birdPos.xy - pass_position.xy) + 3.0) + 0.25;
+	float radius = length(birdPos.xy - pass_position.xy);
+	out_color *= 1.0 / (radius + 0.55) - 0.38;
+//	out_color *= 0.8 / (radius + 0.5) + 0;
 }
