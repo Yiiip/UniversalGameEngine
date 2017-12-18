@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.lwjgl.util.vector.Vector4f;
+
 import com.lyp.uge.game.Global;
 import com.lyp.uge.gameObject.Camera;
 import com.lyp.uge.gameObject.Sprite2D;
@@ -51,6 +53,14 @@ public class Renderer2dManager {
 	
 	public void renderAll(Camera camera) {
 		prepare();
+		if (objects != null && !objects.isEmpty()) {
+			mRenderer.render(objects, camera);
+		}
+		objects.clear();
+	}
+	
+	public void renderAll(Camera camera, Vector4f preColor) {
+		prepare(preColor.x, preColor.y, preColor.z, preColor.w);
 		if (objects != null && !objects.isEmpty()) {
 			mRenderer.render(objects, camera);
 		}

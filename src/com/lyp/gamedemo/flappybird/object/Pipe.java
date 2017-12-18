@@ -64,14 +64,14 @@ public class Pipe extends Sprite2D {
 		if (FlappyBird.STATUS == Status.GAMEOVER) {
 			return;
 		}
-		if (collision()) {
-			FlappyBird.STATUS = Status.GAMEOVER;
-			return;
-		}
 		doMove(-speed, 0.0f, 0.0f);
 		if (getX() < -95) {
 			setX(170f + r.nextInt(12));
 			setY(direction == 0 ? -100+(10-r.nextInt(20)) : 20+((10-r.nextInt(20))));
+		}
+		if (collision()) {
+			FlappyBird.STATUS = Status.GAMEOVER;
+			return;
 		}
 	}
 	
