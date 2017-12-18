@@ -64,6 +64,15 @@ public class Camera extends GameObject {
 				yaw += arountSpeed * rotVec.y * MOUSE_SENSITIVITY;
 				pitch += arountSpeed * rotVec.x * MOUSE_SENSITIVITY;
 			}
+			
+			if (isWheelScrollUp()) {
+				position.z -= speed*0.6;
+				position.y -= speed*0.6;
+			}
+			if (isWheelScrollDown()) {
+				position.z += speed*0.6;
+				position.y += speed*0.6;
+			}
 		}
 	}
 	

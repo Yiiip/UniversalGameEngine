@@ -5,7 +5,7 @@ import static org.lwjgl.glfw.GLFW.*;
 import org.lwjgl.glfw.GLFWCursorEnterCallback;
 import org.lwjgl.glfw.GLFWCursorPosCallback;
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
-
+import org.lwjgl.glfw.GLFWScrollCallback;
 import org.lwjgl.util.vector.Vector2f;
 import com.lyp.uge.logger.Logger;
 
@@ -16,6 +16,7 @@ public class MouseInput {
 	private CursorPosCallback cursorPosCallback;
 	private MouseButtonCallback mouseButtonCallback;
 	private CursorEnterCallback cursorEnterCallback;
+	private MouseWheelCallback mouseWheelCallback;
 	
 	private final Vector2f previousPos;
     private final Vector2f currentPos;
@@ -25,6 +26,8 @@ public class MouseInput {
     private boolean leftButtonPressed = false;
     private boolean rightButtonPressed = false;
     private boolean middleButtonPressed = false;
+    private boolean wheelScrollUp = false;
+    private boolean wheelScrollDown = false;
 	
 	private MouseInput() {
 		previousPos = new Vector2f(-1.0f, -1.0f);
@@ -39,6 +42,9 @@ public class MouseInput {
 		}
 		if (cursorEnterCallback == null) {
 			cursorEnterCallback = new CursorEnterCallback();
+		}
+		if (mouseWheelCallback == null) {
+			mouseWheelCallback = new MouseWheelCallback();
 		}
 	}
 	
@@ -61,10 +67,10 @@ public class MouseInput {
 	class MouseButtonCallback extends GLFWMouseButtonCallback {
 		@Override
 		public void invoke(long window, int button, int action, int mods) {
-			leftButtonPressed		 = (button == Mouse.MOUSE_BUTTON_LEFT)		 && (action == GLFW_PRESS);
-            rightButtonPressed	 = (button == Mouse.MOUSE_BUTTON_RIGHT)	 && (action == GLFW_PRESS);
+			leftButtonPressed = (button == Mouse.MOUSE_BUTTON_LEFT) && (action == GLFW_PRESS);
+            rightButtonPressed = (button == Mouse.MOUSE_BUTTON_RIGHT) && (action == GLFW_PRESS);
             middleButtonPressed = (button == Mouse.MOUSE_BUTTON_MIDDLE) && (action == GLFW_PRESS);
-			Logger.d("Mouse", "btn" + button + " | pressed" + action);
+			Logger.d("MouseBtn", "btn" + button + " | pressed" + action);
 		}
 	}
 	
@@ -73,6 +79,20 @@ public class MouseInput {
 		public void invoke(long window, boolean entered) {
 			inWindow = entered;
 			Logger.d("Mouse", inWindow ? "inside" : "outside");
+		}
+	}
+	
+	class MouseWheelCallback extends GLFWScrollCallback {
+		@Override
+		public void invoke(long window, double xoffset, double yoffset) {
+			if (yoffset > 0) {
+				wheelScrollUp = true;
+				wheelScrollDown = false;
+			} else if (yoffset < 0) {
+				wheelScrollUp = false;
+				wheelScrollDown = true;
+			}
+			Logger.d("MouseScroll", "[" + xoffset + ", " + yoffset + "]");
 		}
 	}
 	
@@ -107,6 +127,10 @@ public class MouseInput {
 		return cursorEnterCallback;
 	}
 	
+	public MouseWheelCallback getMouseWheelCallback() {
+		return mouseWheelCallback;
+	}
+	
 	public boolean isMousePressed(int buttonCode) {
 		if (buttonCode == Mouse.MOUSE_BUTTON_LEFT) {
 			return leftButtonPressed;
@@ -125,6 +149,14 @@ public class MouseInput {
 	
 	public Vector2f getDeltaVec() {
 		return deltaVec;
+	}
+	
+	public boolean isWheelScrollUp() {
+		return wheelScrollUp;
+	}
+	
+	public boolean isWheelScrollDown() {
+		return wheelScrollDown;
 	}
 	
 	@Override

@@ -76,6 +76,7 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		glfwSetCursorPosCallback(window.getId(), MouseInput.getInstance().getCursorPosCallback());
 		glfwSetMouseButtonCallback(window.getId(), MouseInput.getInstance().getMouseButtonCallback());
 		glfwSetCursorEnterCallback(window.getId(), MouseInput.getInstance().getCursorEnterCallback());
+		glfwSetScrollCallback(window.getId(), MouseInput.getInstance().getMouseWheelCallback());
 		KeyboardInput.getInstance().registerOnKeyboardListener(this);
 	}
 	

@@ -34,6 +34,14 @@ public abstract class GameObject {
 		return MouseInput.getInstance().isMousePressed(buttonCode);
 	}
 	
+	protected boolean isWheelScrollUp() {
+		return MouseInput.getInstance().isWheelScrollUp();
+	}
+	
+	protected boolean isWheelScrollDown() {
+		return MouseInput.getInstance().isWheelScrollDown();
+	}
+	
 	public void doMove(float dx, float dy, float dz) {
 		this.position.x += dx;
 		this.position.y += dy;

@@ -16,8 +16,10 @@ public class DataUtils {
 	public static final String OBJ_SUZANNE = "suzanne.obj"; //猴子
 	public static final String OBJ_ARMADILLO = "armadillo.obj"; //怪兽
 	public static final String OBJ_TYRA = "tyra.obj"; //恐龙
-	public static final String OBJ_GRASS_REAL = "grassRealModel.obj";
-	public static final String OBJ_FERN = "fern.obj";
+	public static final String OBJ_GRASS_REAL = "grassRealModel.obj"; //小草
+	public static final String OBJ_FERN = "fern.obj"; //蕨类植物
+	public static final String OBJ_WINE_GLASS = "WineGlass.obj"; //高脚杯
+	public static final String OBJ_CRATE = "crate.obj"; //板条箱
 	
 	public static final String TEX_COLOR_YELLOW_GRAY = "color_yellow_gray.png";
 	public static final String TEX_COLOR_LIGHT_GRAY = "color_light_gray.png";
