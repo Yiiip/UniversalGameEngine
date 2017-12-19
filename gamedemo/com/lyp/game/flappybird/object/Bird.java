@@ -1,12 +1,12 @@
-package com.lyp.gamedemo.flappybird.object;
+package com.lyp.game.flappybird.object;
 
 import static com.lyp.uge.input.Keyboard.*;
 
-import com.lyp.gamedemo.flappybird.FlappyBird;
-import com.lyp.gamedemo.flappybird.FlappyBird.LayerID;
-import com.lyp.gamedemo.flappybird.FlappyBird.ObjectID;
-import com.lyp.gamedemo.flappybird.FlappyBird.Status;
-import com.lyp.gamedemo.flappybird.shader.BirdShader;
+import com.lyp.game.flappybird.FlappyBird;
+import com.lyp.game.flappybird.FlappyBird.LayerID;
+import com.lyp.game.flappybird.FlappyBird.ObjectID;
+import com.lyp.game.flappybird.FlappyBird.Status;
+import com.lyp.game.flappybird.shader.BirdShader;
 import com.lyp.uge.gameObject.Sprite2D;
 import com.lyp.uge.model.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
@@ -46,7 +46,7 @@ public class Bird extends Sprite2D {
 		this.angleSpeed = 1.0f;
 		this.model = new TextureModel(
 			loader.loadToVAO(vertices, textureCoordinates, indices),
-			loader.loadTexture("src/com/lyp/gamedemo/flappybird/res/bird.png"));
+			loader.loadTexture("gamedemo/com/lyp/game/flappybird/res/bird.png"));
 		
 		this.setShader(new BirdShader());
 	}

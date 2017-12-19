@@ -1,12 +1,12 @@
-package com.lyp.gamedemo.flappybird;
+package com.lyp.game.flappybird;
 
 import java.util.Random;
 
 import org.lwjgl.util.vector.Vector3f;
 
-import com.lyp.gamedemo.flappybird.object.Bird;
-import com.lyp.gamedemo.flappybird.object.Level;
-import com.lyp.gamedemo.flappybird.object.Pipe;
+import com.lyp.game.flappybird.object.Bird;
+import com.lyp.game.flappybird.object.Level;
+import com.lyp.game.flappybird.object.Pipe;
 import com.lyp.uge.game.GameApplication;
 import com.lyp.uge.input.Keyboard;
 import com.lyp.uge.logger.Logger;

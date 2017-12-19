@@ -1,4 +1,4 @@
-package com.lyp.gamedemo.flappybird.shader;
+package com.lyp.game.flappybird.shader;
 
 import org.lwjgl.util.vector.Vector3f;
 
@@ -9,8 +9,8 @@ public class BgShader extends Static2dShader {
 	protected int uniform_birdPos;
 
 	public BgShader() {
-		super("src/com/lyp/gamedemo/flappybird/shader/bg.vert",
-			"src/com/lyp/gamedemo/flappybird/shader/bg.frag");
+		super("gamedemo/com/lyp/game/flappybird/shader/bg.vert",
+			"gamedemo/com/lyp/game/flappybird/shader/bg.frag");
 	}
 
 	@Override

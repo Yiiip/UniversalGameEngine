@@ -1,4 +1,4 @@
-package com.lyp.uge.demo;
+package com.lyp.test;
 
 import org.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.gameObject.GameObject;

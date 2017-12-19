@@ -1,7 +1,7 @@
-package com.lyp.gamedemo.flappybird.object;
+package com.lyp.game.flappybird.object;
 
-import com.lyp.gamedemo.flappybird.FlappyBird;
-import com.lyp.gamedemo.flappybird.shader.BgShader;
+import com.lyp.game.flappybird.FlappyBird;
+import com.lyp.game.flappybird.shader.BgShader;
 import com.lyp.uge.gameObject.Sprite2D;
 import com.lyp.uge.model.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
@@ -37,7 +37,7 @@ public class Bg extends Sprite2D {
 		this.speed = 0.005f;
 		this.model = new TextureModel(
 				loader.loadToVAO(vertices, textureCoordinates, indices),
-				loader.loadTexture("src/com/lyp/gamedemo/flappybird/res/bg.jpg"));
+				loader.loadTexture("gamedemo/com/lyp/game/flappybird/res/bg.jpg"));
 		
 		this.setShader(new BgShader());
 	}

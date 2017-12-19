@@ -1,4 +1,4 @@
-package com.lyp.uge.demo;
+package com.lyp.test;
 
 import java.util.Random;
 

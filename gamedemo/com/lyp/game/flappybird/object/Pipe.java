@@ -1,14 +1,14 @@
-package com.lyp.gamedemo.flappybird.object;
+package com.lyp.game.flappybird.object;
 
 import java.util.Random;
 
 import org.lwjgl.util.vector.Vector2f;
 
-import com.lyp.gamedemo.flappybird.FlappyBird;
-import com.lyp.gamedemo.flappybird.FlappyBird.LayerID;
-import com.lyp.gamedemo.flappybird.FlappyBird.ObjectID;
-import com.lyp.gamedemo.flappybird.FlappyBird.Status;
-import com.lyp.gamedemo.flappybird.shader.PipeShader;
+import com.lyp.game.flappybird.FlappyBird;
+import com.lyp.game.flappybird.FlappyBird.LayerID;
+import com.lyp.game.flappybird.FlappyBird.ObjectID;
+import com.lyp.game.flappybird.FlappyBird.Status;
+import com.lyp.game.flappybird.shader.PipeShader;
 import com.lyp.uge.ai.Collision;
 import com.lyp.uge.gameObject.Sprite2D;
 import com.lyp.uge.model.TextureModel;
@@ -54,7 +54,7 @@ public class Pipe extends Sprite2D {
 		this.speed = 0.007f;
 		this.model = new TextureModel(
 			loader.loadToVAO(vertices, textureCoordinates, indices),
-			loader.loadTexture("src/com/lyp/gamedemo/flappybird/res/pipe.png"));
+			loader.loadTexture("gamedemo/com/lyp/game/flappybird/res/pipe.png"));
 		
 		this.setShader(new PipeShader());
 	}

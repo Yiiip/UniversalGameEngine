@@ -1,4 +1,4 @@
-package com.lyp.uge.demo;
+package com.lyp.test;
 
 import java.util.Random;
 
@@ -94,7 +94,7 @@ public class TestTerrains extends GameApplication {
 	@Override
 	protected void onUpdate() {
 		light.update();
-		Logger.d("Lighting", light.getPosition().toString());
+		//Logger.d("Lighting", light.getPosition().toString());
 	}
 	
 	@Override
