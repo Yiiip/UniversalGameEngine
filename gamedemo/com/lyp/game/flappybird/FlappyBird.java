@@ -9,7 +9,6 @@ import com.lyp.game.flappybird.object.Level;
 import com.lyp.game.flappybird.object.Pipe;
 import com.lyp.uge.game.GameApplication;
 import com.lyp.uge.input.Keyboard;
-import com.lyp.uge.logger.Logger;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.renderEngine.Renderer2dManager;
 
@@ -28,7 +27,6 @@ public class FlappyBird extends GameApplication {
 	@Override
 	protected void onInitWindow(int winWidth, int winHeight, String winTitle, boolean winResizeable) {
 		super.onInitWindow(1280, 720, "FlappyBird", false);
-		Logger.setLogOutLevel(com.lyp.uge.logger.Logger.Level.DEBUG);
 	}
 	
 	@Override

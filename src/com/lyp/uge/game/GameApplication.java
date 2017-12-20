@@ -17,6 +17,7 @@ import com.lyp.uge.input.MouseInput;
 import com.lyp.uge.input.Keyboard;
 import com.lyp.uge.input.Keyboard.OnKeyboardListener;
 import com.lyp.uge.logger.Logger;
+import com.lyp.uge.logger.Logger.Level;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.utils.DataUtils;
 import com.lyp.uge.utils.StringUtils;
@@ -59,8 +60,9 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	private void init() {
 		onInitWindow(WindowManager.DEFAULT_WIDTH, WindowManager.DEFAULT_HEIGHT, WindowManager.DEFAULT_TITLE, WindowManager.DEFAULT_RESIZEABLE);
 		GL.createCapabilities(); //create OpenGL Context
+		if (Global.debug_log) { Logger.setLogOutLevel(Level.DEBUG); }
 		Logger.i("OpenGL", glGetString(GL_VERSION));
-		Logger.d("Window", window.toString());
+		Logger.i("Window", window.toString());
 		initEvent();
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_BLEND);

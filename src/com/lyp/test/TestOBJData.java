@@ -7,7 +7,6 @@ import com.lyp.uge.game.GameApplication;
 import com.lyp.uge.gameObject.Light;
 import com.lyp.uge.input.Keyboard;
 import com.lyp.uge.logger.Logger;
-import com.lyp.uge.logger.Logger.Level;
 import com.lyp.uge.model.RawModel;
 import com.lyp.uge.model.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
@@ -35,7 +34,6 @@ public class TestOBJData extends GameApplication {
 	@Override
 	protected void onInitWindow(int winWidth, int winHeight, String winTitle, boolean winResizeable) {
 		super.onInitWindow(1600, 900, winTitle, winResizeable);
-		Logger.setLogOutLevel(Level.DEBUG);
 	}
 
 	@Override
