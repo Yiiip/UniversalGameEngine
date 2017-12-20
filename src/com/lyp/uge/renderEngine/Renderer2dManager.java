@@ -18,13 +18,13 @@ public class Renderer2dManager {
 	
 	private Renderer2d mRenderer;
 
-	private Map<TextureModel, List<Sprite2D>> objects = null; //model map objects
+	private Map<TextureModel, List<Sprite2D>> mObjects = null;
 	
 	public Renderer2dManager() {
 		if (Global.mode_culling_back) { enableCulling();}
 		
 		this.mRenderer = new Renderer2d();
-		this.objects = new HashMap<TextureModel, List<Sprite2D>>();
+		this.mObjects = new HashMap<TextureModel, List<Sprite2D>>();
 	}
 	
 	public void prepare() {
@@ -41,38 +41,41 @@ public class Renderer2dManager {
 			return;
 		}
 		TextureModel textureModel = object.getModel();
-		List<Sprite2D> objs = objects.get(textureModel);
+		List<Sprite2D> objs = mObjects.get(textureModel);
 		if (objs != null) {
 			objs.add(object);
 		} else {
 			List<Sprite2D> newObjs = new ArrayList<>();
 			newObjs.add(object);
-			objects.put(textureModel, newObjs);
+			mObjects.put(textureModel, newObjs);
 		}
 	}
 	
 	public void renderAll(Camera camera) {
 		prepare();
-		if (objects != null && !objects.isEmpty()) {
-			mRenderer.render(objects, camera);
+		if (mObjects != null && !mObjects.isEmpty()) {
+			mRenderer.render(mObjects, camera);
 		}
-		objects.clear();
+		mObjects.clear();
 	}
 	
 	public void renderAll(Camera camera, Vector4f preColor) {
 		prepare(preColor.x, preColor.y, preColor.z, preColor.w);
-		if (objects != null && !objects.isEmpty()) {
-			mRenderer.render(objects, camera);
+		if (mObjects != null && !mObjects.isEmpty()) {
+			mRenderer.render(mObjects, camera);
 		}
-		objects.clear();
+		mObjects.clear();
 	}
 	
 	public void cleanUp() {
+		mRenderer = null;
+		mObjects.clear();
+		mObjects = null;
 	}
 	
 	public static void enableCulling() {
 		glEnable(GL_CULL_FACE);
-		glCullFace(GL_BACK); //模型背面（反面）不渲染着色
+		glCullFace(GL_BACK);
 	}
 	
 	public static void disableCulling() {

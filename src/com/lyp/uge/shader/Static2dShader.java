@@ -35,14 +35,17 @@ public class Static2dShader extends Shader {
 		uniform_viewMatrix = super.getUniformLocation("viewMatrix");
 	}
 
-	public void loadTransformationMatrix(Matrix4f matrix4f) {
+	@Override
+	public void loadModelMatrix(Matrix4f matrix4f) {
 		super.loadMatrix(uniform_transformationMatrix, matrix4f);
 	}
 	
+	@Override
 	public void loadProjectionMatrix(Matrix4f projectionMatrix) {
 		super.loadMatrix(uniform_projectionMatrix, projectionMatrix);
 	}
 	
+	@Override
 	public void loadViewMatrix(Camera camera) {
 		Matrix4f viewMatrix = MathTools.createViewMatrix(camera);
 		super.loadMatrix(uniform_viewMatrix, viewMatrix);

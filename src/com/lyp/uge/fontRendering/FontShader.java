@@ -1,7 +1,10 @@
 package com.lyp.uge.fontRendering;
 
+import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
+
+import com.lyp.uge.gameObject.Camera;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.shader.Shader;
 
@@ -35,5 +38,20 @@ public class FontShader extends Shader{
 	
 	protected void loadTranslation(Vector2f translation) {
 		super.load2DVector(uniform_translation, translation);
+	}
+
+	@Override
+	public void loadModelMatrix(Matrix4f modelMatrix) {
+		return;
+	}
+
+	@Override
+	public void loadViewMatrix(Camera camera) {
+		return;
+	}
+
+	@Override
+	public void loadProjectionMatrix(Matrix4f projectionMatrix) {
+		return;
 	}
 }

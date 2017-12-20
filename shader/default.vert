@@ -1,0 +1,16 @@
+#version 330 core
+
+in vec3 position;
+in vec2 tc;
+
+out vec2 pass_tc;
+
+uniform mat4 modelMatrix;
+uniform mat4 viewMatrix;
+uniform mat4 projectionMatrix;
+
+void main (void) {
+	vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+	gl_Position = projectionMatrix * viewMatrix * worldPosition;
+	pass_tc = tc;
+}

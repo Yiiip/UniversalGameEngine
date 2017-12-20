@@ -9,6 +9,8 @@ import java.nio.FloatBuffer;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
+
+import com.lyp.uge.gameObject.Camera;
 import com.lyp.uge.logger.Logger;
 import com.lyp.uge.utils.BufferUtils;
 
@@ -64,7 +66,7 @@ public abstract class Shader {
 		glDeleteProgram(programID);
 	}
 	
-	//TODO cache location mapping its name
+	//TODO cache location mapped its name
 	
 	protected void loadInt(int location, int value) {
 		glUniform1i(location, value);
@@ -122,5 +124,10 @@ public abstract class Shader {
 		}
 		return shaderID;
 	}
+
+	//MVP
+	public abstract void loadModelMatrix(Matrix4f modelMatrix);
+	public abstract void loadViewMatrix(Camera camera);
+	public abstract void loadProjectionMatrix(Matrix4f projectionMatrix);
 	
 }

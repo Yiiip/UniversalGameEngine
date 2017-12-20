@@ -62,7 +62,7 @@ public class TerrainRenderer {
 		Matrix4f transformationMatrix = MathTools.createTransformationMatrix(
 				new Vector3f(terrain.getX(), 0.0f, terrain.getZ()), 
 				0.0f, 0.0f, 0.0f, 1.0f);
-		shaderProgram.loadTransformationMatrix(transformationMatrix);
+		shaderProgram.loadModelMatrix(transformationMatrix);
 	}
 
 	private void unbindTextureModel() {

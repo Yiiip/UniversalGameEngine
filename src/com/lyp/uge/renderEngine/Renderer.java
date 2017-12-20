@@ -15,8 +15,8 @@ import com.lyp.uge.gameObject.GameObject;
 import com.lyp.uge.math.MathTools;
 import com.lyp.uge.model.RawModel;
 import com.lyp.uge.model.TextureModel;
+import com.lyp.uge.shader.Shader;
 import com.lyp.uge.shader.SpecularLightShader;
-import com.lyp.uge.shader.StaticShader;
 import com.lyp.uge.texture.Texture;
 import com.lyp.uge.window.WindowManager;
 
@@ -32,14 +32,14 @@ public class Renderer {
 	private static float FAR_PLANE = 1000.0f; //最远平面处
 	
 	private Matrix4f projectionMatrix;
-	private StaticShader shaderProgram;
+	private Shader mShader;
 	
 	public Renderer() {
 	}
 	
 	//旧版
-	public Renderer(StaticShader shaderProgram) {
-		this.shaderProgram = shaderProgram;
+	public Renderer(Shader shaderProgram) {
+		this.mShader = shaderProgram;
 		if (Global.mode_culling_back) { RendererManager.enableCulling();}
 		createProjectionMatrix();
 		shaderProgram.start();
@@ -48,8 +48,8 @@ public class Renderer {
 	}
 	
 	//新版
-	public Renderer(StaticShader shaderProgram, Matrix4f projectionMatrix) {
-		this.shaderProgram = shaderProgram;
+	public Renderer(Shader shaderProgram, Matrix4f projectionMatrix) {
+		this.mShader = shaderProgram;
 		if (Global.mode_culling_back) { RendererManager.enableCulling();}
 		shaderProgram.start();
 		shaderProgram.loadProjectionMatrix(projectionMatrix);
@@ -94,7 +94,7 @@ public class Renderer {
 		glBindVertexArray(0);
 	}
 	
-	public void render(GameObject object, StaticShader shaderProgram) {
+	public void render(GameObject object, Shader shaderProgram) {
 		TextureModel textureModel = object.getModel();
 		RawModel rawModel = textureModel.getRawModel();
 		glBindVertexArray(rawModel.getVaoID());
@@ -108,7 +108,7 @@ public class Renderer {
 				object.getRotateY(), 
 				object.getRotateZ(), 
 				object.getScale());
-		shaderProgram.loadTransformationMatrix(transformationMatrix);
+		shaderProgram.loadModelMatrix(transformationMatrix);
 		
 		if (shaderProgram instanceof SpecularLightShader) { //高光反射光Shader
 			Texture texture = textureModel.getTexture();
@@ -147,14 +147,14 @@ public class Renderer {
 		glEnableVertexAttribArray(Loader.ATTR_COORDINATES);
 		glEnableVertexAttribArray(Loader.ATTR_NORMALS);
 		
-		if (shaderProgram instanceof SpecularLightShader) { //高光反射光Shader
+		if (mShader instanceof SpecularLightShader) { //高光反射光Shader
 			Texture texture = textureModel.getTexture();
 			if (texture.isHasTransparency()) {
 				RendererManager.disableCulling();
 			}
-			((SpecularLightShader) shaderProgram).loadSpecularLightingParms(texture.getShineDamper(), texture.getReflectivity());
-			((SpecularLightShader) shaderProgram).loadAmbientLightness(texture.getAmbientLightness());
-			((SpecularLightShader) shaderProgram).loadFakeLightingParms(texture.isUseFakeLighting());
+			((SpecularLightShader) mShader).loadSpecularLightingParms(texture.getShineDamper(), texture.getReflectivity());
+			((SpecularLightShader) mShader).loadAmbientLightness(texture.getAmbientLightness());
+			((SpecularLightShader) mShader).loadFakeLightingParms(texture.isUseFakeLighting());
 		}
 		
 		glActiveTexture(GL_TEXTURE0);
@@ -168,7 +168,7 @@ public class Renderer {
 				object.getRotateY(), 
 				object.getRotateZ(), 
 				object.getScale());
-		shaderProgram.loadTransformationMatrix(transformationMatrix);
+		mShader.loadModelMatrix(transformationMatrix);
 	}
 
 	private void unbindTextureModel() {

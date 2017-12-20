@@ -29,11 +29,11 @@ public class Renderer2d {
 	private static float NEAR_PLANE = 0.01f;
 	private static float FAR_PLANE = 1000.0f;
 
-	private Matrix4f projectionMatrix;
+	private Matrix4f mProjectionMatrix;
 	
 	public Renderer2d() {
 		if (Global.mode_culling_back) { RendererManager.enableCulling();}
-		this.projectionMatrix = MathTools.createProjectionMatrix(FIELD_OF_VIEW_ANGLE, NEAR_PLANE, FAR_PLANE, (float) WindowManager.getWindowWidth(), (float) WindowManager.getWindowHeight());
+		this.mProjectionMatrix = MathTools.createProjectionMatrix(FIELD_OF_VIEW_ANGLE, NEAR_PLANE, FAR_PLANE, (float) WindowManager.getWindowWidth(), (float) WindowManager.getWindowHeight());
 	}
 
 	public void render(Map<TextureModel, List<Sprite2D>> objects, Camera camera) {
@@ -72,8 +72,8 @@ public class Renderer2d {
 				object.getRotateY(), 
 				object.getRotateZ(), 
 				object.getScale());
-		object.getShader().loadProjectionMatrix(projectionMatrix);
-		object.getShader().loadTransformationMatrix(transformationMatrix);
+		object.getShader().loadProjectionMatrix(mProjectionMatrix);
+		object.getShader().loadModelMatrix(transformationMatrix);
 		object.render(null, object.getShader());
 	}
 

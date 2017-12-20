@@ -15,6 +15,7 @@ import com.lyp.uge.gameObject.GameObject;
 import com.lyp.uge.gameObject.Light;
 import com.lyp.uge.math.MathTools;
 import com.lyp.uge.model.TextureModel;
+import com.lyp.uge.shader.Shader;
 import com.lyp.uge.shader.SpecularLightShader;
 import com.lyp.uge.shader.StaticShader;
 import com.lyp.uge.shader.TerrainShader;
@@ -23,31 +24,31 @@ import com.lyp.uge.window.WindowManager;
 
 public class RendererManager {
 	
-	private static float FIELD_OF_VIEW_ANGLE = 70;
+	private static float FIELD_OF_VIEW_ANGLE = 70; //视域最大角度
 	private static float NEAR_PLANE = 0.1f; //最近平面处
 	private static float FAR_PLANE = 1000.0f; //最远平面处
 
-	private Renderer renderer;
-	private StaticShader shaderProgram;
-	private Matrix4f projectionMatrix;
+	private Renderer mRenderer;
+	private Shader mShader;
+	private Matrix4f mProjectionMatrix;
 
-	private TerrainRenderer terrainRenderer;
-	private TerrainShader terrainShader;
+	private TerrainRenderer mTerrainRenderer;
+	private TerrainShader mTerrainShader;
 	
-	private Map<TextureModel, List<GameObject>> objects = null; //model map objects
-	private List<Terrain> terrains = null;
+	private Map<TextureModel, List<GameObject>> mObjects = null;
+	private List<Terrain> mTerrains = null;
 	
 	public RendererManager() {
-		if (Global.mode_culling_back) { enableCulling();}
+		if (Global.mode_culling_back) { enableCulling(); }
 		
-		this.projectionMatrix = MathTools.createProjectionMatrix(FIELD_OF_VIEW_ANGLE, NEAR_PLANE, FAR_PLANE, (float) WindowManager.getWindowWidth(), (float) WindowManager.getWindowHeight());
-		this.shaderProgram = new SpecularLightShader();
-		this.renderer = new Renderer(shaderProgram, projectionMatrix);
-		this.objects = new HashMap<TextureModel, List<GameObject>>();
+		this.mProjectionMatrix = MathTools.createProjectionMatrix(FIELD_OF_VIEW_ANGLE, NEAR_PLANE, FAR_PLANE, (float) WindowManager.getWindowWidth(), (float) WindowManager.getWindowHeight());
+		this.mShader = new SpecularLightShader();
+		this.mRenderer = new Renderer(mShader, mProjectionMatrix);
+		this.mObjects = new HashMap<TextureModel, List<GameObject>>();
 		
-		this.terrainShader = new TerrainShader();
-		this.terrainRenderer = new TerrainRenderer(terrainShader, projectionMatrix);
-		this.terrains = new ArrayList<>();
+		this.mTerrainShader = new TerrainShader();
+		this.mTerrainRenderer = new TerrainRenderer(mTerrainShader, mProjectionMatrix);
+		this.mTerrains = new ArrayList<Terrain>();
 	}
 	
 	public void prepare() {
@@ -64,46 +65,48 @@ public class RendererManager {
 			return;
 		}
 		TextureModel textureModel = object.getModel();
-		List<GameObject> objs = objects.get(textureModel);
+		List<GameObject> objs = mObjects.get(textureModel);
 		if (objs != null) {
 			objs.add(object);
 		} else {
 			List<GameObject> newObjs = new ArrayList<>();
 			newObjs.add(object);
-			objects.put(textureModel, newObjs);
+			mObjects.put(textureModel, newObjs);
 		}
 	}
 	
 	public void addTerrain(Terrain terrain) {
-		terrains.add(terrain);
+		mTerrains.add(terrain);
 	}
 	
 	public void renderAll(Light light, Camera camera) {
-		prepare();
-		if (objects != null && !objects.isEmpty()) {
-			shaderProgram.start();
-			shaderProgram.loadLight(light);
-			shaderProgram.loadViewMatrix(camera);
-			renderer.render(objects);
-			light.render(renderer, shaderProgram);
-			shaderProgram.stop();
+		this.prepare();
+		if (mObjects != null && !mObjects.isEmpty()) {
+			mShader.start();
+			if (mShader instanceof StaticShader) {
+				((StaticShader) mShader).loadLight(light);
+			}
+			mShader.loadViewMatrix(camera);
+			mRenderer.render(mObjects);
+			light.render(mRenderer, mShader);
+			mShader.stop();
 		}
 		
-		if (terrains != null && !terrains.isEmpty()) {
-			terrainShader.start();
-			terrainShader.loadLight(light);
-			terrainShader.loadViewMatrix(camera);
-			terrainRenderer.render(terrains);
-			terrainShader.stop();
+		if (mTerrains != null && !mTerrains.isEmpty()) {
+			mTerrainShader.start();
+			mTerrainShader.loadLight(light);
+			mTerrainShader.loadViewMatrix(camera);
+			mTerrainRenderer.render(mTerrains);
+			mTerrainShader.stop();
 		}
 		
-		objects.clear();
-		terrains.clear();
+		mObjects.clear();
+		mTerrains.clear();
 	}
 	
 	public void cleanUp() {
-		shaderProgram.cleanUp();
-		terrainShader.cleanUp();
+		mShader.cleanUp();
+		mTerrainShader.cleanUp();
 	}
 	
 	public static void enableCulling() {
