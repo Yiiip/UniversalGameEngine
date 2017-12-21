@@ -119,8 +119,8 @@ public class MouseInput {
         previousPos.y = currentPos.y;
         
         if (wheelOffsets.y != 0) {
-        	wheelOffsets.y += (-1*wheelOffsets.y*0.05f);
-			if (wheelOffsets.y <= 0.05) {
+        	wheelOffsets.y += (-1*wheelOffsets.y * 0.050f); //后面的乘数越小衰减越慢
+			if (Math.abs(wheelOffsets.y) <= 0.03) { //最小值
 				wheelOffsets.y = 0;
 				wheelScrollDown = false;
 				wheelScrollUp = false;
