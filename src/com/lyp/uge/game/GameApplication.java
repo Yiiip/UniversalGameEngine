@@ -31,10 +31,10 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	
 	private int fps = 0;
 	
-	private boolean	enablePolygonMode = false;
-	private int[]			polygonModes = {GL_POINT, GL_LINE, GL_FILL};
-	private String[]		polygonModeNames = {"点", "线", "填充"};
-	private int			polygonModeIndex = 0;
+	private boolean	enablePolygonMode	= false;
+	private int[] polygonModes			= {GL_POINT, GL_LINE, GL_FILL};
+	private String[] polygonModeNames	= {"点", "线", "填充"};
+	private int polygonModeIndex		= 0;
 	
 	private Thread thread;
 	private Window window;	

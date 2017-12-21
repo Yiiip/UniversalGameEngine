@@ -66,12 +66,10 @@ public class Camera extends GameObject {
 			}
 			
 			if (isWheelScrollUp()) {
-				position.z -= speed*0.6;
-				position.y -= speed*0.6;
+				position.z -= Math.abs(speed*getWheelOffests().y);
 			}
 			if (isWheelScrollDown()) {
-				position.z += speed*0.6;
-				position.y += speed*0.6;
+				position.z += Math.abs(speed*getWheelOffests().y);
 			}
 		}
 	}

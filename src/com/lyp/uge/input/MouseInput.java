@@ -21,6 +21,7 @@ public class MouseInput {
 	private final Vector2f previousPos;
     private final Vector2f currentPos;
     private final Vector2f deltaVec;
+    private final Vector2f wheelOffsets;
 
     private boolean inWindow = false;
     private boolean leftButtonPressed = false;
@@ -33,6 +34,7 @@ public class MouseInput {
 		previousPos = new Vector2f(-1.0f, -1.0f);
 		currentPos = new Vector2f(0.0f, 0.0f);
 		deltaVec = new Vector2f();
+		wheelOffsets = new Vector2f(0.0f, 0.0f);
 		
 		if (cursorPosCallback == null) {
 			cursorPosCallback = new CursorPosCallback();
@@ -92,6 +94,8 @@ public class MouseInput {
 				wheelScrollUp = false;
 				wheelScrollDown = true;
 			}
+			wheelOffsets.y = (float) yoffset;
+			wheelOffsets.x = (float) xoffset;
 			Logger.d("MouseScroll", "[" + xoffset + ", " + yoffset + "]");
 		}
 	}
@@ -113,6 +117,15 @@ public class MouseInput {
         }
         previousPos.x = currentPos.x;
         previousPos.y = currentPos.y;
+        
+        if (wheelOffsets.y != 0) {
+        	wheelOffsets.y += (-1*wheelOffsets.y*0.05f);
+			if (wheelOffsets.y <= 0.05) {
+				wheelOffsets.y = 0;
+				wheelScrollDown = false;
+				wheelScrollUp = false;
+			}
+		}
 	}
 	
 	public CursorPosCallback getCursorPosCallback() {
@@ -157,6 +170,10 @@ public class MouseInput {
 	
 	public boolean isWheelScrollDown() {
 		return wheelScrollDown;
+	}
+	
+	public Vector2f getWheelOffsets() {
+		return wheelOffsets;
 	}
 	
 	@Override

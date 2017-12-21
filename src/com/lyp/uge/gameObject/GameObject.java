@@ -1,5 +1,6 @@
 package com.lyp.uge.gameObject;
 
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.input.KeyboardInput;
 import com.lyp.uge.input.MouseInput;
@@ -40,6 +41,10 @@ public abstract class GameObject {
 	
 	protected boolean isWheelScrollDown() {
 		return MouseInput.getInstance().isWheelScrollDown();
+	}
+	
+	protected Vector2f getWheelOffests() {
+		return MouseInput.getInstance().getWheelOffsets();
 	}
 	
 	public void doMove(float dx, float dy, float dz) {
