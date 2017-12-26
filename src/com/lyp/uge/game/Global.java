@@ -11,7 +11,7 @@ public final class Global {
 	public static boolean debug_log = true;
 	//Logs in console
 	public static boolean debug_fps = false;
-	public static boolean debug_camera = false;
+	public static boolean debug_camera = true;
 	public static boolean debug_light = false;
 	public static boolean debug_keyboard = false;
 	public static boolean debug_mouse = false;

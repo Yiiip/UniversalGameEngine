@@ -89,6 +89,10 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		updateFPSTextGUI();
 		
 		onUpdate();
+		
+		if (Global.debug_camera) {
+			Logger.d("Camera", camera.toShortString());
+		}
 	}
 	
 	private void render() {

@@ -51,7 +51,6 @@ public class TestCube extends GameApplication {
 		entity.doMove(0f, 0f, 0f);
 		entity.doRotate(0.6f, 0.6f, 0.6f);
 		//Logger.d(entity.toString());
-		Logger.d("Camera", getMainCamera().toShortString());
 	}
 
 	@Override
