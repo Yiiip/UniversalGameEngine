@@ -130,13 +130,13 @@ public class Renderer {
 	 */
 	public void render(Map<TextureModel, List<GameObject>> objects) {
 		for (TextureModel textureModel : objects.keySet()) {
-			prepareTextureModel(textureModel);
+			this.prepareTextureModel(textureModel);
 			List<GameObject> tempObjs = objects.get(textureModel);
 			for (GameObject tempObj : tempObjs) {
-				prepareInstance(tempObj);
+				this.prepareInstance(tempObj);
 				glDrawElements(GL_TRIANGLES, textureModel.getRawModel().getVertexCount(), GL_UNSIGNED_INT, 0);
 			}
-			unbindTextureModel();
+			this.unbindTextureModel();
 		}
 	}
 	

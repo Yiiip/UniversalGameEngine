@@ -5,10 +5,10 @@ public class SpecularLightShader extends StaticShader {
 	private static String VERTEX_FILE = "shader/vertexShader2.1_specularLight.vs";
 	private static String FRAGMENT_FILE = "shader/fragShader2.1_specularLight.fs";
 	
-	private int uniform_shineDamper;
-	private int uniform_reflectivity;
-	private int uniform_ambientLightness;
-	private int uniform_useFakeLighting;
+	protected int uniform_shineDamper;
+	protected int uniform_reflectivity;
+	protected int uniform_ambientLightness;
+	protected int uniform_useFakeLighting;
 	
 	public SpecularLightShader() {
 		super(VERTEX_FILE, FRAGMENT_FILE);

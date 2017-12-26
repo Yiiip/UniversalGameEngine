@@ -48,7 +48,7 @@ public class TestOBJDataAdvanced extends GameApplication {
 					random.nextFloat() * 100 - 50, random.nextFloat() * 100 - 50, -random.nextInt(200)), 0f, 0f, 0f, 0.22f + 0.01f * i);
 		}
 		
-		rendererManager = new RendererManager();
+		rendererManager = new RendererManager(RendererManager.WITH_SPECULAR_LIGHT);
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class TestOBJDataAdvanced extends GameApplication {
 		for (int i = 0; i < objects.length; i++) {
 			rendererManager.addObject(objects[i]);
 		}
-		rendererManager.renderAll(light, getMainCamera());
+		rendererManager.renderAll(light, getMainCamera(), null);
 	}
 	
 	@Override

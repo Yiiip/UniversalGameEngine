@@ -16,7 +16,7 @@ import com.lyp.uge.terrain.Terrain;
 import com.lyp.uge.texture.Texture;
 import com.lyp.uge.utils.DataUtils;
 
-public class TestTerrains extends GameApplication {
+public class TestTerrainsWithFog extends GameApplication {
 
 	private Loader loader = new Loader();
 	private DemoObject[] oTrees;
@@ -87,7 +87,7 @@ public class TestTerrains extends GameApplication {
 		terrains[0] = new Terrain(0, -1, loader, textureTerrain);
 		terrains[1] = new Terrain(-1, -1, loader, textureTerrain);
 		
-		rendererManager = new RendererManager(RendererManager.WITH_SPECULAR_LIGHT);
+		rendererManager = new RendererManager(RendererManager.WITH_FOG);
 	}
 
 	@Override
@@ -124,7 +124,7 @@ public class TestTerrains extends GameApplication {
 	}
 
 	public static void main(String[] args) {
-		new TestTerrains().start();
+		new TestTerrainsWithFog().start();
 	}
 
 }
