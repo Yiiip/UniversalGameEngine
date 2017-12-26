@@ -59,4 +59,10 @@ public class MathTools {
         orthographicMatrix.m33 = 1.0f;
         return orthographicMatrix;
 	}
+	
+	public static float clamp(float value, float min, float max) {
+		if (value > max) return max;
+		if (value < min) return min;
+		return value;
+	}
 }

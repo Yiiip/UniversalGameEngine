@@ -4,7 +4,6 @@ import java.util.Random;
 
 import org.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.game.GameApplication;
-import com.lyp.uge.logger.Logger;
 import com.lyp.uge.model.RawModel;
 import com.lyp.uge.model.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
