@@ -97,11 +97,11 @@ public class RendererManager {
 		mTerrains.add(terrain);
 	}
 	
-	public void renderAll(@NotNull Light light, @NotNull Camera camera, @Nullable Vector4f preColor) {
-		if (preColor == null) {
+	public void renderAll(@NotNull Light light, @NotNull Camera camera, @Nullable Vector4f preSkyColor) {
+		if (preSkyColor == null) {
 			this.prepare();
 		} else {
-			this.prepare(preColor.x, preColor.y, preColor.z, preColor.w);
+			this.prepare(preSkyColor.x, preSkyColor.y, preSkyColor.z, preSkyColor.w);
 		}
 		if (mObjects != null && !mObjects.isEmpty()) {
 			mShader.start();
@@ -109,7 +109,7 @@ public class RendererManager {
 				((StaticShader) mShader).loadLight(light);
 			}
 			if (mShader instanceof FoggyShader) {
-				((FoggyShader) mShader).setupSkyColor(preColor==null?PRE_COLOR_RED:preColor.x, preColor==null?PRE_COLOR_GREEN:preColor.y, preColor==null?PRE_COLOR_BLUE:preColor.z);
+				((FoggyShader) mShader).setupSkyColor(preSkyColor==null?PRE_COLOR_RED:preSkyColor.x, preSkyColor==null?PRE_COLOR_GREEN:preSkyColor.y, preSkyColor==null?PRE_COLOR_BLUE:preSkyColor.z);
 			}
 			mShader.loadViewMatrix(camera);
 			mRenderer.render(mObjects);
@@ -121,6 +121,9 @@ public class RendererManager {
 			mTerrainShader.start();
 			mTerrainShader.loadLight(light);
 			mTerrainShader.loadViewMatrix(camera);
+			mTerrainShader.setupSkyColor(preSkyColor==null?PRE_COLOR_RED:preSkyColor.x, preSkyColor==null?PRE_COLOR_GREEN:preSkyColor.y, preSkyColor==null?PRE_COLOR_BLUE:preSkyColor.z);
+			mTerrainShader.setupFogDensity(0.003f);
+			mTerrainShader.setupFogGradient(1.5f);
 			mTerrainRenderer.render(mTerrains);
 			mTerrainShader.stop();
 		}

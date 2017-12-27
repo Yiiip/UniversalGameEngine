@@ -16,8 +16,8 @@ uniform mat4 viewMatrix;
 uniform vec3 lightPos;
 uniform float useFakeLighting;
 
-const float fog_density = 0.007;
-const float fog_gradient = 1.5;
+const float fog_density = 0.003; //0.0 remove fog
+const float fog_gradient = 1.5; //1.0 remove fog
 
 void main (void) {
 	vec4 worldPosition = transformationMatrix * vec4(position, 1.0);

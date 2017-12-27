@@ -109,7 +109,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		for (int i = 0; i < terrains.length; i++) {
 			rendererManager.addTerrain(terrains[i]);
 		}
-		rendererManager.renderAll(light, getMainCamera(), new Vector4f(0.5f, 0.8f, 0.95f, 1.0f));
+		rendererManager.renderAll(light, getMainCamera(), new Vector4f(0.78f, 0.85f, 0.95f, 1.0f));
 	}
 	
 	@Override
