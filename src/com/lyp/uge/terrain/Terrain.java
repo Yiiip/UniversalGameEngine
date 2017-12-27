@@ -13,7 +13,13 @@ public class Terrain {
 	private float z;
 	private RawModel rawModel;
 	private Texture texture;
-
+	
+	public static final float FOGGY_DENSITY_NULL = 0.0f;
+	public static final float FOGGY_GRADIENT_NULL = 1.0f;
+	private boolean foggy = false; //non fog
+	private float foggyDensity = FOGGY_DENSITY_NULL; //non fog
+	private float foggyGradient = FOGGY_GRADIENT_NULL; //non fog
+	
 	public Terrain(float gridX, float gridZ, Loader loader, Texture texture) {
 		this.x = gridX * SIZE;
 		this.z = gridZ * SIZE;
@@ -73,5 +79,29 @@ public class Terrain {
 
 	public Texture getTexture() {
 		return texture;
+	}
+	
+	public void addFoggy(float fogDensity, float fogGradient) {
+		this.foggy = true;
+		this.foggyDensity = fogDensity;
+		this.foggyGradient = fogGradient;
+	}
+	
+	public void removeFoggy() {
+		this.foggy = false;
+		this.foggyDensity = FOGGY_DENSITY_NULL;
+		this.foggyGradient = FOGGY_GRADIENT_NULL;
+	}
+	
+	public boolean isFoggy() {
+		return foggy;
+	}
+	
+	public float getFoggyDensity() {
+		return foggyDensity;
+	}
+	
+	public float getFoggyGradient() {
+		return foggyGradient;
 	}
 }

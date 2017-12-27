@@ -85,7 +85,9 @@ public class TestTerrainsWithFog extends GameApplication {
 				.setReflectivity(0.5f);
 		terrains = new Terrain[2];
 		terrains[0] = new Terrain(0, -1, loader, textureTerrain);
+		terrains[0].addFoggy(0.003f, 1.5f);
 		terrains[1] = new Terrain(-1, -1, loader, textureTerrain);
+		terrains[1].addFoggy(0.003f, 1.5f);
 		
 		rendererManager = new RendererManager(RendererManager.WITH_FOG);
 	}

@@ -122,8 +122,6 @@ public class RendererManager {
 			mTerrainShader.loadLight(light);
 			mTerrainShader.loadViewMatrix(camera);
 			mTerrainShader.setupSkyColor(preSkyColor==null?PRE_COLOR_RED:preSkyColor.x, preSkyColor==null?PRE_COLOR_GREEN:preSkyColor.y, preSkyColor==null?PRE_COLOR_BLUE:preSkyColor.z);
-			mTerrainShader.setupFogDensity(0.003f);
-			mTerrainShader.setupFogGradient(1.5f);
 			mTerrainRenderer.render(mTerrains);
 			mTerrainShader.stop();
 		}

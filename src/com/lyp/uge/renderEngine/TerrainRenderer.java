@@ -23,13 +23,13 @@ import com.lyp.uge.texture.Texture;
  */
 public class TerrainRenderer {
 
-	private TerrainShader shaderProgram;
+	private TerrainShader mTerrainShader;
 
 	public TerrainRenderer(TerrainShader shader, Matrix4f projectionMatrix) {
-		this.shaderProgram = shader;
-		this.shaderProgram.start();
-		this.shaderProgram.loadProjectionMatrix(projectionMatrix);
-		this.shaderProgram.stop();
+		this.mTerrainShader = shader;
+		this.mTerrainShader.start();
+		this.mTerrainShader.loadProjectionMatrix(projectionMatrix);
+		this.mTerrainShader.stop();
 	}
 	
 	public void render(List<Terrain> terrains) {
@@ -48,10 +48,17 @@ public class TerrainRenderer {
 		glEnableVertexAttribArray(Loader.ATTR_COORDINATES);
 		glEnableVertexAttribArray(Loader.ATTR_NORMALS);
 		
-		if (shaderProgram instanceof TerrainShader) {
+		if (mTerrainShader instanceof TerrainShader) {
 			Texture texture = terrain.getTexture();
-			shaderProgram.loadSpecularLightingParms(texture.getShineDamper(), texture.getReflectivity());
-			shaderProgram.loadAmbientLightness(texture.getAmbientLightness());
+			mTerrainShader.loadSpecularLightingParms(texture.getShineDamper(), texture.getReflectivity());
+			mTerrainShader.loadAmbientLightness(texture.getAmbientLightness());
+			if (terrain.isFoggy()) {
+				mTerrainShader.setupFogDensity(terrain.getFoggyDensity());
+				mTerrainShader.setupFogGradient(terrain.getFoggyGradient());
+			} else {
+				mTerrainShader.setupFogDensity(Terrain.FOGGY_DENSITY_NULL);
+				mTerrainShader.setupFogGradient(Terrain.FOGGY_GRADIENT_NULL);
+			}
 		}
 		
 		glActiveTexture(GL_TEXTURE0);
@@ -62,7 +69,7 @@ public class TerrainRenderer {
 		Matrix4f transformationMatrix = MathTools.createTransformationMatrix(
 				new Vector3f(terrain.getX(), 0.0f, terrain.getZ()), 
 				0.0f, 0.0f, 0.0f, 1.0f);
-		shaderProgram.loadModelMatrix(transformationMatrix);
+		mTerrainShader.loadModelMatrix(transformationMatrix);
 	}
 
 	private void unbindTextureModel() {
