@@ -32,10 +32,14 @@ public class Camera extends GameObject {
 				position.y += speed;
 			}
 			if (isKeyPressed(KEY_D)) {
-				position.x += speed;
+				float yawTemp = yaw < 0 ? 180-(Math.abs(yaw)+90)%360 : (yaw+90)%360;
+				position.z -= speed * Math.cos(Math.toRadians(yawTemp));
+				position.x += speed * Math.sin(Math.toRadians(yawTemp));
 			}
 			if (isKeyPressed(KEY_A)) {
-				position.x -= speed;
+				float yawTemp = yaw < 0 ? 180-(Math.abs(yaw)-90)%360 : (yaw-90)%360;
+				position.z -= speed * Math.cos(Math.toRadians(yawTemp));
+				position.x += speed * Math.sin(Math.toRadians(yawTemp));
 			}
 			if (isKeyPressed(KEY_LEFT_SHIFT)) {
 				position.y -= speed;
