@@ -3,6 +3,7 @@ package com.lyp.uge.gameObject;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.input.MouseInput;
+import com.lyp.uge.logger.Logger;
 import com.lyp.uge.renderEngine.Renderer;
 import com.lyp.uge.shader.Shader;
 
@@ -41,7 +42,9 @@ public class Camera extends GameObject {
 				position.y -= speed;
 			}
 			if (isKeyPressed(KEY_W)) {
-				position.z -= speed;
+				float yawTemp = yaw < 0 ? 360-Math.abs(yaw)%360 : yaw%360;
+				position.z -= speed * Math.cos(Math.toRadians(yawTemp));
+				position.x += speed * Math.sin(Math.toRadians(yawTemp));
 			}
 			if (isKeyPressed(KEY_S)) {
 				position.z += speed;
@@ -66,10 +69,13 @@ public class Camera extends GameObject {
 			}
 			
 			if (isWheelScrollUp()) {
-				position.z -= Math.abs(speed*getWheelOffests().y);
+				float spd = Math.abs(speed * getWheelOffests().y);
+				float yawTemp = yaw < 0 ? 360-Math.abs(yaw)%360 : yaw%360;
+				position.z -= spd * Math.cos(Math.toRadians(yawTemp));
+				position.x += spd * Math.sin(Math.toRadians(yawTemp));
 			}
 			if (isWheelScrollDown()) {
-				position.z += Math.abs(speed*getWheelOffests().y);
+				position.z += Math.abs(speed * getWheelOffests().y);
 			}
 		}
 	}
