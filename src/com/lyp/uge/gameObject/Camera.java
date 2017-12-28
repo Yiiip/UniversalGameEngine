@@ -3,7 +3,6 @@ package com.lyp.uge.gameObject;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.input.MouseInput;
-import com.lyp.uge.logger.Logger;
 import com.lyp.uge.renderEngine.Renderer;
 import com.lyp.uge.shader.Shader;
 
@@ -47,7 +46,9 @@ public class Camera extends GameObject {
 				position.x += speed * Math.sin(Math.toRadians(yawTemp));
 			}
 			if (isKeyPressed(KEY_S)) {
-				position.z += speed;
+				float yawTemp = yaw < 0 ? 360-(Math.abs(yaw)+180)%360 : (yaw+180)%360;
+				position.z -= speed * Math.cos(Math.toRadians(yawTemp));
+				position.x += speed * Math.sin(Math.toRadians(yawTemp));
 			}
 			if (isKeyPressed(KEY_LEFT)) {
 				yaw -= arountSpeed * 10;
