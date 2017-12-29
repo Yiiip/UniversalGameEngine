@@ -18,6 +18,7 @@ import com.lyp.uge.math.MathTools;
 import com.lyp.uge.model.TextureModel;
 import com.lyp.uge.shader.FoggyShader;
 import com.lyp.uge.shader.Shader;
+import com.lyp.uge.shader.ShaderFactry;
 import com.lyp.uge.shader.SpecularLightShader;
 import com.lyp.uge.shader.StaticShader;
 import com.lyp.uge.shader.TerrainShader;
@@ -58,9 +59,7 @@ public class RendererManager {
 		
 		this.mProjectionMatrix = MathTools.createProjectionMatrix(FIELD_OF_VIEW_ANGLE, NEAR_PLANE, FAR_PLANE, (float) WindowManager.getWindowWidth(), (float) WindowManager.getWindowHeight());
 		
-		if (shaderType == WITH_SPECULAR_LIGHT) { this.mShader = new SpecularLightShader(); }
-		else if (shaderType == WITH_FOG) { this.mShader = new FoggyShader(); }
-		
+		this.mShader = ShaderFactry.instance().make(shaderType);
 		this.mRenderer = new Renderer(mShader, mProjectionMatrix);
 		this.mObjects = new HashMap<TextureModel, List<GameObject>>();
 		

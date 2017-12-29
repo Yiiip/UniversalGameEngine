@@ -80,7 +80,9 @@ public class Camera extends GameObject {
 				position.x += spd * Math.sin(Math.toRadians(yawTemp));
 			}
 			if (isWheelScrollDown()) {
-				position.z += Math.abs(speed * getWheelOffests().y);
+				float yawTemp = yaw < 0 ? 360-(Math.abs(yaw)+180)%360 : (yaw+180)%360;
+				position.z -= speed * Math.cos(Math.toRadians(yawTemp));
+				position.x += speed * Math.sin(Math.toRadians(yawTemp));
 			}
 		}
 	}
