@@ -12,6 +12,7 @@ import com.lyp.uge.model.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.renderEngine.OBJLoader;
 import com.lyp.uge.renderEngine.RendererManager;
+import com.lyp.uge.shader.ShaderFactry;
 import com.lyp.uge.terrain.Terrain;
 import com.lyp.uge.texture.Texture;
 import com.lyp.uge.utils.DataUtils;
@@ -87,7 +88,7 @@ public class TestTerrains extends GameApplication {
 		terrains[0] = new Terrain(0, -1, loader, textureTerrain);
 		terrains[1] = new Terrain(-1, -1, loader, textureTerrain);
 		
-		rendererManager = new RendererManager(RendererManager.WITH_SPECULAR_LIGHT);
+		rendererManager = new RendererManager(ShaderFactry.WITH_SPECULAR_LIGHT);
 	}
 
 	@Override

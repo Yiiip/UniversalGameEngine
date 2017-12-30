@@ -19,7 +19,6 @@ import com.lyp.uge.model.TextureModel;
 import com.lyp.uge.shader.FoggyShader;
 import com.lyp.uge.shader.Shader;
 import com.lyp.uge.shader.ShaderFactry;
-import com.lyp.uge.shader.SpecularLightShader;
 import com.lyp.uge.shader.StaticShader;
 import com.lyp.uge.shader.TerrainShader;
 import com.lyp.uge.terrain.Terrain;
@@ -34,11 +33,7 @@ public class RendererManager {
 	private static float NEAR_PLANE = 0.1f; //最近平面处
 	private static float FAR_PLANE = 1000.0f; //最远平面处
 	
-	//Type of shader used in constructor
-	public static final int WITH_DEFAULT		= 0x00;
-	public static final int WITH_SPECULAR_LIGHT = 0x01;
-	public static final int WITH_FOG			= 0x02;
-	
+	//background sky color
 	private static final float PRE_COLOR_RED = .12f;
 	private static final float PRE_COLOR_GREEN = .12f;
 	private static final float PRE_COLOR_BLUE = .12f;

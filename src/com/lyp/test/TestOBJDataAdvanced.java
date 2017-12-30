@@ -11,6 +11,7 @@ import com.lyp.uge.model.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.renderEngine.OBJLoader;
 import com.lyp.uge.renderEngine.RendererManager;
+import com.lyp.uge.shader.ShaderFactry;
 import com.lyp.uge.texture.Texture;
 import com.lyp.uge.utils.DataUtils;
 
@@ -48,7 +49,7 @@ public class TestOBJDataAdvanced extends GameApplication {
 					random.nextFloat() * 100 - 50, random.nextFloat() * 100 - 50, -random.nextInt(200)), 0f, 0f, 0f, 0.22f + 0.01f * i);
 		}
 		
-		rendererManager = new RendererManager(RendererManager.WITH_SPECULAR_LIGHT);
+		rendererManager = new RendererManager(ShaderFactry.WITH_SPECULAR_LIGHT);
 	}
 
 	@Override
