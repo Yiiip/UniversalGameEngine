@@ -10,7 +10,7 @@ import com.lyp.uge.gameObject.Light;
 import com.lyp.uge.model.RawModel;
 import com.lyp.uge.model.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
-import com.lyp.uge.renderEngine.OBJLoader;
+import com.lyp.uge.renderEngine.OBJFileLoader;
 import com.lyp.uge.renderEngine.RendererManager;
 import com.lyp.uge.shader.ShaderFactry;
 import com.lyp.uge.terrain.Terrain;
@@ -43,7 +43,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		light = new Light(new Vector3f(0.0f, 1000.0f, -500.0f), new Vector3f(1, 1, 1), loader);
 
 		//树木
-		RawModel rawModel = OBJLoader.loadObjModel(DataUtils.OBJ_TREE, loader);
+		RawModel rawModel = OBJFileLoader.loadOBJ(DataUtils.OBJ_TREE, loader);
 		Texture texture = loader.loadTexture("res/texture/" + DataUtils.TEX_TREE)
 				.setShineDamper(8.0f)	//设置反射光亮度衰减因子
 				.setReflectivity(0.8f);	//设置反射光反射率因子
@@ -55,7 +55,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		}
 		
 		//草类植物
-		RawModel grassRawModel = OBJLoader.loadObjModel(DataUtils.OBJ_GRASS_REAL, loader);
+		RawModel grassRawModel = OBJFileLoader.loadOBJ(DataUtils.OBJ_GRASS_REAL, loader);
 		Texture grassTexture = loader.loadTexture("res/texture/" + DataUtils.TEX_GRASS_REAL)
 				.setShineDamper(8.0f)
 				.setReflectivity(3.0f)
@@ -68,7 +68,7 @@ public class TestTerrainsWithFog extends GameApplication {
 			oGrasses[i] = new DemoObject(grassTextureModel, new Vector3f(
 					random.nextFloat() * Terrain.SIZE*2 - Terrain.SIZE, 0, -random.nextInt((int) Terrain.SIZE)-10.0f), 0f, 0f, 0f, random.nextFloat()+0.05f);
 		}
-		RawModel fernRawModel = OBJLoader.loadObjModel(DataUtils.OBJ_FERN, loader);
+		RawModel fernRawModel = OBJFileLoader.loadOBJ(DataUtils.OBJ_FERN, loader);
 		Texture fernTexture = loader.loadTexture("res/texture/" + DataUtils.TEX_FERN)
 				.setShineDamper(10.0f)
 				.setReflectivity(1.0f)

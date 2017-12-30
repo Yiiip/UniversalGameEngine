@@ -15,6 +15,7 @@ import com.lyp.uge.model.RawModel;
 
 public class OBJLoader {
 	
+	/*旧版代码*/
 	private OBJLoader() {
 	}
 
