@@ -65,4 +65,9 @@ public class MathTools {
 		if (value < min) return min;
 		return value;
 	}
+	
+	public static int sign(float n) {
+		if (n == 0) return 0;
+		else return n > 0 ? 1 : -1;
+	}
 }
