@@ -2,8 +2,12 @@ package com.lyp.uge.utils;
 
 public class DataUtils {
 	
+	public static final String PATH_TEXTURE	= "res/texture/";
+	public static final String PATH_OBJ		= "res/obj/";
+	public static final String PATH_FONT	= "res/font/";
+	
 	public static final String OBJ_DRAGON = "dragon.obj";
-	public static final String OBJ_RABBIT = "rabbit.obj"; //斯坦福兔
+	public static final String OBJ_RABBIT = "rabbit.obj"; //斯坦福德兔
 	public static final String OBJ_TREE = "tree.obj";
 	public static final String OBJ_TREE_BIG = "treeBig.obj";
 	public static final String OBJ_CUBE = "cube.obj";
@@ -36,6 +40,8 @@ public class DataUtils {
 	public static final String TEX_STALL = "stallTexture.png";
 	public static final String TEX_FLAPPY_BIRD = "flappy_bird.png";
 	public static final String TEX_GROUND01 = "ground01.png";
+	
+	public static final String TEX_TERRAIN_HEIGHT_MAP = PATH_TEXTURE + "terrain_heightmap.png";
 	
 	public static final String TEX_FONT_PRODUCT_SANS = "font_ProductSans.png";
 	public static final String TEX_FONT_PIXELED = "font_Pixeled.png";
@@ -135,9 +141,10 @@ public class DataUtils {
 			0, 0, 1
 	};
 	
+	/* correct cube data */
 	public static float[] CUBE_VERTICES_II = { //24
 			// Front face
-			-0.5f,  0.5f,  0.5f,  //0
+			-0.5f,  0.5f,  0.5f, //0
 			-0.5f, -0.5f,  0.5f, //1
 			0.5f, -0.5f,  0.5f, //2
 			0.5f,  0.5f,  0.5f, //3
@@ -168,8 +175,8 @@ public class DataUtils {
 			-0.5f, -0.5f, -0.5f, //23 -> 6
 	};
 	public static int[] CUBE_INDICES_II = { //6 sides, 12 triangles
-			0,  1,  2,			0,  2,  3,			// Front face
-			4,  6,  7,			4,  7,  5,			// Top face
+			0,  1,  2,		0,  2,  3,		// Front face
+			4,  6,  7,		4,  7,  5,		// Top face
 			8,  10,  9,		9,  10, 11,		// Right face
 			12, 14, 15,		15, 13, 12,		// Left face
 			17, 18, 19,		16, 18, 17,		// Bottom face

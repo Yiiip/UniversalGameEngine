@@ -85,8 +85,8 @@ public class TestTerrains extends GameApplication {
 				.setShineDamper(10.0f)
 				.setReflectivity(0.5f);
 		terrains = new Terrain[2];
-		terrains[0] = new Terrain(0, -1, loader, textureTerrain);
-		terrains[1] = new Terrain(-1, -1, loader, textureTerrain);
+		terrains[0] = new Terrain(0, -1, loader, textureTerrain, DataUtils.TEX_TERRAIN_HEIGHT_MAP, 50);
+		terrains[1] = new Terrain(-1, -1, loader, textureTerrain, DataUtils.TEX_TERRAIN_HEIGHT_MAP, 50);
 		
 		rendererManager = new RendererManager(ShaderFactry.WITH_SPECULAR_LIGHT);
 	}
