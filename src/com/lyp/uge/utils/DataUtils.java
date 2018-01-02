@@ -132,13 +132,31 @@ public class DataUtils {
 		    1.0f,  1.0f,
 		    0.0f,  1.0f,
 	};
-	public static float[] CUBE_NORMALS = { //TODO need to calculate normal
-			-1, 0, 0,
-			1, 0, 0,
-			0, -1, 0,
+	public static float[] CUBE_NORMALS = {
+			0, 0, 1,
+			0, 0, 1,
+			0, 0, 1,
+			0, 0, 1,
 			0, 1, 0,
+			0, 1, 0,
+			0, 1, 0,
+			0, 1, 0,
+			1, 0, 0,
+			1, 0, 0,
+			1, 0, 0,
+			1, 0, 0,
+			-1, 0, 0,
+			-1, 0, 0,
+			-1, 0, 0,
+			-1, 0, 0,
+			0, -1, 0,
+			0, -1, 0,
+			0, -1, 0,
+			0, -1, 0,
 			0, 0, -1,
-			0, 0, 1
+			0, 0, -1,
+			0, 0, -1,
+			0, 0, -1,
 	};
 	
 	/* correct cube data */
