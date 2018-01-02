@@ -7,9 +7,9 @@ public class TerrainShader extends SpecularLightShader {
 	private static String VERTEX_FILE = "shader/vertexShader3_terrain.vs";
 	private static String FRAGMENT_FILE = "shader/fragShader3_terrain.fs";
 	
-	private int uniform_skyColor;
-	private int uniform_fogDensity;
-	private int uniform_fogGradient;
+	protected int uniform_skyColor;
+	protected int uniform_fogDensity;
+	protected int uniform_fogGradient;
 	
 	public TerrainShader() {
 		super(VERTEX_FILE, FRAGMENT_FILE);

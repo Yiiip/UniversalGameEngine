@@ -52,12 +52,12 @@ public class TerrainRenderer {
 			Texture texture = terrain.getTexture();
 			mTerrainShader.loadSpecularLightingParms(texture.getShineDamper(), texture.getReflectivity());
 			mTerrainShader.loadAmbientLightness(texture.getAmbientLightness());
-			if (terrain.isFoggy()) {
+			if (texture.isFoggy()) {
 				mTerrainShader.setupFogDensity(terrain.getFoggyDensity());
 				mTerrainShader.setupFogGradient(terrain.getFoggyGradient());
 			} else {
-				mTerrainShader.setupFogDensity(Terrain.FOGGY_DENSITY_NULL);
-				mTerrainShader.setupFogGradient(Terrain.FOGGY_GRADIENT_NULL);
+				mTerrainShader.setupFogDensity(Texture.FOGGY_DENSITY_NULL);
+				mTerrainShader.setupFogGradient(Texture.FOGGY_GRADIENT_NULL);
 			}
 		}
 		

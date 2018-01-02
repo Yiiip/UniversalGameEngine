@@ -128,6 +128,26 @@ public abstract class GameObject {
 		return angleSpeed;
 	}
 	
+	public void addFoggy(float fogDensity, float fogGradient) {
+		this.model.getTexture().addFoggy(fogDensity, fogGradient);
+	}
+	
+	public void removeFoggy() {
+		this.model.getTexture().removeFoggy();
+	}
+	
+	public boolean isFoggy() {
+		return this.model.getTexture().isFoggy();
+	}
+	
+	public float getFoggyDensity() {
+		return this.model.getTexture().getFoggyDensity();
+	}
+	
+	public float getFoggyGradient() {
+		return this.model.getTexture().getFoggyGradient();
+	}
+	
 	@Override
 	public String toString() {
 		return "Position[" + position.x + ", " + position.y + ", " + position.z + "]  "

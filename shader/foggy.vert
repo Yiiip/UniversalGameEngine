@@ -15,9 +15,8 @@ uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
 uniform vec3 lightPos;
 uniform float useFakeLighting;
-
-const float fog_density = 0.003; //0.0 remove fog
-const float fog_gradient = 1.5; //1.0 remove fog
+uniform float fogDensity; //0.0 remove fog
+uniform float fogGradient; //1.0 remove fog
 
 void main (void) {
 	vec4 worldPosition = transformationMatrix * vec4(position, 1.0);
@@ -39,6 +38,6 @@ void main (void) {
 
 	//Foggy factors
 	float distance = length(positionRelaticeToCam.xyz);
-	visibility = exp(-pow(fog_density * distance, fog_gradient));
+	visibility = exp(-pow(fogDensity * distance, fogGradient));
 	visibility = clamp(visibility, 0.0, 1.0);
 }

@@ -52,6 +52,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		for (int i = 0; i < oTrees.length; i++) {
 			oTrees[i] = new DemoObject(textureModel, new Vector3f(
 					random.nextFloat() * Terrain.SIZE*2 - Terrain.SIZE, 0, -random.nextInt((int) Terrain.SIZE)), 0f, 0f, 0f, 2.0f +random.nextFloat()*2);
+			oTrees[i].addFoggy(0.003f, 1.5f);
 		}
 		
 		//草类植物
@@ -67,6 +68,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		for (int i = 0; i < oGrasses.length; i++) {
 			oGrasses[i] = new DemoObject(grassTextureModel, new Vector3f(
 					random.nextFloat() * Terrain.SIZE*2 - Terrain.SIZE, 0, -random.nextInt((int) Terrain.SIZE)-10.0f), 0f, 0f, 0f, random.nextFloat()+0.05f);
+			oGrasses[i].addFoggy(0.003f, 1.5f);
 		}
 		RawModel fernRawModel = OBJFileLoader.loadOBJ(DataUtils.OBJ_FERN, loader);
 		Texture fernTexture = loader.loadTexture("res/texture/" + DataUtils.TEX_FERN)
@@ -78,6 +80,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		for (int i = 0; i < oFerns.length; i++) {
 			oFerns[i] = new DemoObject(fernTextureModel, new Vector3f(
 					random.nextFloat() * Terrain.SIZE*2 - Terrain.SIZE, 0, -random.nextInt((int) Terrain.SIZE)-10.0f), 0f, 0f, 0f, random.nextFloat()+0.04f);
+			oFerns[i].addFoggy(0.003f, 1.5f);
 		}
 		
 		//地形

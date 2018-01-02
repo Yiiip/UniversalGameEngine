@@ -23,6 +23,12 @@ public class Texture {
 	private boolean useFakeLighting = false; //是否使用假光替代原有法线（即让法线竖直向上(0,1,0)）
 	private float ambientLightness = 0.25f;	//环境光强度，默认给予一定亮度
 	
+	public static final float FOGGY_DENSITY_NULL = 0.0f;
+	public static final float FOGGY_GRADIENT_NULL = 1.0f;
+	private boolean foggy = false; //non fog
+	private float foggyDensity = FOGGY_DENSITY_NULL; //non fog
+	private float foggyGradient = FOGGY_GRADIENT_NULL; //non fog
+	
 	public Texture(String path) {
 		this.textureID = loadTexture(path);
 	}
@@ -125,5 +131,29 @@ public class Texture {
 	
 	public float getAmbientLightness() {
 		return ambientLightness;
+	}
+	
+	public void addFoggy(float fogDensity, float fogGradient) {
+		this.foggy = true;
+		this.foggyDensity = fogDensity;
+		this.foggyGradient = fogGradient;
+	}
+	
+	public void removeFoggy() {
+		this.foggy = false;
+		this.foggyDensity = FOGGY_DENSITY_NULL;
+		this.foggyGradient = FOGGY_GRADIENT_NULL;
+	}
+	
+	public boolean isFoggy() {
+		return foggy;
+	}
+	
+	public float getFoggyDensity() {
+		return foggyDensity;
+	}
+	
+	public float getFoggyGradient() {
+		return foggyGradient;
 	}
 }

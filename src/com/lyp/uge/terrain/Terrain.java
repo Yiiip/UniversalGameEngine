@@ -26,12 +26,6 @@ public class Terrain {
 	private Texture texture;
 	private BufferedImage mHeightMapImage;
 	
-	public static final float FOGGY_DENSITY_NULL = 0.0f;
-	public static final float FOGGY_GRADIENT_NULL = 1.0f;
-	private boolean foggy = false; //non fog
-	private float foggyDensity = FOGGY_DENSITY_NULL; //non fog
-	private float foggyGradient = FOGGY_GRADIENT_NULL; //non fog
-	
 	public Terrain(float gridX, float gridZ, Loader loader, Texture texture, String heightMapFile) {
 		this.x = gridX * SIZE;
 		this.z = gridZ * SIZE;
@@ -139,26 +133,22 @@ public class Terrain {
 	}
 	
 	public void addFoggy(float fogDensity, float fogGradient) {
-		this.foggy = true;
-		this.foggyDensity = fogDensity;
-		this.foggyGradient = fogGradient;
+		this.texture.addFoggy(fogDensity, fogGradient);
 	}
 	
 	public void removeFoggy() {
-		this.foggy = false;
-		this.foggyDensity = FOGGY_DENSITY_NULL;
-		this.foggyGradient = FOGGY_GRADIENT_NULL;
+		this.texture.removeFoggy();
 	}
 	
 	public boolean isFoggy() {
-		return foggy;
+		return this.texture.isFoggy();
 	}
 	
 	public float getFoggyDensity() {
-		return foggyDensity;
+		return this.texture.getFoggyDensity();
 	}
 	
 	public float getFoggyGradient() {
-		return foggyGradient;
+		return this.texture.getFoggyGradient();
 	}
 }

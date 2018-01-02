@@ -15,6 +15,7 @@ import com.lyp.uge.gameObject.GameObject;
 import com.lyp.uge.math.MathTools;
 import com.lyp.uge.model.RawModel;
 import com.lyp.uge.model.TextureModel;
+import com.lyp.uge.shader.FoggyShader;
 import com.lyp.uge.shader.Shader;
 import com.lyp.uge.shader.SpecularLightShader;
 import com.lyp.uge.texture.Texture;
@@ -147,14 +148,23 @@ public class Renderer {
 		glEnableVertexAttribArray(Loader.ATTR_COORDINATES);
 		glEnableVertexAttribArray(Loader.ATTR_NORMALS);
 		
+		Texture texture = textureModel.getTexture();
 		if (mShader instanceof SpecularLightShader) { //高光反射光Shader
-			Texture texture = textureModel.getTexture();
 			if (texture.isHasTransparency()) {
 				RendererManager.disableCulling();
 			}
 			((SpecularLightShader) mShader).loadSpecularLightingParms(texture.getShineDamper(), texture.getReflectivity());
 			((SpecularLightShader) mShader).loadAmbientLightness(texture.getAmbientLightness());
 			((SpecularLightShader) mShader).loadFakeLightingParms(texture.isUseFakeLighting());
+		}
+		if (mShader instanceof FoggyShader) { //迷雾效果Shader
+			if (texture.isFoggy()) {
+				((FoggyShader) mShader).setupFogDensity(texture.getFoggyDensity());
+				((FoggyShader) mShader).setupFogGradient(texture.getFoggyGradient());
+			} else {
+				((FoggyShader) mShader).setupFogDensity(Texture.FOGGY_DENSITY_NULL);
+				((FoggyShader) mShader).setupFogGradient(Texture.FOGGY_GRADIENT_NULL);
+			}
 		}
 		
 		glActiveTexture(GL_TEXTURE0);
