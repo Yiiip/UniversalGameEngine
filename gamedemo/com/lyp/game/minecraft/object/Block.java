@@ -8,13 +8,9 @@ import com.lyp.uge.shader.Shader;
 
 public class Block extends GameObject {
 	
-	public Block(TextureModel model, Vector3f position, float rotateX, float rotateY, float rotateZ, float scale) {
+	public Block(TextureModel model, Vector3f position) {
 		this.model = model;
 		this.position = position;
-		this.rotateX = rotateX;
-		this.rotateY = rotateY;
-		this.rotateZ = rotateZ;
-		this.scale = scale;
 	}
 
 	@Override

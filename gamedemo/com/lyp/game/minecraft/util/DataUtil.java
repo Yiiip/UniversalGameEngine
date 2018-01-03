@@ -6,6 +6,7 @@ public class DataUtil {
 	public static final String PATH_TEXTURE = PATH_RES + "texture/";
 	
 	public static final String TEX_GRASS_WITH_DIRT = PATH_TEXTURE + "tex_grass_with_dirt.png";
+	public static final String TEX_DIRT = PATH_TEXTURE + "tex_dirt.png";
 	
 	/* cube */
 	public static float[] CUBE_VERTICES = { //24
