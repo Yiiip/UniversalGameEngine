@@ -128,12 +128,14 @@ public abstract class GameObject {
 		return angleSpeed;
 	}
 	
-	public void addFoggy(float fogDensity, float fogGradient) {
+	public GameObject addFoggy(float fogDensity, float fogGradient) {
 		this.model.getTexture().addFoggy(fogDensity, fogGradient);
+		return this;
 	}
 	
-	public void removeFoggy() {
+	public GameObject removeFoggy() {
 		this.model.getTexture().removeFoggy();
+		return this;
 	}
 	
 	public boolean isFoggy() {
@@ -146,6 +148,11 @@ public abstract class GameObject {
 	
 	public float getFoggyGradient() {
 		return this.model.getTexture().getFoggyGradient();
+	}
+	
+	public GameObject addAmbientLightness(float ambientLightness) {
+		this.model.getTexture().setAmbientLightness(ambientLightness);
+		return this;
 	}
 	
 	@Override

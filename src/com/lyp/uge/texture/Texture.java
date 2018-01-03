@@ -133,10 +133,11 @@ public class Texture {
 		return ambientLightness;
 	}
 	
-	public void addFoggy(float fogDensity, float fogGradient) {
+	public Texture addFoggy(float fogDensity, float fogGradient) {
 		this.foggy = true;
 		this.foggyDensity = fogDensity;
 		this.foggyGradient = fogGradient;
+		return this;
 	}
 	
 	public void removeFoggy() {

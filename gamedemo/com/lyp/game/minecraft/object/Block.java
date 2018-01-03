@@ -6,9 +6,9 @@ import com.lyp.uge.model.TextureModel;
 import com.lyp.uge.renderEngine.Renderer;
 import com.lyp.uge.shader.Shader;
 
-public class CubeObject extends GameObject {
+public class Block extends GameObject {
 	
-	public CubeObject(TextureModel model, Vector3f position, float rotateX, float rotateY, float rotateZ, float scale) {
+	public Block(TextureModel model, Vector3f position, float rotateX, float rotateY, float rotateZ, float scale) {
 		this.model = model;
 		this.position = position;
 		this.rotateX = rotateX;
