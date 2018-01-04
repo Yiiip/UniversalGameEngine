@@ -14,6 +14,7 @@ import com.lyp.uge.math.MathTools;
 import com.lyp.uge.model.RawModel;
 import com.lyp.uge.shader.TerrainShader;
 import com.lyp.uge.terrain.Terrain;
+import com.lyp.uge.terrain.TerrainTexturePack;
 import com.lyp.uge.texture.Texture;
 
 /**
@@ -29,6 +30,7 @@ public class TerrainRenderer {
 		this.mTerrainShader = shader;
 		this.mTerrainShader.start();
 		this.mTerrainShader.loadProjectionMatrix(projectionMatrix);
+		this.mTerrainShader.setupTextureUnits();
 		this.mTerrainShader.stop();
 	}
 	
@@ -48,11 +50,14 @@ public class TerrainRenderer {
 		glEnableVertexAttribArray(Loader.ATTR_COORDINATES);
 		glEnableVertexAttribArray(Loader.ATTR_NORMALS);
 		
+		bindTextures(terrain);
+		
+		TerrainTexturePack texturePack = terrain.getTexturePack();
+		Texture bgTexture = texturePack.getBgTexture(); //TODO
 		if (mTerrainShader instanceof TerrainShader) {
-			Texture texture = terrain.getTexture();
-			mTerrainShader.loadSpecularLightingParms(texture.getShineDamper(), texture.getReflectivity());
-			mTerrainShader.loadAmbientLightness(texture.getAmbientLightness());
-			if (texture.isFoggy()) {
+			mTerrainShader.loadSpecularLightingParms(bgTexture.getShineDamper(), bgTexture.getReflectivity());
+			mTerrainShader.loadAmbientLightness(bgTexture.getAmbientLightness());
+			if (bgTexture.isFoggy()) {
 				mTerrainShader.setupFogDensity(terrain.getFoggyDensity());
 				mTerrainShader.setupFogGradient(terrain.getFoggyGradient());
 			} else {
@@ -61,8 +66,6 @@ public class TerrainRenderer {
 			}
 		}
 		
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, terrain.getTexture().getID());
 	}
 	
 	private void loadModelMatrix(Terrain terrain) {
@@ -72,6 +75,20 @@ public class TerrainRenderer {
 		mTerrainShader.loadModelMatrix(transformationMatrix);
 	}
 
+	private void bindTextures(Terrain terrain) {
+		TerrainTexturePack texturePack = terrain.getTexturePack();
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texturePack.getBgTexture().getID());
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, texturePack.getRTexture().getID());
+		glActiveTexture(GL_TEXTURE2);
+		glBindTexture(GL_TEXTURE_2D, texturePack.getGTexture().getID());
+		glActiveTexture(GL_TEXTURE3);
+		glBindTexture(GL_TEXTURE_2D, texturePack.getBTexture().getID());
+		glActiveTexture(GL_TEXTURE4);
+		glBindTexture(GL_TEXTURE_2D, terrain.getBlendMap().getID());
+	}
+	
 	private void unbindTextureModel() {
 		glDisableVertexAttribArray(Loader.ATTR_POSITIONS);
 		glDisableVertexAttribArray(Loader.ATTR_COORDINATES);

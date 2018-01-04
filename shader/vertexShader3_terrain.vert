@@ -24,7 +24,7 @@ void main (void) {
 	vec4 positionRelaticeToCam = viewMatrix * worldPosition;
 	
 	gl_Position = projectionMatrix * positionRelaticeToCam;
-	pass_tc = tc * 45.0; //repeat draw the texture
+	pass_tc = tc;
 	
 	surface_normal = (transformationMatrix * vec4(normal, 0)).xyz;
 	to_light_vector = lightPos - worldPosition.xyz;

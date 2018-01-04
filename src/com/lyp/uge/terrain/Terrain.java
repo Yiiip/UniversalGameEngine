@@ -23,20 +23,27 @@ public class Terrain {
 	private float x;
 	private float z;
 	private RawModel rawModel;
-	private Texture texture;
+	private TerrainTexturePack texturePack;
+	private Texture blendMap;
 	private BufferedImage mHeightMapImage;
 	
-	public Terrain(float gridX, float gridZ, Loader loader, Texture texture, String heightMapFile) {
+	public Terrain(float gridX, float gridZ, Loader loader, 
+			TerrainTexturePack texturePack, Texture blendMapTexture, 
+			String heightMapFile) {
 		this.x = gridX * SIZE;
 		this.z = gridZ * SIZE;
-		this.texture = texture;
+		this.texturePack = texturePack;
+		this.blendMap = blendMapTexture;
 		this.rawModel = generateTerrain(loader, heightMapFile);
 	}
 	
-	public Terrain(float gridX, float gridZ, Loader loader, Texture texture, String heightMapFile, float maxHeight) {
+	public Terrain(float gridX, float gridZ, Loader loader, 
+			TerrainTexturePack texturePack, Texture blendMapTexture,
+			String heightMapFile, float maxHeight) {
 		this.x = gridX * SIZE;
 		this.z = gridZ * SIZE;
-		this.texture = texture;
+		this.texturePack = texturePack;
+		this.blendMap = blendMapTexture;
 		MAX_ALTITUDE = maxHeight;
 		this.rawModel = generateTerrain(loader, heightMapFile);
 	}
@@ -128,27 +135,31 @@ public class Terrain {
 		return rawModel;
 	}
 
-	public Texture getTexture() {
-		return texture;
+	public TerrainTexturePack getTexturePack() {
+		return texturePack;
+	}
+	
+	public Texture getBlendMap() {
+		return blendMap;
 	}
 	
 	public void addFoggy(float fogDensity, float fogGradient) {
-		this.texture.addFoggy(fogDensity, fogGradient);
+		this.getTexturePack().getBgTexture().addFoggy(fogDensity, fogGradient);
 	}
 	
 	public void removeFoggy() {
-		this.texture.removeFoggy();
+		this.getTexturePack().getBgTexture().removeFoggy();
 	}
 	
 	public boolean isFoggy() {
-		return this.texture.isFoggy();
+		return this.getTexturePack().getBgTexture().isFoggy();
 	}
 	
 	public float getFoggyDensity() {
-		return this.texture.getFoggyDensity();
+		return this.getTexturePack().getBgTexture().getFoggyDensity();
 	}
 	
 	public float getFoggyGradient() {
-		return this.texture.getFoggyGradient();
+		return this.getTexturePack().getBgTexture().getFoggyGradient();
 	}
 }

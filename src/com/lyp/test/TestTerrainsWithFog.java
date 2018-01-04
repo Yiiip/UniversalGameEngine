@@ -14,6 +14,7 @@ import com.lyp.uge.renderEngine.OBJFileLoader;
 import com.lyp.uge.renderEngine.RendererManager;
 import com.lyp.uge.shader.ShaderFactry;
 import com.lyp.uge.terrain.Terrain;
+import com.lyp.uge.terrain.TerrainTexturePack;
 import com.lyp.uge.texture.Texture;
 import com.lyp.uge.utils.DataUtils;
 
@@ -85,13 +86,18 @@ public class TestTerrainsWithFog extends GameApplication {
 		}
 		
 		//地形
-		Texture textureTerrain = loader.loadTexture("res/texture/" + DataUtils.TEX_GRASS)
+		Texture bgTexture = loader.loadTexture("res/texture/" + DataUtils.TEX_GRASS)
 				.setShineDamper(10.0f)
 				.setReflectivity(0.5f)
 				.addFoggy(0.003f, 1.5f);
+		Texture rTexture = loader.loadTexture(DataUtils.TEX_MUD);
+		Texture gTexture = loader.loadTexture(DataUtils.TEX_GRASS_WITH_FLOWERS);
+		Texture bTexture = loader.loadTexture(DataUtils.TEX_GROUND01);
+		Texture blendMapTexture = loader.loadTexture(DataUtils.TEX_TERRAIN_BLEND_MAP);
+		TerrainTexturePack texturePack = new TerrainTexturePack(bgTexture, rTexture, gTexture, bTexture);
 		terrains = new Terrain[2];
-		terrains[0] = new Terrain(0, -1, loader, textureTerrain, DataUtils.TEX_TERRAIN_HEIGHT_MAP, 60);
-		terrains[1] = new Terrain(-1, -1, loader, textureTerrain, DataUtils.TEX_TERRAIN_HEIGHT_MAP, 60);
+		terrains[0] = new Terrain(0, -1, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP, 60);
+		terrains[1] = new Terrain(-1, -1, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP, 60);
 		
 		rendererManager = new RendererManager(ShaderFactry.WITH_FOG);
 	}

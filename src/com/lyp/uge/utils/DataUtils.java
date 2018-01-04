@@ -39,8 +39,11 @@ public class DataUtils {
 	public static final String TEX_FLOWER = "flower.png";
 	public static final String TEX_STALL = "stallTexture.png";
 	public static final String TEX_FLAPPY_BIRD = "flappy_bird.png";
-	public static final String TEX_GROUND01 = "ground01.png";
+	public static final String TEX_GROUND01 = PATH_TEXTURE + "ground01.png";
+	public static final String TEX_GRASS_WITH_FLOWERS = PATH_TEXTURE + "grassWithFlowers.png";
+	public static final String TEX_MUD = PATH_TEXTURE + "mud.png";
 	
+	public static final String TEX_TERRAIN_BLEND_MAP = PATH_TEXTURE + "blendMap.png";
 	public static final String TEX_TERRAIN_HEIGHT_MAP = PATH_TEXTURE + "terrain_heightmap.png";
 	
 	public static final String TEX_FONT_PRODUCT_SANS = "font_ProductSans.png";
