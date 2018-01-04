@@ -60,10 +60,15 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	private void init() {
 		onInitWindow(WindowManager.DEFAULT_WIDTH, WindowManager.DEFAULT_HEIGHT, WindowManager.DEFAULT_TITLE, WindowManager.DEFAULT_RESIZEABLE);
 		GL.createCapabilities(); //create OpenGL Context
+		
 		if (Global.debug_log) { Logger.setLogOutLevel(Level.DEBUG); }
 		Logger.i("OpenGL", glGetString(GL_VERSION));
 		Logger.i("Window", window.toString());
+		
+		if(Global.mode_hide_cursor) { glfwSetInputMode(window.getId(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN); }
+		
 		initEvent();
+		
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
