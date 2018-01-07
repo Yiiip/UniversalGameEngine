@@ -13,6 +13,7 @@ public class FirstPersonCamera extends Camera {
 	protected static float TERRAIN_LOWEST_HEIGHT = 0.0f + CAMERA_CHARACTER_HEIGHT; //落地海拔高度
 	
 	protected float upwardSpeed = 0.05f;
+	protected boolean isInAir = false; //是否已起跳到空中
 	
 	@Override
 	public void update() {
@@ -22,11 +23,19 @@ public class FirstPersonCamera extends Camera {
 		if (position.y < TERRAIN_LOWEST_HEIGHT) {
 			upwardSpeed = 0.0f;
 			position.y = TERRAIN_LOWEST_HEIGHT;
+			isInAir = false;
 		}
 		
 		if (isKeyPressed(KEY_G)) {
-			upwardSpeed = JUMP_HEIGHT;
+			jump();
 		}
+	}
+	
+	private void jump() {
+		if (isInAir) return;
+		
+		upwardSpeed = JUMP_HEIGHT;
+		isInAir = true;
 	}
 
 	@Override
