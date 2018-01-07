@@ -5,8 +5,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL30.*;
 
 import javax.imageio.ImageIO;
+
+import org.lwjgl.opengl.GL14;
+import org.lwjgl.opengl.GL30;
 
 import com.lyp.uge.logger.Logger;
 import com.lyp.uge.utils.BufferUtils;
@@ -56,20 +60,24 @@ public class Texture {
 		}
 		
 		int genTextureID = glGenTextures();
-		glBindTexture(GL_TEXTURE_2D, genTextureID);
+		bindTexture(genTextureID);
+		GL30.glGenerateMipmap(GL_TEXTURE_2D);
+		glTexParameterf(GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, -0.4f);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); //GL_NEAREST
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); //GL_NEAREST
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, BufferUtils.createIntBuffer(data));
+		
+		
 		unbindTexture();
 		
 		Logger.d("Loading", path);
 		return genTextureID;
 	}
 	
-	public void bindTexture() {
-		glBindTexture(GL_TEXTURE_2D, textureID);
+	public void bindTexture(int texID) {
+		glBindTexture(GL_TEXTURE_2D, texID);
 	}
 	
 	public void unbindTexture() {
