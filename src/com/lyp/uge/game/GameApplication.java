@@ -12,6 +12,7 @@ import com.lyp.uge.fontMeshCreator.FontType;
 import com.lyp.uge.fontMeshCreator.GUIText;
 import com.lyp.uge.fontRendering.GUITextManager;
 import com.lyp.uge.gameObject.Camera;
+import com.lyp.uge.gameObject.FirstPersonCamera;
 import com.lyp.uge.input.KeyboardInput;
 import com.lyp.uge.input.MouseInput;
 import com.lyp.uge.input.Keyboard;
@@ -23,6 +24,7 @@ import com.lyp.uge.utils.DataUtils;
 import com.lyp.uge.utils.StringUtils;
 import com.lyp.uge.window.Window;
 import com.lyp.uge.window.WindowManager;
+import com.sun.istack.internal.NotNull;
 
 public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	
@@ -214,6 +216,26 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	
 	public int getFPS() {
 		return fps;
+	}
+	
+	/**
+	 * Use engine default first-person camera.
+	 * Only must be called in {@code onCreate()}
+	 */
+	protected void enableFirstPersonCamera() {
+		this.camera = new FirstPersonCamera();
+	}
+	
+	/**
+	 * Set customized camera.
+	 * Only must be called in {@code onCreate()}
+	 * 
+	 * @param userCamera
+	 */
+	protected void setUserCamera(@NotNull Camera userCamera) {
+		if (userCamera != null) {
+			this.camera = userCamera;
+		}
 	}
 	
 	protected Camera getMainCamera() {

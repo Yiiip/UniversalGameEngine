@@ -11,13 +11,13 @@ import static com.lyp.uge.input.Keyboard.*;
 
 public class Camera extends GameObject {
 
-	private float pitch; //倾斜度. 上下环顾，上负下正
-	private float yaw; //偏航 left or right the camera is aiming. 左右环顾，左负右正
-	private float roll; //侧面翻转 how much it's tilted(倾斜) to one side. 侧旋
+	protected float pitch; //倾斜度. 上下环顾，上负下正
+	protected float yaw; //偏航 left or right the camera is aiming. 左右环顾，左负右正
+	protected float roll; //侧面翻转 how much it's tilted(倾斜) to one side. 侧旋
 	
-	private float arountSpeed = 0.05f;
+	protected float arountSpeed = 0.05f;
 	
-	private boolean control = true;
+	protected boolean control = true;
 	
 	public Camera() {
 		position = new Vector3f(0, 0, 0);

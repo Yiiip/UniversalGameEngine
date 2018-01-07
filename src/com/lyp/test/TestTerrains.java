@@ -38,8 +38,9 @@ public class TestTerrains extends GameApplication {
 	@Override
 	protected void onCreate() {
 		enablePolygonMode();
+		enableFirstPersonCamera();
 		getMainCamera().setSpeed(0.7f);
-		getMainCamera().setPosition(new Vector3f(0, 5, 0));
+		getMainCamera().setPosition(new Vector3f(0, 100, 0));
 		
 		light = new Light(new Vector3f(0.0f, 1000.0f, -500.0f), new Vector3f(1, 1, 1), loader);
 
