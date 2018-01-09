@@ -44,7 +44,10 @@ public class DataUtils {
 	public static final String TEX_MUD = PATH_TEXTURE + "mud.png";
 	
 	public static final String TEX_TERRAIN_BLEND_MAP = PATH_TEXTURE + "blendMap.png";
-	public static final String TEX_TERRAIN_HEIGHT_MAP = PATH_TEXTURE + "terrain_heightmap.png";
+	public static final String TEX_TERRAIN_HEIGHT_MAP01 = PATH_TEXTURE + "terrain_heightmap01.png";
+	public static final String TEX_TERRAIN_HEIGHT_MAP02 = PATH_TEXTURE + "terrain_heightmap02.png";
+	public static final String TEX_TERRAIN_HEIGHT_MAP03 = PATH_TEXTURE + "terrain_heightmap03.png";
+	public static final String TEX_TERRAIN_HEIGHT_MAP04 = PATH_TEXTURE + "terrain_heightmap04.png";
 	
 	public static final String TEX_FONT_PRODUCT_SANS = "font_ProductSans.png";
 	public static final String TEX_FONT_PIXELED = "font_Pixeled.png";

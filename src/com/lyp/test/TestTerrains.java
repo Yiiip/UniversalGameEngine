@@ -38,7 +38,7 @@ public class TestTerrains extends GameApplication {
 	@Override
 	protected void onCreate() {
 		enablePolygonMode();
-		enableFirstPersonCamera();
+		//enableFirstPersonCamera();
 		getMainCamera().setSpeed(0.7f);
 		getMainCamera().setPosition(new Vector3f(0, 100, 0));
 		
@@ -54,8 +54,8 @@ public class TestTerrains extends GameApplication {
 		Texture blendMapTexture = loader.loadTexture(DataUtils.TEX_TERRAIN_BLEND_MAP);
 		TerrainTexturePack texturePack = new TerrainTexturePack(bgTexture, rTexture, gTexture, bTexture);
 		terrains = new Terrain[1];
-		terrains[0] = new Terrain(0, -1, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP, 50);
-		//terrains[1] = new Terrain(-1, -1, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP, 50);
+		terrains[0] = new Terrain(0, -1, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP04, 50);
+		//terrains[1] = new Terrain(-1, -1, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP01, 50);
 		
 		//树木
 		RawModel rawModel = OBJLoader.loadObjModel(DataUtils.OBJ_TREE, loader);
