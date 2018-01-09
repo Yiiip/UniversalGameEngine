@@ -44,6 +44,19 @@ public class TestTerrains extends GameApplication {
 		
 		light = new Light(new Vector3f(0.0f, 1000.0f, -500.0f), new Vector3f(1, 1, 1), loader);
 
+		//地形
+		Texture bgTexture = loader.loadTexture("res/texture/" + DataUtils.TEX_GRASS)
+				.setShineDamper(10.0f)
+				.setReflectivity(0.5f);
+		Texture rTexture = loader.loadTexture(DataUtils.TEX_MUD);
+		Texture gTexture = loader.loadTexture(DataUtils.TEX_GRASS_WITH_FLOWERS);
+		Texture bTexture = loader.loadTexture(DataUtils.TEX_GROUND01);
+		Texture blendMapTexture = loader.loadTexture(DataUtils.TEX_TERRAIN_BLEND_MAP);
+		TerrainTexturePack texturePack = new TerrainTexturePack(bgTexture, rTexture, gTexture, bTexture);
+		terrains = new Terrain[1];
+		terrains[0] = new Terrain(0, -1, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP, 50);
+		//terrains[1] = new Terrain(-1, -1, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP, 50);
+		
 		//树木
 		RawModel rawModel = OBJLoader.loadObjModel(DataUtils.OBJ_TREE, loader);
 		Texture texture = loader.loadTexture("res/texture/" + DataUtils.TEX_TREE)
@@ -52,8 +65,10 @@ public class TestTerrains extends GameApplication {
 		TextureModel textureModel = new TextureModel(rawModel, texture);
 		oTrees = new DemoObject[1000];
 		for (int i = 0; i < oTrees.length; i++) {
-			oTrees[i] = new DemoObject(textureModel, new Vector3f(
-					random.nextFloat() * Terrain.SIZE*2 - Terrain.SIZE, 0, -random.nextInt((int) Terrain.SIZE)), 0f, 0f, 0f, 2.0f +random.nextFloat()*2);
+			float randomX = random.nextFloat() * Terrain.SIZE*2 - Terrain.SIZE;
+			float randomZ = -random.nextInt((int) Terrain.SIZE);
+			float randomY = terrains[0].getHeightOfTerrain(randomX, randomZ);
+			oTrees[i] = new DemoObject(textureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, 2.0f+random.nextFloat()*2);
 		}
 		
 		//草类植物
@@ -67,8 +82,10 @@ public class TestTerrains extends GameApplication {
 		TextureModel grassTextureModel = new TextureModel(grassRawModel, grassTexture);
 		oGrasses = new DemoObject[2000];
 		for (int i = 0; i < oGrasses.length; i++) {
-			oGrasses[i] = new DemoObject(grassTextureModel, new Vector3f(
-					random.nextFloat() * Terrain.SIZE*2 - Terrain.SIZE, 0, -random.nextInt((int) Terrain.SIZE)-10.0f), 0f, 0f, 0f, random.nextFloat()+0.05f);
+			float randomX = random.nextFloat() * Terrain.SIZE*2 - Terrain.SIZE;
+			float randomZ = -random.nextInt((int) Terrain.SIZE) - 10.0f;
+			float randomY = terrains[0].getHeightOfTerrain(randomX, randomZ);
+			oGrasses[i] = new DemoObject(grassTextureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.05f);
 		}
 		RawModel fernRawModel = OBJLoader.loadObjModel(DataUtils.OBJ_FERN, loader);
 		Texture fernTexture = loader.loadTexture("res/texture/" + DataUtils.TEX_FERN)
@@ -78,22 +95,11 @@ public class TestTerrains extends GameApplication {
 		TextureModel fernTextureModel = new TextureModel(fernRawModel, fernTexture);
 		oFerns = new DemoObject[1100];
 		for (int i = 0; i < oFerns.length; i++) {
-			oFerns[i] = new DemoObject(fernTextureModel, new Vector3f(
-					random.nextFloat() * Terrain.SIZE*2 - Terrain.SIZE, 0, -random.nextInt((int) Terrain.SIZE)-10.0f), 0f, 0f, 0f, random.nextFloat()+0.04f);
+			float randomX = random.nextFloat() * Terrain.SIZE*2 - Terrain.SIZE;
+			float randomZ = -random.nextInt((int) Terrain.SIZE) - 10.0f;
+			float randomY = terrains[0].getHeightOfTerrain(randomX, randomZ);
+			oFerns[i] = new DemoObject(fernTextureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.04f);
 		}
-		
-		//地形
-		Texture bgTexture = loader.loadTexture("res/texture/" + DataUtils.TEX_GRASS)
-				.setShineDamper(10.0f)
-				.setReflectivity(0.5f);
-		Texture rTexture = loader.loadTexture(DataUtils.TEX_MUD);
-		Texture gTexture = loader.loadTexture(DataUtils.TEX_GRASS_WITH_FLOWERS);
-		Texture bTexture = loader.loadTexture(DataUtils.TEX_GROUND01);
-		Texture blendMapTexture = loader.loadTexture(DataUtils.TEX_TERRAIN_BLEND_MAP);
-		TerrainTexturePack texturePack = new TerrainTexturePack(bgTexture, rTexture, gTexture, bTexture);
-		terrains = new Terrain[2];
-		terrains[0] = new Terrain(0, -1, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP, 50);
-		terrains[1] = new Terrain(-1, -1, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP, 50);
 		
 		rendererManager = new RendererManager(ShaderFactry.WITH_SPECULAR_LIGHT);
 	}

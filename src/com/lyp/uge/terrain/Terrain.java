@@ -6,9 +6,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 import com.lyp.uge.logger.Logger;
+import com.lyp.uge.math.MathTools;
 import com.lyp.uge.model.RawModel;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.texture.Texture;
@@ -26,6 +28,8 @@ public class Terrain {
 	private TerrainTexturePack texturePack;
 	private Texture blendMap;
 	private BufferedImage mHeightMapImage;
+	
+	private float[][] mHeights;
 	
 	public Terrain(float gridX, float gridZ, Loader loader, 
 			TerrainTexturePack texturePack, Texture blendMapTexture, 
@@ -56,6 +60,7 @@ public class Terrain {
 		}
 		VERTEX_COUNT = mHeightMapImage.getHeight();
 		
+		mHeights = new float[VERTEX_COUNT][VERTEX_COUNT];
 		int count = VERTEX_COUNT * VERTEX_COUNT;
 		float[] vertices = new float[count * 3];
 		float[] normals = new float[count * 3];
@@ -64,8 +69,10 @@ public class Terrain {
 		int vertexPointer = 0;
 		for (int i = 0; i < VERTEX_COUNT; i++) {
 			for (int j = 0; j < VERTEX_COUNT; j++) {
+				float height = getAltitude(j, i, mHeightMapImage);
+				mHeights[j][i] = height;
 				vertices[vertexPointer * 3] = (float) j / ((float) VERTEX_COUNT - 1) * SIZE;
-				vertices[vertexPointer * 3 + 1] = getAltitude(j, i, mHeightMapImage);
+				vertices[vertexPointer * 3 + 1] = height;
 				vertices[vertexPointer * 3 + 2] = (float) i / ((float) VERTEX_COUNT - 1) * SIZE;
 				Vector3f normal = calculateNormal(j, i, mHeightMapImage);
 				normals[vertexPointer * 3] = normal.x;
@@ -129,6 +136,34 @@ public class Terrain {
 
 	public float getZ() {
 		return z;
+	}
+	
+	public float getHeightOfTerrain(float worldX, float worldZ) {
+		float terrainX = worldX - this.x;
+		float terrainZ = worldZ - this.z;
+		float gridSquareSize = SIZE / ((float)mHeights.length - 1);
+		int gridX = (int) Math.floor(terrainX / gridSquareSize);
+		int gridZ = (int) Math.floor(terrainZ / gridSquareSize);
+		if (gridX < 0 || gridZ < 0 || gridX >= mHeights.length-1 || gridZ >= mHeights.length-1) {
+			return 0.0f;
+		}
+		float xCoord = (terrainX % gridSquareSize) / gridSquareSize;
+		float zCoord = (terrainZ % gridSquareSize) / gridSquareSize;
+		float targetHeight;
+		if (xCoord <= (1 - zCoord)) {
+			targetHeight = MathTools.TriangleBarycentric (
+					new Vector3f(0, mHeights[gridX][gridZ], 0),
+					new Vector3f(1, mHeights[gridX + 1][gridZ], 0),
+					new Vector3f(0, mHeights[gridX][gridZ + 1], 1),
+					new Vector2f(xCoord, zCoord));
+		} else {
+			targetHeight = MathTools.TriangleBarycentric (
+					new Vector3f(1, mHeights[gridX + 1][gridZ], 0),
+					new Vector3f(1, mHeights[gridX + 1][gridZ + 1], 1),
+					new Vector3f(0, mHeights[gridX][gridZ + 1], 1),
+					new Vector2f(xCoord, zCoord));
+		}
+		return targetHeight;
 	}
 
 	public RawModel getRawModel() {
