@@ -14,6 +14,7 @@ import com.lyp.uge.renderEngine.OBJLoader;
 import com.lyp.uge.renderEngine.RendererManager;
 import com.lyp.uge.shader.ShaderFactry;
 import com.lyp.uge.terrain.Terrain;
+import com.lyp.uge.terrain.TerrainManager;
 import com.lyp.uge.terrain.TerrainTexturePack;
 import com.lyp.uge.texture.Texture;
 import com.lyp.uge.utils.DataUtils;
@@ -38,7 +39,7 @@ public class TestTerrains extends GameApplication {
 	@Override
 	protected void onCreate() {
 		enablePolygonMode();
-		//enableFirstPersonCamera();
+		enableFirstPersonCamera();
 		getMainCamera().setSpeed(0.7f);
 		getMainCamera().setPosition(new Vector3f(0, 100, Terrain.SIZE));
 		
@@ -56,6 +57,7 @@ public class TestTerrains extends GameApplication {
 		terrains = new Terrain[2];
 		terrains[0] = new Terrain(0, 0, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP04, 50);
 		terrains[1] = new Terrain(-1, 0, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP01, 50);
+		pushToCamera(new TerrainManager(terrains));
 		
 		//树木
 		RawModel rawModel = OBJLoader.loadObjModel(DataUtils.OBJ_TREE, loader);

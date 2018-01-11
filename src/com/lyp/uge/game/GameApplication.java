@@ -20,6 +20,7 @@ import com.lyp.uge.input.Keyboard.OnKeyboardListener;
 import com.lyp.uge.logger.Logger;
 import com.lyp.uge.logger.Logger.Level;
 import com.lyp.uge.renderEngine.Loader;
+import com.lyp.uge.terrain.TerrainManager;
 import com.lyp.uge.utils.DataUtils;
 import com.lyp.uge.utils.StringUtils;
 import com.lyp.uge.window.Window;
@@ -236,6 +237,14 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		if (userCamera != null) {
 			this.camera = userCamera;
 		}
+	}
+	
+	protected boolean pushToCamera(@NotNull TerrainManager terrainManager) {
+		if (this.camera instanceof FirstPersonCamera) {
+			((FirstPersonCamera) camera).setTerrainManager(terrainManager);
+			return true;
+		}
+		return false;
 	}
 	
 	protected Camera getMainCamera() {

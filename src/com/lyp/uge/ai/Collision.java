@@ -23,4 +23,29 @@ public class Collision {
 			return false;
 		}
 	}
+	
+	/**
+	 * 判断一点是否在矩形区域内
+	 * @param point 点的坐标
+	 * @param rectStart 矩形区域左上角起始点的坐标
+	 * @param rectWidth 矩形区域宽度
+	 * @param rectHeight 矩形区域高度
+	 * @return true在区域内，false不在区域内
+	 */
+	public static boolean isPointInside(Vector2f point, Vector2f rectStart, float rectWidth, float rectHeight) {
+        float w = rectWidth;
+        float h = rectHeight;
+        if (w < 0 || h < 0) {
+            return false;
+        }
+        float x = rectStart.x;
+        float y = rectStart.y;
+        if (point.x < x || point.y < y) {
+            return false;
+        }
+        w += x;
+        h += y;
+        return ((w < x || w > point.x) &&
+                (h < y || h > point.y));
+    }
 }
