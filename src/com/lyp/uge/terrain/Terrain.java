@@ -19,7 +19,7 @@ public class Terrain {
 
 	public static final float SIZE = 800.0f;
 	private static int VERTEX_COUNT = 0;
-	private static float MAX_ALTITUDE = 40.0f; //最大海拔高度
+	private static float MAX_ALTITUDE = 40.0f; //最大海拔高度，这里为默认值
 	private static final int MAX_COLOR = 256 * 256 * 256;
 
 	private float x;
