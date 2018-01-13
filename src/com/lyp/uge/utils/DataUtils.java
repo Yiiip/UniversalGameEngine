@@ -5,25 +5,26 @@ public class DataUtils {
 	public static final String PATH_TEXTURE	= "res/texture/";
 	public static final String PATH_OBJ		= "res/obj/";
 	public static final String PATH_FONT	= "res/font/";
+	public static final String PATH_CONFIG	= "config/";
 	
-	public static final String OBJ_DRAGON = "dragon.obj";
-	public static final String OBJ_RABBIT = "rabbit.obj"; //斯坦福德兔
-	public static final String OBJ_TREE = "tree.obj";
-	public static final String OBJ_TREE_BIG = "treeBig.obj";
-	public static final String OBJ_CUBE = "cube.obj";
-	public static final String OBJ_CUBE2 = "cube2.obj";
-	public static final String OBJ_SPHERE_LOW_QUALITY = "sphere_low_quality.obj";
-	public static final String OBJ_SPHERE_HIGH_QUALITY = "sphere_high_quality.obj";
-	public static final String OBJ_BILLBOARD = "billboard.obj";
-	public static final String OBJ_STALL = "stall.obj";
-	public static final String OBJ_F16 = "f16.obj";
-	public static final String OBJ_SUZANNE = "suzanne.obj"; //猴子
-	public static final String OBJ_ARMADILLO = "armadillo.obj"; //怪兽
-	public static final String OBJ_TYRA = "tyra.obj"; //恐龙
-	public static final String OBJ_GRASS_REAL = "grassRealModel.obj"; //小草
-	public static final String OBJ_FERN = "fern.obj"; //蕨类植物
-	public static final String OBJ_WINE_GLASS = "WineGlass.obj"; //高脚杯
-	public static final String OBJ_CRATE = "crate.obj"; //板条箱
+	public static final String OBJ_DRAGON = PATH_OBJ + "dragon.obj";
+	public static final String OBJ_RABBIT = PATH_OBJ + "rabbit.obj"; //斯坦福德兔
+	public static final String OBJ_TREE = PATH_OBJ + "tree.obj";
+	public static final String OBJ_TREE_BIG = PATH_OBJ + "treeBig.obj";
+	public static final String OBJ_CUBE = PATH_OBJ + "cube.obj";
+	public static final String OBJ_CUBE2 = PATH_OBJ + "cube2.obj";
+	public static final String OBJ_SPHERE_LOW_QUALITY = PATH_OBJ + "sphere_low_quality.obj";
+	public static final String OBJ_SPHERE_HIGH_QUALITY = PATH_OBJ + "sphere_high_quality.obj";
+	public static final String OBJ_BILLBOARD = PATH_OBJ + "billboard.obj";
+	public static final String OBJ_STALL = PATH_OBJ + "stall.obj";
+	public static final String OBJ_F16 = PATH_OBJ + "f16.obj";
+	public static final String OBJ_SUZANNE = PATH_OBJ + "suzanne.obj"; //猴子
+	public static final String OBJ_ARMADILLO = PATH_OBJ + "armadillo.obj"; //怪兽
+	public static final String OBJ_TYRA = PATH_OBJ + "tyra.obj"; //恐龙
+	public static final String OBJ_GRASS_REAL = PATH_OBJ + "grassRealModel.obj"; //小草
+	public static final String OBJ_FERN = PATH_OBJ + "fern.obj"; //蕨类植物
+	public static final String OBJ_WINE_GLASS = PATH_OBJ + "WineGlass.obj"; //高脚杯
+	public static final String OBJ_CRATE = PATH_OBJ + "crate.obj"; //板条箱
 	
 	public static final String TEX_COLOR_YELLOW_GRAY = "color_yellow_gray.png";
 	public static final String TEX_COLOR_LIGHT_GRAY = "color_light_gray.png";
@@ -56,6 +57,8 @@ public class DataUtils {
 	public static final String FONT_PRODUCT_SANS = "font_ProductSans.fnt";
 	public static final String FONT_PIXELED = "font_Pixeled.fnt";
 	public static final String FONT_ARIAL = "font_Arial.fnt";
+	
+	public static final String CONFIG_PREFABS = PATH_CONFIG + "prefabs.json";
 
 	public static float[] RECT_VERTICES = {
 		-0.5f, 0.5f, 0, //V0

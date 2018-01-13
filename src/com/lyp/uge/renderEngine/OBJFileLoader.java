@@ -18,18 +18,16 @@ import com.lyp.uge.model.Vertex;
 
 public class OBJFileLoader {
 	
-	private static final String DEFAULT_RES_LOC = "res/obj/";
-	
 	private OBJFileLoader() {
 	}
 
-	public static ModelData loadOBJ(String fileName) {
+	public static ModelData loadOBJ(String filePath) {
 		FileReader isr = null;
-		File objFile = new File(DEFAULT_RES_LOC + fileName);
+		File objFile = new File(filePath);
 		try {
 			isr = new FileReader(objFile);
 		} catch (FileNotFoundException e) {
-			Logger.e("File not exist ! " + fileName);
+			Logger.e("File not exist ! " + filePath);
 		}
 		BufferedReader reader = new BufferedReader(isr);
 		String line;
@@ -75,7 +73,7 @@ public class OBJFileLoader {
 			}
 			reader.close();
 		} catch (IOException e) {
-			Logger.e("Error reading the file ! " + fileName);
+			Logger.e("Error reading the file ! " + filePath);
 		}
 		removeUnusedVertices(vertices);
 		float[] verticesArray = new float[vertices.size() * 3];

@@ -19,13 +19,12 @@ public class OBJLoader {
 	private OBJLoader() {
 	}
 
-	public static RawModel loadObjModel(String fileName, Loader loader) {
-		String filePath = "res/obj/" + fileName;
+	public static RawModel loadObjModel(String filePath, Loader loader) {
 		FileReader fileReader = null;
 		try {
 			fileReader = new FileReader(new File(filePath));
 		} catch (FileNotFoundException e) {
-			Logger.e("Could not load " + fileName + " file !");
+			Logger.e("Could not load " + filePath + " file !");
 			Logger.e(e);
 		}
 		Logger.d("Loading", filePath);
