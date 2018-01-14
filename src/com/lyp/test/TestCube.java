@@ -5,7 +5,7 @@ import java.util.Random;
 import org.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.game.GameApplication;
 import com.lyp.uge.model.RawModel;
-import com.lyp.uge.model.TextureModel;
+import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.renderEngine.Renderer;
 import com.lyp.uge.shader.DefaultShader;

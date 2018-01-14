@@ -5,8 +5,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL30.*;
-
 import javax.imageio.ImageIO;
 
 import org.lwjgl.opengl.GL14;

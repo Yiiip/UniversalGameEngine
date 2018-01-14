@@ -1,7 +1,11 @@
-package com.lyp.uge.model;
+package com.lyp.uge.prefab;
 
+import com.lyp.uge.model.RawModel;
 import com.lyp.uge.texture.Texture;
 
+/**
+ * This class represent a prefab.
+ */
 public class TextureModel {
 
 	private RawModel rawModel = null;

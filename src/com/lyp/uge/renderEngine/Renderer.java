@@ -14,7 +14,7 @@ import com.lyp.uge.game.Global;
 import com.lyp.uge.gameObject.GameObject;
 import com.lyp.uge.math.MathTools;
 import com.lyp.uge.model.RawModel;
-import com.lyp.uge.model.TextureModel;
+import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.shader.FoggyShader;
 import com.lyp.uge.shader.Shader;
 import com.lyp.uge.shader.SpecularLightShader;

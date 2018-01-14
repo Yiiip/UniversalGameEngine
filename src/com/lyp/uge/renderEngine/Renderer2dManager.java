@@ -12,7 +12,7 @@ import org.lwjgl.util.vector.Vector4f;
 import com.lyp.uge.game.Global;
 import com.lyp.uge.gameObject.Camera;
 import com.lyp.uge.gameObject.Sprite2D;
-import com.lyp.uge.model.TextureModel;
+import com.lyp.uge.prefab.TextureModel;
 
 public class Renderer2dManager {
 	

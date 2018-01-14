@@ -11,7 +11,7 @@ import com.lyp.game.flappybird.FlappyBird.Status;
 import com.lyp.game.flappybird.shader.PipeShader;
 import com.lyp.uge.ai.Collision;
 import com.lyp.uge.gameObject.Sprite2D;
-import com.lyp.uge.model.TextureModel;
+import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.renderEngine.Renderer;
 import com.lyp.uge.shader.Shader;

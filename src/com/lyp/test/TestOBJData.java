@@ -8,7 +8,7 @@ import com.lyp.uge.gameObject.Light;
 import com.lyp.uge.input.Keyboard;
 import com.lyp.uge.logger.Logger;
 import com.lyp.uge.model.RawModel;
-import com.lyp.uge.model.TextureModel;
+import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.renderEngine.OBJLoader;
 import com.lyp.uge.renderEngine.Renderer;

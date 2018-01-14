@@ -15,7 +15,7 @@ import com.lyp.uge.gameObject.Camera;
 import com.lyp.uge.gameObject.Sprite2D;
 import com.lyp.uge.math.MathTools;
 import com.lyp.uge.model.RawModel;
-import com.lyp.uge.model.TextureModel;
+import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.window.WindowManager;
 
 /**

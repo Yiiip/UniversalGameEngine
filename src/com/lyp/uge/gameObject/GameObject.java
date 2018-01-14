@@ -5,7 +5,7 @@ import org.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.input.KeyboardInput;
 import com.lyp.uge.input.MouseInput;
 import com.lyp.uge.input.Keyboard.OnKeyboardListener;
-import com.lyp.uge.model.TextureModel;
+import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.renderEngine.Renderer;
 import com.lyp.uge.shader.Shader;
 
