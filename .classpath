@@ -5,6 +5,12 @@
 	<classpathentry kind="src" path="res"/>
 	<classpathentry kind="src" path="shader"/>
 	<classpathentry kind="src" path="gamedemo"/>
+	<classpathentry kind="src" path="libs"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/lwjgl3"/>
+	<classpathentry exported="true" kind="lib" path="libs/gson/gson-2.8.2.jar" sourcepath="libs/gson/gson-2.8.2-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/UniversalGameEngine/libs/gson/gson-2.8.2-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

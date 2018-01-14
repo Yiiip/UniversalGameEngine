@@ -7,10 +7,9 @@ import org.lwjgl.util.vector.Vector4f;
 
 import com.lyp.uge.game.GameApplication;
 import com.lyp.uge.gameObject.Light;
-import com.lyp.uge.model.RawModel;
-import com.lyp.uge.model.TextureModel;
+import com.lyp.uge.prefab.PrefabsManager;
+import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
-import com.lyp.uge.renderEngine.OBJFileLoader;
 import com.lyp.uge.renderEngine.RendererManager;
 import com.lyp.uge.shader.ShaderFactry;
 import com.lyp.uge.terrain.Terrain;
@@ -27,6 +26,7 @@ public class TestTerrainsWithFog extends GameApplication {
 	private Terrain[] terrains;
 	private Light light;
 	private RendererManager rendererManager;
+	private PrefabsManager prefabsManager;
 	
 	private Random random = new Random();
 
@@ -43,45 +43,28 @@ public class TestTerrainsWithFog extends GameApplication {
 		
 		light = new Light(new Vector3f(0.0f, 1000.0f, -500.0f), new Vector3f(1, 1, 1), loader);
 
+		prefabsManager = new PrefabsManager(loader);
+		prefabsManager.loadPrefabs(DataUtils.CONFIG_PREFABS);
+		
 		//树木
-		RawModel rawModel = OBJFileLoader.loadOBJ(DataUtils.OBJ_TREE, loader);
-		Texture texture = loader.loadTexture("res/texture/" + DataUtils.TEX_TREE)
-				.setShineDamper(8.0f)	//设置反射光亮度衰减因子
-				.setReflectivity(0.8f)	//设置反射光反射率因子
-				.addFoggy(0.003f, 1.5f);
-		TextureModel textureModel = new TextureModel(rawModel, texture);
+		TextureModel prefabTree = prefabsManager.getPrefabByName("tree");
 		oTrees = new DemoObject[1000];
 		for (int i = 0; i < oTrees.length; i++) {
-			oTrees[i] = new DemoObject(textureModel, new Vector3f(
+			oTrees[i] = new DemoObject(prefabTree, new Vector3f(
 					random.nextFloat() * Terrain.SIZE*2 - Terrain.SIZE, 0, -random.nextInt((int) Terrain.SIZE)), 0f, 0f, 0f, 2.0f +random.nextFloat()*2);
 		}
 		
 		//草类植物
-		RawModel grassRawModel = OBJFileLoader.loadOBJ(DataUtils.OBJ_GRASS_REAL, loader);
-		Texture grassTexture = loader.loadTexture("res/texture/" + DataUtils.TEX_GRASS_REAL)
-				.setShineDamper(8.0f)
-				.setReflectivity(3.0f)
-				.setHasTransparency(true)
-				//.setUseFakeLighting(true)
-				.setAmbientLightness(0.7f)
-				.addFoggy(0.003f, 1.5f);
-		TextureModel grassTextureModel = new TextureModel(grassRawModel, grassTexture);
+		TextureModel prefabGrass = prefabsManager.getPrefabByName("grass");
 		oGrasses = new DemoObject[2000];
 		for (int i = 0; i < oGrasses.length; i++) {
-			oGrasses[i] = new DemoObject(grassTextureModel, new Vector3f(
+			oGrasses[i] = new DemoObject(prefabGrass, new Vector3f(
 					random.nextFloat() * Terrain.SIZE*2 - Terrain.SIZE, 0, -random.nextInt((int) Terrain.SIZE)-10.0f), 0f, 0f, 0f, random.nextFloat()+0.05f);
-			oGrasses[i].addFoggy(0.003f, 1.5f);
 		}
-		RawModel fernRawModel = OBJFileLoader.loadOBJ(DataUtils.OBJ_FERN, loader);
-		Texture fernTexture = loader.loadTexture("res/texture/" + DataUtils.TEX_FERN)
-				.setShineDamper(10.0f)
-				.setReflectivity(1.0f)
-				.setHasTransparency(true)
-				.addFoggy(0.003f, 1.5f);
-		TextureModel fernTextureModel = new TextureModel(fernRawModel, fernTexture);
+		TextureModel prefabFern = prefabsManager.getPrefabByName("fern");
 		oFerns = new DemoObject[1100];
 		for (int i = 0; i < oFerns.length; i++) {
-			oFerns[i] = new DemoObject(fernTextureModel, new Vector3f(
+			oFerns[i] = new DemoObject(prefabFern, new Vector3f(
 					random.nextFloat() * Terrain.SIZE*2 - Terrain.SIZE, 0, -random.nextInt((int) Terrain.SIZE)-10.0f), 0f, 0f, 0f, random.nextFloat()+0.04f);
 		}
 		

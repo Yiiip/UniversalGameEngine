@@ -1,0 +1,44 @@
+{
+	"load": "prefabs",
+	"path_obj": "res/obj/",
+	"path_tex": "res/texture/",
+	"data": 
+	[
+		{
+			"name": "tree",
+			"model": "tree.obj",
+			"texture": "tree.png",
+			"features": {
+				"specular_damper"		: 8.0,
+				"specular_reflectivity"	: 0.8,
+				"fog_density"			: 0.003,
+				"fog_gradient"			: 1.5
+			}
+		},
+		{
+			"name": "grass",
+			"model": "grassRealModel.obj",
+			"texture": "grass_real.png",
+			"features": {
+				"specular_damper"		: 8.0,
+				"specular_reflectivity"	: 3.0,
+				"ambient_lightness"		: 0.7,
+				"has_transparency"		: true,
+				"fog_density"			: 0.003,
+				"fog_gradient"			: 1.5
+			}
+		},
+		{
+			"name": "fern",
+			"model": "fern.obj",
+			"texture": "fern.png",
+			"features": {
+				"specular_damper"		: 10.0,
+				"specular_reflectivity"	: 1.0,
+				"has_transparency"		: true,
+				"fog_density"			: 0.003,
+				"fog_gradient"			: 1.5
+			}
+		}
+	]
+}
