@@ -239,6 +239,11 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		}
 	}
 	
+	/**
+	 * Bind collision between special camera(e.g. FirstPersonCamera) and terrains.
+	 * @param terrainManager
+	 * @return
+	 */
 	protected boolean pushToCamera(@NotNull TerrainManager terrainManager) {
 		if (this.camera instanceof FirstPersonCamera) {
 			((FirstPersonCamera) camera).setTerrainManager(terrainManager);
