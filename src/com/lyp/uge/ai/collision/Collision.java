@@ -1,4 +1,4 @@
-package com.lyp.uge.ai;
+package com.lyp.uge.ai.collision;
 
 import org.lwjgl.util.vector.Vector2f;
 

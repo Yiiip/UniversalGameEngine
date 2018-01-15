@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.lwjgl.util.vector.Vector2f;
 
-import com.lyp.uge.ai.Collision;
+import com.lyp.uge.ai.collision.Collision;
 import com.lyp.uge.logger.Logger;
 
 public class TerrainManager {
