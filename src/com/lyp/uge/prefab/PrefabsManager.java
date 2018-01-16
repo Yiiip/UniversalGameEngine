@@ -62,6 +62,9 @@ public class PrefabsManager {
 	}
 	
 	public TextureModel getPrefabByName(String name) {
+		if (mPrefabs.isEmpty()) {
+			Logger.w("PrefabsManager may not called loadPrefabs() to parse config file!");
+		}
 		return mPrefabs.get(name);
 	}
 	
