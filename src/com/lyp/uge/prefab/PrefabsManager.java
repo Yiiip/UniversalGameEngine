@@ -211,7 +211,7 @@ public class PrefabsManager {
 			//End of once loop in data array
         }
         long endTime = System.currentTimeMillis();
-        Logger.d("Duration", "[" + (endTime - startTime) + "ms]");
+        Logger.d("Duration", "[" + (endTime - startTime) + "ms]" + " Prefabs loading done.");
         
         return (dataArray == null ? -1 : dataArray.size());
 	}

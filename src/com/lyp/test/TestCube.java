@@ -4,6 +4,7 @@ import java.util.Random;
 
 import org.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.game.GameApplication;
+import com.lyp.uge.gameObject.SimpleObject;
 import com.lyp.uge.model.RawModel;
 import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
@@ -20,8 +21,8 @@ public class TestCube extends GameApplication {
 	private TextureModel textureModel;
 	private RawModel model_cube;
 	
-	private DemoObject entity;
-	private DemoObject[] entities;
+	private SimpleObject entity;
+	private SimpleObject[] entities;
 	
 	private Random random = new Random();
 
@@ -38,10 +39,10 @@ public class TestCube extends GameApplication {
 		shader = new DefaultShader();
 		renderer = new Renderer(shader);
 		textureModel = new TextureModel(model_cube, loader.loadTexture("res/texture/" + DataUtils.TEX_MC_CUBE));
-		entity = new DemoObject(textureModel, new Vector3f(0.0f, 0.0f, -6.0f), 0f, 0f, 0f, 1f);
-		entities = new DemoObject[1000];
+		entity = new SimpleObject(textureModel, new Vector3f(0.0f, 0.0f, -6.0f), 0f, 0f, 0f, 1f);
+		entities = new SimpleObject[1000];
 		for (int i = 0; i < entities.length; i++) {
-			entities[i] = new DemoObject(textureModel, new Vector3f(random.nextInt(30) - 15, random.nextInt(30) - 15, random.nextInt(15) - 15), 0f, 0f, 0f, 1f);
+			entities[i] = new SimpleObject(textureModel, new Vector3f(random.nextInt(30) - 15, random.nextInt(30) - 15, random.nextInt(15) - 15), 0f, 0f, 0f, 1f);
 		}
 	}
 	

@@ -5,6 +5,7 @@ import java.util.Random;
 import org.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.game.GameApplication;
 import com.lyp.uge.gameObject.Light;
+import com.lyp.uge.gameObject.SimpleObject;
 import com.lyp.uge.input.Keyboard;
 import com.lyp.uge.logger.Logger;
 import com.lyp.uge.model.RawModel;
@@ -23,11 +24,11 @@ public class TestOBJData extends GameApplication {
 	private Renderer renderer;
 	private StaticShader shader;
 	private TextureModel textureModel;
-	private DemoObject objectMain;
+	private SimpleObject objectMain;
 	private Light light;
 	
 	private RawModel model;
-	private DemoObject[] objects;
+	private SimpleObject[] objects;
 	
 	private Random random = new Random();
 
@@ -49,12 +50,12 @@ public class TestOBJData extends GameApplication {
 		texture.setShineDamper(10.0f);	//设置反射光亮度衰减因子
 		texture.setReflectivity(1.0f);	//设置反射光反射率因子
 		textureModel = new TextureModel(model, texture);
-		objectMain = new DemoObject(textureModel, new Vector3f(0f, -3.0f, -40.0f), 0f, 0f, 0f, 1.0f);
+		objectMain = new SimpleObject(textureModel, new Vector3f(0f, -3.0f, -40.0f), 0f, 0f, 0f, 1.0f);
 //		light = new Light(new Vector3f(0.0f, 0.0f, -50.0f), new Vector3f(1, 1, 1));
 		light = new Light(new Vector3f(0.0f, 0.0f, -50.0f), new Vector3f(1, 1, 1), loader);
-		objects = new DemoObject[50];
+		objects = new SimpleObject[50];
 		for (int i = 0; i < objects.length; i++) {
-			objects[i] = new DemoObject(textureModel, new Vector3f(
+			objects[i] = new SimpleObject(textureModel, new Vector3f(
 					random.nextFloat() * 100 - 50, random.nextFloat() * 100 - 50, -random.nextInt(200)), 0f, 0f, 0f, 0.22f + 0.01f * i);
 		}
 	}
@@ -87,7 +88,7 @@ public class TestOBJData extends GameApplication {
 		if (keycode == Keyboard.KEY_R) {
 			model = OBJLoader.loadObjModel(DataUtils.OBJ_ARMADILLO, loader);
 			textureModel = new TextureModel(model, loader.loadTexture("res/texture/" + DataUtils.TEX_COLOR_YELLOW_GRAY));
-			objectMain = new DemoObject(textureModel, new Vector3f(0f, -3.0f, -6.0f), 0f, 0f, 0f, 1.5f);
+			objectMain = new SimpleObject(textureModel, new Vector3f(0f, -3.0f, -6.0f), 0f, 0f, 0f, 1.5f);
 		}
 	}
 

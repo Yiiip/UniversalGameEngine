@@ -7,6 +7,7 @@ import org.lwjgl.util.vector.Vector4f;
 
 import com.lyp.uge.game.GameApplication;
 import com.lyp.uge.gameObject.Light;
+import com.lyp.uge.gameObject.SimpleObject;
 import com.lyp.uge.prefab.PrefabsManager;
 import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
@@ -20,9 +21,9 @@ import com.lyp.uge.utils.DataUtils;
 public class TestTerrainsWithFog extends GameApplication {
 
 	private Loader loader = new Loader();
-	private DemoObject[] oTrees;
-	private DemoObject[] oGrasses;
-	private DemoObject[] oFerns;
+	private SimpleObject[] oTrees;
+	private SimpleObject[] oGrasses;
+	private SimpleObject[] oFerns;
 	private Terrain[] terrains;
 	private Light light;
 	private RendererManager rendererManager;
@@ -48,23 +49,23 @@ public class TestTerrainsWithFog extends GameApplication {
 		
 		//树木
 		TextureModel prefabTree = prefabsManager.getPrefabByName("tree");
-		oTrees = new DemoObject[1000];
+		oTrees = new SimpleObject[1000];
 		for (int i = 0; i < oTrees.length; i++) {
-			oTrees[i] = new DemoObject(prefabTree, new Vector3f(
+			oTrees[i] = new SimpleObject(prefabTree, new Vector3f(
 					random.nextFloat() * Terrain.SIZE*2 - Terrain.SIZE, 0, -random.nextInt((int) Terrain.SIZE)), 0f, 0f, 0f, 2.0f +random.nextFloat()*2);
 		}
 		
 		//草类植物
 		TextureModel prefabGrass = prefabsManager.getPrefabByName("grass");
-		oGrasses = new DemoObject[2000];
+		oGrasses = new SimpleObject[2000];
 		for (int i = 0; i < oGrasses.length; i++) {
-			oGrasses[i] = new DemoObject(prefabGrass, new Vector3f(
+			oGrasses[i] = new SimpleObject(prefabGrass, new Vector3f(
 					random.nextFloat() * Terrain.SIZE*2 - Terrain.SIZE, 0, -random.nextInt((int) Terrain.SIZE)-10.0f), 0f, 0f, 0f, random.nextFloat()+0.05f);
 		}
 		TextureModel prefabFern = prefabsManager.getPrefabByName("fern");
-		oFerns = new DemoObject[1100];
+		oFerns = new SimpleObject[1100];
 		for (int i = 0; i < oFerns.length; i++) {
-			oFerns[i] = new DemoObject(prefabFern, new Vector3f(
+			oFerns[i] = new SimpleObject(prefabFern, new Vector3f(
 					random.nextFloat() * Terrain.SIZE*2 - Terrain.SIZE, 0, -random.nextInt((int) Terrain.SIZE)-10.0f), 0f, 0f, 0f, random.nextFloat()+0.04f);
 		}
 		

@@ -7,6 +7,7 @@ import org.lwjgl.util.vector.Vector4f;
 
 import com.lyp.uge.game.GameApplication;
 import com.lyp.uge.gameObject.Light;
+import com.lyp.uge.gameObject.SimpleObject;
 import com.lyp.uge.model.RawModel;
 import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
@@ -22,9 +23,9 @@ import com.lyp.uge.utils.DataUtils;
 public class TestTerrains extends GameApplication {
 
 	private Loader loader = new Loader();
-	private DemoObject[] oTrees;
-	private DemoObject[] oGrasses;
-	private DemoObject[] oFerns;
+	private SimpleObject[] oTrees;
+	private SimpleObject[] oGrasses;
+	private SimpleObject[] oFerns;
 	private Terrain[] terrains;
 	private Light light;
 	private RendererManager rendererManager;
@@ -65,18 +66,18 @@ public class TestTerrains extends GameApplication {
 				.setShineDamper(8.0f)	//设置反射光亮度衰减因子
 				.setReflectivity(0.8f);	//设置反射光反射率因子
 		TextureModel textureModel = new TextureModel(rawModel, texture);
-		oTrees = new DemoObject[1000];
+		oTrees = new SimpleObject[1000];
 		for (int i = 0; i < oTrees.length / 2; i++) {
 			float randomX = random.nextFloat() * Terrain.SIZE;
 			float randomZ = random.nextInt((int) Terrain.SIZE);
 			float randomY = terrains[0].getHeightOfTerrain(randomX, randomZ);
-			oTrees[i] = new DemoObject(textureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, 2.0f+random.nextFloat()*2);
+			oTrees[i] = new SimpleObject(textureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, 2.0f+random.nextFloat()*2);
 		}
 		for (int i = oTrees.length / 2; i < oTrees.length; i++) {
 			float randomX = -random.nextFloat() * Terrain.SIZE;
 			float randomZ = random.nextInt((int) Terrain.SIZE);
 			float randomY = terrains[1].getHeightOfTerrain(randomX, randomZ);
-			oTrees[i] = new DemoObject(textureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, 2.0f+random.nextFloat()*2);
+			oTrees[i] = new SimpleObject(textureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, 2.0f+random.nextFloat()*2);
 		}
 		
 		//草类植物
@@ -88,18 +89,18 @@ public class TestTerrains extends GameApplication {
 				//.setUseFakeLighting(true)
 				.setAmbientLightness(0.7f);
 		TextureModel grassTextureModel = new TextureModel(grassRawModel, grassTexture);
-		oGrasses = new DemoObject[2000];
+		oGrasses = new SimpleObject[2000];
 		for (int i = 0; i < oGrasses.length / 2; i++) {
 			float randomX = random.nextFloat() * Terrain.SIZE;
 			float randomZ = random.nextInt((int) Terrain.SIZE) - 10.0f;
 			float randomY = terrains[0].getHeightOfTerrain(randomX, randomZ);
-			oGrasses[i] = new DemoObject(grassTextureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.05f);
+			oGrasses[i] = new SimpleObject(grassTextureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.05f);
 		}
 		for (int i = oGrasses.length / 2; i < oGrasses.length; i++) {
 			float randomX = -random.nextFloat() * Terrain.SIZE;
 			float randomZ = random.nextInt((int) Terrain.SIZE) - 10.0f;
 			float randomY = terrains[1].getHeightOfTerrain(randomX, randomZ);
-			oGrasses[i] = new DemoObject(grassTextureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.05f);
+			oGrasses[i] = new SimpleObject(grassTextureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.05f);
 		}
 		RawModel fernRawModel = OBJLoader.loadObjModel(DataUtils.OBJ_FERN, loader);
 		Texture fernTexture = loader.loadTexture("res/texture/" + DataUtils.TEX_FERN)
@@ -107,18 +108,18 @@ public class TestTerrains extends GameApplication {
 				.setReflectivity(1.0f)
 				.setHasTransparency(true);
 		TextureModel fernTextureModel = new TextureModel(fernRawModel, fernTexture);
-		oFerns = new DemoObject[1100];
+		oFerns = new SimpleObject[1100];
 		for (int i = 0; i < oFerns.length / 2; i++) {
 			float randomX = random.nextFloat() * Terrain.SIZE;
 			float randomZ = random.nextInt((int) Terrain.SIZE) - 10.0f;
 			float randomY = terrains[0].getHeightOfTerrain(randomX, randomZ);
-			oFerns[i] = new DemoObject(fernTextureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.04f);
+			oFerns[i] = new SimpleObject(fernTextureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.04f);
 		}
 		for (int i = oFerns.length / 2; i < oFerns.length; i++) {
 			float randomX = -random.nextFloat() * Terrain.SIZE;
 			float randomZ = random.nextInt((int) Terrain.SIZE) - 10.0f;
 			float randomY = terrains[1].getHeightOfTerrain(randomX, randomZ);
-			oFerns[i] = new DemoObject(fernTextureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.04f);
+			oFerns[i] = new SimpleObject(fernTextureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.04f);
 		}
 		
 		rendererManager = new RendererManager(ShaderFactry.WITH_SPECULAR_LIGHT);
