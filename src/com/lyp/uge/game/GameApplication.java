@@ -65,6 +65,7 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		GL.createCapabilities(); //create OpenGL Context
 		
 		if (Global.debug_log) { Logger.setLogOutLevel(Level.DEBUG); }
+		Logger.i("Hardware", glGetString(GL_VENDOR) + ", " + glGetString(GL_RENDERER));
 		Logger.i("OpenGL", glGetString(GL_VERSION));
 		Logger.i("Window", window.toString());
 		
