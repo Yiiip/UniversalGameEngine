@@ -1,5 +1,7 @@
 package com.lyp.test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.lwjgl.util.vector.Vector3f;
@@ -22,7 +24,7 @@ public class TestOBJDataAdvanced extends GameApplication {
 	private TextureModel textureModel;
 	private SimpleObject objectMain;
 	private SimpleObject[] objects;
-	private Light light;
+	private List<Light> lights;
 	private RendererManager rendererManager;
 	
 	private Random random = new Random();
@@ -43,22 +45,26 @@ public class TestOBJDataAdvanced extends GameApplication {
 		texture.setReflectivity(1.0f);	//设置反射光反射率因子
 		textureModel = new TextureModel(rawModel, texture);
 		objectMain = new SimpleObject(textureModel, new Vector3f(0f, -3.0f, -40.0f), 0f, 0f, 0f, 1.0f);
-		light = new Light(new Vector3f(0.0f, 0.0f, -50.0f), new Vector3f(1, 1, 1), loader);
+		lights = new ArrayList<>();
+		lights.add(new Light(new Vector3f(0.0f, 0.0f, -60.0f), new Vector3f(1, 1, 1), loader));
+		lights.add(new Light(new Vector3f(0.0f, 10.0f, 0.0f), new Vector3f(1, 0, 0), loader));
+		lights.add(new Light(new Vector3f(0.0f, -50.0f, 0.0f), new Vector3f(0, 1, 0), loader));
+		lights.add(new Light(new Vector3f(-50.0f, 0.0f, 0.0f), new Vector3f(0, 0, 1), loader));
 		objects = new SimpleObject[20];
 		for (int i = 0; i < objects.length; i++) {
 			objects[i] = new SimpleObject(textureModel, new Vector3f(
 					random.nextFloat() * 100 - 50, random.nextFloat() * 100 - 50, -random.nextInt(200)), 0f, 0f, 0f, 0.22f + 0.01f * i);
 		}
 		
-		rendererManager = new RendererManager(ShaderFactry.WITH_SPECULAR_LIGHT);
+		rendererManager = new RendererManager(ShaderFactry.WITH_MULTI_LIGHTS);
 	}
 
 	@Override
 	protected void onUpdate() {
-		light.update();
+		lights.get(0).update();
 		objectMain.doMove(0f, 0f, 0f);
 		objectMain.doRotate(0.0f, 0.6f, 0.0f);
-		Logger.d("Lighting", light.getPosition().toString());
+		Logger.d("Lighting", lights.get(0).getPosition().toString());
 	}
 	
 	@Override
@@ -67,7 +73,7 @@ public class TestOBJDataAdvanced extends GameApplication {
 		for (int i = 0; i < objects.length; i++) {
 			rendererManager.addObject(objects[i]);
 		}
-		rendererManager.renderAll(light, getMainCamera(), null);
+		rendererManager.renderAll(lights, getMainCamera(), null);
 	}
 	
 	@Override

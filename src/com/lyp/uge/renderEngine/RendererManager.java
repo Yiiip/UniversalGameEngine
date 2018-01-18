@@ -17,6 +17,7 @@ import com.lyp.uge.gameObject.Light;
 import com.lyp.uge.math.MathTools;
 import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.shader.FoggyShader;
+import com.lyp.uge.shader.MultiLightsShader;
 import com.lyp.uge.shader.Shader;
 import com.lyp.uge.shader.ShaderFactry;
 import com.lyp.uge.shader.StaticShader;
@@ -91,7 +92,7 @@ public class RendererManager {
 		mTerrains.add(terrain);
 	}
 	
-	public void renderAll(@NotNull Light light, @NotNull Camera camera, @Nullable Vector4f preSkyColor) {
+	public void renderAll(@NotNull List<Light> lights, @NotNull Camera camera, @Nullable Vector4f preSkyColor) {
 		if (preSkyColor == null) {
 			this.prepare();
 		} else {
@@ -100,20 +101,26 @@ public class RendererManager {
 		if (mObjects != null && !mObjects.isEmpty()) {
 			mShader.start();
 			if (mShader instanceof StaticShader) {
-				((StaticShader) mShader).loadLight(light);
+				if (mShader instanceof MultiLightsShader) {
+					((MultiLightsShader) mShader).addMultiLights(lights);
+				} else {
+					((StaticShader) mShader).loadLight(lights.get(0));
+				}
 			}
 			if (mShader instanceof FoggyShader) {
 				((FoggyShader) mShader).setupSkyColor(preSkyColor==null?PRE_COLOR_RED:preSkyColor.x, preSkyColor==null?PRE_COLOR_GREEN:preSkyColor.y, preSkyColor==null?PRE_COLOR_BLUE:preSkyColor.z);
 			}
 			mShader.loadViewMatrix(camera);
 			mRenderer.render(mObjects);
-			light.render(mRenderer, mShader);
+			for (Light l : lights) {
+				l.render(mRenderer, mShader);
+			}
 			mShader.stop();
 		}
 		
 		if (mTerrains != null && !mTerrains.isEmpty()) {
 			mTerrainShader.start();
-			mTerrainShader.loadLight(light);
+			mTerrainShader.loadLight(lights.get(0)); //TODO
 			mTerrainShader.loadViewMatrix(camera);
 			mTerrainShader.setupSkyColor(preSkyColor==null?PRE_COLOR_RED:preSkyColor.x, preSkyColor==null?PRE_COLOR_GREEN:preSkyColor.y, preSkyColor==null?PRE_COLOR_BLUE:preSkyColor.z);
 			mTerrainRenderer.render(mTerrains);

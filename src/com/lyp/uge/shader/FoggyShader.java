@@ -15,6 +15,10 @@ public class FoggyShader extends SpecularLightShader {
 		super(FOGGY_VERTEX_FILE, FOGGY_FRAGMENT_FILE);
 	}
 	
+	public FoggyShader(String vertexFile, String fragmentFile) {
+		super(vertexFile, fragmentFile);
+	}
+	
 	@Override
 	protected void getAllUniformLocations() {
 		super.getAllUniformLocations();

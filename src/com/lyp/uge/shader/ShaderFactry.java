@@ -9,6 +9,7 @@ public class ShaderFactry {
 	public static final int WITH_DEFAULT		= 0x000;
 	public static final int WITH_SPECULAR_LIGHT	= 0x001;
 	public static final int WITH_FOG			= 0x002;
+	public static final int WITH_MULTI_LIGHTS	= 0x003;
 	
 	private static ShaderFactry mInstance;
 	private Map<Integer, Shader> mCache;
@@ -36,6 +37,9 @@ public class ShaderFactry {
 				break;
 			case WITH_FOG:
 				shader = new FoggyShader();
+				break;
+			case WITH_MULTI_LIGHTS:
+				shader = new MultiLightsShader();
 				break;
 			default:
 				break;

@@ -1,5 +1,7 @@
 package com.lyp.test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.lwjgl.util.vector.Vector3f;
@@ -27,7 +29,7 @@ public class TestTerrains extends GameApplication {
 	private SimpleObject[] oGrasses;
 	private SimpleObject[] oFerns;
 	private Terrain[] terrains;
-	private Light light;
+	private List<Light> lights;
 	private RendererManager rendererManager;
 	
 	private Random random = new Random();
@@ -44,7 +46,8 @@ public class TestTerrains extends GameApplication {
 		getMainCamera().setSpeed(0.7f);
 		getMainCamera().setPosition(new Vector3f(0, 100, Terrain.SIZE));
 		
-		light = new Light(new Vector3f(0.0f, 1000.0f, 500.0f), new Vector3f(1, 1, 1), loader);
+		lights = new ArrayList<>();
+		lights.add(new Light(new Vector3f(0.0f, 1000.0f, 500.0f), new Vector3f(1, 1, 1), loader));
 
 		//地形
 		Texture bgTexture = loader.loadTexture("res/texture/" + DataUtils.TEX_GRASS)
@@ -127,7 +130,7 @@ public class TestTerrains extends GameApplication {
 
 	@Override
 	protected void onUpdate() {
-		light.update();
+		lights.get(0).update();
 	}
 	
 	@Override
@@ -144,7 +147,7 @@ public class TestTerrains extends GameApplication {
 		for (int i = 0; i < terrains.length; i++) {
 			rendererManager.addTerrain(terrains[i]);
 		}
-		rendererManager.renderAll(light, getMainCamera(), new Vector4f(0.5f, 0.8f, 0.95f, 1.0f));
+		rendererManager.renderAll(lights, getMainCamera(), new Vector4f(0.5f, 0.8f, 0.95f, 1.0f));
 	}
 	
 	@Override
