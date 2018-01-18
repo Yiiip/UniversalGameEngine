@@ -9,7 +9,6 @@ in float visibility;
 out vec4 out_color;
 
 uniform sampler2D textureSampler;
-uniform vec3 lightColor;
 uniform vec3 lightColors[4];
 uniform float shineDamper;
 uniform float reflectivity;

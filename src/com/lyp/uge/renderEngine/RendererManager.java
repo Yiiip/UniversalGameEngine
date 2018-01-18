@@ -102,7 +102,7 @@ public class RendererManager {
 			mShader.start();
 			if (mShader instanceof StaticShader) {
 				if (mShader instanceof MultiLightsShader) {
-					((MultiLightsShader) mShader).addMultiLights(lights);
+					((MultiLightsShader) mShader).loadMultiLights(lights);
 				} else {
 					((StaticShader) mShader).loadLight(lights.get(0));
 				}
@@ -120,7 +120,7 @@ public class RendererManager {
 		
 		if (mTerrains != null && !mTerrains.isEmpty()) {
 			mTerrainShader.start();
-			mTerrainShader.loadLight(lights.get(0)); //TODO
+			mTerrainShader.loadMultiLights(lights);
 			mTerrainShader.loadViewMatrix(camera);
 			mTerrainShader.setupSkyColor(preSkyColor==null?PRE_COLOR_RED:preSkyColor.x, preSkyColor==null?PRE_COLOR_GREEN:preSkyColor.y, preSkyColor==null?PRE_COLOR_BLUE:preSkyColor.z);
 			mTerrainRenderer.render(mTerrains);

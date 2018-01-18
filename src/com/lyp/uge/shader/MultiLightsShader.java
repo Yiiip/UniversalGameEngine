@@ -20,6 +20,10 @@ public class MultiLightsShader extends FoggyShader {
 		super(MULTI_LIGHTS_VERTEX_FILE, MULTI_LIGHTS_FRAGMENT_FILE);
 	}
 	
+	public MultiLightsShader(String vertexFile, String fragmentFile) {
+		super(vertexFile, fragmentFile);
+	}
+	
 	@Override
 	protected void getAllUniformLocations() {
 		super.getAllUniformLocations();
@@ -32,7 +36,7 @@ public class MultiLightsShader extends FoggyShader {
 		}
 	}
 	
-	public void addMultiLights(List<Light> lights) {
+	public void loadMultiLights(List<Light> lights) {
 		for (int i = 0; i < MAX_LIGHTS; i++) {
 			if (i < lights.size()) {
 				super.loadVector(uniform_lightPositions[i], lights.get(i).getPosition());

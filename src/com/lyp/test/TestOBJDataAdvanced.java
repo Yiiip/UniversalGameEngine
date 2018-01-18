@@ -39,17 +39,18 @@ public class TestOBJDataAdvanced extends GameApplication {
 		enablePolygonMode();
 		getMainCamera().setSpeed(0.4f);
 		
-		RawModel rawModel = OBJLoader.loadObjModel(DataUtils.OBJ_SPHERE_HIGH_QUALITY, loader);
-		Texture texture = loader.loadTexture("res/texture/" + DataUtils.TEX_COLOR_LIGHT_GRAY);
-		texture.setShineDamper(10.0f);	//设置反射光亮度衰减因子
-		texture.setReflectivity(1.0f);	//设置反射光反射率因子
-		textureModel = new TextureModel(rawModel, texture);
-		objectMain = new SimpleObject(textureModel, new Vector3f(0f, -3.0f, -40.0f), 0f, 0f, 0f, 1.0f);
 		lights = new ArrayList<>();
-		lights.add(new Light(new Vector3f(0.0f, 0.0f, -60.0f), new Vector3f(1, 1, 1), loader));
+		//lights.add(new Light(new Vector3f(0.0f, 0.0f, -60.0f), new Vector3f(1, 1, 1), loader));
 		lights.add(new Light(new Vector3f(0.0f, 10.0f, 0.0f), new Vector3f(1, 0, 0), loader));
 		lights.add(new Light(new Vector3f(0.0f, -50.0f, 0.0f), new Vector3f(0, 1, 0), loader));
 		lights.add(new Light(new Vector3f(-50.0f, 0.0f, 0.0f), new Vector3f(0, 0, 1), loader));
+
+		RawModel rawModel = OBJLoader.loadObjModel(DataUtils.OBJ_SPHERE_HIGH_QUALITY, loader);
+		Texture texture = loader.loadTexture("res/texture/" + DataUtils.TEX_COLOR_LIGHT_GRAY);
+		texture.setShineDamper(10.0f);	//设置反射光亮度衰减因子
+		texture.setReflectivity(0.1f);	//设置反射光反射率因子
+		textureModel = new TextureModel(rawModel, texture);
+		objectMain = new SimpleObject(textureModel, new Vector3f(0f, -3.0f, -40.0f), 0f, 0f, 0f, 1.0f);
 		objects = new SimpleObject[20];
 		for (int i = 0; i < objects.length; i++) {
 			objects[i] = new SimpleObject(textureModel, new Vector3f(

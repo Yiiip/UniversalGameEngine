@@ -13,7 +13,6 @@ out float visibility;
 uniform mat4 transformationMatrix;
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
-uniform vec3 lightPos;
 uniform vec3 lightPositions[4]; //多光源
 uniform float useFakeLighting;
 uniform float fogDensity; //0.0 remove fog
