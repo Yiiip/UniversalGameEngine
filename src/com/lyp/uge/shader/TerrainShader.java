@@ -2,8 +2,8 @@ package com.lyp.uge.shader;
 
 public class TerrainShader extends MultiLightsShader {
 
-	private static String VERTEX_FILE = "shader/vertexShader3_terrain.vert";
-	private static String FRAGMENT_FILE = "shader/fragShader3_terrain.frag";
+	private static String VERTEX_FILE = "shader/terrain.vert";
+	private static String FRAGMENT_FILE = "shader/terrain.frag";
 	
 	protected int uniform_bgTexture;
 	protected int uniform_rTexture;
