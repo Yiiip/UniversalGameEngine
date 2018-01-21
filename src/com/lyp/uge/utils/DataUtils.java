@@ -50,13 +50,13 @@ public class DataUtils {
 	public static final String TEX_TERRAIN_HEIGHT_MAP03 = PATH_TEXTURE + "terrain_heightmap03.png";
 	public static final String TEX_TERRAIN_HEIGHT_MAP04 = PATH_TEXTURE + "terrain_heightmap04.png";
 	
-	public static final String TEX_FONT_PRODUCT_SANS = "font_ProductSans.png";
-	public static final String TEX_FONT_PIXELED = "font_Pixeled.png";
-	public static final String TEX_FONT_ARIAL = "font_Arial.png";
+	public static final String TEX_FONT_PRODUCT_SANS = PATH_TEXTURE + "font_ProductSans.png";
+	public static final String TEX_FONT_PIXELED = PATH_TEXTURE + "font_Pixeled.png";
+	public static final String TEX_FONT_ARIAL = PATH_TEXTURE + "font_Arial.png";
 	
-	public static final String FONT_PRODUCT_SANS = "font_ProductSans.fnt";
-	public static final String FONT_PIXELED = "font_Pixeled.fnt";
-	public static final String FONT_ARIAL = "font_Arial.fnt";
+	public static final String FONT_PRODUCT_SANS = PATH_FONT + "font_ProductSans.fnt";
+	public static final String FONT_PIXELED = PATH_FONT + "font_Pixeled.fnt";
+	public static final String FONT_ARIAL = PATH_FONT + "font_Arial.fnt";
 	
 	public static final String CONFIG_PREFABS = PATH_CONFIG + "prefabs.json";
 

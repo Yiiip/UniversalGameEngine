@@ -64,7 +64,7 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		onInitWindow(WindowManager.DEFAULT_WIDTH, WindowManager.DEFAULT_HEIGHT, WindowManager.DEFAULT_TITLE, WindowManager.DEFAULT_RESIZEABLE);
 		GL.createCapabilities(); //create OpenGL Context
 		
-		if (Global.debug_log) { Logger.setLogOutLevel(Level.DEBUG); }
+		if (Global.debug_level) { Logger.setLogOutLevel(Level.DEBUG); }
 		Logger.i("Hardware", glGetString(GL_VENDOR) + ", " + glGetString(GL_RENDERER));
 		Logger.i("OpenGL", glGetString(GL_VERSION));
 		Logger.i("Window", window.toString());
@@ -77,7 +77,7 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		camera = new Camera();
-		initFPSTextGUI();
+		if (Global.debug_fps) { initFPSTextGUI(); }
 		
 		onCreate();
 	}
@@ -95,23 +95,23 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		glfwPollEvents();
 		MouseInput.getInstance().update(window.getId());
 		camera.update();
-		updateFPSTextGUI();
+		if (Global.debug_fps) { updateFPSTextGUI(); }
 		
 		onUpdate();
 		
-		if (Global.debug_camera) {
-			Logger.d("Camera", camera.toShortString());
-		}
+		if (Global.debug_camera) { Logger.d("Camera", camera.toShortString()); }
 	}
 	
 	private void render() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
 		onRender();
-		GUITextManager.render();
+		
+		if (Global.debug_fps) { GUITextManager.render(); }
 		
 		int e = glGetError();
 		if (e != GL_NO_ERROR) { Logger.e("Ops! OpenGL has error : " + e); }
+		
 		glfwSwapBuffers(window.getId());
 	}
 	
@@ -146,7 +146,7 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	}
 	
 	private synchronized void destory() {
-		GUITextManager.cleanUp();
+		if (Global.debug_fps) { GUITextManager.cleanUp(); }
 		onDestory();
 		WindowManager.destoryWindow();
 	}
@@ -178,9 +178,11 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 				runTimer++;
 				
 				fps = framesCounter;
-				Logger.d("Updates : " + updatesCounter + ",  FPS : " + framesCounter + ", Runtime: " + getRunTimer());
-				WindowManager.setWindowTitle(window.getId(), window.getTitle() 
-						+ " (Updates : " + updatesCounter + ",  FPS : " + framesCounter + ", Runtime: " + getRunTimer() + ")");
+				if (Global.debug_fps) {
+					Logger.d("Updates : " + updatesCounter + ",  FPS : " + framesCounter + ", Runtime: " + getRunTimer());
+					WindowManager.setWindowTitle(window.getId(), window.getTitle() 
+							+ " (Updates : " + updatesCounter + ",  FPS : " + framesCounter + ", Runtime: " + getRunTimer() + ")");
+				}
 				
 				updatesCounter = 0;
 				framesCounter = 0;
@@ -192,9 +194,14 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		}
 	}
 	
+	protected Window getMainWindow() {
+		return window;
+	}
+	
+/*----------------------for FPS GUI----------------------*/
 	private void initFPSTextGUI() {
 		GUITextManager.init(loader);
-		fpsFont = new FontType(loader.loadTexture("res/texture/" + DataUtils.TEX_FONT_ARIAL).getID(), new File("res/font/" + DataUtils.FONT_ARIAL));
+		fpsFont = new FontType(loader.loadTexture(DataUtils.TEX_FONT_ARIAL).getID(), new File(DataUtils.FONT_ARIAL));
 		setFPSTextGUI("FPS : " + getFPS());
 	}
 	
@@ -220,6 +227,7 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		return fps;
 	}
 	
+/*----------------------for Camera----------------------*/
 	/**
 	 * Use engine default first-person camera.
 	 * Only must be called in {@code onCreate()}
@@ -257,10 +265,7 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		return camera;
 	}
 	
-	protected Window getMainWindow() {
-		return window;
-	}
-	
+/*----------------------for modes----------------------*/
 	protected void enablePolygonMode() {
 		this.enablePolygonMode = true;
 	}

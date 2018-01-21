@@ -8,9 +8,9 @@ public final class Global {
 	private Global() {}
 	
 	//Debug level
-	public static boolean debug_log = true;
-	//Logs in console
-	public static boolean debug_fps = false;
+	public static boolean debug_level = true;
+	//Logs in console (注：开启日志会额外占用内存)
+	public static boolean debug_fps = true;
 	public static boolean debug_camera = true;
 	public static boolean debug_light = false;
 	public static boolean debug_keyboard = false;
