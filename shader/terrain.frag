@@ -15,6 +15,7 @@ uniform sampler2D bTexture;
 uniform sampler2D blendMap;
 
 uniform vec3 lightColors[4];
+uniform vec3 lightAttenuation[4];
 uniform float shineDamper;
 uniform float reflectivity;
 uniform float ambientLightness;
@@ -41,6 +42,8 @@ void main (void) {
 	vec3 totalSpecular = vec3(0.0);
 
 	for (int i = 0; i < 4; i++) {
+		float distanceFromLight = length(to_light_vectors[i]);
+		float attenuationFactor = lightAttenuation[i].x + lightAttenuation[i].y * distanceFromLight + lightAttenuation[i].z * distanceFromLight * distanceFromLight;
 		vec3 unitLightVector = normalize(to_light_vectors[i]);
 		float nDotl = dot(unitNormal, unitLightVector);
 		float brightness = max(nDotl, 0.0);
@@ -51,10 +54,10 @@ void main (void) {
 		specularFactor = max(specularFactor, 0.0);
 		float dampedFactor = pow(specularFactor, shineDamper);
 		vec3 finalSpecular = dampedFactor * reflectivity * lightColors[i];
-		totalSpecular += finalSpecular;
+		totalSpecular += finalSpecular / attenuationFactor;
 
 		vec3 diffuse = brightness * lightColors[i];
-		totalDiffuse += diffuse;
+		totalDiffuse += diffuse / attenuationFactor;
 	}
 	totalDiffuse = max(totalDiffuse, ambientLightness);
 

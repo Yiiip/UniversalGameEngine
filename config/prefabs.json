@@ -22,8 +22,9 @@
 			"features": {
 				"specular_damper"		: 8.0,
 				"specular_reflectivity"	: 3.0,
-				"ambient_lightness"		: 0.7,
+				"ambient_lightness"		: 0.45,
 				"has_transparency"		: true,
+				"has_fake_lighting"		: false,
 				"fog_density"			: 0.003,
 				"fog_gradient"			: 1.5
 			}

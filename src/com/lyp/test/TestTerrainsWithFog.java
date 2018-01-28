@@ -22,6 +22,14 @@ import com.lyp.uge.utils.DataUtils;
 
 public class TestTerrainsWithFog extends GameApplication {
 
+	private static Vector4f SKY_COLOR_DAY = new Vector4f(0.78f, 0.85f, 0.95f, 1.0f);
+	private static Vector4f SKY_COLOR_NIGHT = new Vector4f(33f/255f, 57f/255f, 88f/255f, 1.0f);
+	
+	private static Vector3f COLOR_WHITE = new Vector3f(1.f, 1.f, 1.f);
+	private static Vector3f COLOR_RED = new Vector3f(1.f, 0.f, 0.f);
+	private static Vector3f COLOR_YELLOW = new Vector3f(1.f, 223f/255f, 68f/255f);
+	private static Vector3f COLOR_DARK = new Vector3f(.33f, .33f, .33f);
+	
 	private Loader loader = new Loader();
 	private SimpleObject[] oTrees;
 	private SimpleObject[] oGrasses;
@@ -45,7 +53,9 @@ public class TestTerrainsWithFog extends GameApplication {
 		getMainCamera().setPosition(new Vector3f(0, 5, 0));
 		
 		lights = new ArrayList<>();
-		lights.add(new Light(new Vector3f(0.0f, 1000.0f, -500.0f), new Vector3f(1, 1, 1), loader));
+		lights.add(new Light(new Vector3f(0.0f, 1000.0f, -500.0f), COLOR_DARK, loader));
+		lights.add(new Light(new Vector3f(-35.0f, 15.0f, -90.0f), COLOR_YELLOW, loader, new Vector3f(1.f, .01f, .002f)));
+		lights.add(new Light(new Vector3f(35.0f, 15.0f, -90.0f), COLOR_RED, loader, new Vector3f(1.f, .01f, .002f)));
 
 		prefabsManager = new PrefabsManager(loader);
 		prefabsManager.loadPrefabs(DataUtils.CONFIG_PREFABS);
@@ -86,7 +96,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		terrains[0] = new Terrain(0, -1, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP01, 60);
 		terrains[1] = new Terrain(-1, -1, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP01, 60);
 		
-		rendererManager = new RendererManager(ShaderFactry.WITH_FOG);
+		rendererManager = new RendererManager(ShaderFactry.WITH_MULTI_LIGHTS);
 	}
 
 	@Override
@@ -108,7 +118,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		for (int i = 0; i < terrains.length; i++) {
 			rendererManager.addTerrain(terrains[i]);
 		}
-		rendererManager.renderAll(lights, getMainCamera(), new Vector4f(0.78f, 0.85f, 0.95f, 1.0f));
+		rendererManager.renderAll(lights, getMainCamera(), SKY_COLOR_NIGHT);
 	}
 	
 	@Override

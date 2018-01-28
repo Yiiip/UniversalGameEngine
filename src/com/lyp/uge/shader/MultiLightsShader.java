@@ -15,6 +15,7 @@ public class MultiLightsShader extends FoggyShader {
 	
 	protected int uniform_lightPositions[];
 	protected int uniform_lightColors[];
+	protected int uniform_lightAttenuation[];
 	
 	public MultiLightsShader() {
 		super(MULTI_LIGHTS_VERTEX_FILE, MULTI_LIGHTS_FRAGMENT_FILE);
@@ -30,9 +31,12 @@ public class MultiLightsShader extends FoggyShader {
 		
 		uniform_lightPositions = new int[MAX_LIGHTS];
 		uniform_lightColors = new int[MAX_LIGHTS];
+		uniform_lightAttenuation = new int[MAX_LIGHTS];
+		
 		for (int i = 0; i < MAX_LIGHTS; i++) {
 			uniform_lightPositions[i] = super.getUniformLocation("lightPositions[" + i + "]");
 			uniform_lightColors[i] = super.getUniformLocation("lightColors[" + i + "]");
+			uniform_lightAttenuation[i] = super.getUniformLocation("lightAttenuation[" + i + "]");
 		}
 	}
 	
@@ -41,9 +45,11 @@ public class MultiLightsShader extends FoggyShader {
 			if (i < lights.size()) {
 				super.loadVector(uniform_lightPositions[i], lights.get(i).getPosition());
 				super.loadVector(uniform_lightColors[i], lights.get(i).getColor());
+				super.loadVector(uniform_lightAttenuation[i], lights.get(i).getLightAttenuation());
 			} else {
 				super.loadVector(uniform_lightPositions[i], new Vector3f(0.0f, 0.0f, 0.0f));
 				super.loadVector(uniform_lightColors[i], new Vector3f(0.0f, 0.0f, 0.0f));
+				super.loadVector(uniform_lightAttenuation[i], new Vector3f(1.0f, 0.0f, 0.0f));
 			}
 		}
 	}
