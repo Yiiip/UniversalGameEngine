@@ -3,8 +3,10 @@ package com.lyp.uge.utils;
 public class DataUtils {
 	
 	public static final String PATH_TEXTURE	= "res/texture/";
+	public static final String PATH_SKYBOX	= "res/texture/skybox/";
 	public static final String PATH_OBJ		= "res/obj/";
 	public static final String PATH_FONT	= "res/font/";
+	public static final String PATH_SOUNDS	= "res/sounds/";
 	public static final String PATH_CONFIG	= "config/";
 	
 	public static final String OBJ_DRAGON = PATH_OBJ + "dragon.obj";
@@ -57,6 +59,9 @@ public class DataUtils {
 	public static final String FONT_PRODUCT_SANS = PATH_FONT + "font_ProductSans.fnt";
 	public static final String FONT_PIXELED = PATH_FONT + "font_Pixeled.fnt";
 	public static final String FONT_ARIAL = PATH_FONT + "font_Arial.fnt";
+	
+	public static final String SOUND_HAILSTORM = PATH_SOUNDS + "hailstorm.ogg";
+	public static final String SOUND_TOILET_STORY1 = PATH_SOUNDS + "ToiletStory1.ogg";
 	
 	public static final String CONFIG_PREFABS = PATH_CONFIG + "prefabs.json";
 

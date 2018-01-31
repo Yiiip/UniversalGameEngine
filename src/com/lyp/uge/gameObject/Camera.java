@@ -95,6 +95,15 @@ public class Camera extends GameObject {
 	public void destory() {
 	}
 	
+	public Vector3f getFacingVector() {
+		float yawTemp = yaw < 0 ? 360-Math.abs(yaw)%360 : yaw%360;
+		return new Vector3f((float) (Math.sin(Math.toRadians(yawTemp))), 0, (float) (-Math.cos(Math.toRadians(yawTemp))));
+	}
+
+	public Vector3f getUpwardVector() {
+		return new Vector3f(0, 1, 0); //TODO
+	}
+	
 	public float getPitch() {
 		return pitch;
 	}
