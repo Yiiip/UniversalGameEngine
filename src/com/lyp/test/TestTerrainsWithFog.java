@@ -4,9 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.lwjgl.openal.AL11;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 
+import com.lyp.uge.audio.AudioBuffer;
+import com.lyp.uge.audio.AudioListener;
+import com.lyp.uge.audio.AudioManager;
+import com.lyp.uge.audio.AudioSource;
 import com.lyp.uge.game.GameApplication;
 import com.lyp.uge.gameObject.Light;
 import com.lyp.uge.gameObject.SimpleObject;
@@ -38,6 +43,8 @@ public class TestTerrainsWithFog extends GameApplication {
 	private List<Light> lights;
 	private RendererManager rendererManager;
 	private PrefabsManager prefabsManager;
+	
+	private AudioManager soundMgr;
 	
 	private Random random = new Random();
 
@@ -97,11 +104,27 @@ public class TestTerrainsWithFog extends GameApplication {
 		terrains[1] = new Terrain(-1, -1, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP01, 60);
 		
 		rendererManager = new RendererManager(ShaderFactry.WITH_MULTI_LIGHTS);
+		
+		soundMgr = new AudioManager();
+		soundMgr.init();
+		soundMgr.setAttenuationModel(AL11.AL_EXPONENT_DISTANCE);
+		setupSounds();
+	}
+	
+	private void setupSounds() {
+		AudioBuffer buffBack = new AudioBuffer(DataUtils.SOUND_HAILSTORM);
+		soundMgr.addSoundBuffer(buffBack);
+		AudioSource sourceBack = new AudioSource(true, true);
+		sourceBack.setBuffer(buffBack.getBufferId());
+		soundMgr.addSoundSource("hailstorm.ogg", sourceBack);
+		soundMgr.setListener(new AudioListener(new Vector3f(0, 0, 0)));
+		sourceBack.play();        
 	}
 
 	@Override
 	protected void onUpdate() {
 		lights.get(0).update();
+		soundMgr.updateListenerPosition(getMainCamera());
 	}
 	
 	@Override
@@ -130,6 +153,7 @@ public class TestTerrainsWithFog extends GameApplication {
 	protected void onDestory() {
 		rendererManager.cleanUp();
 		loader.cleanUp();
+		soundMgr.cleanup();
 	}
 
 	public static void main(String[] args) {

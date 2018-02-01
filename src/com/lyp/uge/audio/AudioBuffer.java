@@ -14,6 +14,11 @@ import com.lyp.uge.utils.IOUtils;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
+/**
+ * Buffers store the audio data.
+ * 
+ * @author LYP
+ */
 public class AudioBuffer {
 
 	private final int bufferId;

@@ -8,6 +8,13 @@ public class AudioSource {
 
 	private final int sourceId;
 
+	/**
+	 * 
+	 * @param loop
+	 *            Play the sound in loop mode.
+	 * @param relative
+	 *            Controls if the position of the source is relative to the listener or not.
+	 */
 	public AudioSource(boolean loop, boolean relative) {
 		this.sourceId = alGenSources();
 
