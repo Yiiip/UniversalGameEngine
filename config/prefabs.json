@@ -40,6 +40,18 @@
 				"fog_density"			: 0.003,
 				"fog_gradient"			: 1.5
 			}
+		},
+		{
+			"name": "lamp",
+			"model": "lamp.obj",
+			"texture": "lamp.png",
+			"features": {
+				"specular_damper"		: 10.0,
+				"specular_reflectivity"	: 1.0,
+				"has_transparency"		: false,
+				"fog_density"			: 0.003,
+				"fog_gradient"			: 1.5
+			}
 		}
 	]
 }
