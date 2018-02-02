@@ -27,6 +27,7 @@ public class DataUtils {
 	public static final String OBJ_FERN = PATH_OBJ + "fern.obj"; //蕨类植物
 	public static final String OBJ_WINE_GLASS = PATH_OBJ + "WineGlass.obj"; //高脚杯
 	public static final String OBJ_CRATE = PATH_OBJ + "crate.obj"; //板条箱
+	public static final String OBJ_LAMP = PATH_OBJ + "lamp.obj"; //路灯
 	
 	public static final String TEX_COLOR_YELLOW_GRAY = "color_yellow_gray.png";
 	public static final String TEX_COLOR_LIGHT_GRAY = "color_light_gray.png";
@@ -41,6 +42,8 @@ public class DataUtils {
 	public static final String TEX_FERN = "fern.png";
 	public static final String TEX_FLOWER = "flower.png";
 	public static final String TEX_STALL = "stallTexture.png";
+	public static final String TEX_LAMP = "lamp.png";
+	public static final String TEX_CRATE = "crate.png";
 	public static final String TEX_FLAPPY_BIRD = "flappy_bird.png";
 	public static final String TEX_GROUND01 = PATH_TEXTURE + "ground01.png";
 	public static final String TEX_GRASS_WITH_FLOWERS = PATH_TEXTURE + "grassWithFlowers.png";
