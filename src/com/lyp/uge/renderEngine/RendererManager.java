@@ -11,9 +11,9 @@ import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector4f;
 
 import com.lyp.uge.game.Global;
-import com.lyp.uge.gameObject.Camera;
 import com.lyp.uge.gameObject.GameObject;
-import com.lyp.uge.gameObject.Light;
+import com.lyp.uge.gameObject.camera.Camera;
+import com.lyp.uge.gameObject.light.Light;
 import com.lyp.uge.math.MathTools;
 import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.shader.FoggyShader;

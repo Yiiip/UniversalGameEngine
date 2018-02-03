@@ -1,4 +1,4 @@
-package com.lyp.uge.gameObject;
+package com.lyp.uge.gameObject.camera;
 
 import static com.lyp.uge.input.Keyboard.*;
 

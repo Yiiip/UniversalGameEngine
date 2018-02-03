@@ -7,7 +7,7 @@ import com.lyp.game.flappybird.FlappyBird.LayerID;
 import com.lyp.game.flappybird.FlappyBird.ObjectID;
 import com.lyp.game.flappybird.FlappyBird.Status;
 import com.lyp.game.flappybird.shader.BirdShader;
-import com.lyp.uge.gameObject.Sprite2D;
+import com.lyp.uge.gameObject.sprite.Sprite2D;
 import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.renderEngine.Renderer;

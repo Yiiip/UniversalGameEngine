@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.lwjgl.util.vector.Vector3f;
 
-import com.lyp.uge.gameObject.Light;
+import com.lyp.uge.gameObject.light.Light;
 
 public class MultiLightsShader extends FoggyShader {
 	

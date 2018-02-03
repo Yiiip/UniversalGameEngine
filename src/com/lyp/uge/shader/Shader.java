@@ -10,7 +10,7 @@ import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
-import com.lyp.uge.gameObject.Camera;
+import com.lyp.uge.gameObject.camera.Camera;
 import com.lyp.uge.logger.Logger;
 import com.lyp.uge.utils.BufferUtils;
 

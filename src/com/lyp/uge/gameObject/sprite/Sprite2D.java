@@ -1,5 +1,6 @@
-package com.lyp.uge.gameObject;
+package com.lyp.uge.gameObject.sprite;
 
+import com.lyp.uge.gameObject.GameObject;
 import com.lyp.uge.shader.Static2dShader;
 
 public abstract class Sprite2D extends GameObject {

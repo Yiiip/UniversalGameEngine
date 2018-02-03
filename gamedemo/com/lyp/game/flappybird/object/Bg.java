@@ -2,7 +2,7 @@ package com.lyp.game.flappybird.object;
 
 import com.lyp.game.flappybird.FlappyBird;
 import com.lyp.game.flappybird.shader.BgShader;
-import com.lyp.uge.gameObject.Sprite2D;
+import com.lyp.uge.gameObject.sprite.Sprite2D;
 import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.renderEngine.Renderer;

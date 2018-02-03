@@ -4,8 +4,8 @@ import java.util.Random;
 
 import org.lwjgl.util.vector.Vector3f;
 import com.lyp.uge.game.GameApplication;
-import com.lyp.uge.gameObject.Light;
 import com.lyp.uge.gameObject.SimpleObject;
+import com.lyp.uge.gameObject.light.Light;
 import com.lyp.uge.input.Keyboard;
 import com.lyp.uge.logger.Logger;
 import com.lyp.uge.model.RawModel;

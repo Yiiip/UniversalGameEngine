@@ -1,7 +1,8 @@
 package com.lyp.uge.shader;
 
 import org.lwjgl.util.vector.Matrix4f;
-import com.lyp.uge.gameObject.Camera;
+
+import com.lyp.uge.gameObject.camera.Camera;
 import com.lyp.uge.math.MathTools;
 import com.lyp.uge.renderEngine.Loader;
 

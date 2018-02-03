@@ -1,9 +1,10 @@
-package com.lyp.uge.gameObject;
+package com.lyp.uge.gameObject.light;
 
 import static org.lwjgl.opengl.GL11.*;
 
 import org.lwjgl.util.vector.Vector3f;
 
+import com.lyp.uge.gameObject.GameObject;
 import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.renderEngine.OBJLoader;

@@ -10,11 +10,12 @@ import org.lwjgl.openal.AL;
 import org.lwjgl.openal.ALC;
 import org.lwjgl.openal.ALCCapabilities;
 import org.lwjgl.util.vector.Vector3f;
+
+import com.lyp.uge.gameObject.camera.Camera;
+
 import static org.lwjgl.openal.AL10.*;
 import static org.lwjgl.openal.ALC10.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
-
-import com.lyp.uge.gameObject.Camera;
 
 public class AudioManager {
 

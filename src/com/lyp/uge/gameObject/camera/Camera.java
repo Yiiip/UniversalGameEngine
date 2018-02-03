@@ -1,7 +1,9 @@
-package com.lyp.uge.gameObject;
+package com.lyp.uge.gameObject.camera;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
+
+import com.lyp.uge.gameObject.GameObject;
 import com.lyp.uge.input.MouseInput;
 import com.lyp.uge.renderEngine.Renderer;
 import com.lyp.uge.shader.Shader;
