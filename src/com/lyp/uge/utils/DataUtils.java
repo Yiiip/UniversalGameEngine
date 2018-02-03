@@ -28,12 +28,14 @@ public class DataUtils {
 	public static final String OBJ_WINE_GLASS = PATH_OBJ + "WineGlass.obj"; //高脚杯
 	public static final String OBJ_CRATE = PATH_OBJ + "crate.obj"; //板条箱
 	public static final String OBJ_LAMP = PATH_OBJ + "lamp.obj"; //路灯
+	public static final String OBJ_BARREL = PATH_OBJ + "barrel.obj"; //木桶
 	
 	public static final String TEX_COLOR_YELLOW_GRAY = "color_yellow_gray.png";
 	public static final String TEX_COLOR_LIGHT_GRAY = "color_light_gray.png";
 	public static final String TEX_GRASS = "grass.png";
 	public static final String TEX_GRASS2 = "grass2.png";
 	public static final String TEX_GRASS_REAL = "grass_real.png";
+	public static final String TEX_GRASS_REAL2 = "grass_real2.png";
 	public static final String TEX_IMAGE_PREVIEW = "image_preview.png";
 	public static final String TEX_MC_DIRT_GRASS = "mc_dirt_grass.png";
 	public static final String TEX_MC_CUBE = "mc_cube_texture.png";
@@ -48,6 +50,7 @@ public class DataUtils {
 	public static final String TEX_GROUND01 = PATH_TEXTURE + "ground01.png";
 	public static final String TEX_GRASS_WITH_FLOWERS = PATH_TEXTURE + "grassWithFlowers.png";
 	public static final String TEX_MUD = PATH_TEXTURE + "mud.png";
+	public static final String TEX_BARREL = PATH_TEXTURE + "barrel.png";
 	
 	public static final String TEX_TERRAIN_BLEND_MAP = PATH_TEXTURE + "blendMap.png";
 	public static final String TEX_TERRAIN_HEIGHT_MAP01 = PATH_TEXTURE + "terrain_heightmap01.png";
