@@ -5,6 +5,7 @@ import java.util.List;
 import org.lwjgl.util.vector.Vector3f;
 
 import com.lyp.uge.gameObject.light.Light;
+import com.lyp.uge.gameObject.light.PointLight;
 
 public class MultiLightsShader extends FoggyShader {
 	
@@ -45,7 +46,11 @@ public class MultiLightsShader extends FoggyShader {
 			if (i < lights.size()) {
 				super.loadVector(uniform_lightPositions[i], lights.get(i).getPosition());
 				super.loadVector(uniform_lightColors[i], lights.get(i).getColor());
-				super.loadVector(uniform_lightAttenuation[i], lights.get(i).getLightAttenuation());
+				if (lights.get(i) instanceof PointLight) {
+					super.loadVector(uniform_lightAttenuation[i], ((PointLight) lights.get(i)).getLightAttenuation());
+				} else {
+					super.loadVector(uniform_lightAttenuation[i], new Vector3f(1.0f, 0.0f, 0.0f));
+				}
 			} else {
 				super.loadVector(uniform_lightPositions[i], new Vector3f(0.0f, 0.0f, 0.0f));
 				super.loadVector(uniform_lightColors[i], new Vector3f(0.0f, 0.0f, 0.0f));

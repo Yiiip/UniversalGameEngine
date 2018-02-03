@@ -19,7 +19,6 @@ import static com.lyp.uge.input.Keyboard.*;
 public class Light extends GameObject {
 
 	protected Vector3f lightColor;
-	protected Vector3f lightAttenuation = new Vector3f(1.f, 0.f, 0.f); //光的衰减，lightAttenuation=(attenu1)+(attenu2*d)+(attenu3*d*d)，d = distance from light
 	
 	protected boolean renderSelf = true; //是否将光源自己可视化
 
@@ -41,17 +40,6 @@ public class Light extends GameObject {
 	
 	public Light(Vector3f position, Vector3f color, Loader loader, boolean renderSelf) {
 		this(position, color, loader);
-		this.renderSelf = renderSelf;
-	}
-	
-	public Light(Vector3f position, Vector3f color, Loader loader, Vector3f attenuation) {
-		this(position, color, loader);
-		this.lightAttenuation = attenuation;
-	}
-	
-	public Light(Vector3f position, Vector3f color, Loader loader, Vector3f attenuation, boolean renderSelf) {
-		this(position, color, loader);
-		this.lightAttenuation = attenuation;
 		this.renderSelf = renderSelf;
 	}
 	
@@ -100,13 +88,5 @@ public class Light extends GameObject {
 	
 	public void setColor(Vector3f color) {
 		this.lightColor = color;
-	}
-	
-	public Vector3f getLightAttenuation() {
-		return lightAttenuation;
-	}
-	
-	public void setLightAttenuation(Vector3f lightAttenuation) {
-		this.lightAttenuation = lightAttenuation;
 	}
 }

@@ -15,6 +15,7 @@ import com.lyp.uge.audio.AudioSource;
 import com.lyp.uge.game.GameApplication;
 import com.lyp.uge.gameObject.SimpleObject;
 import com.lyp.uge.gameObject.light.Light;
+import com.lyp.uge.gameObject.light.PointLight;
 import com.lyp.uge.prefab.PrefabsManager;
 import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
@@ -61,8 +62,8 @@ public class TestTerrainsWithFog extends GameApplication {
 		
 		lights = new ArrayList<>();
 		lights.add(new Light(new Vector3f(0.0f, 1000.0f, -500.0f), COLOR_DARK, loader));
-		lights.add(new Light(new Vector3f(-35.0f, 15.0f, -90.0f), COLOR_YELLOW, loader, new Vector3f(1.f, .01f, .002f)));
-		lights.add(new Light(new Vector3f(35.0f, 15.0f, -90.0f), COLOR_RED, loader, new Vector3f(1.f, .01f, .002f)));
+		lights.add(new PointLight(new Vector3f(-35.0f, 15.0f, -90.0f), COLOR_YELLOW, loader, new Vector3f(1.f, .01f, .002f)));
+		lights.add(new PointLight(new Vector3f(35.0f, 15.0f, -90.0f), COLOR_RED, loader, new Vector3f(1.f, .01f, .002f)));
 
 		prefabsManager = new PrefabsManager(loader);
 		prefabsManager.loadPrefabs(DataUtils.CONFIG_PREFABS);
