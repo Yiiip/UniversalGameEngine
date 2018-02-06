@@ -65,6 +65,7 @@ public class Light extends GameObject {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void render(Renderer renderer, Shader shader) {
 		if (this.renderSelf) {

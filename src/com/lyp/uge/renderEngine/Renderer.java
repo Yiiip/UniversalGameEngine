@@ -95,6 +95,7 @@ public class Renderer {
 		glBindVertexArray(0);
 	}
 	
+	@Deprecated
 	public void render(GameObject object, Shader shaderProgram) {
 		TextureModel textureModel = object.getModel();
 		RawModel rawModel = textureModel.getRawModel();
