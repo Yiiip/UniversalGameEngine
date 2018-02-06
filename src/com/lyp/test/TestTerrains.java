@@ -125,7 +125,7 @@ public class TestTerrains extends GameApplication {
 			oFerns[i] = new SimpleObject(fernTextureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.04f);
 		}
 		
-		rendererManager = new RendererManager(ShaderFactry.WITH_SPECULAR_LIGHT);
+		rendererManager = new RendererManager(loader, ShaderFactry.WITH_SPECULAR_LIGHT);
 	}
 
 	@Override

@@ -66,7 +66,7 @@ public class TestOBJDataAdvanced extends GameApplication {
 					random.nextFloat() * 100 - 50, random.nextFloat() * 100 - 50, -random.nextInt(200)), 0f, 0f, 0f, 0.22f + 0.01f * i);
 		}
 		
-		rendererManager = new RendererManager(ShaderFactry.WITH_MULTI_LIGHTS);
+		rendererManager = new RendererManager(loader, ShaderFactry.WITH_MULTI_LIGHTS);
 	}
 
 	@Override

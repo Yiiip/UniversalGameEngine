@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lyp.uge.model.RawModel;
+import com.lyp.uge.texture.CubeMapTexture;
 import com.lyp.uge.texture.Texture;
 import com.lyp.uge.utils.BufferUtils;
 
@@ -86,8 +87,15 @@ public class Loader {
 		Texture texture = new Texture(filePath);
 		int textureID = texture.getID();
 		textures.add(textureID);
-		textureCache.put(filePath, texture);
+		textureCache.put(filePath, texture); //TODO 缓存键名
 		return texture;
+	}
+	
+	public CubeMapTexture loadTextureCubeMap(String[] textureFiles) {
+		CubeMapTexture cubeMapTexture = new CubeMapTexture(textureFiles);
+		int textureID = cubeMapTexture.getID();
+		textures.add(textureID);
+		return cubeMapTexture;
 	}
 	
 	private int createVAO() {

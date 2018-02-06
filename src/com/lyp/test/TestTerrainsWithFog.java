@@ -104,7 +104,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		terrains[0] = new Terrain(0, -1, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP01, 60);
 		terrains[1] = new Terrain(-1, -1, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP01, 60);
 		
-		rendererManager = new RendererManager(ShaderFactry.WITH_MULTI_LIGHTS);
+		rendererManager = new RendererManager(loader, ShaderFactry.WITH_MULTI_LIGHTS);
 		
 		soundMgr = new AudioManager();
 		soundMgr.init();

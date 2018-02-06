@@ -47,10 +47,12 @@ public class RendererManager {
 	private TerrainRenderer mTerrainRenderer;
 	private TerrainShader mTerrainShader;
 	
+	private SkyboxRender mSkyboxRender;
+	
 	private Map<TextureModel, List<GameObject>> mObjects = null;
 	private List<Terrain> mTerrains = null;
 	
-	public RendererManager(int shaderType) {
+	public RendererManager(Loader loader, int shaderType) {
 		if (Global.mode_culling_back) { enableCulling(); }
 		
 		this.mProjectionMatrix = MathTools.createProjectionMatrix(FIELD_OF_VIEW_ANGLE, NEAR_PLANE, FAR_PLANE, (float) WindowManager.getWindowWidth(), (float) WindowManager.getWindowHeight());
@@ -62,6 +64,8 @@ public class RendererManager {
 		this.mTerrainShader = new TerrainShader();
 		this.mTerrainRenderer = new TerrainRenderer(mTerrainShader, mProjectionMatrix);
 		this.mTerrains = new ArrayList<Terrain>();
+		
+		this.mSkyboxRender = new SkyboxRender(loader, mProjectionMatrix);
 	}
 	
 	public void prepare() {
@@ -126,6 +130,8 @@ public class RendererManager {
 			mTerrainRenderer.render(mTerrains);
 			mTerrainShader.stop();
 		}
+		
+		mSkyboxRender.render(camera);
 		
 		mObjects.clear();
 		mTerrains.clear();
