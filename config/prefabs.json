@@ -8,7 +8,7 @@
 			"name": "tree",
 			"model": "tree.obj",
 			"texture": "tree.png",
-			"features": {
+			"material": {
 				"specular_damper"		: 8.0,
 				"specular_reflectivity"	: 0.8,
 				"fog_density"			: 0.003,
@@ -19,7 +19,7 @@
 			"name": "grass",
 			"model": "grassRealModel.obj",
 			"texture": "grass_real.png",
-			"features": {
+			"material": {
 				"specular_damper"		: 8.0,
 				"specular_reflectivity"	: 3.0,
 				"ambient_lightness"		: 0.45,
@@ -33,7 +33,7 @@
 			"name": "fern",
 			"model": "fern.obj",
 			"texture": "fern.png",
-			"features": {
+			"material": {
 				"specular_damper"		: 10.0,
 				"specular_reflectivity"	: 1.0,
 				"has_transparency"		: true,
@@ -45,7 +45,7 @@
 			"name": "lamp",
 			"model": "lamp.obj",
 			"texture": "lamp.png",
-			"features": {
+			"material": {
 				"specular_damper"		: 10.0,
 				"specular_reflectivity"	: 1.0,
 				"has_transparency"		: false,

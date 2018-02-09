@@ -10,6 +10,7 @@ import java.util.List;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
+import com.lyp.uge.material.Material;
 import com.lyp.uge.math.MathTools;
 import com.lyp.uge.model.RawModel;
 import com.lyp.uge.shader.TerrainShader;
@@ -61,8 +62,8 @@ public class TerrainRenderer {
 				mTerrainShader.setupFogDensity(terrain.getFoggyDensity());
 				mTerrainShader.setupFogGradient(terrain.getFoggyGradient());
 			} else {
-				mTerrainShader.setupFogDensity(Texture.FOGGY_DENSITY_NULL);
-				mTerrainShader.setupFogGradient(Texture.FOGGY_GRADIENT_NULL);
+				mTerrainShader.setupFogDensity(Material.FOGGY_DENSITY_NULL);
+				mTerrainShader.setupFogGradient(Material.FOGGY_GRADIENT_NULL);
 			}
 		}
 		

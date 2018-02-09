@@ -12,6 +12,7 @@ import org.lwjgl.util.vector.Matrix4f;
 
 import com.lyp.uge.game.Global;
 import com.lyp.uge.gameObject.GameObject;
+import com.lyp.uge.material.Material;
 import com.lyp.uge.math.MathTools;
 import com.lyp.uge.model.RawModel;
 import com.lyp.uge.prefab.TextureModel;
@@ -163,8 +164,8 @@ public class Renderer {
 				((FoggyShader) mShader).setupFogDensity(texture.getFoggyDensity());
 				((FoggyShader) mShader).setupFogGradient(texture.getFoggyGradient());
 			} else {
-				((FoggyShader) mShader).setupFogDensity(Texture.FOGGY_DENSITY_NULL);
-				((FoggyShader) mShader).setupFogGradient(Texture.FOGGY_GRADIENT_NULL);
+				((FoggyShader) mShader).setupFogDensity(Material.FOGGY_DENSITY_NULL);
+				((FoggyShader) mShader).setupFogGradient(Material.FOGGY_GRADIENT_NULL);
 			}
 		}
 		

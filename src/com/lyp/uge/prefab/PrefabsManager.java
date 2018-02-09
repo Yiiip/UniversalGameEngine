@@ -35,7 +35,7 @@ public class PrefabsManager {
 			private static final String KEY_INDICES = "indices";
 		private static final String KEY_MODEL = "model";
 		private static final String KEY_TEXTURE = "texture";
-	private static final String KEY_FEATURES = "features";
+	private static final String KEY_MATERIAL = "material";
 		private static final String KEY_SPECULAR_DAMPER = "specular_damper";
 		private static final String KEY_SPECULAR_REFLECTIVITY = "specular_reflectivity";
 		private static final String KEY_AMBIENT_LIGHTNESS = "ambient_lightness";
@@ -178,7 +178,7 @@ public class PrefabsManager {
 	        Texture texture = mLoader.loadTexture(pathTex + tex);
 			
 			//Loading features of texture
-	        JsonElement eFeatures = dataObject.get(KEY_FEATURES);
+	        JsonElement eFeatures = dataObject.get(KEY_MATERIAL);
 	        if (eFeatures != null && !eFeatures.isJsonNull()) {
 	        	JsonObject features = eFeatures.getAsJsonObject();
 	        	
