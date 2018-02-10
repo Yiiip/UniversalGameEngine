@@ -83,7 +83,7 @@ public class TestTerrains extends GameApplication {
 			oTrees[i] = new SimpleObject(textureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, 2.0f+random.nextFloat()*2);
 		}
 		
-		//草类植物
+		//草类植物1
 		RawModel grassRawModel = OBJLoader.loadObjModel(DataUtils.OBJ_GRASS_REAL, loader);
 		Texture grassTexture = loader.loadTexture("res/texture/" + DataUtils.TEX_GRASS_REAL)
 				.setShineDamper(8.0f)
@@ -105,6 +105,7 @@ public class TestTerrains extends GameApplication {
 			float randomY = terrains[1].getHeightOfTerrain(randomX, randomZ);
 			oGrasses[i] = new SimpleObject(grassTextureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.05f);
 		}
+		//草类植物2
 		RawModel fernRawModel = OBJLoader.loadObjModel(DataUtils.OBJ_FERN, loader);
 		Texture fernTexture = loader.loadTexture("res/texture/" + DataUtils.TEX_FERN)
 				.setShineDamper(10.0f)
@@ -148,11 +149,6 @@ public class TestTerrains extends GameApplication {
 			rendererManager.addTerrain(terrains[i]);
 		}
 		rendererManager.renderAll(lights, getMainCamera(), new Vector4f(0.5f, 0.8f, 0.95f, 1.0f));
-	}
-	
-	@Override
-	public void onKeyReleased(int keycode) {
-		super.onKeyReleased(keycode);
 	}
 
 	@Override

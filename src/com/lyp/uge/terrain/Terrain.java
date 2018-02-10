@@ -32,8 +32,8 @@ public class Terrain {
 	private float[][] mHeights; //存储每个Vertex顶点的高度值
 	
 	/**
-	 * @param gridX 网格坐标，把1个Terrain看作一个格子
-	 * @param gridZ
+	 * @param gridX 网格坐标，把1个Terrain看作一个格子，(0, 0)为第四象限第一个格子，x向右为正
+	 * @param gridZ z向下为正
 	 * @param loader
 	 * @param texturePack 混合纹理对象集
 	 * @param blendMapTexture 混合纹理映射图

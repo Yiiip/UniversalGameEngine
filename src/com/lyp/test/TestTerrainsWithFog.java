@@ -60,35 +60,11 @@ public class TestTerrainsWithFog extends GameApplication {
 		getMainCamera().setSpeed(0.7f);
 		getMainCamera().setPosition(new Vector3f(0, 5, 0));
 		
+		//光源
 		lights = new ArrayList<>();
 		lights.add(new Light(new Vector3f(0.0f, 1000.0f, -500.0f), COLOR_DARK, loader));
 		lights.add(new PointLight(new Vector3f(-35.0f, 15.0f, -90.0f), COLOR_YELLOW, loader, new Vector3f(1.f, .01f, .002f)));
 		lights.add(new PointLight(new Vector3f(35.0f, 15.0f, -90.0f), COLOR_RED, loader, new Vector3f(1.f, .01f, .002f)));
-
-		prefabsManager = new PrefabsManager(loader);
-		prefabsManager.loadPrefabs(DataUtils.CONFIG_PREFABS);
-		
-		//树木
-		TextureModel prefabTree = prefabsManager.getPrefabByName("tree");
-		oTrees = new SimpleObject[1000];
-		for (int i = 0; i < oTrees.length; i++) {
-			oTrees[i] = new SimpleObject(prefabTree, new Vector3f(
-					random.nextFloat() * Terrain.SIZE*2 - Terrain.SIZE, 0, -random.nextInt((int) Terrain.SIZE)), 0f, 0f, 0f, 2.0f +random.nextFloat()*2);
-		}
-		
-		//草类植物
-		TextureModel prefabGrass = prefabsManager.getPrefabByName("grass");
-		oGrasses = new SimpleObject[2000];
-		for (int i = 0; i < oGrasses.length; i++) {
-			oGrasses[i] = new SimpleObject(prefabGrass, new Vector3f(
-					random.nextFloat() * Terrain.SIZE*2 - Terrain.SIZE, 0, -random.nextInt((int) Terrain.SIZE)-10.0f), 0f, 0f, 0f, random.nextFloat()+0.05f);
-		}
-		TextureModel prefabFern = prefabsManager.getPrefabByName("fern");
-		oFerns = new SimpleObject[1100];
-		for (int i = 0; i < oFerns.length; i++) {
-			oFerns[i] = new SimpleObject(prefabFern, new Vector3f(
-					random.nextFloat() * Terrain.SIZE*2 - Terrain.SIZE, 0, -random.nextInt((int) Terrain.SIZE)-10.0f), 0f, 0f, 0f, random.nextFloat()+0.04f);
-		}
 		
 		//地形
 		Texture bgTexture = loader.loadTexture("res/texture/" + DataUtils.TEX_GRASS)
@@ -104,15 +80,67 @@ public class TestTerrainsWithFog extends GameApplication {
 		terrains[0] = new Terrain(0, -1, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP01, 60);
 		terrains[1] = new Terrain(-1, -1, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP01, 60);
 		
+		//加载预制体
+		prefabsManager = new PrefabsManager(loader);
+		prefabsManager.loadPrefabs(DataUtils.CONFIG_PREFABS);
+		
+		//树木
+		TextureModel prefabTree = prefabsManager.getPrefabByName("tree");
+		oTrees = new SimpleObject[1000];
+		for (int i = 0; i < oTrees.length / 2; i++) {
+			float randomX = random.nextFloat() * Terrain.SIZE;
+			float randomZ = -random.nextInt((int) Terrain.SIZE);
+			float randomY = terrains[0].getHeightOfTerrain(randomX, randomZ);
+			oTrees[i] = new SimpleObject(prefabTree, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, 2.0f+random.nextFloat()*2);
+		}
+		for (int i = oTrees.length / 2; i < oTrees.length; i++) {
+			float randomX = -random.nextFloat() * Terrain.SIZE;
+			float randomZ = -random.nextInt((int) Terrain.SIZE);
+			float randomY = terrains[1].getHeightOfTerrain(randomX, randomZ);
+			oTrees[i] = new SimpleObject(prefabTree, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, 2.0f+random.nextFloat()*2);
+		}
+		
+		//草类植物1
+		TextureModel prefabGrass = prefabsManager.getPrefabByName("grass");
+		oGrasses = new SimpleObject[2000];
+		for (int i = 0; i < oGrasses.length / 2; i++) {
+			float randomX = random.nextFloat() * Terrain.SIZE;
+			float randomZ = -random.nextInt((int) Terrain.SIZE) - 10.0f;
+			float randomY = terrains[0].getHeightOfTerrain(randomX, randomZ);
+			oGrasses[i] = new SimpleObject(prefabGrass, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.05f);
+		}
+		for (int i = oGrasses.length / 2; i < oGrasses.length; i++) {
+			float randomX = -random.nextFloat() * Terrain.SIZE;
+			float randomZ = -random.nextInt((int) Terrain.SIZE) - 10.0f;
+			float randomY = terrains[1].getHeightOfTerrain(randomX, randomZ);
+			oGrasses[i] = new SimpleObject(prefabGrass, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.05f);
+		}
+		//草类植物2
+		TextureModel prefabFern = prefabsManager.getPrefabByName("fern");
+		oFerns = new SimpleObject[1100];
+		for (int i = 0; i < oFerns.length / 2; i++) {
+			float randomX = random.nextFloat() * Terrain.SIZE;
+			float randomZ = -random.nextInt((int) Terrain.SIZE) - 10.0f;
+			float randomY = terrains[0].getHeightOfTerrain(randomX, randomZ);
+			oFerns[i] = new SimpleObject(prefabFern, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.04f);
+		}
+		for (int i = oFerns.length / 2; i < oFerns.length; i++) {
+			float randomX = -random.nextFloat() * Terrain.SIZE;
+			float randomZ = -random.nextInt((int) Terrain.SIZE) - 10.0f;
+			float randomY = terrains[1].getHeightOfTerrain(randomX, randomZ);
+			oFerns[i] = new SimpleObject(prefabFern, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.04f);
+		}
+		
 		rendererManager = new RendererManager(loader, ShaderFactry.WITH_MULTI_LIGHTS);
 		
 		soundMgr = new AudioManager();
 		soundMgr.init();
-		soundMgr.setAttenuationModel(AL11.AL_EXPONENT_DISTANCE);
 		setupSounds();
 	}
 	
 	private void setupSounds() {
+		soundMgr.setAttenuationModel(AL11.AL_EXPONENT_DISTANCE);
+
 		AudioBuffer buffBack = new AudioBuffer(DataUtils.SOUND_HAILSTORM);
 		soundMgr.addSoundBuffer(buffBack);
 		AudioSource sourceBack = new AudioSource(true, true);
@@ -143,11 +171,6 @@ public class TestTerrainsWithFog extends GameApplication {
 			rendererManager.addTerrain(terrains[i]);
 		}
 		rendererManager.renderAll(lights, getMainCamera(), SKY_COLOR_NIGHT);
-	}
-	
-	@Override
-	public void onKeyReleased(int keycode) {
-		super.onKeyReleased(keycode);
 	}
 
 	@Override
