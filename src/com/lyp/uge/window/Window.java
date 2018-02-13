@@ -11,7 +11,7 @@ public class Window {
 	public Window(long id) {
 		this.id = id;
 	}
-	
+
 	public Window(long id, int width, int height, String title, boolean resizeable) {
 		this.id = id;
 		this.width = width;
@@ -30,6 +30,10 @@ public class Window {
 
 	public int getHeight() {
 		return height;
+	}
+
+	public float getAspectRatio() {
+		return (float) width / (float) height;
 	}
 
 	public String getTitle() {
