@@ -12,8 +12,10 @@ import com.lyp.uge.window.WindowManager;
 
 public class KeyboardInput extends GLFWKeyCallback {
 	
+	private static final int MAX_KEY_INDEX = 65535;
+	
 	private static KeyboardInput mInput;
-	private static boolean[] keys = new boolean[65536];
+	private static boolean[] keys = new boolean[MAX_KEY_INDEX + 1];
 
 	private List<OnKeyboardListener> mListeners = new ArrayList<>();
 	
@@ -29,6 +31,10 @@ public class KeyboardInput extends GLFWKeyCallback {
 	
 	@Override
 	public void invoke(long window, int key, int scancode, int action, int mods) {
+		if (key < 0 || key > MAX_KEY_INDEX) {
+			return;
+		}
+		
 		//release ESC to close window
 		if (Keyboard.KEY_ESCAPE == key && GLFW_RELEASE == action) {
 			WindowManager.colseWindow(window);
