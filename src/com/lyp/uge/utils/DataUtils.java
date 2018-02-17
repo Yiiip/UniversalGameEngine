@@ -2,6 +2,7 @@ package com.lyp.uge.utils;
 
 public class DataUtils {
 	
+	/* Paths */
 	public static final String PATH_TEXTURE	= "res/texture/";
 	public static final String PATH_SKYBOX	= "res/texture/skybox/";
 	public static final String PATH_OBJ		= "res/obj/";
@@ -9,6 +10,7 @@ public class DataUtils {
 	public static final String PATH_SOUNDS	= "res/sounds/";
 	public static final String PATH_CONFIG	= "config/";
 	
+	/* OBJs */
 	public static final String OBJ_DRAGON = PATH_OBJ + "dragon.obj";
 	public static final String OBJ_RABBIT = PATH_OBJ + "rabbit.obj"; //斯坦福德兔
 	public static final String OBJ_TREE = PATH_OBJ + "tree.obj";
@@ -30,6 +32,7 @@ public class DataUtils {
 	public static final String OBJ_LAMP = PATH_OBJ + "lamp.obj"; //路灯
 	public static final String OBJ_BARREL = PATH_OBJ + "barrel.obj"; //木桶
 	
+	/* Textures */
 	public static final String TEX_COLOR_YELLOW_GRAY = "color_yellow_gray.png";
 	public static final String TEX_COLOR_LIGHT_GRAY = "color_light_gray.png";
 	public static final String TEX_GRASS = "grass.png";
@@ -62,15 +65,21 @@ public class DataUtils {
 	public static final String TEX_FONT_PIXELED = PATH_TEXTURE + "font_Pixeled.png";
 	public static final String TEX_FONT_ARIAL = PATH_TEXTURE + "font_Arial.png";
 	
-	public static final String FONT_PRODUCT_SANS = PATH_FONT + "font_ProductSans.fnt";
-	public static final String FONT_PIXELED = PATH_FONT + "font_Pixeled.fnt";
-	public static final String FONT_ARIAL = PATH_FONT + "font_Arial.fnt";
+	/* Fonts */
+	public static final String FNT_PRODUCT_SANS = PATH_FONT + "font_ProductSans.fnt";
+	public static final String FNT_PIXELED = PATH_FONT + "font_Pixeled.fnt";
+	public static final String FNT_ARIAL = PATH_FONT + "font_Arial.fnt";
 	
+	public static final String FONT_ROBOTO_MONO_REGULAR = PATH_FONT + "RobotoMono-Regular.ttf";
+	
+	/* Sounds */
 	public static final String SOUND_HAILSTORM = PATH_SOUNDS + "hailstorm.ogg";
 	public static final String SOUND_TOILET_STORY1 = PATH_SOUNDS + "ToiletStory1.ogg";
 	
+	/* Configs */
 	public static final String CONFIG_PREFABS = PATH_CONFIG + "prefabs.json";
 
+	/* Vertex buffer data */
 	public static float[] RECT_VERTICES = {
 		-0.5f, 0.5f, 0, //V0
 		-0.5f, -0.5f, 0,//V1 
