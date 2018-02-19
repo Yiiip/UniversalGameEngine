@@ -13,6 +13,7 @@ import com.lyp.uge.fontMeshCreator.GUIText;
 import com.lyp.uge.fontRendering.GUITextManager;
 import com.lyp.uge.gameObject.camera.Camera;
 import com.lyp.uge.gameObject.camera.FirstPersonCamera;
+import com.lyp.uge.gui.widget.FpsCounterView;
 import com.lyp.uge.input.KeyboardInput;
 import com.lyp.uge.input.MouseInput;
 import com.lyp.uge.input.Keyboard;
@@ -20,6 +21,7 @@ import com.lyp.uge.input.Keyboard.OnKeyboardListener;
 import com.lyp.uge.logger.Logger;
 import com.lyp.uge.logger.Logger.Level;
 import com.lyp.uge.renderEngine.Loader;
+import com.lyp.uge.renderEngine.RendererManager;
 import com.lyp.uge.terrain.TerrainManager;
 import com.lyp.uge.utils.DataUtils;
 import com.lyp.uge.utils.StringUtils;
@@ -32,7 +34,8 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	private int runTimer = 0;
 	protected boolean running = false;
 	
-	private int fps = 0;
+	private int fps = 0; //current frame-per-second
+	private int ups = 0; //current update-per-second
 	
 	private boolean	enablePolygonMode	= false;
 	private int[] polygonModes			= {GL_POINT, GL_LINE, GL_FILL};
@@ -42,15 +45,17 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	private Thread thread;
 	private Window window;	
 	private Camera camera;
-	
 	private Loader loader = new Loader();
-	private FontType fpsFont;
-	private GUIText fpsGuiText;
+	
+	private FontType fpsFont;	//unused
+	private GUIText fpsGuiText;	//unused
+	private FpsCounterView fpsGui;
 	
 	protected abstract void onCreate();
 	protected abstract void onUpdate();
 	protected abstract void onRender();
 	protected abstract void onDestory();
+	protected void onDrawGUI() { /* Override when needed. */ }
 
 	protected void onInitWindow(int winWidth, int winHeight, String winTitle, boolean winResizeable) {
 		int w = winWidth <= 0 ? WindowManager.DEFAULT_WIDTH : winWidth;
@@ -73,11 +78,10 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		
 		initEvent();
 		
-		glEnable(GL_DEPTH_TEST);
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		RendererManager.restoreRenderState();
 		camera = new Camera();
-		if (Global.debug_fps) { initFPSTextGUI(); }
+		// if (Global.debug_fps_gui) { initFPSTextGUI(); }
+		if (Global.debug_fps_gui) { fpsGui = new FpsCounterView(0.f, 0.f); }
 		
 		onCreate();
 	}
@@ -95,24 +99,30 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		glfwPollEvents();
 		MouseInput.getInstance().update(window.getId());
 		camera.update();
-		if (Global.debug_fps) { updateFPSTextGUI(); }
+		if (Global.debug_camera) { Logger.d("Camera", camera.toShortString()); }
+		// if (Global.debug_fps_gui) { updateFPSTextGUI(); }
+		if (Global.debug_fps_gui) { fpsGui.update(fps, ups, getRunTimer()); }
 		
 		onUpdate();
-		
-		if (Global.debug_camera) { Logger.d("Camera", camera.toShortString()); }
 	}
 	
 	private void render() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
 		onRender();
+		drawGUI();
 		
-		if (Global.debug_fps) { GUITextManager.render(); }
+		// if (Global.debug_fps_gui) { GUITextManager.render(); }
 		
 		int e = glGetError();
 		if (e != GL_NO_ERROR) { Logger.e("Ops! OpenGL has error : " + e); }
 		
 		glfwSwapBuffers(window.getId());
+	}
+	
+	private void drawGUI() {
+		if (Global.debug_fps_gui) { fpsGui.onDraw(window); }
+		onDrawGUI();
 	}
 	
 	@Override
@@ -146,7 +156,8 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	}
 	
 	private synchronized void destory() {
-		if (Global.debug_fps) { GUITextManager.cleanUp(); }
+		// if (Global.debug_fps_gui) { GUITextManager.cleanUp(); }
+		if (Global.debug_fps_gui) { fpsGui.destory(); }
 		onDestory();
 		WindowManager.destoryWindow();
 	}
@@ -178,10 +189,10 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 				runTimer++;
 				
 				fps = framesCounter;
-				if (Global.debug_fps) {
-					Logger.d("Updates : " + updatesCounter + ",  FPS : " + framesCounter + ", Runtime: " + getRunTimer());
-					WindowManager.setWindowTitle(window.getId(), window.getTitle() 
-							+ " (Updates : " + updatesCounter + ",  FPS : " + framesCounter + ", Runtime: " + getRunTimer() + ")");
+				ups = updatesCounter;
+				if (Global.debug_fps_window_title) {
+					Logger.d("UPS : " + updatesCounter + ",  FPS : " + framesCounter + ", Runtime: " + getRunTimer());
+					WindowManager.setWindowTitle(window.getId(), window.getTitle() + " (UPS : " + updatesCounter + ",  FPS : " + framesCounter + ", Runtime: " + getRunTimer() + ")");
 				}
 				
 				updatesCounter = 0;
@@ -198,24 +209,30 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		return window;
 	}
 	
-/*----------------------for FPS GUI----------------------*/
+/*----------------------for FPS GUI (Implement without nanovg)----------------------*/
+	@SuppressWarnings("unused")
+	@Deprecated
 	private void initFPSTextGUI() {
 		GUITextManager.init(loader);
-		fpsFont = new FontType(loader.loadTexture(DataUtils.TEX_FONT_ARIAL).getID(), new File(DataUtils.FONT_ARIAL));
+		fpsFont = new FontType(loader.loadTexture(DataUtils.TEX_FONT_ARIAL).getID(), new File(DataUtils.FNT_ARIAL));
 		setFPSTextGUI("FPS : " + getFPS());
 	}
 	
+	@Deprecated
 	private void setFPSTextGUI(String text) {
 		fpsGuiText = new GUIText(text, 1, fpsFont, new Vector2f(0.935f, 0.02f), 1.0f, false);
 		// fpsGuiText.setColor(0.96f, 0.84f, 0.0f); //yellow
 		fpsGuiText.setColor(1.0f, 0.20f, 0.20f); //red
 	}
 	
+	@SuppressWarnings("unused")
+	@Deprecated
 	private void updateFPSTextGUI() {
 		fpsGuiText.remove();
 		setFPSTextGUI("FPS : " + getFPS());
 	}
 	
+/*----------------------for runtime----------------------*/
 	public String getRunTimer() {
 		int hour = runTimer / 3600;
 		int minute = runTimer / 60 % 60;
@@ -225,6 +242,10 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	
 	public int getFPS() {
 		return fps;
+	}
+	
+	public int getUPS() {
+		return ups;
 	}
 	
 /*----------------------for Camera----------------------*/
@@ -249,7 +270,7 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	}
 	
 	/**
-	 * Bind collision between special camera(e.g. FirstPersonCamera) and terrains.
+	 * Bind collision between terrains and special camera(e.g. FirstPersonCamera).
 	 * @param terrainManager
 	 * @return
 	 */

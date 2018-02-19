@@ -10,7 +10,8 @@ public final class Global {
 	//Debug level
 	public static boolean debug_level = true;
 	//Logs in console (注：开启日志会额外占用内存)
-	public static boolean debug_fps = true;
+	public static boolean debug_fps_gui = true;
+	public static boolean debug_fps_window_title = true;
 	public static boolean debug_camera = true;
 	public static boolean debug_light = false;
 	public static boolean debug_keyboard = false;
@@ -20,6 +21,7 @@ public final class Global {
 	public static boolean mdoe_polygon_view = true; //多边形查看模式
 	public static boolean mode_culling_back = true; //剔除背面
 	public static boolean mode_hide_cursor = false; //隐藏鼠标指针
+	public static short anti_aliasing = 2; //抗锯齿(x2, x4, x8)
 	
 	//User global variables
 	private static GlobalUser user = new GlobalUser();

@@ -150,4 +150,11 @@ public class RendererManager {
 	public static void disableCulling() {
 		glDisable(GL_CULL_FACE);
 	}
+	
+	public static void restoreRenderState() {
+		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_BLEND);
+		glEnable(GL_STENCIL_TEST);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	}
 }

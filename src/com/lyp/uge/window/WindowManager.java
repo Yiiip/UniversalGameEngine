@@ -11,6 +11,8 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.system.MemoryStack;
 
+import com.lyp.uge.game.Global;
+
 public class WindowManager {
 
 	//(16:9) 1366*768, 1600*900, 1920*1080
@@ -42,6 +44,7 @@ public class WindowManager {
 		// Configure GLFW
 		glfwDefaultWindowHints();
 		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+		glfwWindowHint(GLFW_SAMPLES, Global.anti_aliasing); // Anti-aliasing
 		setWindowResizable(resizeable);
 
 		// Create the window
