@@ -48,7 +48,7 @@ public class TestTerrainsWithFog extends GameApplication {
 	private AudioManager soundMgr;
 	
 	private Random random = new Random();
-
+	
 	@Override
 	protected void onInitWindow(int winWidth, int winHeight, String winTitle, boolean winResizeable) {
 		super.onInitWindow(1600, 900, winTitle, winResizeable);
@@ -145,7 +145,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		soundMgr.addSoundBuffer(buffBack);
 		AudioSource sourceBack = new AudioSource(true, true);
 		sourceBack.setBuffer(buffBack.getBufferId());
-		soundMgr.addSoundSource("hailstorm.ogg", sourceBack);
+		soundMgr.addSoundSource("BgMusic", sourceBack);
 		soundMgr.setListener(new AudioListener(new Vector3f(0, 0, 0)));
 		sourceBack.play();        
 	}
@@ -172,7 +172,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		}
 		rendererManager.renderAll(lights, getMainCamera(), SKY_COLOR_NIGHT);
 	}
-
+	
 	@Override
 	protected void onDestory() {
 		rendererManager.cleanUp();
