@@ -39,15 +39,21 @@ public class FpsCounterView extends Widget {
 	@Override
 	protected void draw(Window window) {
 		// Draw HUD panel
+		nvgBeginPath(ctx);
 		nvgRect(ctx, x, y, w, h);
 		nvgFillColor(ctx, rgba(61, 61, 63, 190, color));
+		nvgFill(ctx);
+		
+		nvgBeginPath(ctx);
+		nvgRect(ctx, x, y, w, padding / 3);
+		nvgFillColor(ctx, rgba(139, 229, 165, 255, color));
 		nvgFill(ctx);
 
 		// Draw text
 		nvgFontSize(ctx, fSize);
 		nvgFontFace(ctx, fName);
 		nvgTextAlign(ctx, NVG_ALIGN_LEFT | NVG_ALIGN_TOP);
-		nvgFillColor(ctx, rgba(139, 229, 165, 255, color));
+		nvgFillColor(ctx, color);
 		nvgText(ctx, x + padding, y + padding, TEXT_FPS + fps + TEXT_UPS + ups);
 		nvgText(ctx, x + padding, y + fSize + padding, TEXT_RUNTIME + runtime);
 	}
