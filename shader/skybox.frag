@@ -4,14 +4,20 @@ in vec3 pass_tc;
 
 out vec4 out_color;
 
-uniform samplerCube textureCubeMap;
+// Simulate day&night cycle using multiple textures.
+uniform samplerCube textureCubeMap1;
+uniform samplerCube textureCubeMap2;
+
+uniform float blendFactor;
 uniform vec3 fogColor;
 
 const float lowerLimit = -30.0;
 const float upperLimit = 50.0;
 
 void main (void) {
-	vec4 finalColor = texture(textureCubeMap, pass_tc);
+	vec4 skyTexture1 = texture(textureCubeMap1, pass_tc);
+	vec4 skyTexture2 = texture(textureCubeMap2, pass_tc);
+	vec4 finalColor = mix(skyTexture1, skyTexture2, blendFactor);
 
 	float mixFoctor = (pass_tc.y - lowerLimit) / (upperLimit - lowerLimit);
 	mixFoctor = clamp(mixFoctor, 0.0, 1.0);
