@@ -131,7 +131,7 @@ public class RendererManager {
 			mTerrainShader.stop();
 		}
 		
-		mSkyboxRender.render(camera);
+		mSkyboxRender.render(camera, preSkyColor==null?PRE_COLOR_RED:preSkyColor.x, preSkyColor==null?PRE_COLOR_GREEN:preSkyColor.y, preSkyColor==null?PRE_COLOR_BLUE:preSkyColor.z);
 		
 		mObjects.clear();
 		mTerrains.clear();

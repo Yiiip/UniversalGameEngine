@@ -81,9 +81,10 @@ public class SkyboxRender {
 		mSkyboxShder.stop();
 	}
 	
-	public void render(Camera camera) {
+	public void render(Camera camera, float r, float g, float b) {
 		mSkyboxShder.start();
 		mSkyboxShder.loadViewMatrix(camera);
+		mSkyboxShder.setupFogColor(r, g, b);
 		glBindVertexArray(mRawModel.getVaoID());
 		glEnableVertexAttribArray(Loader.ATTR_POSITIONS);
 		glActiveTexture(GL_TEXTURE0);

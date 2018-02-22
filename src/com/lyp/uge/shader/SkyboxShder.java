@@ -1,6 +1,7 @@
 package com.lyp.uge.shader;
 
 import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
 
 import com.lyp.uge.gameObject.camera.Camera;
 import com.lyp.uge.math.MathTools;
@@ -10,8 +11,16 @@ public class SkyboxShder extends StaticShader {
 	private static String SKYBOX_VERT = "shader/skybox.vert";
 	private static String SKYBOX_FRAG = "shader/skybox.frag";
 	
+	protected int uniform_fogColor; //(= skyColor)
+	
 	public SkyboxShder() {
 		super(SKYBOX_VERT, SKYBOX_FRAG);
+	}
+	
+	@Override
+	protected void getAllUniformLocations() {
+		super.getAllUniformLocations();
+		uniform_fogColor = super.getUniformLocation("fogColor");
 	}
 	
 	@Override
@@ -21,5 +30,9 @@ public class SkyboxShder extends StaticShader {
 		viewMatrix.m31 = 0;
 		viewMatrix.m32 = 0;
 		super.loadMatrix(uniform_viewMatrix, viewMatrix);
+	}
+	
+	public void setupFogColor(float r, float g, float b) {
+		super.loadVector(uniform_fogColor, new Vector3f(r, g, b));
 	}
 }
