@@ -7,6 +7,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
 
 import org.lwjgl.nanovg.NVGColor;
 
@@ -31,8 +32,20 @@ public abstract class Gui {
 		}
 	}
 	
-	public static int guiFontCreate(long vgContext, String fontName, ByteBuffer resource) {
-		return nvgCreateFontMem(vgContext, fontName, resource, 0);
+	public static int guiFontCreate(long vgContext, String fontName, ByteBuffer fontRes) {
+		return nvgCreateFontMem(vgContext, fontName, fontRes, 0);
+	}
+	
+	public static int guiImageCreate(long vgContext, ByteBuffer img) {
+		return nvgCreateImageMem(vgContext, 0, img);
+	}
+	
+	public static void guiImageSize(long vgContext, int image, IntBuffer imgw, IntBuffer imgh) {
+		nvgImageSize(vgContext, image, imgw, imgh);
+	}
+	
+	public static void guiImageDestory(long vgContext, int image) {
+		nvgDeleteImage(vgContext, image);
 	}
 	
 	public static void guiBegin(long vgContext, Window window) {
