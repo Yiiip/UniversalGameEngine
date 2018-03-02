@@ -5,7 +5,6 @@ import static org.lwjgl.nanovg.NanoVG.*;
 import java.nio.ByteBuffer;
 
 import org.lwjgl.nanovg.NVGColor;
-
 import com.lyp.uge.utils.DataUtils;
 import com.lyp.uge.window.Window;
 
@@ -43,30 +42,30 @@ public class FpsCounterView extends Widget {
 		nvgRect(ctx, x, y, w, h);
 		nvgFillColor(ctx, rgba(61, 61, 63, 190, color));
 		nvgFill(ctx);
-		
+
 		nvgBeginPath(ctx);
 		nvgRect(ctx, x, y, w, padding / 3);
-		nvgFillColor(ctx, rgba(139, 229, 165, 255, color));
+		nvgFillColor(ctx, rgba(139, 229, 165, 255, color)); // #8BE5A5
 		nvgFill(ctx);
 
 		// Draw text
 		nvgFontSize(ctx, fSize);
 		nvgFontFace(ctx, fName);
 		nvgTextAlign(ctx, NVG_ALIGN_LEFT | NVG_ALIGN_TOP);
-		nvgFillColor(ctx, color);
+		nvgFillColor(ctx, rgba(139, 229, 165, 255, color));
 		nvgText(ctx, x + padding, y + padding, TEXT_FPS + fps + TEXT_UPS + ups);
 		nvgText(ctx, x + padding, y + fSize + padding, TEXT_RUNTIME + runtime);
 	}
 
 	@Override
-	public void update() {
+	public void update(Window window) {
 	}
-	
-	public void update(int fps, int ups, String runtime) {
+
+	public void update(int fps, int ups, String runtime, Window window) {
 		this.fps = fps;
 		this.ups = ups;
 		this.runtime = runtime;
-		this.update();
+		this.update(window);
 	}
 
 	@Override

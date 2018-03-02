@@ -18,7 +18,7 @@ import com.lyp.uge.window.Window;
 public abstract class Gui {
 
 	protected abstract void draw(Window window);
-	public abstract void update();
+	public abstract void update(Window window);
 	public abstract void destory();
 	
 	public static long guiCreate() {

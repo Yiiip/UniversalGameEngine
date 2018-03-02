@@ -14,6 +14,7 @@ import com.lyp.uge.fontRendering.GUITextManager;
 import com.lyp.uge.gameObject.camera.Camera;
 import com.lyp.uge.gameObject.camera.FirstPersonCamera;
 import com.lyp.uge.gui.widget.FpsCounterView;
+import com.lyp.uge.gui.widget.Toolbar;
 import com.lyp.uge.input.KeyboardInput;
 import com.lyp.uge.input.MouseInput;
 import com.lyp.uge.input.Keyboard;
@@ -50,6 +51,7 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	private FontType fpsFont;	//unused
 	private GUIText fpsGuiText;	//unused
 	private FpsCounterView fpsGui;
+	private Toolbar toolbarGui;
 	
 	protected abstract void onCreate();
 	protected abstract void onUpdate();
@@ -82,6 +84,7 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		camera = new Camera();
 		// if (Global.debug_fps_gui) { initFPSTextGUI(); }
 		if (Global.debug_fps_gui) { fpsGui = new FpsCounterView(0.f, 0.f); }
+		toolbarGui = new Toolbar(window);
 		
 		onCreate();
 	}
@@ -101,7 +104,8 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		camera.update();
 		if (Global.debug_camera) { Logger.d("Camera", camera.toShortString()); }
 		// if (Global.debug_fps_gui) { updateFPSTextGUI(); }
-		if (Global.debug_fps_gui) { fpsGui.update(fps, ups, getRunTimer()); }
+		if (Global.debug_fps_gui) { fpsGui.update(fps, ups, getRunTimer(), window); }
+		toolbarGui.update(window);
 		
 		onUpdate();
 	}
@@ -122,6 +126,7 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	
 	private void drawGUI() {
 		if (Global.debug_fps_gui) { fpsGui.onDraw(window); }
+		toolbarGui.onDraw(window);
 		onDrawGUI();
 	}
 	
@@ -158,6 +163,7 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	private synchronized void destory() {
 		// if (Global.debug_fps_gui) { GUITextManager.cleanUp(); }
 		if (Global.debug_fps_gui) { fpsGui.destory(); }
+		toolbarGui.destory();
 		onDestory();
 		WindowManager.destoryWindow();
 	}

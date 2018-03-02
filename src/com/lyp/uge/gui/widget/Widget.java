@@ -11,6 +11,10 @@ public abstract class Widget extends Gui {
 
 	protected StateMachine mStateMachine;
 	
+	/**
+	 * onDraw is public visible for outside.
+	 * @param window
+	 */
 	public void onDraw(Window window) {
 		Gui.guiBegin(ctx, window);
 		draw(window);

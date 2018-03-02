@@ -176,6 +176,14 @@ public class MouseInput {
 		return wheelOffsets;
 	}
 	
+	public float getPosX() {
+		return currentPos.x;
+	}
+	
+	public float getPosY() {
+		return currentPos.y;
+	}
+	
 	@Override
 	public String toString() {
 		return "(" + currentPos.x + ", " + currentPos.y + ")";
