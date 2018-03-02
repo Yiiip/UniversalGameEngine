@@ -5,6 +5,7 @@ public class DataUtils {
 	/* Paths */
 	public static final String PATH_TEXTURE	= "res/texture/";
 	public static final String PATH_SKYBOX	= "res/texture/skybox/";
+	public static final String PATH_GUI		= "res/texture/gui/";
 	public static final String PATH_OBJ		= "res/obj/";
 	public static final String PATH_FONT	= "res/font/";
 	public static final String PATH_SOUNDS	= "res/sounds/";
@@ -64,6 +65,8 @@ public class DataUtils {
 	public static final String TEX_FONT_PRODUCT_SANS = PATH_TEXTURE + "font_ProductSans.png";
 	public static final String TEX_FONT_PIXELED = PATH_TEXTURE + "font_Pixeled.png";
 	public static final String TEX_FONT_ARIAL = PATH_TEXTURE + "font_Arial.png";
+	
+	public static final String TEX_GUI_ICON_POLYGON = PATH_GUI + "icon_polygon.png";
 	
 	/* Fonts */
 	public static final String FNT_PRODUCT_SANS = PATH_FONT + "font_ProductSans.fnt";

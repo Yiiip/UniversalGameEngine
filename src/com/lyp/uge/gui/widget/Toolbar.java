@@ -11,13 +11,14 @@ import org.lwjgl.util.vector.Vector2f;
 
 import com.lyp.uge.ai.collision.Collision;
 import com.lyp.uge.input.MouseInput;
+import com.lyp.uge.utils.DataUtils;
 import com.lyp.uge.window.Window;
 
 public class Toolbar extends Widget {
 
 	private Rectangle bounds;
 	private int imgP = 0;
-	private ByteBuffer imgRes = loadResource("res/texture/gui/vector-triangle.png", 1 * 1024);
+	private ByteBuffer imgRes = loadResource(DataUtils.TEX_GUI_ICON_POLYGON, 1 * 1024);
 
 	private NVGColor color = NVGColor.create();
 	private NVGPaint paint = NVGPaint.create();
