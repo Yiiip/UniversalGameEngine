@@ -66,7 +66,7 @@ public class Renderer2d {
 	}
 	
 	private void prepareInstance(Sprite2D object) {
-		Matrix4f transformationMatrix = MathTools.createTransformationMatrix(
+		Matrix4f transformationMatrix = MathTools.createModelMatrix(
 				object.getPosition(), 
 				object.getRotateX(), 
 				object.getRotateY(), 

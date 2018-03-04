@@ -8,7 +8,7 @@ import com.lyp.uge.gameObject.camera.Camera;
 
 public class MathTools {
 
-	public static Matrix4f createTransformationMatrix(
+	public static Matrix4f createModelMatrix(
 			Vector3f translation, float rotateX, float rotateY, float rotateZ, float scale) {
 		Matrix4f matrix = new Matrix4f();
 		matrix.setIdentity();

@@ -12,6 +12,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/UniversalGameEngine/libs/gson/gson-2.8.2-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="libs/PNGDecoder.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/PNGDecoder.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

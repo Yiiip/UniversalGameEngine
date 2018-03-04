@@ -105,7 +105,7 @@ public class Renderer {
 		glEnableVertexAttribArray(Loader.ATTR_COORDINATES);
 		glEnableVertexAttribArray(Loader.ATTR_NORMALS);
 		
-		Matrix4f transformationMatrix = MathTools.createTransformationMatrix(
+		Matrix4f transformationMatrix = MathTools.createModelMatrix(
 				object.getPosition(), 
 				object.getRotateX(), 
 				object.getRotateY(), 
@@ -174,7 +174,7 @@ public class Renderer {
 	}
 	
 	private void prepareInstance(GameObject object) {
-		Matrix4f transformationMatrix = MathTools.createTransformationMatrix(
+		Matrix4f transformationMatrix = MathTools.createModelMatrix(
 				object.getPosition(), 
 				object.getRotateX(), 
 				object.getRotateY(), 

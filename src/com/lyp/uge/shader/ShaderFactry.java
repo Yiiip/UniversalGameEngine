@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class ShaderFactry {
 
-	//Type of shader (material maybe)
+	//Type of shader
 	public static final int WITH_DEFAULT		= 0x000;
 	public static final int WITH_SPECULAR_LIGHT	= 0x001;
 	public static final int WITH_FOG			= 0x002;
