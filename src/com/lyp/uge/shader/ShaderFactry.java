@@ -42,6 +42,8 @@ public class ShaderFactry {
 				shader = new MultiLightsShader();
 				break;
 			default:
+				shaderType = WITH_DEFAULT;
+				shader = new DefaultShader();
 				break;
 		}
 		mCache.put(shaderType, shader);

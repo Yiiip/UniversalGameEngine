@@ -157,4 +157,8 @@ public class RendererManager {
 		glEnable(GL_STENCIL_TEST);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
+
+	public Matrix4f getProjectionMatrix() {
+		return mProjectionMatrix;
+	}
 }

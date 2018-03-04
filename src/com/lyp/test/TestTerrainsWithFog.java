@@ -16,6 +16,7 @@ import com.lyp.uge.game.GameApplication;
 import com.lyp.uge.gameObject.SimpleObject;
 import com.lyp.uge.gameObject.light.Light;
 import com.lyp.uge.gameObject.light.PointLight;
+import com.lyp.uge.gameObject.tool.MousePicker;
 import com.lyp.uge.prefab.PrefabsManager;
 import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
@@ -44,6 +45,8 @@ public class TestTerrainsWithFog extends GameApplication {
 	private List<Light> lights;
 	private RendererManager rendererManager;
 	private PrefabsManager prefabsManager;
+	
+	private MousePicker mousePicker;
 	
 	private AudioManager soundMgr;
 	
@@ -133,6 +136,8 @@ public class TestTerrainsWithFog extends GameApplication {
 		
 		rendererManager = new RendererManager(loader, ShaderFactry.WITH_MULTI_LIGHTS);
 		
+		mousePicker = new MousePicker(getMainCamera(), rendererManager.getProjectionMatrix());
+		
 		soundMgr = new AudioManager();
 		soundMgr.init();
 		setupSounds();
@@ -153,6 +158,7 @@ public class TestTerrainsWithFog extends GameApplication {
 	@Override
 	protected void onUpdate() {
 		lights.get(0).update();
+		mousePicker.update();
 		soundMgr.updateListenerPosition(getMainCamera());
 	}
 	

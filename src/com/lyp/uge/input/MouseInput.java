@@ -7,6 +7,8 @@ import org.lwjgl.glfw.GLFWCursorPosCallback;
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import org.lwjgl.glfw.GLFWScrollCallback;
 import org.lwjgl.util.vector.Vector2f;
+
+import com.lyp.uge.game.Global;
 import com.lyp.uge.logger.Logger;
 
 public class MouseInput {
@@ -61,8 +63,7 @@ public class MouseInput {
 		@Override
 		public void invoke(long window, double xpos, double ypos) {
 			currentPos.x = (float) xpos;
-            currentPos.y = (float) ypos;
-//			Logger.d("Mouse", toString());
+			currentPos.y = (float) ypos;
 		}
 	}
 	
@@ -101,6 +102,8 @@ public class MouseInput {
 	}
 	
 	public void update(long windowId) {
+		if (Global.debug_mouse) { Logger.d("Mouse", toString()); }
+		
 		deltaVec.x = 0;
 		deltaVec.y = 0;
         if (inWindow && previousPos.x > 0 && previousPos.y > 0) {
@@ -186,6 +189,6 @@ public class MouseInput {
 	
 	@Override
 	public String toString() {
-		return "(" + currentPos.x + ", " + currentPos.y + ")";
+		return "(" + getPosX() + ", " + getPosY() + ")";
 	}
 }

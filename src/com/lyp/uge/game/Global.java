@@ -10,12 +10,13 @@ public final class Global {
 	//Debug level
 	public static boolean debug_level = true;
 	//Logs in console (注：开启日志会额外占用内存)
-	public static boolean debug_fps_gui = true;
-	public static boolean debug_fps_window_title = true;
-	public static boolean debug_camera = true;
-	public static boolean debug_light = false;
-	public static boolean debug_keyboard = false;
-	public static boolean debug_mouse = false;
+	public static boolean debug_fps_gui				= true;
+	public static boolean debug_fps_window_title	= true;
+	public static boolean debug_camera				= false;
+	public static boolean debug_light				= false;
+	public static boolean debug_keyboard			= false;
+	public static boolean debug_mouse				= false;
+	public static boolean debug_mouse_picker		= true;
 	
 	//Render Modes
 	public static boolean mdoe_polygon_view = true; //多边形查看模式
