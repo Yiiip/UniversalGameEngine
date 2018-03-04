@@ -16,7 +16,7 @@ public final class Global {
 	public static boolean debug_light				= false;
 	public static boolean debug_keyboard			= false;
 	public static boolean debug_mouse				= false;
-	public static boolean debug_mouse_picker		= true;
+	public static boolean debug_mouse_picker		= false;
 	
 	//Render Modes
 	public static boolean mdoe_polygon_view = true; //多边形查看模式

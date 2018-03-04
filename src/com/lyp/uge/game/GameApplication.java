@@ -13,6 +13,7 @@ import com.lyp.uge.fontMeshCreator.GUIText;
 import com.lyp.uge.fontRendering.GUITextManager;
 import com.lyp.uge.gameObject.camera.Camera;
 import com.lyp.uge.gameObject.camera.FirstPersonCamera;
+import com.lyp.uge.gui.widget.CursorIndicator;
 import com.lyp.uge.gui.widget.FpsCounterView;
 import com.lyp.uge.gui.widget.Toolbar;
 import com.lyp.uge.input.KeyboardInput;
@@ -48,10 +49,12 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	private Camera camera;
 	private Loader loader = new Loader();
 	
+	// Engine GUI
 	private FontType fpsFont;	//unused
 	private GUIText fpsGuiText;	//unused
-	private FpsCounterView fpsGui;
-	private Toolbar toolbarGui;
+	private FpsCounterView guiFps;
+	private Toolbar guiToolbar;
+	private CursorIndicator guiCursorIndicator;
 	
 	protected abstract void onCreate();
 	protected abstract void onUpdate();
@@ -82,9 +85,11 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		
 		RendererManager.restoreRenderState();
 		camera = new Camera();
+		
 		// if (Global.debug_fps_gui) { initFPSTextGUI(); }
-		if (Global.debug_fps_gui) { fpsGui = new FpsCounterView(0.f, 0.f); }
-		toolbarGui = new Toolbar(window);
+		if (Global.debug_fps_gui) { guiFps = new FpsCounterView(0.f, 0.f); }
+		guiToolbar = new Toolbar(window);
+		guiCursorIndicator = new CursorIndicator();
 		
 		onCreate();
 	}
@@ -101,11 +106,14 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	private void update() {
 		glfwPollEvents();
 		MouseInput.getInstance().update(window.getId());
+		
 		camera.update();
 		if (Global.debug_camera) { Logger.d("Camera", camera.toShortString()); }
+		
 		// if (Global.debug_fps_gui) { updateFPSTextGUI(); }
-		if (Global.debug_fps_gui) { fpsGui.update(fps, ups, getRunTimer(), window); }
-		toolbarGui.update(window);
+		if (Global.debug_fps_gui) { guiFps.update(fps, ups, getRunTimer(), window); }
+		guiToolbar.update(window);
+		guiCursorIndicator.update(window);
 		
 		onUpdate();
 	}
@@ -125,8 +133,9 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	}
 	
 	private void drawGUI() {
-		if (Global.debug_fps_gui) { fpsGui.onDraw(window); }
-		toolbarGui.onDraw(window);
+		if (Global.debug_fps_gui) { guiFps.onDraw(window); }
+		guiToolbar.onDraw(window);
+		guiCursorIndicator.onDraw(window);
 		onDrawGUI();
 	}
 	
@@ -136,8 +145,7 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	
 	@Override
 	public void onKeyReleased(int keycode) {
-		if ((enablePolygonMode || Global.mdoe_polygon_view) 
-				&& keycode == Keyboard.KEY_TAB) {
+		if (keycode == Keyboard.KEY_TAB && (enablePolygonMode || Global.mdoe_polygon_view)) {
 			Logger.d("多边形模式", polygonModeNames[polygonModeIndex]);
 			glPolygonMode(GL_FRONT_AND_BACK, polygonModes[polygonModeIndex]);
 			polygonModeIndex = (polygonModeIndex >= polygonModes.length-1) ? 0 : (polygonModeIndex + 1);
@@ -161,11 +169,16 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	}
 	
 	private synchronized void destory() {
-		// if (Global.debug_fps_gui) { GUITextManager.cleanUp(); }
-		if (Global.debug_fps_gui) { fpsGui.destory(); }
-		toolbarGui.destory();
+		destoryEngineGui();
 		onDestory();
 		WindowManager.destoryWindow();
+	}
+	
+	private void destoryEngineGui() {
+		// if (Global.debug_fps_gui) { GUITextManager.cleanUp(); }
+		if (Global.debug_fps_gui) { guiFps.destory(); }
+		guiToolbar.destory();
+		guiCursorIndicator.destory();
 	}
 	
 	private void loop() {

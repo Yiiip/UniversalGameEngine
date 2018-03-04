@@ -1,5 +1,7 @@
 package com.lyp.uge.window;
 
+import org.lwjgl.util.vector.Vector2f;
+
 public class Window {
 
 	private long id;
@@ -30,6 +32,10 @@ public class Window {
 
 	public int getHeight() {
 		return height;
+	}
+	
+	public Vector2f getCenter() {
+		return new Vector2f(width / 2f, height / 2f);
 	}
 
 	public float getAspectRatio() {
