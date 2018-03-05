@@ -14,6 +14,7 @@ import com.lyp.uge.game.Global;
 import com.lyp.uge.gameObject.GameObject;
 import com.lyp.uge.gameObject.camera.Camera;
 import com.lyp.uge.gameObject.light.Light;
+import com.lyp.uge.logger.Logger;
 import com.lyp.uge.math.MathTools;
 import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.shader.FoggyShader;
@@ -29,16 +30,16 @@ import com.sun.istack.internal.Nullable;
 
 public class RendererManager {
 	
-	//Projection parameters of camera
-	private static float FIELD_OF_VIEW_ANGLE = 70; //视域最大角度
-	private static float NEAR_PLANE = 0.1f; //最近平面处
-	private static float FAR_PLANE = 1000.0f; //最远平面处
+	// Projection matrix parameters of camera
+	private static float FIELD_OF_VIEW_ANGLE	= 70; //视域最大角度
+	private static float NEAR_PLANE				= 0.1f; //最近平面处
+	private static float FAR_PLANE				= 1000.0f; //最远平面处
 	
-	//background sky color
-	private static final float PRE_COLOR_RED = .12f;
-	private static final float PRE_COLOR_GREEN = .12f;
-	private static final float PRE_COLOR_BLUE = .12f;
-	private static final float PRE_COLOR_ALPHA = 1.0f;
+	// Background sky color
+	private static final float PRE_COLOR_RED	= .12f;
+	private static final float PRE_COLOR_GREEN	= .12f;
+	private static final float PRE_COLOR_BLUE	= .12f;
+	private static final float PRE_COLOR_ALPHA	= 1.0f;
 
 	private Renderer mRenderer;
 	private Shader mShader;
@@ -160,5 +161,17 @@ public class RendererManager {
 
 	public Matrix4f getProjectionMatrix() {
 		return mProjectionMatrix;
+	}
+	
+	// Manage glPolygonMode.
+	public static boolean	enablePolygonMode	= false;
+	public static int[]		polygonModes		= {GL_POINT, GL_LINE, GL_FILL};
+	public static int		polygonModeIndex	= 0;
+	public static String[]	polygonModeNames	= {"点", "线", "填充"};
+	
+	public static void changePolygonMode() {
+		glPolygonMode(GL_FRONT_AND_BACK, polygonModes[polygonModeIndex]);
+		Logger.d("多边形模式", polygonModeNames[polygonModeIndex]);
+		polygonModeIndex = (polygonModeIndex >= polygonModes.length-1) ? 0 : (polygonModeIndex + 1);
 	}
 }

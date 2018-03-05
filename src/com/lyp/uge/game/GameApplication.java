@@ -33,16 +33,10 @@ import com.sun.istack.internal.NotNull;
 
 public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	
-	private int runTimer = 0;
-	protected boolean running = false;
-	
 	private int fps = 0; //current frame-per-second
 	private int ups = 0; //current update-per-second
-	
-	private boolean	enablePolygonMode	= false;
-	private int[] polygonModes			= {GL_POINT, GL_LINE, GL_FILL};
-	private String[] polygonModeNames	= {"点", "线", "填充"};
-	private int polygonModeIndex		= 0;
+	private int runtime = 0;
+	protected boolean running = false;
 	
 	private Thread thread;
 	private Window window;	
@@ -145,10 +139,8 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	
 	@Override
 	public void onKeyReleased(int keycode) {
-		if (keycode == Keyboard.KEY_TAB && (enablePolygonMode || Global.mdoe_polygon_view)) {
-			Logger.d("多边形模式", polygonModeNames[polygonModeIndex]);
-			glPolygonMode(GL_FRONT_AND_BACK, polygonModes[polygonModeIndex]);
-			polygonModeIndex = (polygonModeIndex >= polygonModes.length-1) ? 0 : (polygonModeIndex + 1);
+		if (keycode == Keyboard.KEY_TAB && (RendererManager.enablePolygonMode || Global.mdoe_polygon_view)) {
+			RendererManager.changePolygonMode();
 		}
 	}
 	
@@ -205,7 +197,7 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 			framesCounter++;
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				runTimer++;
+				runtime++;
 				
 				fps = framesCounter;
 				ups = updatesCounter;
@@ -253,9 +245,9 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	
 /*----------------------for runtime----------------------*/
 	public String getRunTimer() {
-		int hour = runTimer / 3600;
-		int minute = runTimer / 60 % 60;
-		int second = runTimer % 60;
+		int hour = runtime / 3600;
+		int minute = runtime / 60 % 60;
+		int second = runtime % 60;
 		return StringUtils.formatTime(hour) + ":" + StringUtils.formatTime(minute) + ":" + StringUtils.formatTime(second);
 	}
 	
@@ -307,10 +299,10 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	
 /*----------------------for modes----------------------*/
 	protected void enablePolygonMode() {
-		this.enablePolygonMode = true;
+		RendererManager.enablePolygonMode = true;
 	}
 	
 	protected void disablePolygonMode() {
-		this.enablePolygonMode = false;
+		RendererManager.enablePolygonMode = false;
 	}
 }
