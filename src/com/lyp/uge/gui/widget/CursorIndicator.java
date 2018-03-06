@@ -8,9 +8,9 @@ import com.lyp.uge.window.Window;
 
 public class CursorIndicator extends Widget {
 
-	private NVGColor color = rgba(255, 255, 255, 200);
+	private NVGColor color = rgba(255, 255, 255, 220);
 	
-	private final float hWidth	= 26.0f;
+	private final float hWidth	= 24.0f;
 	private final float hHeight	= 2.0f;
 	private final float vWidth	= 2.0f;
 	private final float vHeight	= 16.0f;

@@ -10,7 +10,10 @@ import org.lwjgl.nanovg.NVGPaint;
 import org.lwjgl.util.vector.Vector2f;
 
 import com.lyp.uge.ai.collision.Collision;
+import com.lyp.uge.input.Mouse;
 import com.lyp.uge.input.MouseInput;
+import com.lyp.uge.logger.Logger;
+import com.lyp.uge.renderEngine.RendererManager;
 import com.lyp.uge.utils.DataUtils;
 import com.lyp.uge.window.Window;
 
@@ -51,18 +54,17 @@ public class Toolbar extends Widget {
 		nvgFill(ctx);
 	}
 
+	protected boolean clicked = false;
+	
 	@Override
 	public void update(Window window) {
-	}
-	
-	private boolean isMouseHover(Rectangle bounds) {
-		if (Collision.isPointInRect(new Vector2f(MouseInput.getInstance().getPosX(), MouseInput.getInstance().getPosY()), new Vector2f(bounds.x, bounds.y), bounds.width, bounds.height)) {
-			return true;
-		} else {
-			return false;
+		if (isMouseHover(bounds)) {
+			if (MouseInput.getInstance().isMouseClicked(Mouse.MOUSE_BUTTON_LEFT)) {
+				RendererManager.changePolygonMode();
+			}
 		}
 	}
-
+	
 	@Override
 	public void destory() {
 		guiImageDestory(ctx, imgP);

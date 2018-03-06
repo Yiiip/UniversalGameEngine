@@ -19,10 +19,10 @@ public final class Global {
 	public static boolean debug_mouse_picker		= false;
 	
 	//Render Modes
-	public static boolean mdoe_polygon_view = true; //多边形查看模式
-	public static boolean mode_culling_back = true; //剔除背面
-	public static boolean mode_hide_cursor = false; //隐藏鼠标指针
-	public static short anti_aliasing = 2; //抗锯齿(x2, x4, x8)
+	public static boolean mdoe_polygon_view		= true; //多边形查看模式
+	public static boolean mode_culling_back		= true; //剔除背面
+	public static boolean mode_hide_cursor		= false; //隐藏鼠标指针
+	public static short anti_aliasing			= 2; //抗锯齿(x2, x4, x8)
 	
 	//User global variables
 	private static GlobalUser user = new GlobalUser();
