@@ -41,3 +41,8 @@
 
 
 <img width="880px" src="https://github.com/Yiiip/UniversalGameEngine/blob/master/screenshots/12.png" alt="12"/>
+
+
+This project is just a simple game engine, and it is a beginning for me to develop games or engine.
+
+Finally, thanks for ThinMatrix's and TheCherno's OpenGL tutorials in their Youtube channel that are extremely helpful to me.👍
