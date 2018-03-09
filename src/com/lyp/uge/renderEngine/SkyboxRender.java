@@ -69,6 +69,7 @@ public class SkyboxRender {
 		DataUtils.PATH_SKYBOX + "skybox01_front.png",
 	};
 	
+	@SuppressWarnings("unused")
 	private static final String[] CUBE_TEXTURE_FILES_2 = {
 		DataUtils.PATH_SKYBOX + "cubemap_px.png",
 		DataUtils.PATH_SKYBOX + "cubemap_nx.png",
@@ -97,7 +98,7 @@ public class SkyboxRender {
 	
 	public SkyboxRender(Loader loader, Matrix4f projectionMatrix) {
 		mRawModel = loader.loadToVAO(SKYBOX_VERTICES);
-		mTexID[TEX_INDEX_DAY] = loader.loadTextureCubeMap(CUBE_TEXTURE_FILES_2).getID(); // Daytime skybox
+		mTexID[TEX_INDEX_DAY] = loader.loadTextureCubeMap(CUBE_TEXTURE_FILES).getID(); // Daytime skybox
 		mTexID[TEX_INDEX_NIGHT] = loader.loadTextureCubeMap(CUBE_TEXTURE_NIGHT_FILES).getID(); // Night skybox
 		mSkyboxShder = new SkyboxShder();
 		mSkyboxShder.start();
