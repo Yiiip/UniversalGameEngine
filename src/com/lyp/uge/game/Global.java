@@ -22,6 +22,7 @@ public final class Global {
 	public static boolean mdoe_polygon_view		= true; //多边形查看模式
 	public static boolean mode_culling_back		= true; //剔除背面
 	public static boolean mode_hide_cursor		= false; //隐藏鼠标指针
+	public static boolean mode_display_skybox	= true; //显示内置天空盒
 	public static short anti_aliasing			= 2; //抗锯齿(x2, x4, x8)
 	
 	//User global variables

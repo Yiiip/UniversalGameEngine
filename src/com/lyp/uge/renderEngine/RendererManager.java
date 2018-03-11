@@ -24,6 +24,7 @@ import com.lyp.uge.shader.ShaderFactry;
 import com.lyp.uge.shader.StaticShader;
 import com.lyp.uge.shader.TerrainShader;
 import com.lyp.uge.terrain.Terrain;
+import com.lyp.uge.water.WaterTile;
 import com.lyp.uge.window.WindowManager;
 import com.sun.istack.internal.NotNull;
 import com.sun.istack.internal.Nullable;
@@ -49,9 +50,12 @@ public class RendererManager {
 	private TerrainShader mTerrainShader;
 	
 	private SkyboxRender mSkyboxRender;
+
+	private WaterRender mWaterRender;
 	
 	private Map<TextureModel, List<GameObject>> mObjects = null;
 	private List<Terrain> mTerrains = null;
+	private List<WaterTile> mWaterTiles = null;
 	
 	public RendererManager(Loader loader, int shaderType) {
 		if (Global.mode_culling_back) { enableCulling(); }
@@ -67,6 +71,9 @@ public class RendererManager {
 		this.mTerrains = new ArrayList<Terrain>();
 		
 		this.mSkyboxRender = new SkyboxRender(loader, mProjectionMatrix);
+		
+		this.mWaterRender = new WaterRender(loader, mProjectionMatrix);
+		this.mWaterTiles = new ArrayList<WaterTile>();
 	}
 	
 	public void prepare() {
@@ -95,6 +102,10 @@ public class RendererManager {
 	
 	public void addTerrain(Terrain terrain) {
 		mTerrains.add(terrain);
+	}
+	
+	public void addWaterTile(WaterTile water) {
+		mWaterTiles.add(water);
 	}
 	
 	public void renderAll(@NotNull List<Light> lights, @NotNull Camera camera, @Nullable Vector4f preSkyColor) {
@@ -132,10 +143,17 @@ public class RendererManager {
 			mTerrainShader.stop();
 		}
 		
-		mSkyboxRender.render(camera, preSkyColor==null?PRE_COLOR_RED:preSkyColor.x, preSkyColor==null?PRE_COLOR_GREEN:preSkyColor.y, preSkyColor==null?PRE_COLOR_BLUE:preSkyColor.z);
+		if (mWaterTiles != null && !mWaterTiles.isEmpty()) {
+			mWaterRender.render(mWaterTiles, camera);
+		}
+		
+		if (Global.mode_display_skybox) {
+			mSkyboxRender.render(camera, preSkyColor==null?PRE_COLOR_RED:preSkyColor.x, preSkyColor==null?PRE_COLOR_GREEN:preSkyColor.y, preSkyColor==null?PRE_COLOR_BLUE:preSkyColor.z);
+		}
 		
 		mObjects.clear();
 		mTerrains.clear();
+		mWaterTiles.clear();
 	}
 	
 	public void cleanUp() {
