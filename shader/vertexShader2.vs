@@ -8,17 +8,17 @@ out vec2 pass_tc;
 out vec3 surface_normal;
 out vec3 to_light_vector;
 
-uniform mat4 transformationMatrix;
+uniform mat4 modelMatrix;
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
 uniform vec3 lightPos;
 
 void main (void) {
-	vec4 worldPosition = transformationMatrix * vec4(position, 1.0);
+	vec4 worldPosition = modelMatrix * vec4(position, 1.0);
 	
 	gl_Position = projectionMatrix * viewMatrix * worldPosition;
 	pass_tc = tc;
 	
-	surface_normal = (transformationMatrix * vec4(normal, 0)).xyz;
+	surface_normal = (modelMatrix * vec4(normal, 0)).xyz;
 	to_light_vector = lightPos - worldPosition.xyz;
 }

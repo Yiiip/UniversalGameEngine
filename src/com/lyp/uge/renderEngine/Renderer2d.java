@@ -66,14 +66,14 @@ public class Renderer2d {
 	}
 	
 	private void prepareInstance(Sprite2D object) {
-		Matrix4f transformationMatrix = MathTools.createModelMatrix(
+		Matrix4f modelMatrix = MathTools.createModelMatrix(
 				object.getPosition(), 
 				object.getRotateX(), 
 				object.getRotateY(), 
 				object.getRotateZ(), 
 				object.getScale());
 		object.getShader().loadProjectionMatrix(mProjectionMatrix);
-		object.getShader().loadModelMatrix(transformationMatrix);
+		object.getShader().loadModelMatrix(modelMatrix);
 		object.render(null, object.getShader());
 	}
 

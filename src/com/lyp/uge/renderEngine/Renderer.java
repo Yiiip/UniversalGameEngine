@@ -105,13 +105,13 @@ public class Renderer {
 		glEnableVertexAttribArray(Loader.ATTR_COORDINATES);
 		glEnableVertexAttribArray(Loader.ATTR_NORMALS);
 		
-		Matrix4f transformationMatrix = MathTools.createModelMatrix(
+		Matrix4f modelMatrix = MathTools.createModelMatrix(
 				object.getPosition(), 
 				object.getRotateX(), 
 				object.getRotateY(), 
 				object.getRotateZ(), 
 				object.getScale());
-		shaderProgram.loadModelMatrix(transformationMatrix);
+		shaderProgram.loadModelMatrix(modelMatrix);
 		
 		if (shaderProgram instanceof SpecularLightShader) { //高光反射光Shader
 			Texture texture = textureModel.getTexture();
@@ -174,13 +174,13 @@ public class Renderer {
 	}
 	
 	private void prepareInstance(GameObject object) {
-		Matrix4f transformationMatrix = MathTools.createModelMatrix(
+		Matrix4f modelMatrix = MathTools.createModelMatrix(
 				object.getPosition(), 
 				object.getRotateX(), 
 				object.getRotateY(), 
 				object.getRotateZ(), 
 				object.getScale());
-		mShader.loadModelMatrix(transformationMatrix);
+		mShader.loadModelMatrix(modelMatrix);
 	}
 
 	private void unbindTextureModel() {

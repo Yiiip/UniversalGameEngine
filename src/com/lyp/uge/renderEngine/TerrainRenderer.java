@@ -70,10 +70,10 @@ public class TerrainRenderer {
 	}
 	
 	private void loadModelMatrix(Terrain terrain) {
-		Matrix4f transformationMatrix = MathTools.createModelMatrix(
+		Matrix4f modelMatrix = MathTools.createModelMatrix(
 				new Vector3f(terrain.getX(), 0.0f, terrain.getZ()), 
 				0.0f, 0.0f, 0.0f, 1.0f);
-		mTerrainShader.loadModelMatrix(transformationMatrix);
+		mTerrainShader.loadModelMatrix(modelMatrix);
 	}
 
 	private void bindTextures(Terrain terrain) {

@@ -11,7 +11,7 @@ public class Static2dShader extends Shader {
 	private static String VERTEX_FILE = "shader/static2d.vert";
 	private static String FRAGMENT_FILE = "shader/static2d.frag";
 	
-	protected int uniform_transformationMatrix;
+	protected int uniform_modelMatrix;
 	protected int uniform_projectionMatrix;
 	protected int uniform_viewMatrix;
 
@@ -31,14 +31,14 @@ public class Static2dShader extends Shader {
 
 	@Override
 	protected void getAllUniformLocations() {
-		uniform_transformationMatrix = super.getUniformLocation("transformationMatrix");
+		uniform_modelMatrix = super.getUniformLocation("modelMatrix");
 		uniform_projectionMatrix = super.getUniformLocation("projectionMatrix");
 		uniform_viewMatrix = super.getUniformLocation("viewMatrix");
 	}
 
 	@Override
 	public void loadModelMatrix(Matrix4f matrix4f) {
-		super.loadMatrix(uniform_transformationMatrix, matrix4f);
+		super.loadMatrix(uniform_modelMatrix, matrix4f);
 	}
 	
 	@Override
