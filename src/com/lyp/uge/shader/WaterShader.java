@@ -6,6 +6,7 @@ public class WaterShader extends StaticShader {
 	private static String WATER_FRAGMENT_FILE = "shader/water.frag";
 	
 	protected int uniform_reflectionTexture;
+	protected int uniform_refractionTexture;
 	
 	public WaterShader() {
 		super(WATER_VERTEX_FILE, WATER_FRAGMENT_FILE);
@@ -15,9 +16,11 @@ public class WaterShader extends StaticShader {
 	protected void getAllUniformLocations() {
 		super.getAllUniformLocations();
 		uniform_reflectionTexture = getUniformLocation("reflectionTexture");
+		uniform_refractionTexture = getUniformLocation("refractionTexture");
 	}
 	
 	public void connectTextureUnits() {
 		super.loadInt(uniform_reflectionTexture, 0);
+		super.loadInt(uniform_refractionTexture, 1);
 	}
 }

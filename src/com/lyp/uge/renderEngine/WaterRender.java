@@ -61,9 +61,12 @@ public class WaterRender {
 		mShader.loadViewMatrix(camera);
 		glBindVertexArray(mQuadModel.getVaoID());
 		glEnableVertexAttribArray(Loader.ATTR_POSITIONS);
+		
 		if (mFbos != null) {
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, mFbos.getReflectionTexture());
+			glActiveTexture(GL_TEXTURE1);
+			glBindTexture(GL_TEXTURE_2D, mFbos.getRefractionTexture());
 		}
 	}
 	

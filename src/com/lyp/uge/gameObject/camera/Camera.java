@@ -106,6 +106,10 @@ public class Camera extends GameObject {
 		return new Vector3f(0, 1, 0); //TODO
 	}
 	
+	public void invertPitch() {
+		pitch = -pitch;
+	}
+	
 	public float getPitch() {
 		return pitch;
 	}

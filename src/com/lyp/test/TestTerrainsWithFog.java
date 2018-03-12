@@ -39,16 +39,17 @@ public class TestTerrainsWithFog extends GameApplication {
 	private static Vector3f COLOR_YELLOW = new Vector3f(1.f, 223f/255f, 68f/255f);
 	private static Vector3f COLOR_DARK = new Vector3f(.33f, .33f, .33f);
 	
-	private Loader loader = new Loader();
 	private SimpleObject[] oTrees;
 	private SimpleObject[] oGrasses;
 	private SimpleObject[] oFerns;
 	private Terrain[] terrains;
 	private List<Light> lights;
 	private List<WaterTile> waterTiles;
+
+	private Loader loader = new Loader();
 	private RendererManager rendererManager;
 	private PrefabsManager prefabsManager;
-	private WaterFrameBuffers fbos;
+	private WaterFrameBuffers waterFrameBuffers;
 	
 	private MousePicker mousePicker;
 	
@@ -76,6 +77,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		//水
 		waterTiles = new ArrayList<>();
 		waterTiles.add(new WaterTile(85.0f, -85.0f, -3.0f));
+		waterTiles.add(new WaterTile(-85.0f, -85.0f, 6.0f));
 		waterTiles.add(new WaterTile(0.0f, WaterTile.WATER_TILE_SIZE - 1.0f, 0.0f));
 		
 		//地形
@@ -143,10 +145,10 @@ public class TestTerrainsWithFog extends GameApplication {
 			oFerns[i] = new SimpleObject(prefabFern, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.04f);
 		}
 		
-		fbos = new WaterFrameBuffers();
+		waterFrameBuffers = new WaterFrameBuffers();
 		
 		rendererManager = new RendererManager(loader, ShaderFactry.WITH_MULTI_LIGHTS);
-		rendererManager.setFbos(fbos);
+		rendererManager.setFbos(waterFrameBuffers);
 		
 		mousePicker = new MousePicker(getMainCamera(), rendererManager.getProjectionMatrix());
 		
@@ -188,21 +190,31 @@ public class TestTerrainsWithFog extends GameApplication {
 		for (int i = 0; i < terrains.length; i++) {
 			rendererManager.addTerrain(terrains[i]);
 		}
-		fbos.bindReflectionFrameBuffer();
-		rendererManager.renderAll(lights, getMainCamera(), SKY_COLOR_NIGHT);
-		fbos.unbindCurrentFrameBuffer();
+		
+		for (int i = 0; i < waterTiles.size(); i++) {
+			waterFrameBuffers.bindReflectionFrameBuffer();
+			float distance = 2 * (getMainCamera().getPosition().y - waterTiles.get(i).getHeight());
+			getMainCamera().getPosition().y -= distance;
+			getMainCamera().invertPitch();
+			rendererManager.renderAll(lights, getMainCamera(), SKY_COLOR_NIGHT);
+			getMainCamera().getPosition().y += distance;
+			getMainCamera().invertPitch();
+			
+			waterFrameBuffers.bindRefractionFrameBuffer();
+			rendererManager.renderAll(lights, getMainCamera(), SKY_COLOR_NIGHT);
+			waterFrameBuffers.unbindCurrentFrameBuffer();
+		}
 		
 		for (int i = 0; i < waterTiles.size(); i++) {
 			rendererManager.addWaterTile(waterTiles.get(i));
 		}
 		rendererManager.renderAll(lights, getMainCamera(), SKY_COLOR_NIGHT);
-		
 		rendererManager.clearAll();
 	}
 	
 	@Override
 	protected void onDestory() {
-		fbos.cleanUp();
+		waterFrameBuffers.cleanUp();
 		rendererManager.cleanUp();
 		loader.cleanUp();
 		soundMgr.cleanup();
