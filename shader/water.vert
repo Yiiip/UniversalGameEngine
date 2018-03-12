@@ -14,5 +14,5 @@ void main (void) {
 	
 	gl_Position = projectionMatrix * viewMatrix * worldPosition;
 	
-	textureCoords = vec2(position.x / 2.0 + 0.5, position.y / 2.0 + 0.5);
+	textureCoords = vec2(position.x / 2.0 + 0.5, position.z / 2.0 + 0.5); // normalized position range is [-1:1]
 }

@@ -26,6 +26,7 @@ import com.lyp.uge.terrain.Terrain;
 import com.lyp.uge.terrain.TerrainTexturePack;
 import com.lyp.uge.texture.Texture;
 import com.lyp.uge.utils.DataUtils;
+import com.lyp.uge.water.WaterFrameBuffers;
 import com.lyp.uge.water.WaterTile;
 
 public class TestTerrainsWithFog extends GameApplication {
@@ -47,6 +48,7 @@ public class TestTerrainsWithFog extends GameApplication {
 	private List<WaterTile> waterTiles;
 	private RendererManager rendererManager;
 	private PrefabsManager prefabsManager;
+	private WaterFrameBuffers fbos;
 	
 	private MousePicker mousePicker;
 	
@@ -74,6 +76,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		//水
 		waterTiles = new ArrayList<>();
 		waterTiles.add(new WaterTile(85.0f, -85.0f, -3.0f));
+		waterTiles.add(new WaterTile(0.0f, WaterTile.WATER_TILE_SIZE - 1.0f, 0.0f));
 		
 		//地形
 		Texture bgTexture = loader.loadTexture("res/texture/" + DataUtils.TEX_GRASS)
@@ -140,7 +143,10 @@ public class TestTerrainsWithFog extends GameApplication {
 			oFerns[i] = new SimpleObject(prefabFern, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.04f);
 		}
 		
+		fbos = new WaterFrameBuffers();
+		
 		rendererManager = new RendererManager(loader, ShaderFactry.WITH_MULTI_LIGHTS);
+		rendererManager.setFbos(fbos);
 		
 		mousePicker = new MousePicker(getMainCamera(), rendererManager.getProjectionMatrix());
 		
@@ -158,7 +164,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		sourceBack.setBuffer(buffBack.getBufferId());
 		soundMgr.addSoundSource("BgMusic", sourceBack);
 		soundMgr.setListener(new AudioListener(new Vector3f(0.0f, 0.0f, 0.0f)));
-		sourceBack.play();        
+		sourceBack.play();
 	}
 
 	@Override
@@ -182,14 +188,21 @@ public class TestTerrainsWithFog extends GameApplication {
 		for (int i = 0; i < terrains.length; i++) {
 			rendererManager.addTerrain(terrains[i]);
 		}
+		fbos.bindReflectionFrameBuffer();
+		rendererManager.renderAll(lights, getMainCamera(), SKY_COLOR_NIGHT);
+		fbos.unbindCurrentFrameBuffer();
+		
 		for (int i = 0; i < waterTiles.size(); i++) {
 			rendererManager.addWaterTile(waterTiles.get(i));
 		}
 		rendererManager.renderAll(lights, getMainCamera(), SKY_COLOR_NIGHT);
+		
+		rendererManager.clearAll();
 	}
 	
 	@Override
 	protected void onDestory() {
+		fbos.cleanUp();
 		rendererManager.cleanUp();
 		loader.cleanUp();
 		soundMgr.cleanup();

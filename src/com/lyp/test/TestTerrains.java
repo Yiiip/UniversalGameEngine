@@ -149,6 +149,7 @@ public class TestTerrains extends GameApplication {
 			rendererManager.addTerrain(terrains[i]);
 		}
 		rendererManager.renderAll(lights, getMainCamera(), new Vector4f(0.5f, 0.8f, 0.95f, 1.0f));
+		rendererManager.clearAll();
 	}
 
 	@Override

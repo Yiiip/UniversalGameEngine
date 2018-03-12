@@ -14,6 +14,7 @@ import com.lyp.uge.gameObject.camera.Camera;
 import com.lyp.uge.math.MathTools;
 import com.lyp.uge.model.RawModel;
 import com.lyp.uge.shader.WaterShader;
+import com.lyp.uge.water.WaterFrameBuffers;
 import com.lyp.uge.water.WaterTile;
 
 public class WaterRender {
@@ -29,11 +30,14 @@ public class WaterRender {
 
 	private RawModel mQuadModel;
 	private WaterShader mShader;
+	private WaterFrameBuffers mFbos;
 	
-	public WaterRender(Loader loader, Matrix4f projectionMatrix) {
+	public WaterRender(Loader loader, Matrix4f projectionMatrix, WaterFrameBuffers fbos) {
+		mFbos = fbos;
 		mQuadModel = loader.loadToVAO(QUAD_VERTICES);
 		mShader = new WaterShader();
 		mShader.start();
+		mShader.connectTextureUnits();
 		mShader.loadProjectionMatrix(projectionMatrix);
 		mShader.stop();
 	}
@@ -57,11 +61,19 @@ public class WaterRender {
 		mShader.loadViewMatrix(camera);
 		glBindVertexArray(mQuadModel.getVaoID());
 		glEnableVertexAttribArray(Loader.ATTR_POSITIONS);
+		if (mFbos != null) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, mFbos.getReflectionTexture());
+		}
 	}
 	
 	private void endRender() {
 		glDisableVertexAttribArray(0);
 		glBindVertexArray(0);
 		mShader.stop();
+	}
+	
+	public void setFbos(WaterFrameBuffers fbos) {
+		this.mFbos = fbos;
 	}
 }

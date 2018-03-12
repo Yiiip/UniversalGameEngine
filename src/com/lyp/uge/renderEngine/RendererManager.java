@@ -24,6 +24,7 @@ import com.lyp.uge.shader.ShaderFactry;
 import com.lyp.uge.shader.StaticShader;
 import com.lyp.uge.shader.TerrainShader;
 import com.lyp.uge.terrain.Terrain;
+import com.lyp.uge.water.WaterFrameBuffers;
 import com.lyp.uge.water.WaterTile;
 import com.lyp.uge.window.WindowManager;
 import com.sun.istack.internal.NotNull;
@@ -31,12 +32,12 @@ import com.sun.istack.internal.Nullable;
 
 public class RendererManager {
 	
-	// Projection matrix parameters of camera
+	// Default parameters of the Perspective Projection Matrix.
 	private static float FIELD_OF_VIEW_ANGLE	= 70; //视域最大角度
 	private static float NEAR_PLANE				= 0.1f; //最近平面处
 	private static float FAR_PLANE				= 1000.0f; //最远平面处
 	
-	// Background sky color
+	// Background sky color.
 	private static final float PRE_COLOR_RED	= .12f;
 	private static final float PRE_COLOR_GREEN	= .12f;
 	private static final float PRE_COLOR_BLUE	= .12f;
@@ -72,7 +73,7 @@ public class RendererManager {
 		
 		this.mSkyboxRender = new SkyboxRender(loader, mProjectionMatrix);
 		
-		this.mWaterRender = new WaterRender(loader, mProjectionMatrix);
+		this.mWaterRender = new WaterRender(loader, mProjectionMatrix, null);
 		this.mWaterTiles = new ArrayList<WaterTile>();
 	}
 	
@@ -151,6 +152,12 @@ public class RendererManager {
 			mSkyboxRender.render(camera, preSkyColor==null?PRE_COLOR_RED:preSkyColor.x, preSkyColor==null?PRE_COLOR_GREEN:preSkyColor.y, preSkyColor==null?PRE_COLOR_BLUE:preSkyColor.z);
 		}
 		
+	}
+	
+	/**
+	 * Call at the end of each render frame.
+	 */
+	public void clearAll() {
 		mObjects.clear();
 		mTerrains.clear();
 		mWaterTiles.clear();
@@ -181,7 +188,11 @@ public class RendererManager {
 		return mProjectionMatrix;
 	}
 	
-	// Manage glPolygonMode.
+	public void setFbos(WaterFrameBuffers fbos) {
+		mWaterRender.setFbos(fbos);
+	}
+	
+	// Manage glPolygonMode switch.
 	public static boolean	enablePolygonMode	= false;
 	public static int[]		polygonModes		= {GL_POINT, GL_LINE, GL_FILL};
 	public static int		polygonModeIndex	= 0;

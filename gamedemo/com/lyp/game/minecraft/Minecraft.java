@@ -1,6 +1,7 @@
 package com.lyp.game.minecraft;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.lwjgl.util.vector.Vector3f;
@@ -10,10 +11,10 @@ import com.lyp.game.minecraft.object.Block;
 import com.lyp.game.minecraft.util.DataUtil;
 import com.lyp.game.minecraft.util.NoiseGenerator;
 import com.lyp.uge.game.GameApplication;
-import com.lyp.uge.gameObject.Light;
+import com.lyp.uge.gameObject.light.Light;
 import com.lyp.uge.logger.Logger;
 import com.lyp.uge.model.RawModel;
-import com.lyp.uge.model.TextureModel;
+import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.renderEngine.RendererManager;
 import com.lyp.uge.shader.ShaderFactry;
@@ -30,7 +31,7 @@ public class Minecraft extends GameApplication {
 	private RawModel blockRawModel;
 	private Block[] blocksHeader;
 	private ArrayList<Block> blocksBody;
-	private Light light;
+	private List<Light> lights;
 	private RendererManager rendererManager;
 	
 	private Random r = new Random();
@@ -61,8 +62,8 @@ public class Minecraft extends GameApplication {
 				.addFoggy(0.005f, 1.5f);
 		textureModelBody = new TextureModel(blockRawModel, texDirt);
 		
-		light = new Light(new Vector3f(0.0f, 50.0f, 20.0f), new Vector3f(1, 1, 1), loader);
-		
+		lights = new ArrayList<>();
+		lights.add(new Light(new Vector3f(0.0f, 50.0f, 20.0f), new Vector3f(1, 1, 1), loader));
 		
 		int seed = r.nextInt(32767);
 		NoiseGenerator noiseGen = new NoiseGenerator(seed);
@@ -84,12 +85,12 @@ public class Minecraft extends GameApplication {
 			}
 		}
 		
-		rendererManager = new RendererManager(ShaderFactry.WITH_FOG);
+		rendererManager = new RendererManager(loader, ShaderFactry.WITH_MULTI_LIGHTS);
 	}
 
 	@Override
 	protected void onUpdate() {
-		light.update();
+		lights.get(0).update();
 	}
 
 	@Override
@@ -100,7 +101,8 @@ public class Minecraft extends GameApplication {
 		for (int i = 0; i < blocksBody.size(); i++) {
 			rendererManager.addObject(blocksBody.get(i));
 		}
-		rendererManager.renderAll(light, getMainCamera(), mSkyColor);
+		rendererManager.renderAll(lights, getMainCamera(), mSkyColor);
+		rendererManager.clearAll();
 	}
 
 	@Override

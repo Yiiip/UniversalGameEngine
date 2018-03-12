@@ -84,6 +84,7 @@ public class TestOBJDataAdvanced extends GameApplication {
 			rendererManager.addObject(objects[i]);
 		}
 		rendererManager.renderAll(lights, getMainCamera(), null);
+		rendererManager.clearAll();
 	}
 	
 	@Override
