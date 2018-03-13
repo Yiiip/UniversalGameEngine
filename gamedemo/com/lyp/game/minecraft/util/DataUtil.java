@@ -4,9 +4,16 @@ public class DataUtil {
 
 	public static final String PATH_RES = "gamedemo/com/lyp/game/minecraft/res/";
 	public static final String PATH_TEXTURE = PATH_RES + "texture/";
+	public static final String PATH_CONFIG = "gamedemo/com/lyp/game/minecraft/config/";
 	
 	public static final String TEX_GRASS_WITH_DIRT = PATH_TEXTURE + "tex_grass_with_dirt.png";
 	public static final String TEX_DIRT = PATH_TEXTURE + "tex_dirt.png";
+	
+	public static final String TERRAIN_HEIGHT_MAP01 = PATH_TEXTURE + "terrain_heightmap.png";
+	public static final String TERRAIN_HEIGHT_MAP02 = PATH_TEXTURE + "terrain_heightmap02.png";
+	public static final String TERRAIN_HEIGHT_MAP03 = PATH_TEXTURE + "terrain_heightmap03.png";
+	
+	public static final String CONFIG_PREFABS = PATH_CONFIG + "prefabs.json";
 	
 	/* cube */
 	public static float[] CUBE_VERTICES = { //24

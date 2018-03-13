@@ -1,0 +1,43 @@
+{
+	"load": "prefabs",
+	"path_tex": "gamedemo/com/lyp/game/minecraft/res/texture/",
+	"data": 
+	[
+		{
+			"name": "BLOCK_GRASS",
+			"vbos": {
+				"class"	: "com.lyp.game.minecraft.util.DataUtil",
+				"vertices"	: "CUBE_VERTICES",
+				"coords"	: "CUBE_TEXTURE_COORDS",
+				"normals"	: "CUBE_NORMALS",
+				"indices"	: "CUBE_INDICES"
+			},
+			"texture": "tex_grass_with_dirt.png",
+			"material": {
+				"specular_damper"		: 5.0,
+				"specular_reflectivity"	: 0.02,
+				"ambient_lightness"		: 0.78,
+				"fog_density"			: 0.003,
+				"fog_gradient"			: 1.5
+			}
+		},
+		{
+			"name": "BLOCK_DIRT",
+			"vbos": {
+				"class"	: "com.lyp.game.minecraft.util.DataUtil",
+				"vertices"	: "CUBE_VERTICES",
+				"coords"	: "CUBE_TEXTURE_COORDS",
+				"normals"	: "CUBE_NORMALS",
+				"indices"	: "CUBE_INDICES"
+			},
+			"texture": "tex_dirt.png",
+			"material": {
+				"specular_damper"		: 5.0,
+				"specular_reflectivity"	: 0.02,
+				"ambient_lightness"		: 0.78,
+				"fog_density"			: 0.003,
+				"fog_gradient"			: 1.5
+			}
+		}
+	]
+}
