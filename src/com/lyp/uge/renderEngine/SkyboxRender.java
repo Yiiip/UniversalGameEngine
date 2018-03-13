@@ -136,20 +136,20 @@ public class SkyboxRender {
 		float blend;
 		
 		if (mWorldTime >= 0 && mWorldTime < 5000) {
-			tex1 = mTexID[TEX_INDEX_NIGHT];
-			tex2 = mTexID[TEX_INDEX_NIGHT];
+			tex1 = mTexID[TEX_INDEX_DAY];
+			tex2 = mTexID[TEX_INDEX_DAY];
 			blend = (mWorldTime - 0) / (5000 - 0);
 		} else if (mWorldTime >= 5000 && mWorldTime < 8000) {
-			tex1 = mTexID[TEX_INDEX_NIGHT];
-			tex2 = mTexID[TEX_INDEX_DAY];
-			blend = (mWorldTime - 5000) / (8000 - 5000);
-		} else if (mWorldTime >= 8000 && mWorldTime < 20000) {
-			tex1 = mTexID[TEX_INDEX_DAY];
-			tex2 = mTexID[TEX_INDEX_DAY];
-			blend = (mWorldTime - 8000) / (20000 - 8000);
-		} else {
 			tex1 = mTexID[TEX_INDEX_DAY];
 			tex2 = mTexID[TEX_INDEX_NIGHT];
+			blend = (mWorldTime - 5000) / (8000 - 5000);
+		} else if (mWorldTime >= 8000 && mWorldTime < 20000) {
+			tex1 = mTexID[TEX_INDEX_NIGHT];
+			tex2 = mTexID[TEX_INDEX_NIGHT];
+			blend = (mWorldTime - 8000) / (20000 - 8000);
+		} else {
+			tex1 = mTexID[TEX_INDEX_NIGHT];
+			tex2 = mTexID[TEX_INDEX_DAY];
 			blend = (mWorldTime - 20000) / (24000 - 20000);
 		}
 		

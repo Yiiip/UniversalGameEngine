@@ -13,12 +13,28 @@ public class TerrainManager {
 
 	private List<Terrain> mTerrains;
 	
+	public TerrainManager() {
+		this.mTerrains = new ArrayList<Terrain>();
+	}
+	
 	public TerrainManager(List<Terrain> terrains) {
-		this.mTerrains = terrains = new ArrayList<>();
+		this.mTerrains = terrains;
 	}
 	
 	public TerrainManager(Terrain[] terrains) {
 		this.mTerrains = Arrays.asList(terrains);
+	}
+	
+	public boolean addTerrain(Terrain terrain) {
+		return mTerrains.add(terrain);
+	}
+	
+	public boolean addTerrains(List<Terrain> terrains) {
+        return mTerrains.addAll(terrains);
+	}
+
+	public boolean removeTerrain(Terrain terrain) {
+		return mTerrains.remove(terrain);
 	}
 	
 	public int getCapacity() {
@@ -37,5 +53,13 @@ public class TerrainManager {
 			}
 		}
 		return targetTerrain;
+	}
+	
+	public void clearAll() {
+		mTerrains.clear();
+	}
+	
+	public List<Terrain> getTerrains() {
+		return mTerrains;
 	}
 }

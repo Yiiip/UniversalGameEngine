@@ -10,11 +10,11 @@ import java.nio.ByteBuffer;
 
 public class WaterFrameBuffers {
 	
-	private static final int REFLECTION_WIDTH = 960;
-	private static final int REFLECTION_HEIGHT = 720;
+	private static final int REFLECTION_WIDTH = 640; //480
+	private static final int REFLECTION_HEIGHT = 360; //270
 
-	private static final int REFRACTION_WIDTH = 1280;
-	private static final int REFRACTION_HEIGHT = 720;
+	private static final int REFRACTION_WIDTH = 960;
+	private static final int REFRACTION_HEIGHT = 540;
 
 	private int reflectionFrameBuffer;
 	private int reflectionTexture;

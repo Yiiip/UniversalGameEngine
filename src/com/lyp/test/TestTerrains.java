@@ -1,6 +1,7 @@
 package com.lyp.test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -15,6 +16,7 @@ import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.renderEngine.OBJLoader;
 import com.lyp.uge.renderEngine.RendererManager;
+import com.lyp.uge.scene.Scene;
 import com.lyp.uge.shader.ShaderFactry;
 import com.lyp.uge.terrain.Terrain;
 import com.lyp.uge.terrain.TerrainManager;
@@ -31,6 +33,7 @@ public class TestTerrains extends GameApplication {
 	private Terrain[] terrains;
 	private List<Light> lights;
 	private RendererManager rendererManager;
+	private Scene mainScene;
 	
 	private Random random = new Random();
 
@@ -126,6 +129,12 @@ public class TestTerrains extends GameApplication {
 			oFerns[i] = new SimpleObject(fernTextureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.04f);
 		}
 		
+		mainScene = new Scene();
+		mainScene.addObjects(Arrays.asList(oTrees));
+		mainScene.addObjects(Arrays.asList(oGrasses));
+		mainScene.addObjects(Arrays.asList(oFerns));
+		mainScene.addTerrains(Arrays.asList(terrains));
+		
 		rendererManager = new RendererManager(loader, ShaderFactry.WITH_SPECULAR_LIGHT);
 	}
 
@@ -136,20 +145,7 @@ public class TestTerrains extends GameApplication {
 	
 	@Override
 	protected void onRender() {
-		for (int i = 0; i < oTrees.length; i++) {
-			rendererManager.addObject(oTrees[i]);
-		}
-		for (int i = 0; i < oGrasses.length; i++) {
-			rendererManager.addObject(oGrasses[i]);
-		}
-		for (int i = 0; i < oFerns.length; i++) {
-			rendererManager.addObject(oFerns[i]);
-		}
-		for (int i = 0; i < terrains.length; i++) {
-			rendererManager.addTerrain(terrains[i]);
-		}
-		rendererManager.renderAll(lights, getMainCamera(), new Vector4f(0.5f, 0.8f, 0.95f, 1.0f));
-		rendererManager.clearAll();
+		rendererManager.renderScene(mainScene, lights, getMainCamera(), new Vector4f(0.5f, 0.8f, 0.95f, 1.0f));
 	}
 
 	@Override

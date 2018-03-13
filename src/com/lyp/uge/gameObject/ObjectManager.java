@@ -1,48 +1,85 @@
 package com.lyp.uge.gameObject;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import com.lyp.uge.prefab.TextureModel;
 
 public class ObjectManager {
 
-	LinkedList<GameObject> mObjects = null;
+	private Map<TextureModel, List<GameObject>> mObjects;
 	
 	public ObjectManager() {
-		this.mObjects = new LinkedList<GameObject>();
+		this.mObjects = new HashMap<TextureModel, List<GameObject>>();
+	}
+	
+	public ObjectManager(List<GameObject> gameObjects) {
+		this();
+		for (GameObject object : gameObjects) {
+			addObject(object);
+		}
 	}
 
 	public void update() {
 		if (mObjects == null || mObjects.size() == 0) {
 			return;
 		}
-		for (int i = 0; i < mObjects.size(); i++) {
-			GameObject tempObject = mObjects.get(i);
-			tempObject.update();
+		Iterator<List<GameObject>> iterator = mObjects.values().iterator();
+		while (iterator.hasNext()) {
+			List<GameObject> list = (List<GameObject>) iterator.next();
+			for (int i = 0; i < list.size(); i++) {
+				list.get(i).update();
+			}
 		}
 	}
 
-	public boolean addObject(GameObject object) {
-		return this.mObjects.add(object);
+	public void addObject(GameObject object) {
+		TextureModel textureModel = object.getModel();
+		List<GameObject> objs = mObjects.get(textureModel);
+		if (objs != null) {
+			objs.add(object);
+		} else {
+			List<GameObject> newObjs = new ArrayList<>();
+			newObjs.add(object);
+			mObjects.put(textureModel, newObjs);
+		}
 	}
 
-	public boolean removeObject(GameObject object) {
-		return this.mObjects.remove(object);
+	public void removeObject(GameObject object) {
+		if (mObjects == null || mObjects.size() == 0) {
+			return;
+		}
+		TextureModel textureModel = object.getModel();
+		List<GameObject> objs = mObjects.get(textureModel);
+		if (objs != null) {
+			objs.remove(object);
+		}
 	}
 
 	public void removeObjectsById(int id) {
 		if (mObjects == null || mObjects.size() == 0) {
 			return;
 		}
-		Iterator<GameObject> it = this.mObjects.iterator();
-		while (it.hasNext()) {
-			GameObject tempObject = it.next();
-			if (tempObject.id == id) {
-				it.remove();
+		Iterator<List<GameObject>> iterator = mObjects.values().iterator();
+		while (iterator.hasNext()) {
+			List<GameObject> list = (List<GameObject>) iterator.next();
+			for (int i = 0; i < list.size(); i++) {
+				GameObject temp = list.get(i);
+				if (temp.id == id) {
+					list.remove(temp);
+				}
 			}
 		}
 	}
 	
-	public void cleanAll() {
+	public void clearAll() {
 		this.mObjects.clear();
+	}
+	
+	public Map<TextureModel, List<GameObject>> getObjects() {
+		return mObjects;
 	}
 }

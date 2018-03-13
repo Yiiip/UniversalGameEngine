@@ -1,6 +1,7 @@
 package com.lyp.test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -21,6 +22,7 @@ import com.lyp.uge.prefab.PrefabsManager;
 import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.renderEngine.RendererManager;
+import com.lyp.uge.scene.Scene;
 import com.lyp.uge.shader.ShaderFactry;
 import com.lyp.uge.terrain.Terrain;
 import com.lyp.uge.terrain.TerrainTexturePack;
@@ -46,6 +48,8 @@ public class TestTerrainsWithFog extends GameApplication {
 	private List<Light> lights;
 	private List<WaterTile> waterTiles;
 
+	private Scene mainScene;
+	
 	private Loader loader = new Loader();
 	private RendererManager rendererManager;
 	private PrefabsManager prefabsManager;
@@ -77,8 +81,8 @@ public class TestTerrainsWithFog extends GameApplication {
 		//水
 		waterTiles = new ArrayList<>();
 		waterTiles.add(new WaterTile(85.0f, -85.0f, -3.0f));
-		waterTiles.add(new WaterTile(-85.0f, -85.0f, 6.0f));
-		waterTiles.add(new WaterTile(0.0f, WaterTile.WATER_TILE_SIZE - 1.0f, 0.0f));
+//		waterTiles.add(new WaterTile(-85.0f, -85.0f, 6.0f));
+		waterTiles.add(new WaterTile(0.0f, WaterTile.WATER_TILE_SIZE - 1.5f, 0.0f));
 		
 		//地形
 		Texture bgTexture = loader.loadTexture("res/texture/" + DataUtils.TEX_GRASS)
@@ -145,6 +149,13 @@ public class TestTerrainsWithFog extends GameApplication {
 			oFerns[i] = new SimpleObject(prefabFern, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.04f);
 		}
 		
+		mainScene = new Scene();
+		mainScene.addObjects(Arrays.asList(oTrees));
+		mainScene.addObjects(Arrays.asList(oGrasses));
+		mainScene.addObjects(Arrays.asList(oFerns));
+		mainScene.addTerrains(Arrays.asList(terrains));
+		mainScene.addWaterTiles(waterTiles);
+		
 		waterFrameBuffers = new WaterFrameBuffers();
 		
 		rendererManager = new RendererManager(loader, ShaderFactry.WITH_MULTI_LIGHTS);
@@ -178,38 +189,24 @@ public class TestTerrainsWithFog extends GameApplication {
 	
 	@Override
 	protected void onRender() {
-		for (int i = 0; i < oTrees.length; i++) {
-			rendererManager.addObject(oTrees[i]);
-		}
-		for (int i = 0; i < oGrasses.length; i++) {
-			rendererManager.addObject(oGrasses[i]);
-		}
-		for (int i = 0; i < oFerns.length; i++) {
-			rendererManager.addObject(oFerns[i]);
-		}
-		for (int i = 0; i < terrains.length; i++) {
-			rendererManager.addTerrain(terrains[i]);
-		}
-		
 		for (int i = 0; i < waterTiles.size(); i++) {
 			waterFrameBuffers.bindReflectionFrameBuffer();
 			float distance = 2 * (getMainCamera().getPosition().y - waterTiles.get(i).getHeight());
 			getMainCamera().getPosition().y -= distance;
 			getMainCamera().invertPitch();
-			rendererManager.renderAll(lights, getMainCamera(), SKY_COLOR_NIGHT);
+			rendererManager.renderScene(mainScene, lights, getMainCamera(), SKY_COLOR_NIGHT);
 			getMainCamera().getPosition().y += distance;
 			getMainCamera().invertPitch();
 			
 			waterFrameBuffers.bindRefractionFrameBuffer();
-			rendererManager.renderAll(lights, getMainCamera(), SKY_COLOR_NIGHT);
+			rendererManager.renderScene(mainScene, lights, getMainCamera(), SKY_COLOR_NIGHT);
 			waterFrameBuffers.unbindCurrentFrameBuffer();
 		}
 		
-		for (int i = 0; i < waterTiles.size(); i++) {
-			rendererManager.addWaterTile(waterTiles.get(i));
-		}
-		rendererManager.renderAll(lights, getMainCamera(), SKY_COLOR_NIGHT);
-		rendererManager.clearAll();
+//		for (int i = 0; i < waterTiles.size(); i++) { //TODO
+//			rendererManager.addWaterTile(waterTiles.get(i));
+//		}
+		rendererManager.renderScene(mainScene, lights, getMainCamera(), SKY_COLOR_NIGHT);
 	}
 	
 	@Override

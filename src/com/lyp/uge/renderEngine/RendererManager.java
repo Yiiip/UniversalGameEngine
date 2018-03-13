@@ -1,6 +1,7 @@
 package com.lyp.uge.renderEngine;
 
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL30.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +18,7 @@ import com.lyp.uge.gameObject.light.Light;
 import com.lyp.uge.logger.Logger;
 import com.lyp.uge.math.MathTools;
 import com.lyp.uge.prefab.TextureModel;
+import com.lyp.uge.scene.Scene;
 import com.lyp.uge.shader.FoggyShader;
 import com.lyp.uge.shader.MultiLightsShader;
 import com.lyp.uge.shader.Shader;
@@ -54,10 +56,6 @@ public class RendererManager {
 
 	private WaterRender mWaterRender;
 	
-	private Map<TextureModel, List<GameObject>> mObjects = null;
-	private List<Terrain> mTerrains = null;
-	private List<WaterTile> mWaterTiles = null;
-	
 	public RendererManager(Loader loader, int shaderType) {
 		if (Global.mode_culling_back) { enableCulling(); }
 		
@@ -65,16 +63,13 @@ public class RendererManager {
 		
 		this.mShader = ShaderFactry.instance().make(shaderType);
 		this.mRenderer = new Renderer(mShader, mProjectionMatrix);
-		this.mObjects = new HashMap<TextureModel, List<GameObject>>();
 		
 		this.mTerrainShader = new TerrainShader();
 		this.mTerrainRenderer = new TerrainRenderer(mTerrainShader, mProjectionMatrix);
-		this.mTerrains = new ArrayList<Terrain>();
 		
 		this.mSkyboxRender = new SkyboxRender(loader, mProjectionMatrix);
 		
 		this.mWaterRender = new WaterRender(loader, mProjectionMatrix, null);
-		this.mWaterTiles = new ArrayList<WaterTile>();
 	}
 	
 	public void prepare() {
@@ -86,36 +81,17 @@ public class RendererManager {
 		glClearColor(r, g, b, a);
 	}
 	
-	public void addObject(GameObject object) {
-		if (object == null) {
-			return;
-		}
-		TextureModel textureModel = object.getModel();
-		List<GameObject> objs = mObjects.get(textureModel);
-		if (objs != null) {
-			objs.add(object);
-		} else {
-			List<GameObject> newObjs = new ArrayList<>();
-			newObjs.add(object);
-			mObjects.put(textureModel, newObjs);
-		}
-	}
-	
-	public void addTerrain(Terrain terrain) {
-		mTerrains.add(terrain);
-	}
-	
-	public void addWaterTile(WaterTile water) {
-		mWaterTiles.add(water);
-	}
-	
-	public void renderAll(@NotNull List<Light> lights, @NotNull Camera camera, @Nullable Vector4f preSkyColor) {
-		if (preSkyColor == null) {
+	public void renderScene(@NotNull Scene scene, @NotNull List<Light> lights, @NotNull Camera camera, @Nullable Vector4f preSceneBgColor) {
+		// Clear scene with specific color.
+		if (preSceneBgColor == null) {
 			this.prepare();
 		} else {
-			this.prepare(preSkyColor.x, preSkyColor.y, preSkyColor.z, preSkyColor.w);
+			this.prepare(preSceneBgColor.x, preSceneBgColor.y, preSceneBgColor.z, preSceneBgColor.w);
 		}
-		if (mObjects != null && !mObjects.isEmpty()) {
+		
+		// Render game objects.
+		Map<TextureModel, List<GameObject>> sceneObjects = scene.getObjectManager().getObjects();
+		if (sceneObjects != null && !sceneObjects.isEmpty()) {
 			mShader.start();
 			if (mShader instanceof StaticShader) {
 				if (mShader instanceof MultiLightsShader) {
@@ -125,42 +101,37 @@ public class RendererManager {
 				}
 			}
 			if (mShader instanceof FoggyShader) {
-				((FoggyShader) mShader).setupSkyColor(preSkyColor==null?PRE_COLOR_RED:preSkyColor.x, preSkyColor==null?PRE_COLOR_GREEN:preSkyColor.y, preSkyColor==null?PRE_COLOR_BLUE:preSkyColor.z);
+				((FoggyShader) mShader).setupSkyColor(preSceneBgColor==null?PRE_COLOR_RED:preSceneBgColor.x, preSceneBgColor==null?PRE_COLOR_GREEN:preSceneBgColor.y, preSceneBgColor==null?PRE_COLOR_BLUE:preSceneBgColor.z);
 			}
 			mShader.loadViewMatrix(camera);
-			mRenderer.render(mObjects);
+			mRenderer.render(sceneObjects);
 			for (Light l : lights) {
 				l.render(mRenderer, mShader);
 			}
 			mShader.stop();
 		}
 		
-		if (mTerrains != null && !mTerrains.isEmpty()) {
+		// Render terrains.
+		List<Terrain> sceneTerrains = scene.getTerrainManager().getTerrains();
+		if (sceneTerrains != null && !sceneTerrains.isEmpty()) {
 			mTerrainShader.start();
 			mTerrainShader.loadMultiLights(lights);
 			mTerrainShader.loadViewMatrix(camera);
-			mTerrainShader.setupSkyColor(preSkyColor==null?PRE_COLOR_RED:preSkyColor.x, preSkyColor==null?PRE_COLOR_GREEN:preSkyColor.y, preSkyColor==null?PRE_COLOR_BLUE:preSkyColor.z);
-			mTerrainRenderer.render(mTerrains);
+			mTerrainShader.setupSkyColor(preSceneBgColor==null?PRE_COLOR_RED:preSceneBgColor.x, preSceneBgColor==null?PRE_COLOR_GREEN:preSceneBgColor.y, preSceneBgColor==null?PRE_COLOR_BLUE:preSceneBgColor.z);
+			mTerrainRenderer.render(sceneTerrains);
 			mTerrainShader.stop();
 		}
 		
-		if (mWaterTiles != null && !mWaterTiles.isEmpty()) {
-			mWaterRender.render(mWaterTiles, camera);
+		// Render water titles.
+		List<WaterTile> sceneWaterTiles = scene.getWaterTiles();
+		if (sceneWaterTiles != null && !sceneWaterTiles.isEmpty()) {
+			mWaterRender.render(sceneWaterTiles, camera);
 		}
 		
+		// Render skybox.
 		if (Global.mode_display_skybox) {
-			mSkyboxRender.render(camera, preSkyColor==null?PRE_COLOR_RED:preSkyColor.x, preSkyColor==null?PRE_COLOR_GREEN:preSkyColor.y, preSkyColor==null?PRE_COLOR_BLUE:preSkyColor.z);
+			mSkyboxRender.render(camera, preSceneBgColor==null?PRE_COLOR_RED:preSceneBgColor.x, preSceneBgColor==null?PRE_COLOR_GREEN:preSceneBgColor.y, preSceneBgColor==null?PRE_COLOR_BLUE:preSceneBgColor.z);
 		}
-		
-	}
-	
-	/**
-	 * Call at the end of each render frame.
-	 */
-	public void clearAll() {
-		mObjects.clear();
-		mTerrains.clear();
-		mWaterTiles.clear();
 	}
 	
 	public void cleanUp() {
@@ -181,6 +152,7 @@ public class RendererManager {
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_BLEND);
 		glEnable(GL_STENCIL_TEST);
+		glEnable(GL_CLIP_DISTANCE0);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 
