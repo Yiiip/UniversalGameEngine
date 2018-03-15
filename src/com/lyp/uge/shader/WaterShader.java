@@ -1,5 +1,7 @@
 package com.lyp.uge.shader;
 
+import com.lyp.uge.gameObject.camera.Camera;
+
 public class WaterShader extends StaticShader {
 
 	private static String WATER_VERTEX_FILE = "shader/water.vert";
@@ -10,6 +12,7 @@ public class WaterShader extends StaticShader {
 	protected int uniform_dudvMap;
 	protected int uniform_tilingCount; // for repeat dudvMap
 	protected int uniform_moveFactor;
+	protected int uniform_cameraPosition;
 
 	public WaterShader() {
 		super(WATER_VERTEX_FILE, WATER_FRAGMENT_FILE);
@@ -23,6 +26,13 @@ public class WaterShader extends StaticShader {
 		uniform_dudvMap = getUniformLocation("dudvMap");
 		uniform_moveFactor = getUniformLocation("moveFactor");
 		uniform_tilingCount = getUniformLocation("tilingCount");
+		uniform_cameraPosition = getUniformLocation("cameraPosition");
+	}
+	
+	@Override
+	public void loadViewMatrix(Camera camera) {
+		super.loadViewMatrix(camera);
+		super.loadVector(uniform_cameraPosition, camera.getPosition());
 	}
 
 	public void connectTextureUnits() {

@@ -36,8 +36,7 @@ public class TestTerrainsWithFog extends GameApplication {
 	private static Vector4f SKY_COLOR_DAY = new Vector4f(0.78f, 0.85f, 0.95f, 1.0f);
 	private static Vector4f SKY_COLOR_NIGHT = new Vector4f(33f/255f, 57f/255f, 88f/255f, 1.0f);
 	
-	private static Vector3f COLOR_WHITE = new Vector3f(1.f, 1.f, 1.f);
-	private static Vector3f COLOR_RED = new Vector3f(1.f, 0.f, 0.f);
+	private static Vector3f COLOR_RED = new Vector3f(1.f, 0.1f, 0.1f);
 	private static Vector3f COLOR_YELLOW = new Vector3f(1.f, 223f/255f, 68f/255f);
 	private static Vector3f COLOR_DARK = new Vector3f(.33f, .33f, .33f);
 	
@@ -78,6 +77,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		lights.add(new Light(new Vector3f(0.0f, 1000.0f, -500.0f), COLOR_DARK, loader));
 		lights.add(new PointLight(new Vector3f(-35.0f, 15.0f, -90.0f), COLOR_YELLOW, loader, new Vector3f(1.f, .01f, .002f)));
 		lights.add(new PointLight(new Vector3f(35.0f, 15.0f, -90.0f), COLOR_RED, loader, new Vector3f(1.f, .01f, .002f)));
+		lights.add(new PointLight(new Vector3f(85.0f, 15.0f, -110.0f), COLOR_YELLOW, loader, new Vector3f(1.f, .01f, .002f)));
 		
 		//水
 		waterTiles = new ArrayList<>();
