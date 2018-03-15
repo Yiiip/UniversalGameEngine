@@ -11,7 +11,7 @@ public final class Global {
 	public static boolean debug_level = true;
 	//Logs in console (注：开启日志会额外占用内存)
 	public static boolean debug_fps_gui				= true;
-	public static boolean debug_fps_window_title	= true;
+	public static boolean debug_fps_window_title	= false;
 	public static boolean debug_camera				= false;
 	public static boolean debug_light				= false;
 	public static boolean debug_keyboard			= false;

@@ -2,7 +2,7 @@ package com.lyp.uge.shader;
 
 import com.lyp.uge.gameObject.camera.Camera;
 
-public class WaterShader extends StaticShader {
+public class WaterShader extends MultiLightsShader {
 
 	private static String WATER_VERTEX_FILE = "shader/water.vert";
 	private static String WATER_FRAGMENT_FILE = "shader/water.frag";
@@ -13,6 +13,7 @@ public class WaterShader extends StaticShader {
 	protected int uniform_tilingCount; // for repeat dudvMap
 	protected int uniform_moveFactor;
 	protected int uniform_cameraPosition;
+	protected int uniform_normalMap;
 
 	public WaterShader() {
 		super(WATER_VERTEX_FILE, WATER_FRAGMENT_FILE);
@@ -27,6 +28,7 @@ public class WaterShader extends StaticShader {
 		uniform_moveFactor = getUniformLocation("moveFactor");
 		uniform_tilingCount = getUniformLocation("tilingCount");
 		uniform_cameraPosition = getUniformLocation("cameraPosition");
+		uniform_normalMap = getUniformLocation("normalMap");
 	}
 	
 	@Override
@@ -39,6 +41,7 @@ public class WaterShader extends StaticShader {
 		super.loadInt(uniform_reflectionTexture, 0);
 		super.loadInt(uniform_refractionTexture, 1);
 		super.loadInt(uniform_dudvMap, 2);
+		super.loadInt(uniform_normalMap, 3);
 	}
 
 	public void setupMoveFactor(float moveFactor) {

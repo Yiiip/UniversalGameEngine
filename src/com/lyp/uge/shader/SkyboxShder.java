@@ -16,8 +16,8 @@ public class SkyboxShder extends StaticShader {
 	protected int uniform_cubeMapTexture1;
 	protected int uniform_cubeMapTexture2;
 
-	protected static float rotateSpeed = 1.f;
-	protected float rotation = 0.f;
+	protected static float rotateSpeed = 0.5f;
+	protected float rotation = 0.0f;
 
 	public SkyboxShder() {
 		super(SKYBOX_VERT, SKYBOX_FRAG);

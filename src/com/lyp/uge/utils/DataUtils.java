@@ -57,7 +57,10 @@ public class DataUtils {
 	public static final String TEX_BARREL = PATH_TEXTURE + "barrel.png";
 	public static final String TEX_ROUGHNESS = PATH_TEXTURE + "texture_roughness.png";
 	
-	public static final String TEX_WATER_DUDV_MAP = PATH_TEXTURE + "water_dudvmap.png";
+	public static final String TEX_WATER_DUDV_MAP0 = PATH_TEXTURE + "water_dudvmap0.png";
+	public static final String TEX_WATER_DUDV_MAP1 = PATH_TEXTURE + "water_dudvmap1.png";
+	public static final String TEX_WATER_NORMAL_MAP0 = PATH_TEXTURE + "water_normalmap0.png";
+	public static final String TEX_WATER_NORMAL_MAP1 = PATH_TEXTURE + "water_normalmap1.png";
 	
 	public static final String TEX_TERRAIN_BLEND_MAP = PATH_TEXTURE + "blendMap.png";
 	public static final String TEX_TERRAIN_HEIGHT_MAP01 = PATH_TEXTURE + "terrain_heightmap01.png";

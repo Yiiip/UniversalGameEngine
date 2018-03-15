@@ -11,6 +11,7 @@ import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
 import com.lyp.uge.gameObject.camera.Camera;
+import com.lyp.uge.gameObject.light.Light;
 import com.lyp.uge.math.MathTools;
 import com.lyp.uge.model.RawModel;
 import com.lyp.uge.shader.WaterShader;
@@ -30,7 +31,7 @@ public class WaterRender {
 		 1f, 0f,  1f
 	};
 	
-	private static final float WAVE_SPEED = 0.025f;
+	private static final float WAVE_SPEED = 0.02f;
 
 	private float mMoveFactor = 0.0f;
 
@@ -38,11 +39,13 @@ public class WaterRender {
 	private WaterShader mShader;
 	private WaterFrameBuffers mFbos;
 	private Texture mDuDvMap;
+	private Texture mNormalMap;
 	
 	public WaterRender(Loader loader, Matrix4f projectionMatrix, WaterFrameBuffers fbos) {
 		mFbos = fbos;
 		mQuadModel = loader.loadToVAO(QUAD_VERTICES);
-		mDuDvMap = loader.loadTexture(DataUtils.TEX_WATER_DUDV_MAP);
+		mDuDvMap = loader.loadTexture(DataUtils.TEX_WATER_DUDV_MAP1);
+		mNormalMap = loader.loadTexture(DataUtils.TEX_WATER_NORMAL_MAP0);
 		mShader = new WaterShader();
 		mShader.start();
 		mShader.connectTextureUnits();
@@ -50,8 +53,8 @@ public class WaterRender {
 		mShader.stop();
 	}
 	
-	public void render(List<WaterTile> waterList, Camera camera) {
-		prepareRender(camera);
+	public void render(List<WaterTile> waterList, Camera camera, List<Light> lights) {
+		prepareRender(camera, lights);
 		
 		for (WaterTile water : waterList) {
 			Matrix4f modelMatrix = MathTools.createModelMatrix(
@@ -66,12 +69,15 @@ public class WaterRender {
 		endRender();
 	}
 	
-	private void prepareRender(Camera camera) {
+	private void prepareRender(Camera camera, List<Light> lights) {
 		mShader.start();
 		mShader.loadViewMatrix(camera);
 		mMoveFactor += WAVE_SPEED * (1.0f / 60.0f); //TODO use current FPS
 		mMoveFactor %= 1;
 		mShader.setupMoveFactor(mMoveFactor);
+		mShader.loadMultiLights(lights);
+		mShader.loadSpecularLightingParms(15.0f, 0.28f);
+		mShader.loadAmbientLightness(1.0f);
 		
 		glBindVertexArray(mQuadModel.getVaoID());
 		glEnableVertexAttribArray(Loader.ATTR_POSITIONS);
@@ -83,6 +89,8 @@ public class WaterRender {
 			glBindTexture(GL_TEXTURE_2D, mFbos.getRefractionTexture());
 			glActiveTexture(GL_TEXTURE2);
 			glBindTexture(GL_TEXTURE_2D, mDuDvMap.getID());
+			glActiveTexture(GL_TEXTURE3);
+			glBindTexture(GL_TEXTURE_2D, mNormalMap.getID());
 		}
 	}
 	

@@ -3,8 +3,6 @@ package com.lyp.uge.renderEngine;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -125,7 +123,7 @@ public class RendererManager {
 		// Render water titles.
 		List<WaterTile> sceneWaterTiles = scene.getWaterTiles();
 		if (sceneWaterTiles != null && !sceneWaterTiles.isEmpty()) {
-			mWaterRender.render(sceneWaterTiles, camera);
+			mWaterRender.render(sceneWaterTiles, camera, lights);
 		}
 		
 		// Render skybox.

@@ -88,7 +88,7 @@ public class SkyboxRender {
 		DataUtils.PATH_SKYBOX + "nightbox01_front.png",
 	};
 	
-	private final static float RECYCLE_SPEED = 5.0f;
+	private final static float RECYCLE_SPEED = 2.0f;
 	
 	private final static int TEX_INDEX_DAY = 0;
 	private final static int TEX_INDEX_NIGHT = 1;

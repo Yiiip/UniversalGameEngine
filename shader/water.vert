@@ -6,12 +6,14 @@ out vec4 clipSpace;
 out vec2 textureCoords;
 out vec3 toCameraVector;
 out vec3 waterSurfaceNormal;
+out vec3 fromLightVectors[4];
 
 uniform mat4 modelMatrix;
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
 uniform vec3 cameraPosition;
 uniform int tilingCount; // Total tiles: tilingCount * tilingCount.
+uniform vec3 lightPositions[4];
 
 void main (void) {
 
@@ -26,4 +28,8 @@ void main (void) {
 	
 	toCameraVector = cameraPosition - worldPosition.xyz;
 	waterSurfaceNormal = vec3(0.0, 1.0, 0.0); // Just use upwards now.
+	
+	for (int i = 0; i < 4; i++) {
+		fromLightVectors[i] = worldPosition.xyz - lightPositions[i];
+	}
 }

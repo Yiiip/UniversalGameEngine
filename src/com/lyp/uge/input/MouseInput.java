@@ -84,7 +84,7 @@ public class MouseInput {
 			} else if (button == MOUSE_BUTTON_MIDDLE) {
 				midBtnState = action;
 			}
-			Logger.d("MouseBtn", "btn" + button + ((action == MOUSE_PRESS) ? " pressed" : " released"));
+			if (Global.debug_mouse) { Logger.d("MouseBtn", "btn" + button + ((action == MOUSE_PRESS) ? " pressed" : " released")); }
 
 			// Reset click flag.
 			if (leftBtnState == MOUSE_RELEASE) {
@@ -103,7 +103,7 @@ public class MouseInput {
 		@Override
 		public void invoke(long window, boolean entered) {
 			inWindow = entered;
-			Logger.d("Mouse", inWindow ? "inside" : "outside");
+			if (Global.debug_mouse) { Logger.d("Mouse", inWindow ? "inside" : "outside"); }
 		}
 	}
 
@@ -119,7 +119,7 @@ public class MouseInput {
 			}
 			wheelOffsets.y = (float) yoffset;
 			wheelOffsets.x = (float) xoffset;
-			Logger.d("MouseScroll", "[" + xoffset + ", " + yoffset + "]");
+			if (Global.debug_mouse) { Logger.d("MouseScroll", "[" + xoffset + ", " + yoffset + "]"); }
 		}
 	}
 
