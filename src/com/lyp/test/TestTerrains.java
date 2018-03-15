@@ -64,7 +64,6 @@ public class TestTerrains extends GameApplication {
 		terrains = new Terrain[2];
 		terrains[0] = new Terrain(0, 0, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP04, 50);
 		terrains[1] = new Terrain(-1, 0, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP01, 50);
-		pushToCamera(new TerrainManager(terrains));
 		
 		//树木
 		RawModel rawModel = OBJLoader.loadObjModel(DataUtils.OBJ_TREE, loader);
@@ -134,6 +133,8 @@ public class TestTerrains extends GameApplication {
 		mainScene.addObjects(Arrays.asList(oGrasses));
 		mainScene.addObjects(Arrays.asList(oFerns));
 		mainScene.addTerrains(Arrays.asList(terrains));
+		
+		pushToCamera(mainScene.getTerrainManager());
 		
 		rendererManager = new RendererManager(loader, ShaderFactry.WITH_SPECULAR_LIGHT);
 	}

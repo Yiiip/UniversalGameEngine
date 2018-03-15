@@ -2,11 +2,13 @@
 
 in vec3 position;
 
-varying vec4 clipSpace;
+out vec4 clipSpace;
+out vec2 textureCoords;
 
 uniform mat4 modelMatrix;
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
+uniform int tilingCount; // Total tiles: tilingCount * tilingCount.
 
 void main (void) {
 
@@ -14,4 +16,8 @@ void main (void) {
 	
 	clipSpace = projectionMatrix * viewMatrix * worldPosition;
 	gl_Position = clipSpace;
+	
+	textureCoords = vec2(position.x / 2.0 + 0.5, position.z / 2.0 + 0.5) * tilingCount;
+	// The texture coordinate range is [0:1],
+	// Here we need a normalized position range, that is [-1:1].
 }

@@ -55,6 +55,9 @@ public class DataUtils {
 	public static final String TEX_GRASS_WITH_FLOWERS = PATH_TEXTURE + "grassWithFlowers.png";
 	public static final String TEX_MUD = PATH_TEXTURE + "mud.png";
 	public static final String TEX_BARREL = PATH_TEXTURE + "barrel.png";
+	public static final String TEX_ROUGHNESS = PATH_TEXTURE + "texture_roughness.png";
+	
+	public static final String TEX_WATER_DUDV_MAP = PATH_TEXTURE + "water_dudvmap.png";
 	
 	public static final String TEX_TERRAIN_BLEND_MAP = PATH_TEXTURE + "blendMap.png";
 	public static final String TEX_TERRAIN_HEIGHT_MAP01 = PATH_TEXTURE + "terrain_heightmap01.png";
@@ -165,69 +168,86 @@ public class DataUtils {
 		    0.0f,  1.0f,
 	};
 	public static float[] CUBE_NORMALS = {
+			// Front
 			0, 0, 1,
 			0, 0, 1,
 			0, 0, 1,
 			0, 0, 1,
+			// Top
 			0, 1, 0,
 			0, 1, 0,
 			0, 1, 0,
 			0, 1, 0,
+			// Right
 			1, 0, 0,
 			1, 0, 0,
 			1, 0, 0,
 			1, 0, 0,
+			// Left
 			-1, 0, 0,
 			-1, 0, 0,
 			-1, 0, 0,
 			-1, 0, 0,
+			// Bottom
 			0, -1, 0,
 			0, -1, 0,
 			0, -1, 0,
 			0, -1, 0,
+			// Back
 			0, 0, -1,
 			0, 0, -1,
 			0, 0, -1,
 			0, 0, -1,
 	};
 	
-	/* correct cube data */
-	public static float[] CUBE_VERTICES_II = { //24
+/// Cube data II /////////////
+//	  v4----- v5
+//	 /|      /|
+//	v0------v3|
+//	| |     | |
+//	| |v6---|-|v7
+//	|/      |/
+//	v1------v2
+//////////////////////////////
+//  The sizes of these arrays become smaller than the arrays for glDrawArrays().
+//  Because glDrawElements() uses an additional index array to
+//  choose designated vertices with the indices. The size of vertex array is now 24.
+	public static float[] CUBE_VERTICES_II = {
 			// Front face
-			-0.5f,  0.5f,  0.5f, //0
-			-0.5f, -0.5f,  0.5f, //1
-			0.5f, -0.5f,  0.5f, //2
-			0.5f,  0.5f,  0.5f, //3
+			-0.5f,  0.5f,  0.5f, //[0]
+			-0.5f, -0.5f,  0.5f, //[1]
+			 0.5f, -0.5f,  0.5f, //[2]
+			 0.5f,  0.5f,  0.5f, //[3]
 			// Top face
-			-0.5f,  0.5f, -0.5f, //4
-			0.5f,  0.5f, -0.5f, //5
+			-0.5f,  0.5f, -0.5f, //[4]
+			 0.5f,  0.5f, -0.5f, //[5]
 			-0.5f,  0.5f,  0.5f, //6 -> 0
-			0.5f,  0.5f,  0.5f, //7 -> 3
+			 0.5f,  0.5f,  0.5f, //7 -> 3
 			// Right face
 			0.5f,  0.5f,  0.5f, //8 -> 3
 			0.5f,  0.5f, -0.5f, //9 -> 5
 			0.5f, -0.5f,  0.5f, //10 -> 2
-			0.5f, -0.5f, -0.5f, //11 -> 7
+			0.5f, -0.5f, -0.5f, //11 -> [7]
 			// Left face
 			-0.5f,  0.5f, -0.5f, //12 -> 4
 			-0.5f,  0.5f,  0.5f, //13 -> 0
-			-0.5f, -0.5f, -0.5f, //14 -> 6
+			-0.5f, -0.5f, -0.5f, //14 -> [6]
 			-0.5f, -0.5f,  0.5f, //15 -> 1
 			// Bottom face
 			-0.5f, -0.5f,  0.5f, //16 -> 1
-			0.5f, -0.5f,  0.5f, //17 -> 2
+			 0.5f, -0.5f,  0.5f, //17 -> 2
 			-0.5f, -0.5f, -0.5f, //18 -> 6
-			0.5f, -0.5f, -0.5f, //19 -> 7
+			 0.5f, -0.5f, -0.5f, //19 -> 7
 			// Back face
-			0.5f,  0.5f, -0.5f, //20 -> 5
+			 0.5f,  0.5f, -0.5f, //20 -> 5
 			-0.5f,  0.5f, -0.5f, //21 -> 4
-			0.5f, -0.5f, -0.5f, //22 -> 7
+			 0.5f, -0.5f, -0.5f, //22 -> 7
 			-0.5f, -0.5f, -0.5f, //23 -> 6
 	};
-	public static int[] CUBE_INDICES_II = { //6 sides, 12 triangles
-			0,  1,  2,		0,  2,  3,		// Front face
-			4,  6,  7,		4,  7,  5,		// Top face
-			8,  10,  9,		9,  10, 11,		// Right face
+	public static int[] CUBE_INDICES_II = { // 6 sides, 12 triangles
+			 0,  1,  2,		 0,  2,  3,		// Front face
+			 4,  6,  7,		 4,  7,  5,		// Top face
+			 8, 10,  9,		 9, 10, 11,		// Right face
 			12, 14, 15,		15, 13, 12,		// Left face
 			17, 18, 19,		16, 18, 17,		// Bottom face
 			21, 20, 22,		23, 21, 22,		// Back face

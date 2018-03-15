@@ -69,6 +69,7 @@ public class TestTerrainsWithFog extends GameApplication {
 	@Override
 	protected void onCreate() {
 		enablePolygonMode();
+//		enableFirstPersonCamera();
 		getMainCamera().setSpeed(0.7f);
 		getMainCamera().setPosition(new Vector3f(0.0f, 5.0f, 0.0f));
 		
@@ -81,8 +82,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		//水
 		waterTiles = new ArrayList<>();
 		waterTiles.add(new WaterTile(85.0f, -85.0f, -3.0f));
-//		waterTiles.add(new WaterTile(-85.0f, -85.0f, 6.0f));
-		waterTiles.add(new WaterTile(0.0f, WaterTile.WATER_TILE_SIZE - 1.5f, 0.0f));
+		waterTiles.add(new WaterTile(0, Terrain.SIZE - 1.5f, 0.0f, Terrain.SIZE, 30));
 		
 		//地形
 		Texture bgTexture = loader.loadTexture("res/texture/" + DataUtils.TEX_GRASS)
@@ -155,6 +155,8 @@ public class TestTerrainsWithFog extends GameApplication {
 		mainScene.addObjects(Arrays.asList(oFerns));
 		mainScene.addTerrains(Arrays.asList(terrains));
 		mainScene.addWaterTiles(waterTiles);
+		
+//		pushToCamera(mainScene.getTerrainManager());
 		
 		waterFrameBuffers = new WaterFrameBuffers();
 		

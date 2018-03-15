@@ -88,6 +88,8 @@ public class SkyboxRender {
 		DataUtils.PATH_SKYBOX + "nightbox01_front.png",
 	};
 	
+	private final static float RECYCLE_SPEED = 5.0f;
+	
 	private final static int TEX_INDEX_DAY = 0;
 	private final static int TEX_INDEX_NIGHT = 1;
 	
@@ -128,7 +130,7 @@ public class SkyboxRender {
 	 * Simulate day&night cycle
 	 */
 	private void bindSkyboxTextures() {
-		mWorldTime += 10; // TODO (+= speed * current FPS)
+		mWorldTime += RECYCLE_SPEED; // TODO (+= speed * current FPS)
 		mWorldTime %= 24000;
 		
 		int tex1;
