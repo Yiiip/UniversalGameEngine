@@ -5,7 +5,6 @@ in vec3 position;
 out vec4 clipSpace;
 out vec2 textureCoords;
 out vec3 toCameraVector;
-out vec3 waterSurfaceNormal;
 out vec3 fromLightVectors[4];
 
 uniform mat4 modelMatrix;
@@ -27,7 +26,6 @@ void main (void) {
 	// Here we need a normalized position range, that is [-1:1].
 	
 	toCameraVector = cameraPosition - worldPosition.xyz;
-	waterSurfaceNormal = vec3(0.0, 1.0, 0.0); // Just use upwards now.
 	
 	for (int i = 0; i < 4; i++) {
 		fromLightVectors[i] = worldPosition.xyz - lightPositions[i];

@@ -3,7 +3,6 @@
 in vec4 clipSpace;
 in vec2 textureCoords;
 in vec3 toCameraVector;
-in vec3 waterSurfaceNormal;
 in vec3 fromLightVectors[4];
 
 out vec4 out_color;
@@ -53,13 +52,13 @@ void main (void) {
 	vec4 reflectColor = texture(reflectionTexture, reflectTexCoords);
 	vec4 refractColor = texture(refractionTexture, refractTexCoords);
 	
-	vec3 unitVectorToCamera = normalize(toCameraVector);
-	float refractiveFactor = dot(unitVectorToCamera, waterSurfaceNormal);
-	refractiveFactor = pow(refractiveFactor, REFLECT_STRENGTH);
-	
 	vec4 normalMapColor = texture(normalMap, dudvColorOffset);
-	vec3 normal = vec3(normalMapColor.r * 2.0 -1.0, normalMapColor.b, normalMapColor.g * 2.0 - 1.0);
+	vec3 normal = vec3(normalMapColor.r * 2.0 -1.0, normalMapColor.b * 100.0, normalMapColor.g * 2.0 - 1.0);
 	vec3 unitNormal = normalize(normal);
+	
+	vec3 unitVectorToCamera = normalize(toCameraVector);
+	float refractiveFactor = dot(unitVectorToCamera, unitNormal);
+	refractiveFactor = pow(refractiveFactor, REFLECT_STRENGTH);
 	
 	vec3 totalDiffuse = vec3(0.0);
 	vec3 totalSpecular = vec3(0.0);
