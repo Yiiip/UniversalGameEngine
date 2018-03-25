@@ -130,29 +130,25 @@ public class SkyboxRender {
 	 * Simulate day&night cycle
 	 */
 	private void bindSkyboxTextures() {
-		mWorldTime += RECYCLE_SPEED; // TODO (+= speed * current FPS)
-		mWorldTime %= 24000;
-		
-		int tex1;
-		int tex2;
+		int tex1, tex2;
 		float blend;
 		
-		if (mWorldTime >= 0 && mWorldTime < 5000) {
+		if (mWorldTime >= 0 && mWorldTime < 7000) {
 			tex1 = mTexID[TEX_INDEX_DAY];
 			tex2 = mTexID[TEX_INDEX_DAY];
-			blend = (mWorldTime - 0) / (5000 - 0);
-		} else if (mWorldTime >= 5000 && mWorldTime < 8000) {
+			blend = (mWorldTime - 0) / (7000 - 0);
+		} else if (mWorldTime >= 7000 && mWorldTime < 12000) {
 			tex1 = mTexID[TEX_INDEX_DAY];
 			tex2 = mTexID[TEX_INDEX_NIGHT];
-			blend = (mWorldTime - 5000) / (8000 - 5000);
-		} else if (mWorldTime >= 8000 && mWorldTime < 20000) {
+			blend = (mWorldTime - 7000) / (12000 - 7000);
+		} else if (mWorldTime >= 12000 && mWorldTime < 19000) {
 			tex1 = mTexID[TEX_INDEX_NIGHT];
 			tex2 = mTexID[TEX_INDEX_NIGHT];
-			blend = (mWorldTime - 8000) / (20000 - 8000);
+			blend = (mWorldTime - 12000) / (19000 - 12000);
 		} else {
 			tex1 = mTexID[TEX_INDEX_NIGHT];
 			tex2 = mTexID[TEX_INDEX_DAY];
-			blend = (mWorldTime - 20000) / (24000 - 20000);
+			blend = (mWorldTime - 19000) / (24000 - 19000);
 		}
 		
 		glActiveTexture(GL_TEXTURE0);
@@ -160,5 +156,8 @@ public class SkyboxRender {
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, tex2);
 		mSkyboxShder.setupBlendFactor(blend);
+		
+		mWorldTime += RECYCLE_SPEED; // TODO (+= speed * current FPS)
+		mWorldTime %= 24000;
 	}
 }

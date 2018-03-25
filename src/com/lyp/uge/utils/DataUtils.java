@@ -82,8 +82,7 @@ public class DataUtils {
 	public static final String FONT_ROBOTO_MONO_REGULAR = PATH_FONT + "RobotoMono-Regular.ttf";
 	
 	/* Sounds */
-	public static final String SOUND_HAILSTORM = PATH_SOUNDS + "hailstorm.ogg";
-	public static final String SOUND_TOILET_STORY1 = PATH_SOUNDS + "ToiletStory1.ogg";
+	public static final String MUSIC_TOYS_UNDER_THE_TREE = PATH_SOUNDS + "ToysUnderTheTree.ogg";
 	
 	/* Configs */
 	public static final String CONFIG_PREFABS = PATH_CONFIG + "prefabs.json";

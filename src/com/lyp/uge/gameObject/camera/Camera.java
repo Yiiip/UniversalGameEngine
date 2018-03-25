@@ -110,16 +110,36 @@ public class Camera extends GameObject {
 		pitch = -pitch;
 	}
 	
+	/**
+	 * Set up or down angle that camera is aiming
+	 * @param pitch
+	 */
+	public void setPitch(float pitch) {
+		this.pitch = pitch;
+	}
+	
 	public float getPitch() {
 		return pitch;
 	}
 	
-	public Vector3f getPosition() {
-		return position;
+	/**
+	 * Set dip angle to a side.
+	 * @param roll
+	 */
+	public void setRoll(float roll) {
+		this.roll = roll;
 	}
 	
 	public float getRoll() {
 		return roll;
+	}
+	
+	/**
+	 * Set left or right angle that camera is aiming.
+	 * @param yaw
+	 */
+	public void setYaw(float yaw) {
+		this.yaw = yaw;
 	}
 	
 	public float getYaw() {

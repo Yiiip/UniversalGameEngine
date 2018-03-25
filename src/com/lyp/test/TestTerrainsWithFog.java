@@ -70,7 +70,8 @@ public class TestTerrainsWithFog extends GameApplication {
 		enablePolygonMode();
 //		enableFirstPersonCamera();
 		getMainCamera().setSpeed(0.7f);
-		getMainCamera().setPosition(new Vector3f(0.0f, 5.0f, 0.0f));
+		getMainCamera().setPosition(new Vector3f(0.0f, 5.0f, 80.0f));
+		getMainCamera().setYaw(40.0f);
 		
 		//光源
 		lights = new ArrayList<>();
@@ -173,13 +174,13 @@ public class TestTerrainsWithFog extends GameApplication {
 	private void setupSounds() {
 		soundMgr.setAttenuationModel(AL11.AL_EXPONENT_DISTANCE);
 
-		AudioBuffer buffBack = new AudioBuffer(DataUtils.SOUND_HAILSTORM);
-		soundMgr.addSoundBuffer(buffBack);
-		AudioSource sourceBack = new AudioSource(true, true);
-		sourceBack.setBuffer(buffBack.getBufferId());
-		soundMgr.addSoundSource("BgMusic", sourceBack);
-		soundMgr.setListener(new AudioListener(new Vector3f(0.0f, 0.0f, 0.0f)));
-		sourceBack.play();
+		AudioBuffer buffBgMusic = new AudioBuffer(DataUtils.MUSIC_TOYS_UNDER_THE_TREE);
+		soundMgr.addSoundBuffer(buffBgMusic);
+		AudioSource sourceBgMusic = new AudioSource(true, true);
+		sourceBgMusic.setBuffer(buffBgMusic.getBufferId());
+		soundMgr.addSoundSource("BgMusic", sourceBgMusic);
+		soundMgr.setListener(new AudioListener());
+		sourceBgMusic.play();
 	}
 
 	@Override
