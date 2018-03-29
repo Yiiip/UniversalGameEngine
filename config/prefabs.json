@@ -9,8 +9,8 @@
 			"model": "tree.obj",
 			"texture": "tree.png",
 			"material": {
-				"specular_damper"		: 8.0,
-				"specular_reflectivity"	: 0.8,
+				"specular_damper"		: 2.5,
+				"specular_reflectivity"	: 0.9,
 				"fog_density"			: 0.003,
 				"fog_gradient"			: 1.5
 			}
@@ -20,9 +20,9 @@
 			"model": "grassRealModel.obj",
 			"texture": "grass_real.png",
 			"material": {
-				"specular_damper"		: 8.0,
-				"specular_reflectivity"	: 3.0,
-				"ambient_lightness"		: 0.45,
+				"specular_damper"		: 2.5,
+				"specular_reflectivity"	: 1.0,
+				"ambient_lightness"		: 0.55,
 				"has_transparency"		: true,
 				"has_fake_lighting"		: false,
 				"fog_density"			: 0.003,
@@ -34,8 +34,9 @@
 			"model": "fern.obj",
 			"texture": "fern.png",
 			"material": {
-				"specular_damper"		: 10.0,
+				"specular_damper"		: 2.5,
 				"specular_reflectivity"	: 1.0,
+				"ambient_lightness"		: 0.45,
 				"has_transparency"		: true,
 				"fog_density"			: 0.003,
 				"fog_gradient"			: 1.5
@@ -46,7 +47,7 @@
 			"model": "lamp.obj",
 			"texture": "lamp.png",
 			"material": {
-				"specular_damper"		: 10.0,
+				"specular_damper"		: 1.0,
 				"specular_reflectivity"	: 1.0,
 				"has_transparency"		: false,
 				"fog_density"			: 0.003,

@@ -21,7 +21,7 @@ uniform float ambientLightness;
 const vec4 WATER_COLOR = vec4(150.0/255.0, 240.0/255.0, 255.0/255.0, 1.0);
 const float WATER_COLOR_STRENGTH = 0.15;
 const float WAVE_STRENGTH = 0.02;
-const float REFLECT_STRENGTH = 0.8; // The more bigger, the more reflection. [0.0, 1.0] -> [1.0, +Infinity]
+const float REFLECT_STRENGTH = 0.5; // The more bigger, the more reflection. [0.0, 1.0] -> [1.0, +Infinity]
 
 void main (void) {
 
