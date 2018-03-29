@@ -24,7 +24,7 @@ public abstract class GameObject {
 	protected OnKeyboardListener onKeyboardListener;
 	
 	public abstract void update();
-	public abstract void render(Renderer renderer, Shader shader);
+	public void render(Renderer renderer, Shader shader) {}
 	public abstract void destory();
 	
 	protected boolean isKeyPressed(int keycode) {

@@ -38,11 +38,11 @@ public class Loader {
 		textureCache = new HashMap<>();
 	}
 
-	public RawModel loadToVAO(float[] positions) {
+	public RawModel loadToVAO(float[] positions, int dimension) {
 		int vaoID = createVAO();
-		storeDataInAttributeList(ATTR_POSITIONS, 3, positions);
+		storeDataInAttributeList(ATTR_POSITIONS, dimension, positions);
 		unbindVAO();
-		return new RawModel(vaoID, positions.length/3);
+		return new RawModel(vaoID, positions.length/dimension);
 	}
 	
 	public RawModel loadToVAO(float[] positions, int[] indices) {

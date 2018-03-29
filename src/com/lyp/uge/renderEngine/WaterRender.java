@@ -43,7 +43,7 @@ public class WaterRender {
 	
 	public WaterRender(Loader loader, Matrix4f projectionMatrix, WaterFrameBuffers fbos) {
 		mFbos = fbos;
-		mQuadModel = loader.loadToVAO(QUAD_VERTICES);
+		mQuadModel = loader.loadToVAO(QUAD_VERTICES, 3);
 		mDuDvMap = loader.loadTexture(DataUtils.TEX_WATER_DUDV_MAP1);
 		mNormalMap = loader.loadTexture(DataUtils.TEX_WATER_NORMAL_MAP0);
 		mShader = new WaterShader();

@@ -99,7 +99,7 @@ public class SkyboxRender {
 	private float mWorldTime = 0;
 	
 	public SkyboxRender(Loader loader, Matrix4f projectionMatrix) {
-		mRawModel = loader.loadToVAO(SKYBOX_VERTICES);
+		mRawModel = loader.loadToVAO(SKYBOX_VERTICES, 3);
 		mTexID[TEX_INDEX_DAY] = loader.loadTextureCubeMap(CUBE_TEXTURE_FILES).getID(); // Daytime skybox
 		mTexID[TEX_INDEX_NIGHT] = loader.loadTextureCubeMap(CUBE_TEXTURE_NIGHT_FILES).getID(); // Night skybox
 		mSkyboxShder = new SkyboxShder();
