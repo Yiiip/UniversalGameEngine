@@ -4,7 +4,6 @@ import java.util.Random;
 
 import org.lwjgl.util.vector.Vector3f;
 
-import com.lyp.uge.math.MathTools;
 import com.lyp.uge.texture.ParticleTexture;
 
 public class ParticleGenerator {

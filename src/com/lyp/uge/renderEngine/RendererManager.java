@@ -158,6 +158,18 @@ public class RendererManager {
 		return mProjectionMatrix;
 	}
 	
+	public void setSkyboxDayRes(String[] dayTextureRes, Loader loader) {
+		if (mSkyboxRender != null) {
+			mSkyboxRender.setDayTextureBoxRes(dayTextureRes, loader);
+		}
+	}
+
+	public void setSkyboxNightRes(String[] nightTextureRes, Loader loader) {
+		if (mSkyboxRender != null) {
+			mSkyboxRender.setNightTextureBoxRes(nightTextureRes, loader);
+		}
+	}
+
 	public void setFbos(WaterFrameBuffers fbos) {
 		mWaterRender.setFbos(fbos);
 	}

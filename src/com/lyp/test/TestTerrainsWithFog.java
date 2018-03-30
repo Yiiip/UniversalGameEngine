@@ -24,6 +24,7 @@ import com.lyp.uge.prefab.PrefabsManager;
 import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.renderEngine.RendererManager;
+import com.lyp.uge.renderEngine.SkyboxRender;
 import com.lyp.uge.scene.Scene;
 import com.lyp.uge.shader.ShaderFactry;
 import com.lyp.uge.terrain.Terrain;
@@ -166,6 +167,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		waterFrameBuffers = new WaterFrameBuffers();
 		
 		rendererManager = new RendererManager(loader, ShaderFactry.WITH_MULTI_LIGHTS);
+		rendererManager.setSkyboxDayRes(SkyboxRender.CUBE_TEXTURE_DAY_FILES_2, loader);
 		rendererManager.setFbos(waterFrameBuffers);
 		
 		mousePicker = new MousePicker(getMainCamera(), rendererManager.getProjectionMatrix());

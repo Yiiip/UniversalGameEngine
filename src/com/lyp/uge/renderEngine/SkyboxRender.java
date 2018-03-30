@@ -60,7 +60,7 @@ public class SkyboxRender {
 	     SKYBOX_SIZE, -SKYBOX_SIZE,  SKYBOX_SIZE
 	};
 	
-	private static final String[] CUBE_TEXTURE_FILES = {
+	public static final String[] CUBE_TEXTURE_DAY_FILES_1 = {
 		DataUtils.PATH_SKYBOX + "skybox01_right.png",
 		DataUtils.PATH_SKYBOX + "skybox01_left.png",
 		DataUtils.PATH_SKYBOX + "skybox01_top.png",
@@ -69,8 +69,7 @@ public class SkyboxRender {
 		DataUtils.PATH_SKYBOX + "skybox01_front.png",
 	};
 	
-	@SuppressWarnings("unused")
-	private static final String[] CUBE_TEXTURE_FILES_2 = {
+	public static final String[] CUBE_TEXTURE_DAY_FILES_2 = {
 		DataUtils.PATH_SKYBOX + "cubemap_px.png",
 		DataUtils.PATH_SKYBOX + "cubemap_nx.png",
 		DataUtils.PATH_SKYBOX + "cubemap_py.png",
@@ -79,7 +78,7 @@ public class SkyboxRender {
 		DataUtils.PATH_SKYBOX + "cubemap_nz.png",
 	};
 	
-	private static final String[] CUBE_TEXTURE_NIGHT_FILES = {
+	public static final String[] CUBE_TEXTURE_NIGHT_FILES = {
 		DataUtils.PATH_SKYBOX + "nightbox01_right.png",
 		DataUtils.PATH_SKYBOX + "nightbox01_left.png",
 		DataUtils.PATH_SKYBOX + "nightbox01_top.png",
@@ -94,14 +93,16 @@ public class SkyboxRender {
 	private final static int TEX_INDEX_NIGHT = 1;
 	
 	private RawModel mRawModel;
+	private String[] mDayTextureBoxRes = CUBE_TEXTURE_DAY_FILES_1;
+	private String[] mNightTextureBoxRes = CUBE_TEXTURE_NIGHT_FILES;
 	private int[] mTexID = new int[2];
 	private SkyboxShder mSkyboxShder;
 	private float mWorldTime = 0;
 	
 	public SkyboxRender(Loader loader, Matrix4f projectionMatrix) {
 		mRawModel = loader.loadToVAO(SKYBOX_VERTICES, 3);
-		mTexID[TEX_INDEX_DAY] = loader.loadTextureCubeMap(CUBE_TEXTURE_FILES).getID(); // Daytime skybox
-		mTexID[TEX_INDEX_NIGHT] = loader.loadTextureCubeMap(CUBE_TEXTURE_NIGHT_FILES).getID(); // Night skybox
+		mTexID[TEX_INDEX_DAY] = loader.loadTextureCubeMap(mDayTextureBoxRes).getID(); // Daytime skybox
+		mTexID[TEX_INDEX_NIGHT] = loader.loadTextureCubeMap(mNightTextureBoxRes).getID(); // Night skybox
 		mSkyboxShder = new SkyboxShder();
 		mSkyboxShder.start();
 		mSkyboxShder.connectTextureUnits();
@@ -159,5 +160,15 @@ public class SkyboxRender {
 		
 		mWorldTime += RECYCLE_SPEED; // TODO (+= speed * current FPS)
 		mWorldTime %= 24000;
+	}
+	
+	public void setDayTextureBoxRes(String[] dayTextureBoxRes, Loader loader) {
+		this.mDayTextureBoxRes = dayTextureBoxRes;
+		this.mTexID[TEX_INDEX_DAY] = loader.loadTextureCubeMap(dayTextureBoxRes).getID();
+	}
+	
+	public void setNightTextureBoxRes(String[] nightTextureBoxRes, Loader loader) {
+		this.mNightTextureBoxRes = nightTextureBoxRes;
+		this.mTexID[TEX_INDEX_NIGHT] = loader.loadTextureCubeMap(nightTextureBoxRes).getID();
 	}
 }
