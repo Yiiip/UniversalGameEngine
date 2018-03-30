@@ -18,6 +18,8 @@ import com.lyp.uge.gameObject.SimpleObject;
 import com.lyp.uge.gameObject.light.Light;
 import com.lyp.uge.gameObject.light.PointLight;
 import com.lyp.uge.gameObject.tool.MousePicker;
+import com.lyp.uge.particle.ParticleGenerator;
+import com.lyp.uge.particle.ParticlesManager;
 import com.lyp.uge.prefab.PrefabsManager;
 import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
@@ -53,6 +55,7 @@ public class TestTerrainsWithFog extends GameApplication {
 	private RendererManager rendererManager;
 	private PrefabsManager prefabsManager;
 	private WaterFrameBuffers waterFrameBuffers;
+	private ParticleGenerator particleGenerator;
 	
 	private MousePicker mousePicker;
 	
@@ -87,8 +90,8 @@ public class TestTerrainsWithFog extends GameApplication {
 		
 		//地形
 		Texture bgTexture = loader.loadTexture("res/texture/" + DataUtils.TEX_GRASS)
-				.setShineDamper(10.0f)
-				.setReflectivity(0.5f)
+				.setShineDamper(1.1f)
+				.setReflectivity(0.6f)
 				.addFoggy(0.003f, 1.5f);
 		Texture rTexture = loader.loadTexture(DataUtils.TEX_MUD);
 		Texture gTexture = loader.loadTexture(DataUtils.TEX_GRASS_WITH_FLOWERS);
@@ -165,6 +168,9 @@ public class TestTerrainsWithFog extends GameApplication {
 		rendererManager.setFbos(waterFrameBuffers);
 		
 		mousePicker = new MousePicker(getMainCamera(), rendererManager.getProjectionMatrix());
+
+		ParticlesManager.init(loader, rendererManager.getProjectionMatrix());
+		particleGenerator = new ParticleGenerator(40, 25, 0.2f, 4);
 		
 		soundMgr = new AudioManager();
 		soundMgr.init();
@@ -187,6 +193,8 @@ public class TestTerrainsWithFog extends GameApplication {
 	protected void onUpdate() {
 		lights.get(0).update();
 		mousePicker.update();
+		particleGenerator.generateParticles(new Vector3f(35.0f, 15.0f, -90.0f));
+		ParticlesManager.update();
 		soundMgr.updateListenerPosition(getMainCamera());
 	}
 	
@@ -206,14 +214,13 @@ public class TestTerrainsWithFog extends GameApplication {
 			waterFrameBuffers.unbindCurrentFrameBuffer();
 		}
 		
-//		for (int i = 0; i < waterTiles.size(); i++) { //TODO
-//			rendererManager.addWaterTile(waterTiles.get(i));
-//		}
 		rendererManager.renderScene(mainScene, lights, getMainCamera(), SKY_COLOR_NIGHT);
+		ParticlesManager.render(getMainCamera());
 	}
 	
 	@Override
 	protected void onDestory() {
+		ParticlesManager.cleanUp();
 		waterFrameBuffers.cleanUp();
 		rendererManager.cleanUp();
 		loader.cleanUp();
