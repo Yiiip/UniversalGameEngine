@@ -3,13 +3,14 @@ package com.lyp.uge.utils;
 public class DataUtils {
 	
 	/* Paths */
-	public static final String PATH_TEXTURE	= "res/texture/";
-	public static final String PATH_SKYBOX	= "res/texture/skybox/";
-	public static final String PATH_GUI		= "res/texture/gui/";
-	public static final String PATH_OBJ		= "res/obj/";
-	public static final String PATH_FONT	= "res/font/";
-	public static final String PATH_SOUNDS	= "res/sounds/";
-	public static final String PATH_CONFIG	= "config/";
+	public static final String PATH_TEXTURE		= "res/texture/";
+	public static final String PATH_SKYBOX		= "res/texture/skybox/";
+	public static final String PATH_GUI			= "res/texture/gui/";
+	public static final String PATH_PARTICLES	= "res/texture/particles/";
+	public static final String PATH_OBJ			= "res/obj/";
+	public static final String PATH_FONT		= "res/font/";
+	public static final String PATH_SOUNDS		= "res/sounds/";
+	public static final String PATH_CONFIG		= "config/";
 	
 	/* OBJs */
 	public static final String OBJ_DRAGON = PATH_OBJ + "dragon.obj";
@@ -57,6 +58,11 @@ public class DataUtils {
 	public static final String TEX_BARREL = PATH_TEXTURE + "barrel.png";
 	public static final String TEX_ROUGHNESS = PATH_TEXTURE + "texture_roughness.png";
 	
+	public static final String TEX_PARTICLE_STARS = PATH_PARTICLES + "stars.png";
+	public static final String TEX_PARTICLE_STAR_00 = PATH_PARTICLES + "star00.png";
+	public static final String TEX_PARTICLE_STAR_01 = PATH_PARTICLES + "star01.png";
+	public static final String TEX_PARTICLE_STAR_02 = PATH_PARTICLES + "star02.png";
+
 	public static final String TEX_WATER_DUDV_MAP0 = PATH_TEXTURE + "water_dudvmap0.png";
 	public static final String TEX_WATER_DUDV_MAP1 = PATH_TEXTURE + "water_dudvmap1.png";
 	public static final String TEX_WATER_NORMAL_MAP0 = PATH_TEXTURE + "water_normalmap0.png";

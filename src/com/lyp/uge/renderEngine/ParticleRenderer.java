@@ -1,10 +1,12 @@
 package com.lyp.uge.renderEngine;
 
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL13.*;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
 
 import java.util.List;
+import java.util.Map;
 
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
@@ -14,6 +16,7 @@ import com.lyp.uge.math.MathTools;
 import com.lyp.uge.model.RawModel;
 import com.lyp.uge.particle.Particle;
 import com.lyp.uge.shader.ParticleShader;
+import com.lyp.uge.texture.ParticleTexture;
 
 public class ParticleRenderer {
 	
@@ -24,7 +27,7 @@ public class ParticleRenderer {
 		 0.5f, -0.5f
 	};
 	
-	private RawModel mQuadModel;
+	private static RawModel mQuadModel;
 	private ParticleShader mShader;
 	
 	public ParticleRenderer(Loader loader, Matrix4f projectionMatrix) {
@@ -35,14 +38,21 @@ public class ParticleRenderer {
 		mShader.stop();
 	}
 	
-	public void render(List<Particle> particles, Camera camera) {
+	public void render(Map<ParticleTexture, List<Particle>> particles, Camera camera) {
 		Matrix4f viewMatrix = MathTools.createViewMatrix(camera);
 		prepareRender();
 		
-		for (Particle particle : particles) {
-			Matrix4f modelViewMatrix = createModelViewMatrix(particle.getPosition(), particle.getRotation(), particle.getScale(), viewMatrix);
-			mShader.loadModelViewMatrix(modelViewMatrix);
-			glDrawArrays(GL_TRIANGLE_STRIP, 0, mQuadModel.getVertexCount());
+		for (ParticleTexture particleTexture : particles.keySet()) {
+			
+			// Bind texture.
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, particleTexture.getID());
+			
+			for (Particle particle : particles.get(particleTexture)) {
+				Matrix4f modelViewMatrix = createModelViewMatrix(particle.getPosition(), particle.getRotation(), particle.getScale(), viewMatrix);
+				mShader.loadModelViewMatrix(modelViewMatrix);
+				glDrawArrays(GL_TRIANGLE_STRIP, 0, mQuadModel.getVertexCount());
+			}
 		}
 		
 		endRender();
@@ -87,5 +97,9 @@ public class ParticleRenderer {
 
 	public void cleanUp() {
 		mShader.cleanUp();
+	}
+	
+	public static RawModel getQuadModel() {
+		return mQuadModel;
 	}
 }

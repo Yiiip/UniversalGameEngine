@@ -28,6 +28,7 @@ import com.lyp.uge.scene.Scene;
 import com.lyp.uge.shader.ShaderFactry;
 import com.lyp.uge.terrain.Terrain;
 import com.lyp.uge.terrain.TerrainTexturePack;
+import com.lyp.uge.texture.ParticleTexture;
 import com.lyp.uge.texture.Texture;
 import com.lyp.uge.utils.DataUtils;
 import com.lyp.uge.water.WaterFrameBuffers;
@@ -55,7 +56,7 @@ public class TestTerrainsWithFog extends GameApplication {
 	private RendererManager rendererManager;
 	private PrefabsManager prefabsManager;
 	private WaterFrameBuffers waterFrameBuffers;
-	private ParticleGenerator particleGenerator;
+	private List<ParticleGenerator> particleGenerators;
 	
 	private MousePicker mousePicker;
 	
@@ -170,8 +171,10 @@ public class TestTerrainsWithFog extends GameApplication {
 		mousePicker = new MousePicker(getMainCamera(), rendererManager.getProjectionMatrix());
 
 		ParticlesManager.init(loader, rendererManager.getProjectionMatrix());
-		particleGenerator = new ParticleGenerator(40, 25, 0.2f, 4);
-		
+		particleGenerators = new ArrayList<ParticleGenerator>();
+		particleGenerators.add(new ParticleGenerator(40, 25, 0.2f, 4, new ParticleTexture(DataUtils.TEX_PARTICLE_STAR_02)));
+		particleGenerators.add(new ParticleGenerator(50, 18, 0.5f, 4, new ParticleTexture(DataUtils.TEX_PARTICLE_STAR_00)));
+
 		soundMgr = new AudioManager();
 		soundMgr.init();
 		setupSounds();
@@ -193,7 +196,8 @@ public class TestTerrainsWithFog extends GameApplication {
 	protected void onUpdate() {
 		lights.get(0).update();
 		mousePicker.update();
-		particleGenerator.generateParticles(new Vector3f(35.0f, 15.0f, -90.0f));
+		particleGenerators.get(0).generateParticles(new Vector3f(35.0f, 15.0f, -90.0f));
+		particleGenerators.get(1).generateParticles(new Vector3f(85.0f, 15.0f, -110.0f));
 		ParticlesManager.update();
 		soundMgr.updateListenerPosition(getMainCamera());
 	}

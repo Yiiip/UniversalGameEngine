@@ -5,6 +5,7 @@ import java.util.Random;
 import org.lwjgl.util.vector.Vector3f;
 
 import com.lyp.uge.math.MathTools;
+import com.lyp.uge.texture.ParticleTexture;
 
 public class ParticleGenerator {
 
@@ -12,14 +13,16 @@ public class ParticleGenerator {
 	private float speed;
 	private float gravityFactor;
 	private float life;
+	private ParticleTexture mParticleTexture;
 	
 	private Random random = new Random();
 
-	public ParticleGenerator(float pps, float speed, float gravityFactor, float life) {
+	public ParticleGenerator(float pps, float speed, float gravityFactor, float life, ParticleTexture texture) {
 		this.pps = pps;
 		this.speed = speed;
 		this.gravityFactor = gravityFactor;
 		this.life = life;
+		this.mParticleTexture = texture;
 	}
 
 	public void generateParticles(Vector3f generatePosition) {
@@ -40,6 +43,6 @@ public class ParticleGenerator {
 		Vector3f velocity = new Vector3f(dirX, 1, dirZ);
 		velocity.normalise();
 		velocity.scale(speed);
-		new Particle(new Vector3f(center), velocity, gravityFactor, life, random.nextInt(90), MathTools.clamp(random.nextFloat() + 0.3f, 0.3f, 1.0f));
+		new Particle(mParticleTexture, new Vector3f(center), velocity, gravityFactor, life, random.nextInt(90), random.nextFloat() * 2.0f + 0.4f);
 	}
 }

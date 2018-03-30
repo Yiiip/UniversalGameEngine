@@ -1,8 +1,12 @@
 #version 330
 
+in vec2 textureCoords;
+
 out vec4 out_color;
+
+uniform sampler2D particleTexture;
 
 void main (void) {
 
-	out_color = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	out_color = texture(particleTexture, textureCoords);
 }
