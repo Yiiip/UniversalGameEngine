@@ -73,7 +73,6 @@ public class TestTerrainsWithFog extends GameApplication {
 	@Override
 	protected void onCreate() {
 		enablePolygonMode();
-//		enableFirstPersonCamera();
 		getMainCamera().setSpeed(0.7f);
 		getMainCamera().setPosition(new Vector3f(0.0f, 5.0f, 80.0f));
 		getMainCamera().setYaw(40.0f);
@@ -155,6 +154,7 @@ public class TestTerrainsWithFog extends GameApplication {
 			oFerns[i] = new SimpleObject(prefabFern, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.04f);
 		}
 		
+		//场景
 		mainScene = new Scene();
 		mainScene.addObjects(Arrays.asList(oTrees));
 		mainScene.addObjects(Arrays.asList(oGrasses));
@@ -162,21 +162,23 @@ public class TestTerrainsWithFog extends GameApplication {
 		mainScene.addTerrains(Arrays.asList(terrains));
 		mainScene.addWaterTiles(waterTiles);
 		
-//		pushToCamera(mainScene.getTerrainManager());
-		
+		//用于水面的FrameBuffer
 		waterFrameBuffers = new WaterFrameBuffers();
 		
+		//渲染器
 		rendererManager = new RendererManager(loader, ShaderFactry.WITH_MULTI_LIGHTS);
 		rendererManager.setSkyboxDayRes(SkyboxRender.CUBE_TEXTURE_DAY_FILES_2, loader);
 		rendererManager.setFbos(waterFrameBuffers);
 		
 		mousePicker = new MousePicker(getMainCamera(), rendererManager.getProjectionMatrix());
 
+		//粒子系统
 		ParticlesManager.init(loader, rendererManager.getProjectionMatrix());
 		particleGenerators = new ArrayList<ParticleGenerator>();
 		particleGenerators.add(new ParticleGenerator(40, 25, 0.2f, 4, new ParticleTexture(DataUtils.TEX_PARTICLE_STAR_02)));
-		particleGenerators.add(new ParticleGenerator(50, 18, 0.5f, 4, new ParticleTexture(DataUtils.TEX_PARTICLE_STAR_00)));
+		particleGenerators.add(new ParticleGenerator(60, 18, 0.3f, 4, new ParticleTexture(DataUtils.TEX_PARTICLE_COSMIX_02, 4)));
 
+		//声音
 		soundMgr = new AudioManager();
 		soundMgr.init();
 		setupSounds();
@@ -200,7 +202,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		mousePicker.update();
 		particleGenerators.get(0).generateParticles(new Vector3f(35.0f, 15.0f, -90.0f));
 		particleGenerators.get(1).generateParticles(new Vector3f(85.0f, 15.0f, -110.0f));
-		ParticlesManager.update();
+		ParticlesManager.update(getMainCamera());
 		soundMgr.updateListenerPosition(getMainCamera());
 	}
 	

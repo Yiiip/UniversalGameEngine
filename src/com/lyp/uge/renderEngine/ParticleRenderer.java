@@ -43,6 +43,11 @@ public class ParticleRenderer {
 		prepareRender();
 		
 		for (ParticleTexture particleTexture : particles.keySet()) {
+			if (particleTexture.useSubtransparentMode()) {
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+			} else {
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			}
 			
 			// Bind texture.
 			glActiveTexture(GL_TEXTURE0);
@@ -51,6 +56,7 @@ public class ParticleRenderer {
 			for (Particle particle : particles.get(particleTexture)) {
 				Matrix4f modelViewMatrix = createModelViewMatrix(particle.getPosition(), particle.getRotation(), particle.getScale(), viewMatrix);
 				mShader.loadModelViewMatrix(modelViewMatrix);
+				mShader.setupSpritesCoordInfo(particle.getCurrentSpriteOffset(), particle.getNextSpriteOffset(), particleTexture.getTileRows(), particle.getBlend());
 				glDrawArrays(GL_TRIANGLE_STRIP, 0, mQuadModel.getVertexCount());
 			}
 		}
@@ -83,7 +89,6 @@ public class ParticleRenderer {
 		glBindVertexArray(mQuadModel.getVaoID());
 		glEnableVertexAttribArray(Loader.ATTR_POSITIONS);
 //		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glDepthMask(false);
 	}
 	

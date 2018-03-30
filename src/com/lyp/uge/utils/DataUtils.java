@@ -62,6 +62,10 @@ public class DataUtils {
 	public static final String TEX_PARTICLE_STAR_00 = PATH_PARTICLES + "star00.png";
 	public static final String TEX_PARTICLE_STAR_01 = PATH_PARTICLES + "star01.png";
 	public static final String TEX_PARTICLE_STAR_02 = PATH_PARTICLES + "star02.png";
+	public static final String TEX_PARTICLE_FIRE = PATH_PARTICLES + "fire.png";
+	public static final String TEX_PARTICLE_SMOKE = PATH_PARTICLES + "smoke.png";
+	public static final String TEX_PARTICLE_COSMIX_01 = PATH_PARTICLES + "cosmic1.png";
+	public static final String TEX_PARTICLE_COSMIX_02 = PATH_PARTICLES + "cosmic2.png";
 
 	public static final String TEX_WATER_DUDV_MAP0 = PATH_TEXTURE + "water_dudvmap0.png";
 	public static final String TEX_WATER_DUDV_MAP1 = PATH_TEXTURE + "water_dudvmap1.png";
