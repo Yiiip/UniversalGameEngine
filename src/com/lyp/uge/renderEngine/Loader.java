@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.lwjgl.opengl.GL33;
+
 import com.lyp.uge.model.RawModel;
 import com.lyp.uge.texture.CubeMapTexture;
 import com.lyp.uge.texture.Texture;
@@ -125,6 +127,34 @@ public class Loader {
 	
 	private void unbindVAO() {
 		glBindVertexArray(0);
+	}
+	
+	public int createVBO(int floatCount) {
+		int vboID = glGenBuffers();
+		vbos.add(vboID);
+		glBindBuffer(GL_ARRAY_BUFFER, vboID);
+		glBufferData(GL_ARRAY_BUFFER, floatCount * 4, GL_STREAM_DRAW); //float -> 4 byte
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		return vboID;
+	}
+	
+	public void addInstancedAttribute(int vao, int vbo, int attributeIndex, int dataSize, int instancedDataLength, int offsetPointer) {
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		glBindVertexArray(vao);
+		glVertexAttribPointer(attributeIndex, dataSize, GL_FLOAT, false, instancedDataLength * 4, offsetPointer * 4); //float -> 4 byte
+		GL33.glVertexAttribDivisor(attributeIndex, 1);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindVertexArray(0);
+	}
+	
+	public void updateVBO(int vbo, float[] data, FloatBuffer floatBuffer) {
+		floatBuffer.clear();
+		floatBuffer.put(data);
+		floatBuffer.flip();
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		glBufferData(GL_ARRAY_BUFFER, floatBuffer.capacity() * 4, GL_STREAM_DRAW);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, floatBuffer);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 	
 	public void cleanUp() {

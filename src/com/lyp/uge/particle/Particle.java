@@ -17,6 +17,7 @@ public class Particle extends GameObject {
 	protected float gravityFactor;
 	protected float life;
 	protected float elapsedTime = 0.0f;
+	protected Vector3f changed;
 	
 	protected ParticleTexture mTexture;
 	
@@ -31,6 +32,7 @@ public class Particle extends GameObject {
 		this.velocity = velocity;
 		this.gravityFactor = gravityFactor;
 		this.life = life;
+		this.changed = new Vector3f();
 		this.mTexture = texture;
 		super.rotateZ = rotation;
 		super.scale = scale;
@@ -48,9 +50,9 @@ public class Particle extends GameObject {
 		velocity.y += PARTICLE_GRAVITY * gravityFactor * (1.0f / 60.0f); //TODO current frame
 		
 		// Moving
-		Vector3f change = new Vector3f(velocity);
-		change.scale(1.0f / 60.0f);
-		Vector3f.add(change, position, position);
+		changed.set(velocity);
+		changed.scale(1.0f / 60.0f);
+		Vector3f.add(changed, position, position);
 		
 		updateSpritesTextureCoord();
 		
