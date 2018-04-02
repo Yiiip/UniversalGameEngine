@@ -18,6 +18,7 @@ import com.lyp.uge.gameObject.SimpleObject;
 import com.lyp.uge.gameObject.light.Light;
 import com.lyp.uge.gameObject.light.PointLight;
 import com.lyp.uge.gameObject.tool.MousePicker;
+import com.lyp.uge.particle.ComplexParticleGenerator;
 import com.lyp.uge.particle.ParticleGenerator;
 import com.lyp.uge.particle.ParticlesManager;
 import com.lyp.uge.prefab.PrefabsManager;
@@ -58,6 +59,7 @@ public class TestTerrainsWithFog extends GameApplication {
 	private PrefabsManager prefabsManager;
 	private WaterFrameBuffers waterFrameBuffers;
 	private List<ParticleGenerator> particleGenerators;
+	private List<ComplexParticleGenerator> complexParticleGenerators;
 	
 	private MousePicker mousePicker;
 	
@@ -174,6 +176,8 @@ public class TestTerrainsWithFog extends GameApplication {
 
 		//粒子系统
 		ParticlesManager.init(loader, rendererManager.getProjectionMatrix());
+		complexParticleGenerators = new ArrayList<ComplexParticleGenerator>();
+		complexParticleGenerators.add(new ComplexParticleGenerator(50, 8, -0.5f, 3, 20, new ParticleTexture(DataUtils.TEX_PARTICLE_SMOKE, 8)));
 		particleGenerators = new ArrayList<ParticleGenerator>();
 		particleGenerators.add(new ParticleGenerator(40, 25, 0.2f, 4, new ParticleTexture(DataUtils.TEX_PARTICLE_STAR_02)));
 		particleGenerators.add(new ParticleGenerator(60, 18, 0.3f, 4, new ParticleTexture(DataUtils.TEX_PARTICLE_COSMIX_02, 4)));
@@ -202,6 +206,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		mousePicker.update();
 		particleGenerators.get(0).generateParticles(new Vector3f(35.0f, 15.0f, -90.0f));
 		particleGenerators.get(1).generateParticles(new Vector3f(85.0f, 15.0f, -110.0f));
+		complexParticleGenerators.get(0).generateParticles(new Vector3f(-65.0f, 3.0f, -130.0f));
 		ParticlesManager.update(getMainCamera());
 		soundMgr.updateListenerPosition(getMainCamera());
 	}
