@@ -169,6 +169,10 @@ public class RendererManager {
 			mSkyboxRender.setNightTextureBoxRes(nightTextureRes, loader);
 		}
 	}
+	
+	public void setSkyboxRecycleSpeed(float recycleSpeed) {
+		mSkyboxRender.setRecycleSpeed(recycleSpeed);
+	}
 
 	public void setFbos(WaterFrameBuffers fbos) {
 		mWaterRender.setFbos(fbos);

@@ -87,7 +87,7 @@ public class SkyboxRender {
 		DataUtils.PATH_SKYBOX + "nightbox01_front.png",
 	};
 	
-	private final static float RECYCLE_SPEED = 2.0f;
+	private static float RECYCLE_SPEED = 2.0f;
 	
 	private final static int TEX_INDEX_DAY = 0;
 	private final static int TEX_INDEX_NIGHT = 1;
@@ -170,5 +170,9 @@ public class SkyboxRender {
 	public void setNightTextureBoxRes(String[] nightTextureBoxRes, Loader loader) {
 		this.mNightTextureBoxRes = nightTextureBoxRes;
 		this.mTexID[TEX_INDEX_NIGHT] = loader.loadTextureCubeMap(nightTextureBoxRes).getID();
+	}
+
+	public void setRecycleSpeed(float recycleSpeed) {
+		RECYCLE_SPEED = recycleSpeed;
 	}
 }
