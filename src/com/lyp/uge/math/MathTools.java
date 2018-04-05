@@ -80,4 +80,8 @@ public class MathTools {
 		if (n == 0) return 0;
 		else return n > 0 ? 1 : -1;
 	}
+
+	public static float mix(float a, float b, float blend) {
+		return a * (1.0f - blend) + b * blend;
+	}
 }
