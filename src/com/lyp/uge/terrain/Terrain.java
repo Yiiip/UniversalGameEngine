@@ -15,22 +15,44 @@ import com.lyp.uge.model.RawModel;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.texture.Texture;
 
+/**
+ * 基于HeightMap的地形
+ * @author LYP
+ *
+ */
 public class Terrain {
 
-	public static final float SIZE = 800.0f;
+	public static float SIZE_DEFAULT = 800.0f;
+
 	private static int VERTEX_COUNT = 0;
 	private static float MAX_ALTITUDE = 40.0f; //最大海拔高度，这里为默认值
 	private static final int MAX_COLOR = 256 * 256 * 256;
 
-	private float x; //世界坐标
-	private float z; //世界坐标
-	private RawModel rawModel;
-	private TerrainTexturePack texturePack;
-	private Texture blendMap;
+	protected float x; //世界坐标
+	protected float z; //世界坐标
+	protected float size = SIZE_DEFAULT;
+	protected RawModel rawModel;
+	protected TerrainTexturePack texturePack;
+	protected Texture blendMap;
 	private BufferedImage mHeightMapImage;
 	
-	private float[][] mHeights; //存储每个Vertex顶点的高度值
-	
+	protected float[][] mHeights; //存储每个Vertex顶点的高度值
+
+	public Terrain(float gridX, float gridZ, Loader loader, TerrainTexturePack texturePack, Texture blendMapTexture) {
+		this.x = gridX * this.size;
+		this.z = gridZ * this.size;
+		this.texturePack = texturePack;
+		this.blendMap = blendMapTexture;
+	}
+
+	public Terrain(float size, float gridX, float gridZ, Loader loader, TerrainTexturePack texturePack, Texture blendMapTexture) {
+		this.size = size;
+		this.x = gridX * size;
+		this.z = gridZ * size;
+		this.texturePack = texturePack;
+		this.blendMap = blendMapTexture;
+	}
+
 	/**
 	 * @param gridX 网格坐标，把1个Terrain看作一个格子，(0, 0)为第四象限第一个格子，x向右为正
 	 * @param gridZ z向下为正
@@ -42,22 +64,16 @@ public class Terrain {
 	public Terrain(float gridX, float gridZ, Loader loader, 
 			TerrainTexturePack texturePack, Texture blendMapTexture, 
 			String heightMapFile) {
-		this.x = gridX * SIZE;
-		this.z = gridZ * SIZE;
-		this.texturePack = texturePack;
-		this.blendMap = blendMapTexture;
+		this(gridX, gridZ, loader, texturePack, blendMapTexture);
 		this.rawModel = generateTerrain(loader, heightMapFile);
 	}
 	
 	public Terrain(float gridX, float gridZ, Loader loader, 
 			TerrainTexturePack texturePack, Texture blendMapTexture,
 			String heightMapFile, float maxHeight) {
-		MAX_ALTITUDE = maxHeight;
-		this.x = gridX * SIZE;
-		this.z = gridZ * SIZE;
-		this.texturePack = texturePack;
-		this.blendMap = blendMapTexture;
+		this(gridX, gridZ, loader, texturePack, blendMapTexture);
 		this.rawModel = generateTerrain(loader, heightMapFile);
+		MAX_ALTITUDE = maxHeight;
 	}
 
 	private RawModel generateTerrain(Loader loader, String heightMapFile) {
@@ -79,9 +95,9 @@ public class Terrain {
 			for (int j = 0; j < VERTEX_COUNT; j++) {
 				float height = getAltitude(j, i, mHeightMapImage);
 				mHeights[j][i] = height;
-				vertices[vertexPointer * 3] = (float) j / ((float) VERTEX_COUNT - 1) * SIZE;
+				vertices[vertexPointer * 3] = (float) j / ((float) VERTEX_COUNT - 1) * size;
 				vertices[vertexPointer * 3 + 1] = height;
-				vertices[vertexPointer * 3 + 2] = (float) i / ((float) VERTEX_COUNT - 1) * SIZE;
+				vertices[vertexPointer * 3 + 2] = (float) i / ((float) VERTEX_COUNT - 1) * size;
 				Vector3f normal = calculateNormal(j, i, mHeightMapImage);
 				normals[vertexPointer * 3] = normal.x;
 				normals[vertexPointer * 3 + 1] = normal.y;
@@ -155,7 +171,7 @@ public class Terrain {
 	public float getHeightOfTerrain(float worldX, float worldZ) {
 		float terrainX = worldX - this.x; //得到物体相对于所在Terrain上的坐标
 		float terrainZ = worldZ - this.z;
-		float gridSquareSize = SIZE / ((float)mHeights.length - 1); //该Terrain中每个正方格子的宽度
+		float gridSquareSize = size / ((float)mHeights.length - 1); //该Terrain中每个正方格子的宽度
 		int gridX = (int) Math.floor(terrainX / gridSquareSize);
 		int gridZ = (int) Math.floor(terrainZ / gridSquareSize);
 		if (gridX < 0 || gridZ < 0 || gridX >= mHeights.length-1 || gridZ >= mHeights.length-1) {
@@ -191,7 +207,11 @@ public class Terrain {
 	public Texture getBlendMap() {
 		return blendMap;
 	}
-	
+
+	public float getSize() {
+		return size;
+	}
+
 	public void addFoggy(float fogDensity, float fogGradient) {
 		this.getTexturePack().getBgTexture().addFoggy(fogDensity, fogGradient);
 	}

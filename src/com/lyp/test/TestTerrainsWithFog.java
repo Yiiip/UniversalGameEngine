@@ -89,7 +89,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		//水
 		waterTiles = new ArrayList<>();
 		waterTiles.add(new WaterTile(85.0f, -85.0f, -3.0f));
-		waterTiles.add(new WaterTile(0, Terrain.SIZE - 1.5f, 0.0f, Terrain.SIZE, 30));
+		waterTiles.add(new WaterTile(0, Terrain.SIZE_DEFAULT - 1.5f, 0.0f, Terrain.SIZE_DEFAULT, 30));
 		
 		//地形
 		Texture bgTexture = loader.loadTexture("res/texture/" + DataUtils.TEX_GRASS)
@@ -101,7 +101,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		Texture bTexture = loader.loadTexture(DataUtils.TEX_GROUND01);
 		Texture blendMapTexture = loader.loadTexture(DataUtils.TEX_TERRAIN_BLEND_MAP);
 		TerrainTexturePack texturePack = new TerrainTexturePack(bgTexture, rTexture, gTexture, bTexture);
-		terrains = new Terrain[2];
+		terrains = new Terrain[2]; //基于HeightMap的地形
 		terrains[0] = new Terrain(0, -1, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP01, 60);
 		terrains[1] = new Terrain(-1, -1, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP01, 60);
 		
@@ -113,14 +113,14 @@ public class TestTerrainsWithFog extends GameApplication {
 		TextureModel prefabTree = prefabsManager.getPrefabByName("tree");
 		oTrees = new SimpleObject[1000];
 		for (int i = 0; i < oTrees.length / 2; i++) {
-			float randomX = random.nextFloat() * Terrain.SIZE;
-			float randomZ = -random.nextInt((int) Terrain.SIZE);
+			float randomX = random.nextFloat() * terrains[0].getSize();
+			float randomZ = -random.nextInt((int) terrains[0].getSize());
 			float randomY = terrains[0].getHeightOfTerrain(randomX, randomZ);
 			oTrees[i] = new SimpleObject(prefabTree, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, 2.0f+random.nextFloat()*2);
 		}
 		for (int i = oTrees.length / 2; i < oTrees.length; i++) {
-			float randomX = -random.nextFloat() * Terrain.SIZE;
-			float randomZ = -random.nextInt((int) Terrain.SIZE);
+			float randomX = -random.nextFloat() * terrains[1].getSize();
+			float randomZ = -random.nextInt((int) terrains[1].getSize());
 			float randomY = terrains[1].getHeightOfTerrain(randomX, randomZ);
 			oTrees[i] = new SimpleObject(prefabTree, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, 2.0f+random.nextFloat()*2);
 		}
@@ -129,14 +129,14 @@ public class TestTerrainsWithFog extends GameApplication {
 		TextureModel prefabGrass = prefabsManager.getPrefabByName("grass");
 		oGrasses = new SimpleObject[2000];
 		for (int i = 0; i < oGrasses.length / 2; i++) {
-			float randomX = random.nextFloat() * Terrain.SIZE;
-			float randomZ = -random.nextInt((int) Terrain.SIZE) - 10.0f;
+			float randomX = random.nextFloat() * terrains[0].getSize();
+			float randomZ = -random.nextInt((int) terrains[0].getSize()) - 10.0f;
 			float randomY = terrains[0].getHeightOfTerrain(randomX, randomZ);
 			oGrasses[i] = new SimpleObject(prefabGrass, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.05f);
 		}
 		for (int i = oGrasses.length / 2; i < oGrasses.length; i++) {
-			float randomX = -random.nextFloat() * Terrain.SIZE;
-			float randomZ = -random.nextInt((int) Terrain.SIZE) - 10.0f;
+			float randomX = -random.nextFloat() * terrains[1].getSize();
+			float randomZ = -random.nextInt((int) terrains[1].getSize()) - 10.0f;
 			float randomY = terrains[1].getHeightOfTerrain(randomX, randomZ);
 			oGrasses[i] = new SimpleObject(prefabGrass, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.05f);
 		}
@@ -144,14 +144,14 @@ public class TestTerrainsWithFog extends GameApplication {
 		TextureModel prefabFern = prefabsManager.getPrefabByName("fern");
 		oFerns = new SimpleObject[1100];
 		for (int i = 0; i < oFerns.length / 2; i++) {
-			float randomX = random.nextFloat() * Terrain.SIZE;
-			float randomZ = -random.nextInt((int) Terrain.SIZE) - 10.0f;
+			float randomX = random.nextFloat() * terrains[0].getSize();
+			float randomZ = -random.nextInt((int) terrains[0].getSize()) - 10.0f;
 			float randomY = terrains[0].getHeightOfTerrain(randomX, randomZ);
 			oFerns[i] = new SimpleObject(prefabFern, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.04f);
 		}
 		for (int i = oFerns.length / 2; i < oFerns.length; i++) {
-			float randomX = -random.nextFloat() * Terrain.SIZE;
-			float randomZ = -random.nextInt((int) Terrain.SIZE) - 10.0f;
+			float randomX = -random.nextFloat() * terrains[1].getSize();
+			float randomZ = -random.nextInt((int) terrains[1].getSize()) - 10.0f;
 			float randomY = terrains[1].getHeightOfTerrain(randomX, randomZ);
 			oFerns[i] = new SimpleObject(prefabFern, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.04f);
 		}

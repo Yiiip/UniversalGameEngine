@@ -19,7 +19,6 @@ import com.lyp.uge.renderEngine.RendererManager;
 import com.lyp.uge.scene.Scene;
 import com.lyp.uge.shader.ShaderFactry;
 import com.lyp.uge.terrain.Terrain;
-import com.lyp.uge.terrain.TerrainManager;
 import com.lyp.uge.terrain.TerrainTexturePack;
 import com.lyp.uge.texture.Texture;
 import com.lyp.uge.utils.DataUtils;
@@ -47,7 +46,7 @@ public class TestTerrains extends GameApplication {
 		enablePolygonMode();
 		enableFirstPersonCamera();
 		getMainCamera().setSpeed(0.7f);
-		getMainCamera().setPosition(new Vector3f(0, 100, Terrain.SIZE));
+		getMainCamera().setPosition(new Vector3f(0, 100, 800));
 		
 		lights = new ArrayList<>();
 		lights.add(new Light(new Vector3f(0.0f, 1000.0f, 500.0f), new Vector3f(1, 1, 1), loader));
@@ -73,14 +72,14 @@ public class TestTerrains extends GameApplication {
 		TextureModel textureModel = new TextureModel(rawModel, texture);
 		oTrees = new SimpleObject[1000];
 		for (int i = 0; i < oTrees.length / 2; i++) {
-			float randomX = random.nextFloat() * Terrain.SIZE;
-			float randomZ = random.nextInt((int) Terrain.SIZE);
+			float randomX = random.nextFloat() * terrains[0].getSize();
+			float randomZ = random.nextInt((int) terrains[0].getSize());
 			float randomY = terrains[0].getHeightOfTerrain(randomX, randomZ);
 			oTrees[i] = new SimpleObject(textureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, 2.0f+random.nextFloat()*2);
 		}
 		for (int i = oTrees.length / 2; i < oTrees.length; i++) {
-			float randomX = -random.nextFloat() * Terrain.SIZE;
-			float randomZ = random.nextInt((int) Terrain.SIZE);
+			float randomX = -random.nextFloat() * terrains[1].getSize();
+			float randomZ = random.nextInt((int) terrains[1].getSize());
 			float randomY = terrains[1].getHeightOfTerrain(randomX, randomZ);
 			oTrees[i] = new SimpleObject(textureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, 2.0f+random.nextFloat()*2);
 		}
@@ -96,14 +95,14 @@ public class TestTerrains extends GameApplication {
 		TextureModel grassTextureModel = new TextureModel(grassRawModel, grassTexture);
 		oGrasses = new SimpleObject[2000];
 		for (int i = 0; i < oGrasses.length / 2; i++) {
-			float randomX = random.nextFloat() * Terrain.SIZE;
-			float randomZ = random.nextInt((int) Terrain.SIZE) - 10.0f;
+			float randomX = random.nextFloat() * terrains[0].getSize();
+			float randomZ = random.nextInt((int) terrains[0].getSize()) - 10.0f;
 			float randomY = terrains[0].getHeightOfTerrain(randomX, randomZ);
 			oGrasses[i] = new SimpleObject(grassTextureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.05f);
 		}
 		for (int i = oGrasses.length / 2; i < oGrasses.length; i++) {
-			float randomX = -random.nextFloat() * Terrain.SIZE;
-			float randomZ = random.nextInt((int) Terrain.SIZE) - 10.0f;
+			float randomX = -random.nextFloat() * terrains[1].getSize();
+			float randomZ = random.nextInt((int) terrains[1].getSize()) - 10.0f;
 			float randomY = terrains[1].getHeightOfTerrain(randomX, randomZ);
 			oGrasses[i] = new SimpleObject(grassTextureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.05f);
 		}
@@ -116,14 +115,14 @@ public class TestTerrains extends GameApplication {
 		TextureModel fernTextureModel = new TextureModel(fernRawModel, fernTexture);
 		oFerns = new SimpleObject[1100];
 		for (int i = 0; i < oFerns.length / 2; i++) {
-			float randomX = random.nextFloat() * Terrain.SIZE;
-			float randomZ = random.nextInt((int) Terrain.SIZE) - 10.0f;
+			float randomX = random.nextFloat() * terrains[0].getSize();
+			float randomZ = random.nextInt((int) terrains[0].getSize()) - 10.0f;
 			float randomY = terrains[0].getHeightOfTerrain(randomX, randomZ);
 			oFerns[i] = new SimpleObject(fernTextureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.04f);
 		}
 		for (int i = oFerns.length / 2; i < oFerns.length; i++) {
-			float randomX = -random.nextFloat() * Terrain.SIZE;
-			float randomZ = random.nextInt((int) Terrain.SIZE) - 10.0f;
+			float randomX = -random.nextFloat() * terrains[1].getSize();
+			float randomZ = random.nextInt((int) terrains[1].getSize()) - 10.0f;
 			float randomY = terrains[1].getHeightOfTerrain(randomX, randomZ);
 			oFerns[i] = new SimpleObject(fernTextureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.04f);
 		}

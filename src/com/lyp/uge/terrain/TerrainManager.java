@@ -45,7 +45,7 @@ public class TerrainManager {
 	public Terrain inside(float x, float z) {
 		Terrain targetTerrain = null;
 		for (Terrain terrain : mTerrains) {
-			if (Collision.isPointInRect(new Vector2f(x, z), new Vector2f(terrain.getX(), terrain.getZ()), Terrain.SIZE, Terrain.SIZE)) {
+			if (Collision.isPointInRect(new Vector2f(x, z), new Vector2f(terrain.getX(), terrain.getZ()), terrain.getSize(), terrain.getSize())) {
 				targetTerrain = terrain;
 				break;
 			} else {
