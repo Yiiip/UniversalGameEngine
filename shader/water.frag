@@ -83,6 +83,6 @@ void main (void) {
 	out_color = vec4(totalDiffuse, 1.0) * out_color + vec4(totalSpecular, 1.0);
 
 	// For debug:
-	// out_color = vec4(dudvColorFinal.rg, 0.0, 1.0);	// debug dudvMap.
-	// out_color = normalMapColor;						// debug normalMap.
+	// out_color = vec4(dudvColor.rg, 0.0, 1.0);	// debug dudvMap.
+	// out_color = normalMapColor;					// debug normalMap.
 }
