@@ -18,6 +18,8 @@ import static org.lwjgl.openal.ALC10.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class AudioManager {
+	
+	private static AudioManager mInstance;
 
 	private long mDevice;
 
@@ -29,12 +31,21 @@ public class AudioManager {
 
 	private final Map<String, AudioSource> soundSourceMap;
 
-	public AudioManager() {
+	private AudioManager() {
 		soundBufferList = new ArrayList<>();
 		soundSourceMap = new HashMap<>();
 	}
+	
+	public static AudioManager GetInstance()
+	{
+		if (mInstance == null) {
+			mInstance = new AudioManager();
+			mInstance.init();
+		}
+		return mInstance;
+	}
 
-	public void init() {
+	private void init() {
 		this.mDevice = alcOpenDevice((ByteBuffer) null);
 		if (mDevice == NULL) {
 			throw new IllegalStateException("Failed to open the default OpenAL device.");
@@ -88,6 +99,20 @@ public class AudioManager {
 
 	public void setAttenuationModel(int model) {
 		alDistanceModel(model);
+	}
+	
+	public void pauseAll() {
+		for (AudioSource soundSource : soundSourceMap.values()) {
+			soundSource.pause();
+		}
+	}
+	
+	public void playAll() {
+		for (AudioSource soundSource : soundSourceMap.values()) {
+			if (!soundSource.isPlaying()) {
+				soundSource.play();
+			}
+		}
 	}
 
 	public void cleanup() {

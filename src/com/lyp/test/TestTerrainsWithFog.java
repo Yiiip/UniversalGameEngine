@@ -63,7 +63,7 @@ public class TestTerrainsWithFog extends GameApplication {
 	
 	private MousePicker mousePicker;
 	
-	private AudioManager soundMgr;
+	private AudioManager audioManager = AudioManager.GetInstance();
 	
 	private Random random = new Random();
 	
@@ -81,7 +81,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		
 		//光源
 		lights = new ArrayList<>();
-		lights.add(new Light(new Vector3f(0.0f, 1000.0f, -500.0f), COLOR_DARK, loader));
+		lights.add(new Light(new Vector3f(0.0f, 1000.0f, -500.0f), new Vector3f(125f/255f, 120f/255f, 56f/255f), loader));
 		lights.add(new PointLight(new Vector3f(-35.0f, 15.0f, -90.0f), COLOR_YELLOW, loader, new Vector3f(1.f, .01f, .002f)));
 		lights.add(new PointLight(new Vector3f(35.0f, 15.0f, -90.0f), COLOR_RED, loader, new Vector3f(1.f, .01f, .002f)));
 		lights.add(new PointLight(new Vector3f(85.0f, 15.0f, -110.0f), COLOR_YELLOW, loader, new Vector3f(1.f, .01f, .002f)));
@@ -177,26 +177,25 @@ public class TestTerrainsWithFog extends GameApplication {
 		//粒子系统
 		ParticlesManager.init(loader, rendererManager.getProjectionMatrix());
 		complexParticleGenerators = new ArrayList<ComplexParticleGenerator>();
-		complexParticleGenerators.add(new ComplexParticleGenerator(50, 8, -0.5f, 3, 20, new ParticleTexture(DataUtils.TEX_PARTICLE_SMOKE, 8)));
+		complexParticleGenerators.add(new ComplexParticleGenerator(60, 8, -0.5f, 3, 20, new ParticleTexture(DataUtils.TEX_PARTICLE_SMOKE, 8)));
 		particleGenerators = new ArrayList<ParticleGenerator>();
 		particleGenerators.add(new ParticleGenerator(40, 25, 0.2f, 4, new ParticleTexture(DataUtils.TEX_PARTICLE_STAR_02)));
-		particleGenerators.add(new ParticleGenerator(60, 18, 0.3f, 4, new ParticleTexture(DataUtils.TEX_PARTICLE_COSMIX_02, 4)));
+		particleGenerators.add(new ParticleGenerator(100, 18, 0.3f, 4, new ParticleTexture(DataUtils.TEX_PARTICLE_COSMIX_02, 4)));
+		particleGenerators.add(new ParticleGenerator(160, -18, 0.3f, 4, new ParticleTexture(DataUtils.TEX_PARTICLE_COSMIX_01, 4)));
 
 		//声音
-		soundMgr = new AudioManager();
-		soundMgr.init();
 		setupSounds();
 	}
 	
 	private void setupSounds() {
-		soundMgr.setAttenuationModel(AL11.AL_EXPONENT_DISTANCE);
+		audioManager.setAttenuationModel(AL11.AL_EXPONENT_DISTANCE);
 
 		AudioBuffer buffBgMusic = new AudioBuffer(DataUtils.MUSIC_TOYS_UNDER_THE_TREE);
-		soundMgr.addSoundBuffer(buffBgMusic);
+		audioManager.addSoundBuffer(buffBgMusic);
 		AudioSource sourceBgMusic = new AudioSource(true, true);
 		sourceBgMusic.setBuffer(buffBgMusic.getBufferId());
-		soundMgr.addSoundSource("BgMusic", sourceBgMusic);
-		soundMgr.setListener(new AudioListener());
+		audioManager.addSoundSource("BgMusic", sourceBgMusic);
+		audioManager.setListener(new AudioListener());
 		sourceBgMusic.play();
 	}
 
@@ -206,9 +205,10 @@ public class TestTerrainsWithFog extends GameApplication {
 		mousePicker.update();
 		particleGenerators.get(0).generateParticles(new Vector3f(35.0f, 15.0f, -90.0f));
 		particleGenerators.get(1).generateParticles(new Vector3f(85.0f, 15.0f, -110.0f));
+		particleGenerators.get(2).generateParticles(new Vector3f(0.0f, 15.0f, -110.0f));
 		complexParticleGenerators.get(0).generateParticles(new Vector3f(-65.0f, 3.0f, -130.0f));
 		ParticlesManager.update(getMainCamera());
-		soundMgr.updateListenerPosition(getMainCamera());
+		audioManager.updateListenerPosition(getMainCamera());
 	}
 	
 	@Override
@@ -237,7 +237,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		waterFrameBuffers.cleanUp();
 		rendererManager.cleanUp();
 		loader.cleanUp();
-		soundMgr.cleanup();
+		audioManager.cleanup();
 	}
 
 	public static void main(String[] args) {
