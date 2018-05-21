@@ -33,9 +33,9 @@ import com.sun.istack.internal.NotNull;
 
 public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	
-	private int fps = 0; //current frame-per-second
-	private int ups = 0; //current update-per-second
-	private int runtime = 0;
+	private static int fps = 0; //current frame-per-second
+	private static int ups = 0; //current update-per-second
+	private static int runtime = 0;
 	protected boolean running = false;
 	
 	private Thread thread;
@@ -244,18 +244,18 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 	}
 	
 /*----------------------for runtime----------------------*/
-	public String getRunTimer() {
+	public static String getRunTimer() {
 		int hour = runtime / 3600;
 		int minute = runtime / 60 % 60;
 		int second = runtime % 60;
 		return StringUtils.formatTime(hour) + ":" + StringUtils.formatTime(minute) + ":" + StringUtils.formatTime(second);
 	}
 	
-	public int getFPS() {
+	public static int getFPS() {
 		return fps;
 	}
 	
-	public int getUPS() {
+	public static int getUPS() {
 		return ups;
 	}
 	
