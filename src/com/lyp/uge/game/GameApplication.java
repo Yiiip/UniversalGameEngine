@@ -151,7 +151,7 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		destory();
 	}
 	
-	protected synchronized void start() {
+	protected void start() {
 		if (running) {
 			return;
 		}
@@ -160,7 +160,7 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		thread.start();
 	}
 	
-	private synchronized void destory() {
+	private void destory() {
 		destoryEngineGui();
 		onDestory();
 		WindowManager.destoryWindow();
@@ -249,6 +249,11 @@ public abstract class GameApplication implements Runnable, OnKeyboardListener {
 		int minute = runtime / 60 % 60;
 		int second = runtime % 60;
 		return StringUtils.formatTime(hour) + ":" + StringUtils.formatTime(minute) + ":" + StringUtils.formatTime(second);
+	}
+
+	public static int getRunTimerInt()
+	{
+		return runtime;
 	}
 	
 	public static int getFPS() {
