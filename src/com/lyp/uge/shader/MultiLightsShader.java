@@ -42,8 +42,11 @@ public class MultiLightsShader extends FoggyShader {
 	}
 	
 	public void loadMultiLights(List<Light> lights) {
+		if (lights == null || lights.isEmpty()) {
+			return;
+		}
 		for (int i = 0; i < MAX_LIGHTS; i++) {
-			if (i < lights.size()) {
+			if (i < lights.size() && lights.get(i).isActive()) {
 				super.loadVector(uniform_lightPositions[i], lights.get(i).getPosition());
 				super.loadVector(uniform_lightColors[i], lights.get(i).getColor());
 				if (lights.get(i) instanceof PointLight) {

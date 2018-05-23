@@ -20,6 +20,8 @@ public abstract class GameObject {
 	protected float scale = 1.0f;
 	protected float speed = 0.0f;
 	protected float angleSpeed = 0.0f;
+
+	protected boolean isActive = true;
 	
 	protected OnKeyboardListener onKeyboardListener;
 	
@@ -70,6 +72,16 @@ public abstract class GameObject {
 
 	public void setModel(TextureModel model) {
 		this.model = model;
+	}
+
+	public boolean isActive()
+	{
+		return isActive;
+	}
+
+	public void setActive(boolean isActive)
+	{
+		this.isActive = isActive;
 	}
 
 	public Vector3f getPosition() {
