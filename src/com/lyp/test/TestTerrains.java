@@ -12,7 +12,8 @@ import com.lyp.uge.game.GameApplication;
 import com.lyp.uge.gameObject.SimpleObject;
 import com.lyp.uge.gameObject.light.Light;
 import com.lyp.uge.gui.widget.MousePickerView;
-import com.lyp.uge.input.Keyboard;
+import com.lyp.uge.input.Mouse;
+import com.lyp.uge.input.MouseInput;
 import com.lyp.uge.model.RawModel;
 import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
@@ -153,22 +154,16 @@ public class TestTerrains extends GameApplication {
 	protected void onUpdate() {
 		lights.get(0).update();
 		mousePickerView.update(getMainWindow());
+		if (MouseInput.getInstance().isMouseClicked(Mouse.MOUSE_BUTTON_LEFT)) {
+			Vector3f ballPos = Vector3f.add(getMainCamera().getPosition(), (Vector3f) mousePickerView.getMousePicker().getCurrentRay().scale(200), null);
+			mainScene.addObject(new SimpleObject(ballTextureModel, ballPos, 0.0f, 0.0f, 0.0f, 0.3f));
+		}
 	}
 	
 	@Override
 	protected void onRender() {
 		rendererManager.renderScene(mainScene, lights, getMainCamera(), new Vector4f(0.5f, 0.8f, 0.95f, 1.0f));
 		mousePickerView.onDraw(getMainWindow());
-	}
-
-	@Override
-	public void onKeyReleased(int keycode) {
-		super.onKeyReleased(keycode);
-		if (keycode == Keyboard.KEY_LEFT_CONTROL) {
-			Vector3f v = (Vector3f) mousePickerView.getMousePicker().getCurrentRay().scale(200);
-			Vector3f ballPos = Vector3f.add(getMainCamera().getPosition(), new Vector3f(v.x, v.y, v.z), null);
-			mainScene.addObject(new SimpleObject(ballTextureModel, ballPos, 0.0f, 0.0f, 0.0f, 0.3f));
-		}
 	}
 
 	@Override
