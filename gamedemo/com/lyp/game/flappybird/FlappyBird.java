@@ -7,14 +7,14 @@ import org.lwjgl.util.vector.Vector3f;
 import com.lyp.game.flappybird.object.Bird;
 import com.lyp.game.flappybird.object.Level;
 import com.lyp.game.flappybird.object.Pipe;
+import com.lyp.game.flappybird.object.Bird.GameOverState;
 import com.lyp.uge.game.GameApplication;
-import com.lyp.uge.input.Keyboard;
+import com.lyp.uge.input.Mouse;
+import com.lyp.uge.input.MouseInput;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.renderEngine.Renderer2dManager;
 
 public class FlappyBird extends GameApplication {
-	
-	public static Status STATUS = Status.PLAYING;
 	
 	private static Bird bird;
 	private static Pipe[] pipes;
@@ -53,6 +53,11 @@ public class FlappyBird extends GameApplication {
 		bird.update();
 		updatePipes();
 		level.update();
+		if (MouseInput.getInstance().isMouseClicked(Mouse.MOUSE_BUTTON_LEFT)) {
+			if (bird.getStateMachine().getCurrState() instanceof GameOverState) {
+				resetGame();
+			}
+		}
 	}
 
 	@Override
@@ -64,19 +69,10 @@ public class FlappyBird extends GameApplication {
 		rendererManager.renderAll(getMainCamera());
 	}
 	
-	@Override
-	public void onKeyReleased(int keycode) {
-		super.onKeyReleased(keycode);
-		if (STATUS == Status.GAMEOVER && Keyboard.KEY_G == keycode) {
-			resetGame();
-		}
-	}
-	
 	private void resetGame() {
 		level = null;
 		bird = null;
 		pipes = null;
-		STATUS = Status.PLAYING;
 		initGame();
 	}
 
@@ -126,11 +122,6 @@ public class FlappyBird extends GameApplication {
 		}
 	}
 	
-	public static enum Status {
-		GAMEOVER(),
-		PLAYING();
-	}
-
 	public static void main(String[] args) {
 		new FlappyBird().start();
 	}

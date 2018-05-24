@@ -1,13 +1,12 @@
 package com.lyp.game.flappybird.object;
 
-import static com.lyp.uge.input.Keyboard.*;
-
-import com.lyp.game.flappybird.FlappyBird;
 import com.lyp.game.flappybird.FlappyBird.LayerID;
 import com.lyp.game.flappybird.FlappyBird.ObjectID;
-import com.lyp.game.flappybird.FlappyBird.Status;
 import com.lyp.game.flappybird.shader.BirdShader;
+import com.lyp.uge.ai.fsm.State;
+import com.lyp.uge.ai.fsm.StateMachine;
 import com.lyp.uge.gameObject.sprite.Sprite2D;
+import com.lyp.uge.input.Mouse;
 import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.renderEngine.Renderer;
@@ -18,6 +17,51 @@ public class Bird extends Sprite2D {
 	private static final int SIZE = 10;
 	
 	public boolean deadAnim = true;
+
+	public static enum BirdState {
+		PLAYING(0),
+		GAMEOVER(1);
+
+		public int value;
+		BirdState(int value) {
+			this.value = value;
+		}
+	}
+
+	public class PlayingState extends State {
+		@Override
+		public void update(Object object) {
+			if (getY() > -110f) {
+				gravity();
+				doMove(0.0f, speed, 0.0f);
+				setRotateZ(angleSpeed * 9f);
+				//setRotateZ(speed * 900 + 5);
+			} else {
+				mStateMachine.setCurrState(BirdState.GAMEOVER.value);
+				return;
+			}
+		}
+	}
+
+	public class GameOverState extends State {
+		@Override
+		public void update(Object object) {
+			if (deadAnim) {
+				setX(getX() + 1);
+				speed = 0.015f;
+				angleSpeed = 2.0f;
+				deadAnim = false;
+			}
+			if (getY() > -110f) {
+				gravity();
+				doMove(0.0f, speed, 0.0f);
+				setRotateZ(angleSpeed * 9f);
+				//setRotateZ(speed * 900 + 5);
+			}
+		}
+	}
+
+	private StateMachine mStateMachine;
 	
 	public Bird(Loader loader) {
 		this.setWidth(SIZE);
@@ -49,31 +93,21 @@ public class Bird extends Sprite2D {
 			loader.loadTexture("gamedemo/com/lyp/game/flappybird/res/bird.png"));
 		
 		this.setShader(new BirdShader());
+
+		this.mStateMachine = new StateMachine();
+		this.mStateMachine
+			.addState(BirdState.PLAYING.value, new PlayingState())
+			.addState(BirdState.GAMEOVER.value, new GameOverState());
+		this.mStateMachine.setCurrState(BirdState.PLAYING.value);
 	}
 
 	@Override
 	public void update() {
-		if (FlappyBird.STATUS == Status.GAMEOVER && deadAnim) {
-			setX(getX() + 1);
-			speed = 0.015f;
-			angleSpeed = 2.0f;
-			deadAnim = false;
-		}
-		if (getY() > -110f) {
-			gravity();
-			doMove(0.0f, speed, 0.0f);
-			setRotateZ(angleSpeed * 9f);
-			//setRotateZ(speed * 900 + 5);
-		} else {
-			if (FlappyBird.STATUS == Status.PLAYING) {
-				FlappyBird.STATUS = Status.GAMEOVER;
-			}
-			return;
-		}
+		mStateMachine.update(this);
 	}
 
 	private void gravity() {
-		if (isKeyPressed(KEY_G)) {
+		if (isMousePressed(Mouse.MOUSE_BUTTON_LEFT)) {
 			speed = 0.015f;
 			angleSpeed = 2.0f;
 		} else {
@@ -92,5 +126,9 @@ public class Bird extends Sprite2D {
 
 	public float getSize() {
 		return getWidth();
+	}
+
+	public StateMachine getStateMachine() {
+		return mStateMachine;
 	}
 }

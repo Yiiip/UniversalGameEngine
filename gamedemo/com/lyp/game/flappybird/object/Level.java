@@ -1,7 +1,7 @@
 package com.lyp.game.flappybird.object;
 
 import com.lyp.game.flappybird.FlappyBird;
-import com.lyp.game.flappybird.FlappyBird.Status;
+import com.lyp.game.flappybird.object.Bird.GameOverState;
 import com.lyp.uge.renderEngine.Loader;
 import com.lyp.uge.renderEngine.Renderer2dManager;
 
@@ -19,7 +19,7 @@ public class Level {
 	}
 	
 	public void update() {
-		if (FlappyBird.STATUS == Status.GAMEOVER) {
+		if (FlappyBird.getBird().getStateMachine().getCurrState() instanceof GameOverState) {
 			return;
 		}
 		for (int i = 0; i < bgs.length; i++) {

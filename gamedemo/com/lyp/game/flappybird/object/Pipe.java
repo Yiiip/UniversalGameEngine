@@ -7,7 +7,7 @@ import org.lwjgl.util.vector.Vector2f;
 import com.lyp.game.flappybird.FlappyBird;
 import com.lyp.game.flappybird.FlappyBird.LayerID;
 import com.lyp.game.flappybird.FlappyBird.ObjectID;
-import com.lyp.game.flappybird.FlappyBird.Status;
+import com.lyp.game.flappybird.object.Bird.GameOverState;
 import com.lyp.game.flappybird.shader.PipeShader;
 import com.lyp.uge.ai.collision.Collision;
 import com.lyp.uge.gameObject.sprite.Sprite2D;
@@ -61,7 +61,7 @@ public class Pipe extends Sprite2D {
 
 	@Override
 	public void update() {
-		if (FlappyBird.STATUS == Status.GAMEOVER) {
+		if (FlappyBird.getBird().getStateMachine().getCurrState() instanceof GameOverState) {
 			return;
 		}
 		doMove(-speed, 0.0f, 0.0f);
@@ -70,7 +70,7 @@ public class Pipe extends Sprite2D {
 			setY(direction == 0 ? -100+(10-r.nextInt(20)) : 20+((10-r.nextInt(20))));
 		}
 		if (collision()) {
-			FlappyBird.STATUS = Status.GAMEOVER;
+			FlappyBird.getBird().getStateMachine().setCurrState(Bird.BirdState.GAMEOVER.value);
 			return;
 		}
 	}
