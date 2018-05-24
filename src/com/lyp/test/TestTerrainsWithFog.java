@@ -65,8 +65,6 @@ public class TestTerrainsWithFog extends GameApplication {
 	private List<ParticleGenerator> particleGenerators;
 	private List<ComplexParticleGenerator> complexParticleGenerators;
 	
-	private MousePicker mousePicker;
-	
 	private AudioManager audioManager = AudioManager.GetInstance();
 	
 	private Random random = new Random();
@@ -178,8 +176,6 @@ public class TestTerrainsWithFog extends GameApplication {
 		rendererManager.setSkyboxDayRes(SkyboxRender.CUBE_TEXTURE_DAY_FILES_2, loader);
 		rendererManager.setFbos(waterFrameBuffers);
 		
-		mousePicker = new MousePicker(getMainCamera(), rendererManager.getProjectionMatrix());
-
 		//粒子系统
 		ParticlesManager.init(loader, rendererManager.getProjectionMatrix());
 		complexParticleGenerators = new ArrayList<ComplexParticleGenerator>();
@@ -205,14 +201,12 @@ public class TestTerrainsWithFog extends GameApplication {
 		sourceBgMusic.setBuffer(buffBgMusic.getBufferId());
 		audioManager.addSoundSource("BgMusic", sourceBgMusic);
 		audioManager.setListener(new AudioListener());
-		// sourceBgMusic.play();
+		sourceBgMusic.play();
 	}
 
 	@Override
 	protected void onUpdate() {
 		lights.get(0).update();
-		
-		mousePicker.update();
 		
 		particleGenerators.get(0).generateParticles(new Vector3f(35.0f, 15.0f, -90.0f));
 		particleGenerators.get(1).generateParticles(new Vector3f(85.0f, 15.0f, -110.0f));

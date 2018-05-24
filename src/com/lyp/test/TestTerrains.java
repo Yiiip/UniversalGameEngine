@@ -11,6 +11,8 @@ import org.lwjgl.util.vector.Vector4f;
 import com.lyp.uge.game.GameApplication;
 import com.lyp.uge.gameObject.SimpleObject;
 import com.lyp.uge.gameObject.light.Light;
+import com.lyp.uge.gui.widget.MousePickerView;
+import com.lyp.uge.input.Keyboard;
 import com.lyp.uge.model.RawModel;
 import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
@@ -29,10 +31,12 @@ public class TestTerrains extends GameApplication {
 	private SimpleObject[] oTrees;
 	private SimpleObject[] oGrasses;
 	private SimpleObject[] oFerns;
+	private TextureModel ballTextureModel;
 	private Terrain[] terrains;
 	private List<Light> lights;
 	private RendererManager rendererManager;
 	private Scene mainScene;
+	private MousePickerView mousePickerView;	
 	
 	private Random random = new Random();
 
@@ -46,7 +50,7 @@ public class TestTerrains extends GameApplication {
 		enablePolygonMode();
 		enableFirstPersonCamera();
 		getMainCamera().setSpeed(0.7f);
-		getMainCamera().setPosition(new Vector3f(0, 100, 800));
+		getMainCamera().setPosition(new Vector3f(280, 100, 750));
 		
 		lights = new ArrayList<>();
 		lights.add(new Light(new Vector3f(0.0f, 1000.0f, 500.0f), new Vector3f(1, 1, 1), loader));
@@ -61,8 +65,8 @@ public class TestTerrains extends GameApplication {
 		Texture blendMapTexture = loader.loadTexture(DataUtils.TEX_TERRAIN_BLEND_MAP);
 		TerrainTexturePack texturePack = new TerrainTexturePack(bgTexture, rTexture, gTexture, bTexture);
 		terrains = new Terrain[2];
-		terrains[0] = new Terrain(0, 0, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP04, 50);
-		terrains[1] = new Terrain(-1, 0, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP01, 50);
+		terrains[0] = new Terrain(0, 0, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP03, 50);
+		terrains[1] = new Terrain(-1, 0, loader, texturePack, blendMapTexture, DataUtils.TEX_TERRAIN_HEIGHT_MAP03, 50);
 		
 		//树木
 		RawModel rawModel = OBJLoader.loadObjModel(DataUtils.OBJ_TREE, loader);
@@ -126,6 +130,11 @@ public class TestTerrains extends GameApplication {
 			float randomY = terrains[1].getHeightOfTerrain(randomX, randomZ);
 			oFerns[i] = new SimpleObject(fernTextureModel, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.04f);
 		}
+
+		//球
+		RawModel ballRawModel = OBJLoader.loadObjModel(DataUtils.OBJ_SPHERE_HIGH_QUALITY, loader);
+		Texture ballTexture = loader.loadTexture("res/texture/" + DataUtils.TEX_COLOR_LIGHT_GRAY);
+		ballTextureModel = new TextureModel(ballRawModel, ballTexture);
 		
 		mainScene = new Scene();
 		mainScene.addObjects(Arrays.asList(oTrees));
@@ -136,22 +145,37 @@ public class TestTerrains extends GameApplication {
 		pushToCamera(mainScene.getTerrainManager());
 		
 		rendererManager = new RendererManager(loader, ShaderFactry.WITH_SPECULAR_LIGHT);
+
+		mousePickerView = new MousePickerView(getMainWindow(), getMainCamera(), rendererManager.getProjectionMatrix());
 	}
 
 	@Override
 	protected void onUpdate() {
 		lights.get(0).update();
+		mousePickerView.update(getMainWindow());
 	}
 	
 	@Override
 	protected void onRender() {
 		rendererManager.renderScene(mainScene, lights, getMainCamera(), new Vector4f(0.5f, 0.8f, 0.95f, 1.0f));
+		mousePickerView.onDraw(getMainWindow());
+	}
+
+	@Override
+	public void onKeyReleased(int keycode) {
+		super.onKeyReleased(keycode);
+		if (keycode == Keyboard.KEY_LEFT_CONTROL) {
+			Vector3f v = (Vector3f) mousePickerView.getMousePicker().getCurrentRay().scale(200);
+			Vector3f ballPos = Vector3f.add(getMainCamera().getPosition(), new Vector3f(v.x, v.y, v.z), null);
+			mainScene.addObject(new SimpleObject(ballTextureModel, ballPos, 0.0f, 0.0f, 0.0f, 0.3f));
+		}
 	}
 
 	@Override
 	protected void onDestory() {
 		rendererManager.cleanUp();
 		loader.cleanUp();
+		mousePickerView.destory();
 	}
 
 	public static void main(String[] args) {

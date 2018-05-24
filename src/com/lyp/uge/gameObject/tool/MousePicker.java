@@ -7,7 +7,6 @@ import org.lwjgl.util.vector.Vector4f;
 
 import com.lyp.uge.game.Global;
 import com.lyp.uge.gameObject.camera.Camera;
-import com.lyp.uge.input.MouseInput;
 import com.lyp.uge.logger.Logger;
 import com.lyp.uge.math.MathTools;
 import com.lyp.uge.window.WindowManager;
@@ -24,11 +23,13 @@ public class MousePicker {
 	public MousePicker(@NotNull Camera camera, @NotNull Matrix4f projectionMatrix) {
 		this.mCamera = camera;
 		this.mProjectionMatrix = projectionMatrix;
+		this.mRay = new Vector3f();
 	}
 	
 	public void update() {
 		mViewMatrix = MathTools.createViewMatrix(mCamera);
-		mRay = castMouseRay(MouseInput.getInstance().getPosX(), MouseInput.getInstance().getPosY());
+		// mRay = castMouseRay(MouseInput.getInstance().getPosX(), MouseInput.getInstance().getPosY());
+		mRay = castMouseRay(WindowManager.getWindowWidth() / 2, WindowManager.getWindowHeight() / 2); //第一人称视角鼠标位置就是屏幕中心
 		
 		if (Global.debug_mouse_picker) { Logger.d("MouseRay", mRay.toString()); }
 	}
