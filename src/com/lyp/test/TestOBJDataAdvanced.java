@@ -50,17 +50,26 @@ public class TestOBJDataAdvanced extends GameApplication {
 		RawModel sphereModel = OBJLoader.loadObjModel(DataUtils.OBJ_SPHERE_HIGH_QUALITY, loader);
 		RawModel dragonModel = OBJLoader.loadObjModel(DataUtils.OBJ_DRAGON, loader);
 		RawModel rabbitModel = OBJLoader.loadObjModel(DataUtils.OBJ_RABBIT, loader);
+		RawModel cubeModel = loader.loadToVAO(DataUtils.CUBE_VERTICES_II, DataUtils.CUBE_TEXTURE_COORDS_II, DataUtils.CUBE_NORMALS, DataUtils.CUBE_INDICES_II);
 		
-		Texture texture = new Texture("res/texture/" + DataUtils.TEX_COLOR_LIGHT_GRAY);
+		Texture texture = new Texture(DataUtils.PATH_TEXTURE + DataUtils.TEX_COLOR_LIGHT_GRAY);
 		texture.setShineDamper(10.0f)	//设置反射光亮度衰减因子
 				.setReflectivity(0.1f);	//设置反射光反射率因子
 		TextureModel roughTextureModel = new TextureModel(sphereModel, texture); //粗糙的材质效果
 		
-		Texture texture2 = new Texture("res/texture/" + DataUtils.TEX_COLOR_LIGHT_GRAY);
+		Texture texture2 = new Texture(DataUtils.PATH_TEXTURE + DataUtils.TEX_COLOR_LIGHT_GRAY);
 		texture2.setReflectivity(5.0f)
 				.setShineDamper(20.0f)
 				.setAmbientLightness(0.165f);
 		TextureModel smoothTextureModel = new TextureModel(sphereModel, texture2); //光滑的材质效果
+
+		Texture mcRoughTexture = new Texture(DataUtils.PATH_TEXTURE + DataUtils.TEX_MC_CUBE);
+		mcRoughTexture.setShineDamper(10.0f)
+				.setReflectivity(0.1f);  //粗糙
+		Texture mcSmoothTexture = new Texture(DataUtils.PATH_TEXTURE + DataUtils.TEX_MC_CUBE);
+		mcSmoothTexture.setReflectivity(5.0f)
+				.setShineDamper(20.0f)
+				.setAmbientLightness(0.165f); //光滑
 
 		// 大球
 		objectMain = new SimpleObject(smoothTextureModel, new Vector3f(0f, -3.0f, -40.0f), 0f, 0f, 0f, 1.0f);
@@ -71,9 +80,11 @@ public class TestOBJDataAdvanced extends GameApplication {
 					random.nextFloat() * 100 - 50, random.nextFloat() * 100 - 50, -random.nextInt(200)), 0f, 0f, 0f, 0.22f + 0.01f * i);
 		}
 		// 其他三维模型
-		others = new SimpleObject[2];
+		others = new SimpleObject[4];
 		others[0] = new SimpleObject(new TextureModel(dragonModel, texture), new Vector3f(60f, 0f, -50.0f), 0f, 0f, 0f, 2.0f);
 		others[1] = new SimpleObject(new TextureModel(rabbitModel, texture2), new Vector3f(-50f, 0f, -50.0f), 0f, 0f, 0f, 1.2f);
+		others[2] = new SimpleObject(new TextureModel(cubeModel, mcSmoothTexture), new Vector3f(-10.0f, 30.0f, -50.0f), 0f, 0f, 0f, 8.0f);
+		others[3] = new SimpleObject(new TextureModel(cubeModel, mcRoughTexture), new Vector3f(10.0f, 30.0f, -50.0f), 0f, 0f, 0f, 8.0f);
 		
 		mainScene = new Scene();
 		mainScene.addObject(objectMain);
@@ -91,6 +102,10 @@ public class TestOBJDataAdvanced extends GameApplication {
 		others[0].doMove(0.0f, (float) Math.cos(getRunTimerInt()) / 15.0f, 0.0f);
 		others[1].doRotate(0.0f, -0.8f, 0.0f);
 		others[1].doMove(0.0f, (float) Math.cos(getRunTimerInt() + 10) / 15.0f, 0.0f);
+		others[2].doRotate(0.8f, 0.8f, 0.8f);
+		others[2].doMove(0.0f, (float) Math.cos(getRunTimerInt() + 20) / 15.0f, 0.0f);
+		others[3].doRotate(-0.8f, 0.8f, -0.8f);
+		others[3].doMove(0.0f, (float) Math.cos(getRunTimerInt() + 30) / 15.0f, 0.0f);
 
 		if (!lights.isEmpty()) {
 			lights.get(lights.size() - 1).update();

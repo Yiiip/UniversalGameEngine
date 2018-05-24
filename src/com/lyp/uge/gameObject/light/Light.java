@@ -25,7 +25,7 @@ public class Light extends GameObject {
 	public Light(Vector3f position, Vector3f color) {
 		this.position = position;
 		this.lightColor = color;
-		this.speed = 0.10f;
+		this.speed = 0.30f;
 	}
 	
 	public Light(Vector3f position, Vector3f color, Loader loader) {
