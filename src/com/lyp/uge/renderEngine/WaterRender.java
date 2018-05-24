@@ -10,8 +10,10 @@ import java.util.List;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
+import com.lyp.uge.game.GameApplication;
 import com.lyp.uge.gameObject.camera.Camera;
 import com.lyp.uge.gameObject.light.Light;
+import com.lyp.uge.material.Material;
 import com.lyp.uge.math.MathTools;
 import com.lyp.uge.model.RawModel;
 import com.lyp.uge.shader.WaterShader;
@@ -57,6 +59,14 @@ public class WaterRender {
 		prepareRender(camera, lights);
 		
 		for (WaterTile water : waterList) {
+			if (water.isFoggy()) {
+				mShader.setupFogDensity(water.getMaterial().getFoggyDensity());
+				mShader.setupFogGradient(water.getMaterial().getFoggyGradient());
+			} else {
+				mShader.setupFogDensity(Material.FOGGY_DENSITY_NULL);
+				mShader.setupFogGradient(Material.FOGGY_GRADIENT_NULL);
+			}
+
 			Matrix4f modelMatrix = MathTools.createModelMatrix(
 					new Vector3f(water.getX(), water.getHeight(), water.getZ()), 
 					0.0f, 0.0f, 0.0f, water.getSize());
@@ -72,7 +82,7 @@ public class WaterRender {
 	private void prepareRender(Camera camera, List<Light> lights) {
 		mShader.start();
 		mShader.loadViewMatrix(camera);
-		mMoveFactor += WAVE_SPEED * (1.0f / 60.0f); //TODO use current FPS
+		mMoveFactor += WAVE_SPEED / (GameApplication.getFPS() == 0.0f ? 60.0f : GameApplication.getFPS());
 		mMoveFactor %= 1;
 		mShader.setupMoveFactor(mMoveFactor);
 		mShader.loadMultiLights(lights);

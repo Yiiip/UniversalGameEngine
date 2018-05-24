@@ -4,6 +4,7 @@ in vec4 clipSpace;
 in vec2 textureCoords;
 in vec3 toCameraVector;
 in vec3 fromLightVectors[4];
+in float visibility;
 
 out vec4 out_color;
 
@@ -17,6 +18,7 @@ uniform vec3 lightAttenuation[4];
 uniform float shineDamper;
 uniform float reflectivity;
 uniform float ambientLightness;
+uniform vec3 skyColor;
 
 const vec4 WATER_COLOR = vec4(150.0/255.0, 240.0/255.0, 255.0/255.0, 1.0);
 const float WATER_COLOR_STRENGTH = 0.15;
@@ -81,6 +83,7 @@ void main (void) {
 
 	out_color = mix( mix(reflectColor, refractColor, refractiveFactor), WATER_COLOR, WATER_COLOR_STRENGTH);
 	out_color = vec4(totalDiffuse, 1.0) * out_color + vec4(totalSpecular, 1.0);
+	out_color = mix(vec4(skyColor, 1.0), out_color, visibility); // add foggy
 
 	// For debug:
 	// out_color = vec4(dudvColor.rg, 0.0, 1.0);	// debug dudvMap.

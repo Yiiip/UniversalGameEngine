@@ -6,6 +6,7 @@ out vec4 clipSpace;
 out vec2 textureCoords;
 out vec3 toCameraVector;
 out vec3 fromLightVectors[4];
+out float visibility;
 
 uniform mat4 modelMatrix;
 uniform mat4 projectionMatrix;
@@ -13,6 +14,8 @@ uniform mat4 viewMatrix;
 uniform vec3 cameraPosition;
 uniform int tilingCount; // Total tiles: tilingCount * tilingCount.
 uniform vec3 lightPositions[4];
+uniform float fogDensity; //0.0 remove fog
+uniform float fogGradient; //1.0 remove fog
 
 void main (void) {
 
@@ -30,4 +33,10 @@ void main (void) {
 	for (int i = 0; i < 4; i++) {
 		fromLightVectors[i] = worldPosition.xyz - lightPositions[i];
 	}
+
+	//Foggy factors
+	vec4 positionRelativeToCam = viewMatrix * worldPosition; //the distance of the vertex from main camera
+	float distance = length(positionRelativeToCam.xyz);
+	visibility = exp(-pow(fogDensity * distance, fogGradient));
+	visibility = clamp(visibility, 0.0, 1.0);
 }
