@@ -147,7 +147,10 @@ public class Texture {
 	}
 
 	public Texture addFoggy(float fogDensity, float fogGradient) {
-		mMaterial.setFoggy(true)
+		if (!mMaterial.isFoggy()) {
+			mMaterial.setFoggy(true);
+		}
+		mMaterial
 			.setFoggyDensity(fogDensity)
 			.setFoggyGradient(fogGradient);
 		return this;

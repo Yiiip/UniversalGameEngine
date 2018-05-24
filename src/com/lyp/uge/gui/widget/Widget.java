@@ -1,8 +1,8 @@
 package com.lyp.uge.gui.widget;
 
-import java.awt.Rectangle;
-
 import org.lwjgl.util.vector.Vector2f;
+
+import javafx.scene.shape.Rectangle;
 
 import com.lyp.uge.ai.collision.Collision;
 import com.lyp.uge.ai.fsm.StateMachine;
@@ -36,6 +36,8 @@ public abstract class Widget extends Gui {
 	protected boolean isMouseHover(Rectangle bounds) {
 		return Collision.isPointInRect(
 				new Vector2f(MouseInput.getInstance().getPosX(), MouseInput.getInstance().getPosY()),
-				new Vector2f(bounds.x, bounds.y), bounds.width, bounds.height);
+				new Vector2f((float) bounds.getX(), (float) bounds.getY()), 
+				(float) bounds.getWidth(), 
+				(float) bounds.getHeight());
 	}
 }

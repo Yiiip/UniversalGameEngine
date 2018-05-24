@@ -2,11 +2,12 @@ package com.lyp.uge.gui.widget;
 
 import static org.lwjgl.nanovg.NanoVG.*;
 
-import java.awt.Rectangle;
 import java.nio.ByteBuffer;
 
 import org.lwjgl.nanovg.NVGColor;
 import org.lwjgl.nanovg.NVGPaint;
+
+import javafx.scene.shape.Rectangle;
 
 import com.lyp.uge.audio.AudioManager;
 import com.lyp.uge.input.Mouse;
@@ -62,7 +63,7 @@ public class Toolbar extends Widget {
 		nvgFillColor(ctx, rgba(139, 229, 165, 255, color01));
 		nvgFill(ctx);
 		nvgBeginPath(ctx);
-		nvgRect(ctx, boundsMenu01.x, boundsMenu01.y, boundsMenu01.width, boundsMenu01.height);
+		nvgRect(ctx, (float) boundsMenu01.getX(), (float) boundsMenu01.getY(), (float) boundsMenu01.getWidth(), (float) boundsMenu01.getHeight());
 		if (isMouseHover(boundsMenu01)) {
 			nvgFillColor(ctx, rgba(139, 229, 165, 200, color01));
 		} else {
@@ -87,7 +88,7 @@ public class Toolbar extends Widget {
 		nvgFillColor(ctx, rgba(139, 229, 165, 255, color02));
 		nvgFill(ctx);
 		nvgBeginPath(ctx);
-		nvgRect(ctx, boundsMenu02.x, boundsMenu02.y, boundsMenu02.width, boundsMenu02.height);
+		nvgRect(ctx, (float) boundsMenu02.getX(), (float) boundsMenu02.getY(), (float) boundsMenu02.getWidth(), (float) boundsMenu02.getHeight());
 		if (isMouseHover(boundsMenu02)) {
 			nvgFillColor(ctx, rgba(139, 229, 165, 200, color02));
 		} else {
