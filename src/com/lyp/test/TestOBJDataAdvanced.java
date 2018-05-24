@@ -11,7 +11,6 @@ import com.lyp.uge.gameObject.SimpleObject;
 import com.lyp.uge.gameObject.light.Light;
 import com.lyp.uge.input.Keyboard;
 import com.lyp.uge.logger.Logger;
-import com.lyp.uge.math.MathTools;
 import com.lyp.uge.model.RawModel;
 import com.lyp.uge.prefab.TextureModel;
 import com.lyp.uge.renderEngine.Loader;
@@ -25,7 +24,6 @@ import com.lyp.uge.utils.DataUtils;
 public class TestOBJDataAdvanced extends GameApplication {
 
 	private Loader loader = new Loader();
-	private TextureModel textureModel;
 	private SimpleObject objectMain;
 	private SimpleObject[] objects;
 	private SimpleObject[] others;
@@ -49,33 +47,33 @@ public class TestOBJDataAdvanced extends GameApplication {
 		lights = new ArrayList<>();
 		//lights.add(new Light(new Vector3f(0.0f, 0.0f, -60.0f), new Vector3f(1, 1, 1), loader));
 
-		RawModel rawModel = OBJLoader.loadObjModel(DataUtils.OBJ_SPHERE_HIGH_QUALITY, loader);
+		RawModel sphereModel = OBJLoader.loadObjModel(DataUtils.OBJ_SPHERE_HIGH_QUALITY, loader);
 		RawModel dragonModel = OBJLoader.loadObjModel(DataUtils.OBJ_DRAGON, loader);
 		RawModel rabbitModel = OBJLoader.loadObjModel(DataUtils.OBJ_RABBIT, loader);
 		
-		Texture texture = loader.loadTexture("res/texture/" + DataUtils.TEX_COLOR_LIGHT_GRAY);
-		texture.setShineDamper(10.0f);	//设置反射光亮度衰减因子
-		texture.setReflectivity(0.1f);	//设置反射光反射率因子
-		textureModel = new TextureModel(rawModel, texture); //粗糙的材质效果
+		Texture texture = new Texture("res/texture/" + DataUtils.TEX_COLOR_LIGHT_GRAY);
+		texture.setShineDamper(10.0f)	//设置反射光亮度衰减因子
+				.setReflectivity(0.1f);	//设置反射光反射率因子
+		TextureModel roughTextureModel = new TextureModel(sphereModel, texture); //粗糙的材质效果
 		
 		Texture texture2 = new Texture("res/texture/" + DataUtils.TEX_COLOR_LIGHT_GRAY);
 		texture2.setReflectivity(5.0f)
 				.setShineDamper(20.0f)
 				.setAmbientLightness(0.165f);
-		TextureModel textureModel2 = new TextureModel(rawModel, texture2); //光滑且反射力强的材质效果
+		TextureModel smoothTextureModel = new TextureModel(sphereModel, texture2); //光滑的材质效果
 
 		// 大球
-		objectMain = new SimpleObject(textureModel2, new Vector3f(0f, -3.0f, -40.0f), 0f, 0f, 0f, 1.0f);
+		objectMain = new SimpleObject(smoothTextureModel, new Vector3f(0f, -3.0f, -40.0f), 0f, 0f, 0f, 1.0f);
 		// 周围小球
 		objects = new SimpleObject[15];
 		for (int i = 0; i < objects.length; i++) {
-			objects[i] = new SimpleObject(textureModel, new Vector3f(
+			objects[i] = new SimpleObject(roughTextureModel, new Vector3f(
 					random.nextFloat() * 100 - 50, random.nextFloat() * 100 - 50, -random.nextInt(200)), 0f, 0f, 0f, 0.22f + 0.01f * i);
 		}
 		// 其他三维模型
 		others = new SimpleObject[2];
-		others[0] = new SimpleObject(new TextureModel(dragonModel, texture), new Vector3f(50f, 0f, -50.0f), 0f, 0f, 0f, 2.0f);
-		others[1] = new SimpleObject(new TextureModel(rabbitModel, texture2), new Vector3f(-50f, 0f, -50.0f), 0f, 0f, 0f, 1.0f);
+		others[0] = new SimpleObject(new TextureModel(dragonModel, texture), new Vector3f(60f, 0f, -50.0f), 0f, 0f, 0f, 2.0f);
+		others[1] = new SimpleObject(new TextureModel(rabbitModel, texture2), new Vector3f(-50f, 0f, -50.0f), 0f, 0f, 0f, 1.2f);
 		
 		mainScene = new Scene();
 		mainScene.addObject(objectMain);

@@ -18,6 +18,9 @@ import com.lyp.uge.gameObject.SimpleObject;
 import com.lyp.uge.gameObject.light.Light;
 import com.lyp.uge.gameObject.light.PointLight;
 import com.lyp.uge.gameObject.tool.MousePicker;
+import com.lyp.uge.gui.widget.FogControllerView;
+import com.lyp.uge.input.Keyboard;
+import com.lyp.uge.logger.Logger;
 import com.lyp.uge.particle.ComplexParticleGenerator;
 import com.lyp.uge.particle.ParticleGenerator;
 import com.lyp.uge.particle.ParticlesManager;
@@ -57,6 +60,7 @@ public class TestTerrainsWithFog extends GameApplication {
 	private Loader loader = new Loader();
 	private RendererManager rendererManager;
 	private PrefabsManager prefabsManager;
+	private TextureModel prefabTree, prefabGrass, prefabFern;
 	private WaterFrameBuffers waterFrameBuffers;
 	private List<ParticleGenerator> particleGenerators;
 	private List<ComplexParticleGenerator> complexParticleGenerators;
@@ -66,7 +70,9 @@ public class TestTerrainsWithFog extends GameApplication {
 	private AudioManager audioManager = AudioManager.GetInstance();
 	
 	private Random random = new Random();
-	
+
+	private FogControllerView fogControllerView;
+
 	@Override
 	protected void onInitWindow(int winWidth, int winHeight, String winTitle, boolean winResizeable) {
 		super.onInitWindow(1600, 900, winTitle, winResizeable);
@@ -110,7 +116,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		prefabsManager.loadPrefabs(DataUtils.CONFIG_PREFABS);
 		
 		//树木
-		TextureModel prefabTree = prefabsManager.getPrefabByName("tree");
+		prefabTree = prefabsManager.getPrefabByName("tree");
 		oTrees = new SimpleObject[1000];
 		for (int i = 0; i < oTrees.length / 2; i++) {
 			float randomX = random.nextFloat() * terrains[0].getSize();
@@ -126,7 +132,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		}
 		
 		//草类植物1
-		TextureModel prefabGrass = prefabsManager.getPrefabByName("grass");
+		prefabGrass = prefabsManager.getPrefabByName("grass");
 		oGrasses = new SimpleObject[2000];
 		for (int i = 0; i < oGrasses.length / 2; i++) {
 			float randomX = random.nextFloat() * terrains[0].getSize();
@@ -141,7 +147,7 @@ public class TestTerrainsWithFog extends GameApplication {
 			oGrasses[i] = new SimpleObject(prefabGrass, new Vector3f(randomX, randomY, randomZ), 0f, 0f, 0f, random.nextFloat()+0.05f);
 		}
 		//草类植物2
-		TextureModel prefabFern = prefabsManager.getPrefabByName("fern");
+		prefabFern = prefabsManager.getPrefabByName("fern");
 		oFerns = new SimpleObject[1100];
 		for (int i = 0; i < oFerns.length / 2; i++) {
 			float randomX = random.nextFloat() * terrains[0].getSize();
@@ -185,6 +191,9 @@ public class TestTerrainsWithFog extends GameApplication {
 
 		//声音
 		setupSounds();
+
+		//GUI
+		fogControllerView = new FogControllerView(prefabTree.getTexture().getFoggyDensity(), prefabTree.getTexture().getFoggyGradient());
 	}
 	
 	private void setupSounds() {
@@ -196,19 +205,30 @@ public class TestTerrainsWithFog extends GameApplication {
 		sourceBgMusic.setBuffer(buffBgMusic.getBufferId());
 		audioManager.addSoundSource("BgMusic", sourceBgMusic);
 		audioManager.setListener(new AudioListener());
-		sourceBgMusic.play();
+		// sourceBgMusic.play();
 	}
 
 	@Override
 	protected void onUpdate() {
 		lights.get(0).update();
+		
 		mousePicker.update();
+		
 		particleGenerators.get(0).generateParticles(new Vector3f(35.0f, 15.0f, -90.0f));
 		particleGenerators.get(1).generateParticles(new Vector3f(85.0f, 15.0f, -110.0f));
 		particleGenerators.get(2).generateParticles(new Vector3f(0.0f, 15.0f, -110.0f));
 		complexParticleGenerators.get(0).generateParticles(new Vector3f(-65.0f, 3.0f, -130.0f));
 		ParticlesManager.update(getMainCamera());
+
 		audioManager.updateListenerPosition(getMainCamera());
+
+		fogControllerView.update(getMainWindow());
+		for (int i = 0; i < terrains.length; i++) {
+			terrains[i].addFoggy(fogControllerView.getFogDensity(), fogControllerView.getFogGradient());
+		}
+		prefabTree.getTexture().addFoggy(fogControllerView.getFogDensity(), fogControllerView.getFogGradient());
+		prefabGrass.getTexture().addFoggy(fogControllerView.getFogDensity(), fogControllerView.getFogGradient());
+		prefabFern.getTexture().addFoggy(fogControllerView.getFogDensity(), fogControllerView.getFogGradient());
 	}
 	
 	@Override
@@ -229,8 +249,15 @@ public class TestTerrainsWithFog extends GameApplication {
 		
 		rendererManager.renderScene(mainScene, lights, getMainCamera(), SKY_COLOR_NIGHT);
 		ParticlesManager.render(getMainCamera());
+
+		fogControllerView.onDraw(getMainWindow());
 	}
-	
+
+	@Override
+	protected void onDrawGUI() {
+		super.onDrawGUI();
+	}
+
 	@Override
 	protected void onDestory() {
 		ParticlesManager.cleanUp();
@@ -238,6 +265,7 @@ public class TestTerrainsWithFog extends GameApplication {
 		rendererManager.cleanUp();
 		loader.cleanUp();
 		audioManager.cleanup();
+		fogControllerView.destory();
 	}
 
 	public static void main(String[] args) {
