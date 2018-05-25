@@ -83,6 +83,7 @@ public class DataUtils {
 	public static final String TEX_FONT_ARIAL = PATH_TEXTURE + "font_Arial.png";
 	
 	public static final String TEX_GUI_ICON_POLYGON = PATH_GUI + "icon_polygon.png";
+	public static final String TEX_GUI_ICON_POLYGON_CUBE = PATH_GUI + "icon_polygon_cube.png";
 	public static final String TEX_GUI_ICON_MUTE = PATH_GUI + "icon_mute.png";
 	
 	/* Fonts */

@@ -26,7 +26,7 @@ public class Toolbar extends Widget {
 	
 	private int imgId01;
 	private int imgId02;
-	private ByteBuffer imgPloygon = loadResource(DataUtils.TEX_GUI_ICON_POLYGON, 1 * 1024);
+	private ByteBuffer imgPloygon = loadResource(DataUtils.TEX_GUI_ICON_POLYGON_CUBE, 1 * 1024);
 	private ByteBuffer imgMute = loadResource(DataUtils.TEX_GUI_ICON_MUTE, 1 * 1024);
 	
 	private float fSize = 22.0f;
@@ -55,7 +55,7 @@ public class Toolbar extends Widget {
 	@Override
 	protected void draw(Window window) {
 		nvgImagePattern(ctx, window.getWidth() - 46, 6, 34, 34, 0, imgId01, 1, paint01);
-		nvgImagePattern(ctx, window.getWidth() - 46, 6+54, 30, 30, 0, imgId02, 1, paint02);
+		nvgImagePattern(ctx, window.getWidth() - 43, 6+54, 28, 28, 0, imgId02, 1, paint02);
 		
 		// Menu:显示模式
 		nvgBeginPath(ctx);
