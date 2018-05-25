@@ -31,6 +31,7 @@ import com.lyp.uge.renderEngine.RendererManager;
 import com.lyp.uge.renderEngine.SkyboxRender;
 import com.lyp.uge.scene.Scene;
 import com.lyp.uge.shader.ShaderFactry;
+import com.lyp.uge.shader.WaterShader;
 import com.lyp.uge.terrain.Terrain;
 import com.lyp.uge.terrain.TerrainTexturePack;
 import com.lyp.uge.texture.ParticleTexture;
@@ -250,6 +251,14 @@ public class TestTerrainsWithFog extends GameApplication {
 	@Override
 	protected void onDrawGUI() {
 		super.onDrawGUI();
+	}
+
+	@Override
+	public void onKeyReleased(int keycode) {
+		super.onKeyReleased(keycode);
+		if (keycode == Keyboard.KEY_LEFT_CONTROL) {
+			WaterShader.changeDebugMode();
+		}
 	}
 
 	@Override

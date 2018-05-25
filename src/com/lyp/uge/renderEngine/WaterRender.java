@@ -88,6 +88,7 @@ public class WaterRender {
 		mShader.loadMultiLights(lights);
 		mShader.loadSpecularLightingParms(15.0f, 0.28f);
 		mShader.loadAmbientLightness(1.0f);
+		mShader.enableDebugMode();
 		
 		glBindVertexArray(mQuadModel.getVaoID());
 		glEnableVertexAttribArray(Loader.ATTR_POSITIONS);

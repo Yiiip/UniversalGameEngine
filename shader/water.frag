@@ -19,6 +19,7 @@ uniform float shineDamper;
 uniform float reflectivity;
 uniform float ambientLightness;
 uniform vec3 skyColor;
+uniform int debugMode;
 
 const vec4 WATER_COLOR = vec4(150.0/255.0, 240.0/255.0, 255.0/255.0, 1.0);
 const float WATER_COLOR_STRENGTH = 0.15;
@@ -81,11 +82,15 @@ void main (void) {
 	}
 	totalDiffuse = max(totalDiffuse, ambientLightness);
 
-	out_color = mix( mix(reflectColor, refractColor, refractiveFactor), WATER_COLOR, WATER_COLOR_STRENGTH);
-	out_color = vec4(totalDiffuse, 1.0) * out_color + vec4(totalSpecular, 1.0);
-	out_color = mix(vec4(skyColor, 1.0), out_color, visibility); // add foggy
-
-	// For debug:
-	// out_color = vec4(dudvColor.rg, 0.0, 1.0);	// debug dudvMap.
-	// out_color = normalMapColor;					// debug normalMap.
+	if (debugMode == 0) {
+		out_color = mix( mix(reflectColor, refractColor, refractiveFactor), WATER_COLOR, WATER_COLOR_STRENGTH);
+		out_color = vec4(totalDiffuse, 1.0) * out_color + vec4(totalSpecular, 1.0);
+		out_color = mix(vec4(skyColor, 1.0), out_color, visibility); // add foggy
+	}
+	else if (debugMode == 1) { // For debug
+		out_color = vec4(dudvColor.rg, 0.0, 1.0);	// debug dudvMap.
+	}
+	else if (debugMode == 2) { // For debug
+		out_color = normalMapColor;					// debug normalMap.
+	}
 }

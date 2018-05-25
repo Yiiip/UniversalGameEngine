@@ -15,6 +15,9 @@ public class WaterShader extends MultiLightsShader {
 	protected int uniform_cameraPosition;
 	protected int uniform_normalMap;
 
+	private int uniform_debugMode;
+	private static int debugModeIndex = 0;
+
 	public WaterShader() {
 		super(WATER_VERTEX_FILE, WATER_FRAGMENT_FILE);
 	}
@@ -29,6 +32,7 @@ public class WaterShader extends MultiLightsShader {
 		uniform_tilingCount = getUniformLocation("tilingCount");
 		uniform_cameraPosition = getUniformLocation("cameraPosition");
 		uniform_normalMap = getUniformLocation("normalMap");
+		uniform_debugMode = getUniformLocation("debugMode");
 	}
 	
 	@Override
@@ -50,5 +54,14 @@ public class WaterShader extends MultiLightsShader {
 	
 	public void setupTilingCount(int tilingCount) {
 		super.loadInt(uniform_tilingCount, tilingCount);
+	}
+
+	public void enableDebugMode()
+	{
+		super.loadInt(uniform_debugMode, debugModeIndex);
+	}
+
+	public static void changeDebugMode() {
+		debugModeIndex = (debugModeIndex + 1) % 3;
 	}
 }
