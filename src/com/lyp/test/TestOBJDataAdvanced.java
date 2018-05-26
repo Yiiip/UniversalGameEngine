@@ -142,7 +142,7 @@ public class TestOBJDataAdvanced extends GameApplication {
 
 			case Keyboard.KEY_3:
 				if (lights.size() == 2) {
-					lights.add(new Light(new Vector3f(-50.0f, -3.0f, 28.0f), new Vector3f(0, 0, 1), loader));
+					lights.add(new Light(new Vector3f(-60.0f, 0.0f, -40.0f), new Vector3f(0, 0, 1), loader));
 					Logger.d("Light", "添加蓝色光源");
 				} else if (lights.size() > 2) {
 					lights.get(2).setActive(!lights.get(2).isActive());
