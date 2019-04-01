@@ -7,6 +7,37 @@
 	<classpathentry kind="src" path="gamedemo"/>
 	<classpathentry kind="src" path="libs"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/lwjgl3"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-sources.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-javadoc.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-natives-windows.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-opengl.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-opengl-sources.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-opengl-javadoc.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-opengl-natives-windows.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-openal.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-openal-sources.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-openal-javadoc.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-openal-natives-windows.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-nanovg.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-nanovg-sources.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-nanovg-javadoc.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-nanovg-natives-windows.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-nuklear.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-nuklear-sources.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-nuklear-javadoc.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-nuklear-natives-windows.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-glfw.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-glfw-sources.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-glfw-javadoc.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-glfw-natives-windows.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-jawt.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-jawt-sources.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-jawt-javadoc.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-stb.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-stb-sources.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-stb-javadoc.jar"/>
+	<classpathentry kind="lib" path="F:/JavaGameWorkspace/lwjgl-stable-2017-11-16-custom-everything/lwjgl-stb-natives-windows.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/gson/gson-2.8.2.jar" sourcepath="libs/gson/gson-2.8.2-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/UniversalGameEngine/libs/gson/gson-2.8.2-javadoc.jar!/"/>

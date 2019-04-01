@@ -1,0 +1,246 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "TestCube",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "mainClass": "com.lyp.test.TestCube",
+            "projectName": "UniversalGameEngine",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "TestGUI",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "mainClass": "com.lyp.test.TestGUI",
+            "projectName": "UniversalGameEngine",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "TestOBJData",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "mainClass": "com.lyp.test.TestOBJData",
+            "projectName": "UniversalGameEngine",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "TestOBJDataAdvanced",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "mainClass": "com.lyp.test.TestOBJDataAdvanced",
+            "projectName": "UniversalGameEngine",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "TestTerrains",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "mainClass": "com.lyp.test.TestTerrains",
+            "projectName": "UniversalGameEngine",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "TestTerrainsWithFog",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "mainClass": "com.lyp.test.TestTerrainsWithFog",
+            "projectName": "UniversalGameEngine",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "TestTerrainsWithNoise",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "mainClass": "com.lyp.test.TestTerrainsWithNoise",
+            "projectName": "UniversalGameEngine",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Enemy",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "mainClass": "com.lyp.test.fsm.Enemy",
+            "projectName": "UniversalGameEngine",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "TestGson",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "mainClass": "com.lyp.test.gson.TestGson",
+            "projectName": "UniversalGameEngine",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "JAWTDemo",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "mainClass": "com.lyp.test.jawt.JAWTDemo",
+            "projectName": "UniversalGameEngine",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "ExampleFBO",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "mainClass": "com.lyp.test.nanovg.ExampleFBO",
+            "projectName": "UniversalGameEngine",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "ExampleGL2",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "mainClass": "com.lyp.test.nanovg.ExampleGL2",
+            "projectName": "UniversalGameEngine",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "ExampleGL3",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "mainClass": "com.lyp.test.nanovg.ExampleGL3",
+            "projectName": "UniversalGameEngine",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "ALCDemo",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "mainClass": "com.lyp.test.openal.ALCDemo",
+            "projectName": "UniversalGameEngine",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "AudioManagerOld",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "mainClass": "com.lyp.test.openal.AudioManagerOld",
+            "projectName": "UniversalGameEngine",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "EFXTest",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "mainClass": "com.lyp.test.openal.EFXTest",
+            "projectName": "UniversalGameEngine",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "OpenALInfo",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "mainClass": "com.lyp.test.openal.OpenALInfo",
+            "projectName": "UniversalGameEngine",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "HeightGenerator",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "mainClass": "com.lyp.uge.terrain.HeightGenerator",
+            "projectName": "UniversalGameEngine",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "FlappyBird",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "mainClass": "com.lyp.game.flappybird.FlappyBird",
+            "projectName": "UniversalGameEngine",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Minecraft",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "mainClass": "com.lyp.game.minecraft.Minecraft",
+            "projectName": "UniversalGameEngine",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "NoiseGenerator",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "mainClass": "com.lyp.game.minecraft.util.NoiseGenerator",
+            "projectName": "UniversalGameEngine",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Attach)",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": 0
+        }
+    ]
+}
